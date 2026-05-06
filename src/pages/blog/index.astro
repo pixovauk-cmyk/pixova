@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+
+<Layout
+  title="SEO & Web Design Tips for Small Businesses | Pixova Blog"
+  description="Straight-talking advice on web design, local SEO, and online marketing for small business owners across the UK. No jargon, no fluff."
+  canonicalUrl="https://pixova.uk/blog/"
+>
+
+  <!-- HERO -->
+  <section class="pt-14 pb-12" style="background-color:#E8F5F1;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">THE BLOG</span>
+      <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-4" style="color:#1C3557;">
+        Straight-talking advice for small business owners.
+      </h1>
+      <p class="text-base max-w-xl" style="color:#1A2E3D;">
+        Web design, local SEO, and online marketing, explained in plain English.
+        No jargon. No waffle. Just the stuff that actually matters for your business.
+      </p>
+    </div>
+  </section>
+
+  <!-- POSTS GRID -->
+  <section class="py-16 bg-offwhite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+      {posts.length === 0 ? (
+        <div class="text-center py-20">
+          <p class="text-base" style="color:#1A2E3D;">Coming soon — check back shortly.</p>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map(post => (
+            <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+              {post.data.heroImage && (
+                <a href={`/blog/${post.id}`} class="block overflow-hidden" style="height:200px;">
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.title}
+                    width="600" height="300"
+                    loading="lazy"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </a>
+              )}
+              <div class="p-6 flex flex-col flex-1">
+                <div class="flex items-center gap-3 mb-3">
+                  <time
+                    datetime={post.data.pubDate.toISOString()}
+                    class="text-xs"
+                    style="color:#6B7580;"
+                  >
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                  {post.data.readTime && (
+                    <span class="text-xs" style="color:#6B7580;">· {post.data.readTime}</span>
+                  )}
+                </div>
+                <h2 class="font-heading font-semibold text-lg mb-3 leading-snug" style="color:#1C3557;">
+                  <a href={`/blog/${post.id}`} class="hover:opacity-80 transition-opacity">
+                    {post.data.title}
+                  </a>
+                </h2>
+                <p class="text-sm leading-relaxed mb-5 flex-1" style="color:#1A2E3D; opacity:0.8;">
+                  {post.data.description}
+                </p>
+                <a
+                  href={`/blog/${post.id}`}
+                  aria-label={`Read: ${post.data.title}`}
+                  class="inline-flex items-center gap-1.5 text-sm font-semibold"
+                  style="color:#2ECC9A;"
+                >
+                  Read more
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+
+      <!-- CTA -->
+      <div class="mt-16 text-center">
+        <p class="text-sm mb-4" style="color:#1A2E3D;">
+          Want us to handle this for your business?
+        </p>
+        <a
+          href="/about#contact"
+          class="inline-flex items-center gap-2 font-semibold text-sm px-6 py-3.5 rounded-lg min-h-[48px]"
+          style="background-color:#2ECC9A; color:#fff;"
+        >
+          Get in touch
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

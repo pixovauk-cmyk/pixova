@@ -1,0 +1,121 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  ogImage?: string;
+  schema?: object;
+  articleSchema?: {
+    headline: string;
+    datePublished: string;
+    dateModified: string;
+  };
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage = 'https://pixova.uk/images/og-image.jpg',
+  schema,
+  articleSchema,
+} = Astro.props;
+
+const defaultSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Pixova',
+  url: 'https://pixova.uk',
+  logo: 'https://pixova.uk/favicon.svg',
+  image: ogImage,
+  description:
+    'Pixova builds fast, SEO-ready websites and handles local SEO for small and medium businesses across the UK. Based in Birmingham.',
+  telephone: '+447786466109',
+  email: 'pixovauk@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Birmingham',
+    addressRegion: 'England',
+    addressCountry: 'GB',
+  },
+  areaServed: { '@type': 'Country', name: 'United Kingdom' },
+  founder: {
+    '@type': 'Person',
+    name: 'Anil Jaishi',
+    url: 'https://www.linkedin.com/in/anil-jaishi-150050208/',
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'University of Birmingham',
+    },
+  },
+  sameAs: [
+    'https://www.facebook.com/profile.php?id=61589529080471',
+    'https://www.linkedin.com/in/anil-jaishi-150050208/',
+  ],
+  priceRange: '££',
+};
+
+const activeSchema = schema ?? defaultSchema;
+
+const articleJsonLd = articleSchema
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: articleSchema.headline,
+      author: { '@type': 'Person', name: 'Anil Jaishi' },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Pixova',
+        logo: { '@type': 'ImageObject', url: 'https://pixova.uk/favicon.svg' },
+      },
+      datePublished: articleSchema.datePublished,
+      dateModified: articleSchema.dateModified,
+    }
+  : null;
+---
+
+<!-- Primary meta -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Google Search Console verification placeholder -->
+<!-- <meta name="google-site-verification" content="REPLACE_WITH_GSC_TOKEN" /> -->
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Pixova" />
+<meta property="og:locale" content="en_GB" />
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(activeSchema)} />
+{articleJsonLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+)}
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ0B1RVQ9L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QJ0B1RVQ9L');
+</script>
