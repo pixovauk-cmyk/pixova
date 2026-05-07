@@ -48,44 +48,50 @@ const breadcrumbSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
-  <!-- HERO IMAGE -->
-  {post.data.heroImage && (
-    <div class="w-full overflow-hidden" style="height:clamp(200px, 40vw, 420px);">
-      <img
-        src={post.data.heroImage}
-        alt={post.data.title}
-        width="1200" height="500"
-        loading="eager" fetchpriority="high"
-        class="w-full h-full object-cover"
-      />
-    </div>
-  )}
-
-  <!-- ARTICLE -->
-  <article class="py-16 bg-offwhite">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-
+  <!-- POST HEADER ─────────────────────────────────────── -->
+  <section class="relative overflow-hidden pt-24 pb-0" style="background-color:#0D2240;">
+    <div class="orb absolute pointer-events-none" style="width:400px; height:400px; top:-60px; right:-60px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.08) 0%, transparent 65%);"></div>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 relative pb-10">
       <!-- Meta row -->
       <div class="flex flex-wrap items-center gap-3 mb-6">
-        <a href="/blog" class="text-xs font-medium hover:opacity-70 transition-opacity" style="color:#2ECC9A;">
-          Back to blog
+        <a href="/blog" class="text-xs font-medium transition-opacity hover:opacity-70" style="color:#2ECC9A;">
+          ← Back to blog
         </a>
-        <span style="color:#1A2E3D; opacity:0.3;">·</span>
-        <time datetime={pubDateISO} class="text-xs" style="color:#6B7580;">
+        <span style="color:rgba(255,255,255,0.2);">·</span>
+        <time datetime={pubDateISO} class="text-xs" style="color:rgba(255,255,255,0.4);">
           {formatDate(post.data.pubDate)}
         </time>
         {post.data.readTime && (
           <>
-            <span style="color:#1A2E3D; opacity:0.3;">·</span>
-            <span class="text-xs" style="color:#6B7580;">{post.data.readTime}</span>
+            <span style="color:rgba(255,255,255,0.2);">·</span>
+            <span class="text-xs" style="color:rgba(255,255,255,0.4);">{post.data.readTime}</span>
           </>
         )}
       </div>
-
-      <!-- Title -->
-      <h1 class="font-heading font-semibold text-3xl sm:text-4xl mb-8 leading-tight" style="color:#1C3557;">
+      <h1 class="font-heading font-semibold text-3xl sm:text-4xl leading-tight" style="color:#fff;">
         {post.data.title}
       </h1>
+    </div>
+
+    <!-- Hero image flush to bottom of dark header -->
+    {post.data.heroImage && (
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <div class="rounded-t-2xl overflow-hidden" style="height:clamp(180px, 35vw, 380px);">
+          <img
+            src={post.data.heroImage}
+            alt={post.data.title}
+            width="1200" height="500"
+            loading="eager" fetchpriority="high"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    )}
+  </section>
+
+  <!-- ARTICLE ─────────────────────────────────────────── -->
+  <article class="py-16 bg-offwhite">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
 
       <!-- Body -->
       <div class="prose-content">
@@ -123,21 +129,18 @@ const breadcrumbSchema = {
     </div>
   </article>
 
-  <!-- CTA SECTION -->
-  <section class="py-16" style="background-color:#2ECC9A;">
+  <!-- CTA SECTION ─────────────────────────────────────── -->
+  <section class="py-16" style="background-color:#0D2240;">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-      <h2 class="font-heading font-semibold text-2xl sm:text-3xl mb-4" style="color:#1C3557;">
+      <span class="sec-label mb-4 block">READY TO GROW?</span>
+      <h2 class="font-heading font-semibold text-2xl sm:text-3xl mb-4" style="color:#fff;">
         Want us to handle this for you?
       </h2>
-      <p class="mb-6 max-w-lg mx-auto" style="color:rgba(28,53,87,0.75);">
+      <p class="mb-6 max-w-lg mx-auto" style="color:rgba(255,255,255,0.55);">
         We handle web design, local SEO, and AI automation for small businesses across the UK.
         Let's have a quick chat about your business.
       </p>
-      <a
-        href="/about#contact"
-        class="inline-flex items-center gap-2 font-semibold text-sm px-7 py-4 rounded-lg min-h-[48px]"
-        style="background-color:#1C3557; color:#fff;"
-      >
+      <a href="/about#contact" class="btn-p">
         Get in touch
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -147,7 +150,6 @@ const breadcrumbSchema = {
 </Layout>
 
 <style is:global>
-  /* Blog post body typography */
   .prose-content {
     color: #1A2E3D;
     font-size: 1rem;

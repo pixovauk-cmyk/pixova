@@ -14,56 +14,58 @@ import Layout from '../layouts/Layout.astro';
     fetchpriority="high"
   />
 
-  <!-- HERO -->
-  <section class="bg-offwhite pt-14 pb-16 md:pb-24">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+  <!-- HERO ─────────────────────────────────────────────── -->
+  <section
+    class="relative overflow-hidden flex items-center"
+    style="background-color:#0D2240; min-height:calc(100svh - 64px);"
+  >
+    <!-- Background orbs -->
+    <div class="orb absolute pointer-events-none" style="width:600px; height:600px; top:-120px; right:-140px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.1) 0%, transparent 65%);"></div>
+    <div class="orb-2 absolute pointer-events-none" style="width:400px; height:400px; bottom:-80px; left:-100px; border-radius:50%; background:radial-gradient(circle, rgba(28,53,87,0.6) 0%, transparent 65%);"></div>
+
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full py-16 md:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
 
         <!-- Left: text -->
         <div class="order-2 lg:order-1 hero-animate">
-          <span class="inline-block text-xs font-semibold tracking-widest uppercase mb-5" style="color:#2ECC9A;">
-            Birmingham · AI-Powered · UK-Wide
-          </span>
-          <h1 class="font-heading font-semibold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5" style="color:#1C3557;">
-            Small business website design.<br />We build it. You get found.<br /><span style="color:#2ECC9A;">Simple.</span>
+          <div class="flex items-center gap-2 mb-5">
+            <span class="block w-5 h-0.5 rounded" style="background:#2ECC9A;"></span>
+            <span class="sec-label">Birmingham · AI-Powered · UK-Wide</span>
+          </div>
+          <h1 class="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5" style="color:#fff; letter-spacing:-0.025em;">
+            Small business<br/>websites that<br/>actually <span style="color:#2ECC9A;">get you found.</span>
           </h1>
-          <p class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style="color:#1A2E3D;">
+          <p class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style="color:rgba(255,255,255,0.62);">
             No confusing tech. No overpriced agencies. Just a proper
-            small business website that actually brings in customers,
-            built with AI and fully managed by us.
+            website built with AI — managed by us, so your phone rings from Google.
           </p>
 
           <div class="flex flex-wrap gap-3 mb-10">
-            <a
-              href="/about#contact"
-              class="inline-flex items-center gap-2 font-semibold text-sm px-6 py-3.5 rounded-lg transition-colors min-h-[48px]"
-              style="background-color:#2ECC9A; color:#fff;"
-            >
+            <a href="/about#contact" class="btn-p" style="box-shadow:0 4px 20px rgba(46,204,154,0.3);">
               Let's have a chat
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a
-              href="#how-it-works"
-              class="inline-flex items-center gap-2 font-semibold text-sm px-6 py-3.5 rounded-lg border-2 transition-colors min-h-[48px]"
-              style="border-color:#1C3557; color:#1C3557;"
-            >
+            <a href="#how-it-works" class="btn-g">
               See how it works
             </a>
           </div>
 
-          <div class="flex flex-wrap gap-x-6 gap-y-2 hero-animate-delay">
+          <div class="flex flex-wrap gap-x-5 gap-y-2 hero-animate-delay">
             {['UK-based team', 'Live in 7 days', 'Fully managed', 'No long contracts'].map(badge => (
-              <span class="flex items-center gap-1.5 text-xs font-medium" style="color:#1A2E3D;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="flex items-center gap-1.5 text-xs font-medium" style="color:rgba(255,255,255,0.55);">
+                <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#2ECC9A;"></span>
                 {badge}
               </span>
             ))}
           </div>
         </div>
 
-        <!-- Right: image grid -->
+        <!-- Right: bento card grid -->
         <div class="order-1 lg:order-2 hidden sm:grid grid-cols-2 gap-3 hero-animate-images">
-          <div class="rounded-xl overflow-hidden" style="height:280px;">
+
+          <!-- Card 1: Photo + enquiries badge -->
+          <div class="relative rounded-2xl overflow-hidden" style="height:260px; grid-column:1; grid-row:1;">
             <img
               src="/images/hero-anil.webp"
               alt="Anil Jaishi, founder of Pixova Birmingham web design agency"
@@ -71,25 +73,147 @@ import Layout from '../layouts/Layout.astro';
               loading="eager" fetchpriority="high"
               class="w-full h-full object-cover object-top"
             />
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.75) 0%, transparent 55%);"></div>
+            <!-- Badge -->
+            <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2.5 rounded-xl px-3 py-2.5" style="background:rgba(13,34,64,0.85); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.1);">
+              <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#2ECC9A;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div>
+                <p class="text-white text-xs font-semibold leading-tight" style="font-family:'DM Sans',sans-serif;">Live in 7 days</p>
+                <p class="text-xs leading-tight" style="color:rgba(255,255,255,0.5);">Not 7 weeks</p>
+              </div>
+            </div>
           </div>
-          <div class="rounded-xl overflow-hidden" style="height:280px;">
+
+          <!-- Card 2: Stat card -->
+          <div class="rounded-2xl p-5 flex flex-col justify-between" style="background:#fff; height:260px; grid-column:2; grid-row:1;">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:#2ECC9A; letter-spacing:0.1em;">UK-wide reach</p>
+              <div class="font-heading font-bold text-5xl leading-none mb-2" style="color:#1C3557; letter-spacing:-0.04em;">100<span style="color:#2ECC9A; font-size:2rem;">%</span></div>
+              <p class="text-xs leading-relaxed" style="color:#6a8090;">Fully managed — hosting, updates, security. You do nothing.</p>
+            </div>
+            <div>
+              <div class="h-1 rounded-full mb-1" style="background:#E8F5F1; overflow:hidden;">
+                <div class="h-full rounded-full" style="width:100%; background:linear-gradient(90deg,#2ECC9A,#1db37a);"></div>
+              </div>
+              <p class="text-xs" style="color:#a0b0bc;">Managed clients</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Dark chart card (spans full width) -->
+          <div class="col-span-2 rounded-2xl p-5 flex items-center justify-between gap-4" style="background:linear-gradient(135deg,#0D1F2D 0%,#1C3557 100%); height:140px;">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest mb-2" style="color:#2ECC9A; letter-spacing:0.08em;">SEO &amp; traffic growth</p>
+              <h3 class="font-heading font-bold text-base leading-snug" style="color:#fff;">Your Google rankings,<br/>handled for you.</h3>
+            </div>
+            <!-- Mini bar chart -->
+            <div class="flex items-end gap-1.5 flex-shrink-0" style="height:56px;">
+              {[25,40,35,28,60,75,65,100].map((h, i) => (
+                <div
+                  class="rounded-sm"
+                  style={`width:12px; height:${h}%; background:${i >= 4 ? '#2ECC9A' : 'rgba(255,255,255,0.15)'};`}
+                ></div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Trust bar inside hero -->
+      <div class="mt-12 pt-8 relative z-10" style="border-top:1px solid rgba(255,255,255,0.07);">
+        <div class="flex items-center gap-4 flex-wrap">
+          <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.3);">Trusted by businesses in</span>
+          <div class="w-px h-4 flex-shrink-0" style="background:rgba(255,255,255,0.1);"></div>
+          <div class="flex flex-wrap gap-x-6 gap-y-1">
+            {['Birmingham', 'Manchester', 'Leeds', 'Bristol', 'London'].map(city => (
+              <span class="font-heading font-bold text-sm" style="color:rgba(255,255,255,0.28);">{city}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TESTIMONIAL ─────────────────────────────────────── -->
+  <section class="py-10" style="background-color:#E8F5F1;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="fade-up overflow-hidden rounded-2xl shadow-md flex flex-col md:flex-row" style="border:1px solid rgba(46,204,154,0.15);">
+
+        <!-- Left 70%: Jake's journey -->
+        <div class="flex-1 bg-white px-7 py-8">
+          <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#2ECC9A; letter-spacing:0.1em;">Client journey</p>
+
+          <div class="flex flex-col gap-0">
+
+            <!-- Step 1 -->
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#E8F5F1; color:#2ECC9A; border:2px solid #2ECC9A;">1</div>
+                <div class="flex-1 w-px my-1" style="background:rgba(46,204,154,0.2); min-height:28px;"></div>
+              </div>
+              <div class="pb-5">
+                <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">No online presence</p>
+                <p class="text-xs leading-relaxed" style="color:#6a8090;">Invisible on Google. Relying on word of mouth alone with no way to reach new customers searching online.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#E8F5F1; color:#2ECC9A; border:2px solid #2ECC9A;">2</div>
+                <div class="flex-1 w-px my-1" style="background:rgba(46,204,154,0.2); min-height:28px;"></div>
+              </div>
+              <div class="pb-5">
+                <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">Pixova built &amp; launched in 7 days</p>
+                <p class="text-xs leading-relaxed" style="color:#6a8090;">A fast, SEO-ready website live in under a week. Fully managed from day one — Jake didn't touch a thing.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#2ECC9A; color:#fff; border:2px solid #2ECC9A;">3</div>
+              </div>
+              <div>
+                <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">Phone started ringing from Google</p>
+                <p class="text-xs leading-relaxed" style="color:#6a8090;">New customers calling within the first month — people who had never heard of him, finding him through search.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right 30%: photo + gold stars + quote -->
+        <div class="md:w-56 flex flex-col items-center justify-center px-6 py-8 text-center" style="background:#1C3557;">
+          <!-- Circular photo -->
+          <div style="width:76px; height:76px; border-radius:50%; padding:3px; background:linear-gradient(135deg,#2ECC9A,#1db37a); flex-shrink:0;">
             <img
-              src="/images/hero-laptop.webp"
-              alt="Pixova website shown on a laptop — small business web design Birmingham"
-              width="800" height="1201"
-              loading="eager"
-              class="w-full h-full object-cover object-top"
+              src="/images/jake-victor.webp"
+              alt="Jake Victor"
+              width="70" height="70"
+              loading="lazy"
+              style="width:100%; height:100%; border-radius:50%; object-fit:cover; object-position:top; display:block; border:3px solid #1C3557;"
             />
           </div>
-          <div class="col-span-2 rounded-xl overflow-hidden" style="height:190px;">
-            <img
-              src="/images/hero-collage.webp"
-              alt="Pixova team working on web design and SEO for small businesses"
-              width="1400" height="781"
-              loading="eager"
-              class="w-full h-full object-cover"
-            />
+          <p style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.85rem; color:#fff; margin-top:0.6rem; line-height:1.2;">Jake Victor</p>
+          <p style="font-size:0.68rem; color:rgba(255,255,255,0.45); margin-bottom:0.8rem;">SEO client · Birmingham</p>
+
+          <!-- Gold stars -->
+          <div class="flex gap-0.5 justify-center mb-4">
+            {[1,2,3,4,5].map(() => (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            ))}
           </div>
+
+          <!-- Quote -->
+          <p style="font-size:0.8rem; color:rgba(255,255,255,0.75); line-height:1.65; font-style:italic;">"Honestly the best money we've spent on marketing."</p>
         </div>
 
       </div>
@@ -97,177 +221,184 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 
-  <!-- WHO WE HELP -->
-  <section class="py-20" style="background-color:#E8F5F1;">
+  <!-- WHO WE HELP ─────────────────────────────────────── -->
+  <section class="py-20 bg-offwhite">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-12">
-        <span class="text-xs font-semibold tracking-widest uppercase reveal" style="color:#2ECC9A;">WHO WE HELP</span>
-        <h2 class="font-heading font-semibold text-3xl sm:text-4xl mt-3 reveal reveal-d1" style="color:#1C3557;">
-          We get your world. Not just websites.
+      <div class="mb-12">
+        <span class="sec-label reveal">Who we help</span>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
+          We get your world.<br/>Not just websites.
         </h2>
-        <p class="text-base mt-4 max-w-xl mx-auto" style="color:#1A2E3D;">
-          Whether you're a plumber in Birmingham, a beauty therapist in Leeds,
-          or an accountant in Manchester — your business isn't the same as everyone else's.
-          Our web design for small businesses is always built around your trade, your area, your customers.
+        <p class="text-base mt-3 max-w-lg reveal reveal-d2" style="color:#4a6070; line-height:1.7;">
+          Whether you're a plumber in Birmingham or an accountant in Manchester — your website should be built around your trade, your area, your customers.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-xl p-7 shadow-sm hover:shadow-md transition-shadow reveal reveal-d1">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color:#E8F5F1;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <!-- Asymmetric bento: big card left, 2 stacked right -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <!-- Big tall card — Tradespeople -->
+        <div class="relative rounded-2xl overflow-hidden reveal" style="min-height:440px;">
+          <img
+            src="/images/who-trades.webp"
+            alt="Tradespeople web design Birmingham — plumbers, electricians, builders"
+            width="800" height="600"
+            loading="lazy"
+            class="w-full h-full object-cover absolute inset-0"
+          />
+          <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.92) 0%, rgba(13,34,64,0.15) 55%, transparent 100%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-7">
+            <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4" style="background:#2ECC9A; color:#0D2240; letter-spacing:0.08em;">Tradespeople</span>
+            <h3 class="font-heading font-bold text-2xl mb-2 leading-snug" style="color:#fff;">Your phone should ring<br/>from Google.</h3>
+            <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.68);">Plumbers, electricians, builders, landscapers. You're on-site all day. We make Google send you customers without you touching a thing.</p>
           </div>
-          <h3 class="font-heading font-semibold text-lg mb-2" style="color:#1C3557;">Tradespeople</h3>
-          <p class="text-sm leading-relaxed" style="color:#1A2E3D;">
-            Plumbers, electricians, builders, landscapers. You're on-site all day.
-            Your phone should ring from Google. We make that happen without you
-            touching a thing.
-          </p>
         </div>
 
-        <div class="bg-white rounded-xl p-7 shadow-sm hover:shadow-md transition-shadow reveal reveal-d2">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color:#E8F5F1;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </div>
-          <h3 class="font-heading font-semibold text-lg mb-2" style="color:#1C3557;">Lifestyle &amp; beauty</h3>
-          <p class="text-sm leading-relaxed" style="color:#1A2E3D;">
-            Hair salons, beauty therapists, PTs, dog groomers. Instagram gets
-            you so far. A proper website gets you found by people who've never
-            heard of you yet.
-          </p>
-        </div>
+        <!-- Right column: 2 stacked cards -->
+        <div class="flex flex-col gap-4">
 
-        <div class="bg-white rounded-xl p-7 shadow-sm hover:shadow-md transition-shadow reveal reveal-d3">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color:#E8F5F1;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <!-- Lifestyle & beauty -->
+          <div class="relative rounded-2xl overflow-hidden reveal reveal-d1 flex-1" style="min-height:200px;">
+            <img
+              src="/images/who-beauty.webp"
+              alt="Beauty and lifestyle business website design UK"
+              width="800" height="600"
+              loading="lazy"
+              class="w-full h-full object-cover absolute inset-0"
+            />
+            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.88) 0%, transparent 60%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-5">
+              <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3" style="background:rgba(46,204,154,0.15); color:#2ECC9A; border:1px solid rgba(46,204,154,0.3); letter-spacing:0.06em;">Lifestyle &amp; beauty</span>
+              <h3 class="font-heading font-bold text-lg leading-snug mb-1" style="color:#fff;">Instagram gets you so far.</h3>
+              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.65);">A proper website gets you found by people who've never heard of you yet.</p>
+            </div>
           </div>
-          <h3 class="font-heading font-semibold text-lg mb-2" style="color:#1C3557;">Professional services</h3>
-          <p class="text-sm leading-relaxed" style="color:#1A2E3D;">
-            Accountants, consultants, IFAs, solicitors. You're credible in person.
-            Your website should say the same. We build authority that works before
-            you've even spoken.
-          </p>
+
+          <!-- Professional services -->
+          <div class="relative rounded-2xl overflow-hidden reveal reveal-d2 flex-1" style="min-height:200px;">
+            <img
+              src="/images/who-professional.webp"
+              alt="Professional services website design — accountants, consultants, solicitors"
+              width="800" height="600"
+              loading="lazy"
+              class="w-full h-full object-cover absolute inset-0"
+            />
+            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.88) 0%, transparent 60%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-5">
+              <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3" style="background:rgba(46,204,154,0.15); color:#2ECC9A; border:1px solid rgba(46,204,154,0.3); letter-spacing:0.06em;">Professional services</span>
+              <h3 class="font-heading font-bold text-lg leading-snug mb-1" style="color:#fff;">You're credible in person.</h3>
+              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.65);">Your website should say the same. We build authority that works before you've even spoken.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- HOW IT WORKS -->
-  <section id="how-it-works" class="py-20 bg-offwhite">
+  <!-- HOW IT WORKS ────────────────────────────────────── -->
+  <section id="how-it-works" class="py-20" style="background-color:#0D2240;">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-14">
-        <span class="text-xs font-semibold tracking-widest uppercase reveal" style="color:#2ECC9A;">THE PROCESS</span>
-        <h2 class="font-heading font-semibold text-3xl sm:text-4xl mt-3 reveal reveal-d1" style="color:#1C3557;">
+        <span class="sec-label reveal">THE PROCESS</span>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 reveal reveal-d1" style="color:#fff; letter-spacing:-0.025em;">
           Three steps. Then your phone starts ringing.
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-        <!-- Step 1 -->
-        <div class="reveal">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0" style="background-color:#2ECC9A;">1</div>
-            <div class="h-px flex-1" style="background:linear-gradient(90deg,#2ECC9A,transparent); opacity:0.3;"></div>
+        {[
+          {
+            n: '1',
+            icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>',
+            title: 'We build your website',
+            desc: 'SEO ready from the first line of code. Designed to rank, not just to look good. Live within 7 days, not 7 weeks.',
+          },
+          {
+            n: '2',
+            icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>',
+            title: 'We manage everything',
+            desc: 'Updates, hosting, security and changes, all handled by us. You message us what you need. We sort it the same day.',
+          },
+          {
+            n: '3',
+            icon: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+            title: 'You get found',
+            desc: 'Google starts showing your business to people searching your trade in your area. Your phone rings. You do the work you\'re good at.',
+          },
+        ].map((step, i) => (
+          <div class={`glass-card p-7 relative reveal ${i === 1 ? 'reveal-d1' : i === 2 ? 'reveal-d2' : ''}`}>
+            <div class="absolute top-5 right-5 font-heading font-black text-7xl select-none pointer-events-none" style={`color:#fff; opacity:0.04; line-height:1;`}>{step.n}</div>
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white mb-5" style="background-color:#2ECC9A;">{step.n}</div>
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(46,204,154,0.12); border:1px solid rgba(46,204,154,0.2);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={step.icon}/>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-3" style="color:#fff;">{step.title}</h3>
+            <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.55);">{step.desc}</p>
           </div>
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background-color:#1C3557;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
-            </svg>
-          </div>
-          <h3 class="font-heading font-semibold text-xl mb-3" style="color:#1C3557;">We build your website</h3>
-          <p class="text-sm leading-relaxed" style="color:#1A2E3D;">SEO ready from the first line of code. Designed to rank, not just to look good. Live within 7 days, not 7 weeks.</p>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="reveal reveal-d1">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0" style="background-color:#2ECC9A;">2</div>
-            <div class="h-px flex-1" style="background:linear-gradient(90deg,#2ECC9A,transparent); opacity:0.3;"></div>
-          </div>
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background-color:#1C3557;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <polyline points="9 12 11 14 15 10"/>
-            </svg>
-          </div>
-          <h3 class="font-heading font-semibold text-xl mb-3" style="color:#1C3557;">We manage everything</h3>
-          <p class="text-sm leading-relaxed" style="color:#1A2E3D;">Updates, hosting, security and changes, all handled by us. You message us what you need. We sort it the same day.</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="reveal reveal-d2">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0" style="background-color:#2ECC9A;">3</div>
-          </div>
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style="background-color:#1C3557;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-              <polyline points="11 8 11 11 13 13"/>
-            </svg>
-          </div>
-          <h3 class="font-heading font-semibold text-xl mb-3" style="color:#1C3557;">You get found</h3>
-          <p class="text-sm leading-relaxed" style="color:#1A2E3D;">Google starts showing your business to people searching your trade in your area. Your phone rings. You do the work you're good at.</p>
-        </div>
+        ))}
 
       </div>
     </div>
   </section>
 
 
-  <!-- SERVICES -->
-  <section class="py-20" style="background-color:#E8F5F1;">
+  <!-- SERVICES ────────────────────────────────────────── -->
+  <section class="py-20 bg-offwhite">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-12">
-        <span class="text-xs font-semibold tracking-widest uppercase reveal" style="color:#2ECC9A;">WHAT WE DO</span>
-        <h2 class="font-heading font-semibold text-3xl sm:text-4xl mt-3 reveal reveal-d1" style="color:#1C3557;">
-          Small business website design:<br class="hidden sm:block" /> everything you need, nothing you don't.
+      <div class="mb-12">
+        <span class="sec-label reveal">WHAT WE DO</span>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
+          Everything you need.<br class="hidden sm:block"/> Nothing you don't.
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-xl p-8 shadow-sm flex flex-col">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+        <!-- Starter Website -->
+        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col reveal reveal-d1">
           <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-5" style="background-color:#E8F5F1;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
           </div>
-          <h3 class="font-heading font-semibold text-xl mb-3" style="color:#1C3557;">Starter Website</h3>
-          <p class="text-sm leading-relaxed mb-6 flex-1" style="color:#1A2E3D;">
+          <h3 class="font-heading font-bold text-xl mb-3" style="color:#1C3557;">Starter Website</h3>
+          <p class="text-sm leading-relaxed mb-6 flex-1" style="color:#4a6070;">
             A proper website, built fast and managed completely for you.
-            SEO included from day one. No fiddling, no maintenance, no headaches.
-            It just works.
+            SEO included from day one. No fiddling, no maintenance, no headaches. It just works.
           </p>
-          <a href="/about#contact" aria-label="Find out more about the Starter Website package" class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#2ECC9A;">
+          <a href="/about#contact" class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#2ECC9A;">
             Find out more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
 
-        <div class="rounded-xl p-8 flex flex-col relative overflow-hidden" style="background-color:#1C3557;">
-          <div class="absolute top-0 right-0 text-xs font-semibold px-3 py-1.5 rounded-bl-xl" style="background-color:#2ECC9A; color:#fff;">Most popular</div>
+        <!-- Growth Bundle — featured -->
+        <div class="relative flex flex-col p-8 rounded-2xl overflow-hidden reveal reveal-d2" style="background:linear-gradient(135deg,#0D1F2D 0%,#1C3557 100%); border:2px solid #2ECC9A;">
+          <div class="absolute top-0 right-0 text-xs font-bold px-3 py-1.5 rounded-bl-xl uppercase tracking-wide" style="background-color:#2ECC9A; color:#0D2240;">Most popular</div>
           <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-5" style="background-color:#243f68;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </div>
-          <h3 class="font-heading font-semibold text-xl mb-3" style="color:#fff;">Growth Bundle</h3>
-          <p class="text-sm leading-relaxed mb-6 flex-1" style="color:rgba(255,255,255,0.75);">
+          <h3 class="font-heading font-bold text-xl mb-3" style="color:#fff;">Growth Bundle</h3>
+          <p class="text-sm leading-relaxed mb-6 flex-1" style="color:rgba(255,255,255,0.65);">
             Website plus monthly SEO. Blog posts, local search rankings, Google Search Console.
             This is where your phone starts ringing from people who've never heard of you.
           </p>
-          <a href="/about#contact" aria-label="Find out more about the Growth Bundle package" class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#2ECC9A;">
+          <a href="/about#contact" class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#2ECC9A;">
             Find out more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
 
-        <div class="bg-white rounded-xl p-8 shadow-sm flex flex-col">
+        <!-- Full Service -->
+        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col reveal reveal-d3">
           <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-5" style="background-color:#E8F5F1;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
           </div>
-          <h3 class="font-heading font-semibold text-xl mb-3" style="color:#1C3557;">Full Service</h3>
-          <p class="text-sm leading-relaxed mb-6 flex-1" style="color:#1A2E3D;">
+          <h3 class="font-heading font-bold text-xl mb-3" style="color:#1C3557;">Full Service</h3>
+          <p class="text-sm leading-relaxed mb-6 flex-1" style="color:#4a6070;">
             Website, SEO, and AI automation. Enquiry flows, follow-ups, smart systems
-            that work while you sleep. For businesses serious about growing without
-            doing more.
+            that work while you sleep. For businesses serious about growing without doing more.
           </p>
-          <a href="/about#contact" aria-label="Find out more about the Full Service package" class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#2ECC9A;">
+          <a href="/about#contact" class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#2ECC9A;">
             Find out more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
@@ -276,12 +407,87 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 
-  <!-- ABOUT SNAPSHOT -->
-  <section class="py-20 bg-offwhite">
+  <!-- REAL BUSINESSES. REAL RESULTS. ─────────────────── -->
+  <section class="py-20" style="background-color:#E8F5F1;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+        <!-- Left: text -->
+        <div>
+          <span class="sec-label reveal">RESULTS</span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 mb-5 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
+            Real businesses.<br/>Real results.
+          </h2>
+          <p class="text-base leading-relaxed mb-8 reveal reveal-d2" style="color:#4a6070;">
+            We use AI to build faster and smarter — then manage everything so you never
+            think about it again. Every site is built to rank from the first line of code.
+            No fluff. No jargon. Just a website that brings in customers.
+          </p>
+          <a href="/about#contact" class="btn-p" style="background-color:#1C3557; box-shadow:none;">
+            See how it works
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Right: results bento -->
+        <div class="grid grid-cols-2 gap-4">
+
+          <!-- Dark stat card — 7 days -->
+          <div class="rounded-2xl p-6 relative overflow-hidden reveal" style="background:linear-gradient(135deg,#0D1F2D 0%,#1C3557 100%);">
+            <!-- Radial glow -->
+            <div class="absolute" style="bottom:-30px; right:-30px; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.18), transparent 70%); pointer-events:none;"></div>
+            <div class="font-heading font-black text-5xl leading-none mb-1" style="color:#2ECC9A; letter-spacing:-0.04em;">7<span style="font-size:1.6rem; color:rgba(46,204,154,0.8);"> days</span></div>
+            <p class="text-xs mb-4" style="color:rgba(255,255,255,0.45);">Average time to go live</p>
+            <!-- Avatar stack -->
+            <div class="flex items-center">
+              {['/images/avatar-1.webp', '/images/avatar-2.webp', '/images/avatar-3.webp'].map((src, i) => (
+                <img
+                  src={src}
+                  alt="Happy Pixova client"
+                  width="32" height="32"
+                  loading="lazy"
+                  class="w-8 h-8 rounded-full object-cover"
+                  style={`border:2px solid #0D1F2D; ${i > 0 ? 'margin-left:-8px;' : ''}`}
+                />
+              ))}
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style="background:#2ECC9A; color:#0D2240; margin-left:-8px; border:2px solid #0D1F2D;">+</div>
+            </div>
+          </div>
+
+          <!-- Light stat card — 100% managed -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm reveal reveal-d1">
+            <div class="font-heading font-black text-5xl leading-none mb-1" style="color:#1C3557; letter-spacing:-0.04em;">100<span style="color:#2ECC9A; font-size:2rem;">%</span></div>
+            <p class="text-xs mb-3" style="color:#6a8090;">Managed — you do nothing</p>
+            <p class="text-xs leading-relaxed" style="color:#4a6070;">From brief to live site — not 7 weeks. Not 7 months.</p>
+          </div>
+
+          <!-- Full-width photo card -->
+          <div class="col-span-2 relative rounded-2xl overflow-hidden reveal reveal-d2" style="height:180px;">
+            <img
+              src="/images/hero-collage.webp"
+              alt="Pixova team — Birmingham web design and SEO agency"
+              width="1400" height="781"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0" style="background:linear-gradient(90deg, rgba(13,34,64,0.88) 0%, rgba(13,34,64,0.25) 55%, transparent 100%);"></div>
+            <div class="absolute inset-0 flex items-center px-7">
+              <h3 class="font-heading font-black text-xl sm:text-2xl leading-tight" style="color:#fff; letter-spacing:-0.025em; max-width:260px;">Built in Birmingham,<br/>trusted across the UK.</h3>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ABOUT SNAPSHOT ──────────────────────────────────── -->
+  <section class="py-20" style="background-color:#0D2240;">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
-        <div class="rounded-2xl overflow-hidden shadow-md reveal" style="aspect-ratio:4/3;">
+        <div class="rounded-2xl overflow-hidden shadow-lg reveal" style="aspect-ratio:4/3;">
           <img
             src="/images/hero-collage.webp"
             alt="Anil Jaishi and the Pixova team working with small businesses across Birmingham"
@@ -292,72 +498,36 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <div>
-          <span class="text-xs font-semibold tracking-widest uppercase reveal reveal-d1" style="color:#2ECC9A;">ABOUT PIXOVA</span>
-          <h2 class="font-heading font-semibold text-3xl sm:text-4xl mt-3 mb-5" style="color:#1C3557;">
-            A Birmingham digital agency<br class="hidden sm:block" /> built for real businesses
+          <span class="sec-label reveal reveal-d1">ABOUT PIXOVA</span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 mb-5 reveal reveal-d1" style="color:#fff; letter-spacing:-0.025em;">
+            A Birmingham digital agency<br class="hidden sm:block"/> built for real businesses
           </h2>
-          <p class="text-sm leading-relaxed mb-4" style="color:#1A2E3D;">
+          <p class="text-sm leading-relaxed mb-4" style="color:rgba(255,255,255,0.6);">
             Pixova was started by Anil Jaishi — Digital Marketing graduate from the
             University of Birmingham — because he kept seeing the same thing: small
             businesses being overcharged for websites that did nothing.
           </p>
-          <p class="text-sm leading-relaxed mb-8" style="color:#1A2E3D;">
+          <p class="text-sm leading-relaxed mb-8" style="color:rgba(255,255,255,0.6);">
             We use AI to build faster, smarter websites, then manage everything
             so you never think about it again. Serving businesses across Birmingham,
             the West Midlands, and the whole of the UK.
           </p>
 
-          <div class="grid grid-cols-2 gap-6 mb-8">
-
-            <div>
-              <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-2" style="background-color:#E8F5F1;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                </svg>
+          <div class="grid grid-cols-2 gap-5 mb-8">
+            {[
+              { val: '7 days', label: 'Average time to go live' },
+              { val: '100%', label: 'Managed, you do nothing' },
+              { val: 'UK-wide', label: 'Based in Birmingham' },
+              { val: 'Zero', label: 'Tech knowledge needed' },
+            ].map(s => (
+              <div>
+                <span class="font-heading font-bold text-2xl" style="color:#2ECC9A;">{s.val}</span>
+                <p class="text-xs mt-1" style="color:rgba(255,255,255,0.45);">{s.label}</p>
               </div>
-              <span class="font-heading font-semibold text-2xl" style="color:#2ECC9A;">7 days</span>
-              <p class="text-xs font-medium mt-1" style="color:#1A2E3D;">Average time to go live</p>
-            </div>
-
-            <div>
-              <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-2" style="background-color:#E8F5F1;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <polyline points="9 12 11 14 15 10"/>
-                </svg>
-              </div>
-              <span class="font-heading font-semibold text-2xl" style="color:#2ECC9A;">100%</span>
-              <p class="text-xs font-medium mt-1" style="color:#1A2E3D;">Managed, you do nothing</p>
-            </div>
-
-            <div>
-              <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-2" style="background-color:#E8F5F1;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-              </div>
-              <span class="font-heading font-semibold text-2xl" style="color:#2ECC9A;">UK-wide</span>
-              <p class="text-xs font-medium mt-1" style="color:#1A2E3D;">Based in Birmingham</p>
-            </div>
-
-            <div>
-              <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-2" style="background-color:#E8F5F1;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                </svg>
-              </div>
-              <span class="font-heading font-semibold text-2xl" style="color:#2ECC9A;">Zero</span>
-              <p class="text-xs font-medium mt-1" style="color:#1A2E3D;">Tech knowledge needed</p>
-            </div>
-
+            ))}
           </div>
 
-          <a
-            href="/about"
-            class="inline-flex items-center gap-1.5 text-sm font-semibold"
-            style="color:#1C3557;"
-          >
+          <a href="/about" class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#2ECC9A;">
             Meet Anil &amp; learn more
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -368,36 +538,33 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 
-  <!-- FINAL CTA -->
-  <section class="py-20" style="background-color:#2ECC9A;">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-      <h2 class="font-heading font-semibold text-3xl sm:text-4xl mb-4" style="color:#1C3557;">
-        Your phone should be ringing<br class="hidden sm:block" /> from Google.
-      </h2>
-      <p class="mb-8 max-w-lg mx-auto" style="color:rgba(28,53,87,0.75);">
-        Let's make that happen. No jargon, no waffle, just a quick
-        chat about your business and what you need.
-      </p>
-      <div class="flex flex-wrap gap-3 justify-center">
-        <a
-          href="/about#contact"
-          class="inline-flex items-center gap-2 font-semibold text-sm px-7 py-4 rounded-lg transition-colors min-h-[48px]"
-          style="background-color:#1C3557; color:#fff;"
-        >
-          Get in touch
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a
-          href="https://wa.me/447786466109"
-          target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 font-semibold text-sm px-7 py-4 rounded-lg border-2 transition-colors min-h-[48px]"
-          style="border-color:rgba(28,53,87,0.3); color:#1C3557;"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp us
-        </a>
+  <!-- FINAL CTA ────────────────────────────────────────── -->
+  <section class="py-20 bg-offwhite">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="rounded-3xl text-center px-8 py-16 relative overflow-hidden" style="background:linear-gradient(135deg,#0D2240 0%,#1C3557 100%);">
+        <!-- Radial glow centre -->
+        <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 50% 50%, rgba(46,204,154,0.09), transparent 70%);"></div>
+        <span class="sec-label mb-4 block relative z-10">READY TO GROW?</span>
+        <h2 class="font-heading font-black text-3xl sm:text-4xl mb-4 relative z-10" style="color:#fff; letter-spacing:-0.025em;">
+          Your phone should be ringing<br class="hidden sm:block"/> <span style="color:#2ECC9A;">from Google.</span>
+        </h2>
+        <p class="mb-8 max-w-md mx-auto text-base relative z-10" style="color:rgba(255,255,255,0.5);">
+          No jargon, no waffle, just a quick chat about your business and what you need.
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center relative z-10">
+          <a href="/about#contact" class="btn-p" style="box-shadow:0 4px 20px rgba(46,204,154,0.35);">
+            Get in touch
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://wa.me/447786366109" target="_blank" rel="noopener noreferrer" class="btn-g">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp us
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
+
 </Layout>
+

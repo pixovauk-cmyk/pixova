@@ -42,13 +42,13 @@ const { title, description, canonicalUrl, ogImage, schema, articleSchema } = Ast
   </head>
   <body>
     <Header />
-    <main>
+    <main class="pt-16">
       <slot />
     </main>
     <Footer />
     <!-- Floating WhatsApp button — mobile only -->
     <a
-      href="https://wa.me/447786466109"
+      href="https://wa.me/447786366109"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
@@ -68,7 +68,7 @@ const { title, description, canonicalUrl, ogImage, schema, articleSchema } = Ast
           }
         });
       }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      document.querySelectorAll('.reveal, .fade-up').forEach(el => io.observe(el));
     </script>
   </body>
 </html>

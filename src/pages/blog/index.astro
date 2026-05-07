@@ -17,21 +17,22 @@ function formatDate(date: Date) {
   canonicalUrl="https://pixova.uk/blog/"
 >
 
-  <!-- HERO -->
-  <section class="pt-14 pb-12" style="background-color:#E8F5F1;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">THE BLOG</span>
-      <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-4" style="color:#1C3557;">
+  <!-- HERO ───────────────────────────────────────────── -->
+  <section class="relative overflow-hidden pt-24 pb-14" style="background-color:#0D2240;">
+    <div class="orb absolute pointer-events-none" style="width:400px; height:400px; top:-80px; right:-80px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.09) 0%, transparent 65%);"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
+      <span class="sec-label mb-3 block">THE BLOG</span>
+      <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-4" style="color:#fff;">
         Straight-talking advice for small business owners.
       </h1>
-      <p class="text-base max-w-xl" style="color:#1A2E3D;">
+      <p class="text-base max-w-xl" style="color:rgba(255,255,255,0.6);">
         Web design, local SEO, and online marketing, explained in plain English.
         No jargon. No waffle. Just the stuff that actually matters for your business.
       </p>
     </div>
   </section>
 
-  <!-- POSTS GRID -->
+  <!-- POSTS GRID ──────────────────────────────────────── -->
   <section class="py-16 bg-offwhite">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
@@ -42,7 +43,7 @@ function formatDate(date: Date) {
       ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map(post => (
-            <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col reveal">
               {post.data.heroImage && (
                 <a href={`/blog/${post.id}`} class="block overflow-hidden" style="height:200px;">
                   <img
@@ -97,8 +98,7 @@ function formatDate(date: Date) {
         </p>
         <a
           href="/about#contact"
-          class="inline-flex items-center gap-2 font-semibold text-sm px-6 py-3.5 rounded-lg min-h-[48px]"
-          style="background-color:#2ECC9A; color:#fff;"
+          class="btn-p"
         >
           Get in touch
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>

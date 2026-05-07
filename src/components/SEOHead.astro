@@ -30,7 +30,7 @@ const defaultSchema = {
   image: ogImage,
   description:
     'Pixova builds fast, SEO-ready websites and handles local SEO for small and medium businesses across the UK. Based in Birmingham.',
-  telephone: '+447786466109',
+  telephone: '+447786366109',
   email: 'pixovauk@gmail.com',
   address: {
     '@type': 'PostalAddress',
@@ -81,6 +81,10 @@ const articleJsonLd = articleSchema
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
 
+<!-- Preconnect to external origins -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
 <!-- Google Search Console verification placeholder -->
 <!-- <meta name="google-site-verification" content="REPLACE_WITH_GSC_TOKEN" /> -->
 
@@ -111,11 +115,16 @@ const articleJsonLd = articleSchema
   <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
 )}
 
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ0B1RVQ9L"></script>
+<!-- Google Analytics 4 — loaded after page is interactive to avoid TBT -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-QJ0B1RVQ9L');
+  window.addEventListener('load', () => {
+    const s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-QJ0B1RVQ9L';
+    s.async = true;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QJ0B1RVQ9L', { send_page_view: true });
+  });
 </script>
