@@ -1,0 +1,59 @@
+---
+title: "Web Design for Tradespeople: How to Get Your Business Found on Google"
+seoTitle: "Web Design for Tradespeople | Get Found on Google"
+description: "Web design for tradespeople isn't just about looking professional. It's about getting found. Here's what a proper trades website needs to do."
+pubDate: 2026-05-06
+primaryKeyword: "web design for tradespeople"
+heroImage: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=600&fit=crop&auto=format&fm=webp&q=80"
+readTime: "5 min read"
+---
+
+Something happens to tradespeople across the UK every single day.
+
+A plumber finishes a job. The customer is happy. As he packs up the van, they ask if he has a website, they want to recommend him to a neighbour.
+
+He says they can find him on Facebook.
+
+They don't. On the way home they type "plumber near me" into Google, find three names they've never heard of, pick the one with a decent-looking site, and book. The job is gone. Not because he isn't good enough. Because he wasn't there.
+
+Web design for tradespeople done properly fixes this. It's not just plumbers either. It's electricians, builders, decorators, landscapers, roofers, and every trade in between. Most are still missing from Google entirely, and the reason is nearly always the same: the website either doesn't exist, or it was built without any thought for search.
+
+## Why most trades websites don't get you any work
+
+If you already have a website and it isn't bringing in enquiries, there are usually three reasons.
+
+First, nobody told Google it exists. A site that isn't built for local search is invisible to the people typing your trade into Google right now. It looks fine. It does nothing.
+
+Second, it doesn't work properly on a phone. Most people searching for a tradesperson are doing it on their phone, often in a hurry. A site that loads slowly or breaks on mobile means they bounce before reading a word.
+
+Third, it wasn't built to convert. There's a difference between a website that looks professional and a website that turns visitors into enquiries. A phone number that takes three taps to find, a contact form buried at the bottom, no WhatsApp button, these are all quiet reasons people leave without contacting you.
+
+## What web design for tradespeople actually needs to do
+
+A proper trades website does three things.
+
+**It tells Google exactly what you do and where you do it.** Not buried in a footer. Woven into every heading, every paragraph, every page title. Google needs to understand "this is an electrician in Birmingham" before it will show your site to someone searching for one. Small business website design that ignores local SEO is half a job.
+
+**It works on a phone, fast.** Under two seconds to load. Click-to-call phone number visible without scrolling. A simple contact form. A WhatsApp button for the people who prefer that. The fewer steps between "I found this tradesperson" and "I've booked this tradesperson," the more work you get.
+
+**It is part of a wider local SEO setup.** A great website on its own is not enough. Your Google Business Profile needs to be set up correctly alongside it. Your service areas need to be listed. Your business needs to appear consistently across the web. Web design for local businesses that ignores the rest of the setup rarely delivers the results people expect.
+
+A dedicated landing page for each area you cover also helps. If you work across Birmingham, Coventry, and Wolverhampton, each town deserves its own page built around local search terms. That's how you start showing up in searches across multiple areas, not just the one your home address is registered to.
+
+## The bit most agencies won't tell you upfront
+
+SEO takes three to six months before you see consistent results. Anyone promising page one of Google in a week is either confused or not being straight with you.
+
+The honest answer is that Google needs to find your site, crawl it, understand it, and decide it's trustworthy enough to show to real searchers. That takes time. But it compounds. A site that ranks keeps ranking. It works at 2am when you're on a job, and on bank holidays when you're off. It doesn't stop when you stop paying for ads.
+
+The tradespeople showing up on Google today started their SEO six months ago. The ones who start today will be there in six months. The ones who wait until next month keep waiting. Every month you delay is a month your competitors are getting the calls you should be getting.
+
+## Why Pixova builds trades websites differently
+
+Every site we build is built around how real people in your area search for your trade. That means proper keyword research, local SEO from day one, Google Business Profile set up alongside the site, and ongoing management so you never have to think about it again.
+
+We work with tradespeople across Birmingham and the UK. You can see the kind of sites we build on our [homepage](/) — fast, SEO-ready, and fully managed. You don't need to know what any of this means technically. You just need your phone to ring.
+
+---
+
+Want a trades website that actually brings in work? [Get in touch with Pixova](/about#contact) for a straight conversation about what you need.

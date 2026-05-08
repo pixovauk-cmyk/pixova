@@ -9,6 +9,10 @@ const posts = (await getCollection('blog')).sort(
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 }
+
+function getTitle(post: typeof posts[0]) {
+  return post.data.title ?? post.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}
 ---
 
 <Layout
@@ -48,7 +52,7 @@ function formatDate(date: Date) {
                 <a href={`/blog/${post.id}`} class="block overflow-hidden" style="height:200px;">
                   <img
                     src={post.data.heroImage}
-                    alt={post.data.title}
+                    alt={getTitle(post)}
                     width="600" height="300"
                     loading="lazy"
                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
@@ -70,7 +74,7 @@ function formatDate(date: Date) {
                 </div>
                 <h2 class="font-heading font-semibold text-lg mb-3 leading-snug" style="color:#1C3557;">
                   <a href={`/blog/${post.id}`} class="hover:opacity-80 transition-opacity">
-                    {post.data.title}
+                    {getTitle(post)}
                   </a>
                 </h2>
                 <p class="text-sm leading-relaxed mb-5 flex-1" style="color:#1A2E3D; opacity:0.8;">
@@ -78,7 +82,7 @@ function formatDate(date: Date) {
                 </p>
                 <a
                   href={`/blog/${post.id}`}
-                  aria-label={`Read: ${post.data.title}`}
+                  aria-label={`Read: ${getTitle(post)}`}
                   class="inline-flex items-center gap-1.5 text-sm font-semibold"
                   style="color:#2ECC9A;"
                 >
