@@ -4,17 +4,18 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import keystatic from '@keystatic/astro';
-
-const isDev = process.env.NODE_ENV !== 'production';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://pixova.uk',
+  output: 'hybrid',
+  adapter: vercel(),
   server: { port: 4401 },
   integrations: [
     sitemap(),
     react(),
     mdx(),
-    ...(isDev ? [keystatic()] : []),
+    keystatic(),
   ],
   vite: {
     plugins: [tailwindcss()],
