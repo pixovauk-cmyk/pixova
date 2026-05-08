@@ -141,12 +141,12 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.875rem 1.75rem;
   border-radius: 10px;
   background-color: #2ECC9A;
-  color: #fff;
+  color: #0D2240;
   transition: background-color 0.15s;
   min-height: 48px;
   text-decoration: none;
 }
-.btn-p:hover { background-color: #26b887; }
+.btn-p:hover { background-color: #26b887; color: #0D2240; }
 
 .btn-g {
   display: inline-flex;

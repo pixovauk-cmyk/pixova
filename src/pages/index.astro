@@ -13,6 +13,62 @@ import Layout from '../layouts/Layout.astro';
     href="/images/hero-anil.webp"
     fetchpriority="high"
   />
+  <script slot="head" type="application/ld+json">{JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does Pixova do?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Pixova builds fast, SEO-ready websites for small businesses across the UK, handles local SEO to get businesses found on Google, and sets up AI-powered marketing automation so enquiries are followed up automatically. Everything is fully managed — clients don't need any technical knowledge." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does a small business website cost?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Pixova offers three packages: a Starter Website (a fully managed, SEO-ready site built in around 7 days), a Growth Bundle (website plus monthly SEO and blog content), and a Full Service package (website, SEO, and AI marketing automation). All packages are fully managed with no hidden fees." }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does local SEO take to work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Local SEO typically takes three to six months before you see consistent results. Google needs time to find, crawl, and trust a new or improved website before ranking it. The results compound over time — a site that ranks keeps ranking without ongoing ad spend." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is marketing automation for small businesses?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Marketing automation means setting up systems that respond to enquiries, follow up with leads, and request reviews automatically — without you doing anything manually. For example: a new enquiry arrives on your website and within two minutes the customer receives a professional acknowledgement email. A lead who doesn't book immediately receives follow-up messages over the next two weeks. A completed job triggers an automatic request for a Google review. These systems are set up once and run indefinitely." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can AI automation help a small business get more customers?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. AI automation helps small businesses respond faster to enquiries (which significantly increases conversion rates), follow up with leads consistently, and handle repetitive tasks like review requests and appointment reminders. Pixova builds these systems as part of the Full Service package — they are set up once and run in the background while you focus on your work." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Pixova work with businesses outside Birmingham?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Pixova is based in Birmingham but works with small and medium businesses across the whole of the UK. All services — web design, local SEO, and marketing automation — are delivered remotely." }
+      },
+      {
+        "@type": "Question",
+        "name": "How quickly can Pixova build my website?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Pixova's average time to go live is 7 days from the point of starting. The site is built fast using AI-assisted development, then fully managed so clients never need to touch it again." }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of businesses does Pixova work with?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Pixova works with tradespeople (plumbers, electricians, builders, landscapers, roofers), professional services (accountants, solicitors, consultants, financial advisors), and lifestyle and beauty businesses (salons, therapists, personal trainers, studios). Essentially any UK small business that needs to be found on Google and wants its online presence fully managed." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between local SEO and regular SEO?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Regular SEO tries to rank a website nationally for broad terms. Local SEO focuses on ranking in a specific geographic area — targeting searches like 'plumber Birmingham' or 'accountant Manchester' rather than 'plumber UK'. For most small businesses, local SEO is far more valuable because it targets people in your area who are ready to buy right now." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need any technical knowledge to work with Pixova?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Pixova handles everything — building the website, setting up SEO, managing content, and building any automation systems. Clients do not need to know anything technical. The whole point is that it is fully managed so business owners can focus on running their business." }
+      }
+    ]
+  })}</script>
 
   <!-- HERO ─────────────────────────────────────────────── -->
   <section
@@ -126,11 +182,11 @@ import Layout from '../layouts/Layout.astro';
       <!-- Trust bar inside hero -->
       <div class="mt-12 pt-8 relative z-10" style="border-top:1px solid rgba(255,255,255,0.07);">
         <div class="flex items-center gap-4 flex-wrap">
-          <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.3);">Trusted by businesses in</span>
+          <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Trusted by businesses in</span>
           <div class="w-px h-4 flex-shrink-0" style="background:rgba(255,255,255,0.1);"></div>
           <div class="flex flex-wrap gap-x-6 gap-y-1">
             {['Birmingham', 'Manchester', 'Leeds', 'Bristol', 'London'].map(city => (
-              <span class="font-heading font-bold text-sm" style="color:rgba(255,255,255,0.28);">{city}</span>
+              <span class="font-heading font-bold text-sm" style="color:rgba(255,255,255,0.55);">{city}</span>
             ))}
           </div>
         </div>
@@ -201,7 +257,7 @@ import Layout from '../layouts/Layout.astro';
             />
           </div>
           <p style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.85rem; color:#fff; margin-top:0.6rem; line-height:1.2;">Jake Victor</p>
-          <p style="font-size:0.68rem; color:rgba(255,255,255,0.45); margin-bottom:0.8rem;">SEO client · Birmingham</p>
+          <p style="font-size:0.68rem; color:rgba(255,255,255,0.7); margin-bottom:0.8rem;">SEO client · Birmingham</p>
 
           <!-- Gold stars -->
           <div class="flex gap-0.5 justify-center mb-4">
@@ -407,6 +463,66 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 
+  <!-- AI & AUTOMATION ─────────────────────────────────── -->
+  <section id="automation" class="py-20 relative overflow-hidden" style="background-color:#0D2240;">
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 100% 50%, rgba(46,204,154,0.07) 0%, transparent 55%);"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+        <!-- LEFT: content -->
+        <div class="reveal">
+          <span class="sec-label">AI &amp; AUTOMATION</span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 mb-4" style="color:#fff; letter-spacing:-0.025em;">
+            Your business keeps working<br class="hidden sm:block"/> while you're on the job.
+          </h2>
+          <p class="text-sm mb-8" style="color:rgba(255,255,255,0.5); line-height:1.8;">
+            We set up smart systems that handle enquiries, follow up with leads, and collect reviews — without you lifting a finger.
+          </p>
+
+          <ul class="space-y-4 mb-10">
+            {[
+              'Enquiries answered within minutes — automatically',
+              'Leads followed up so you never lose a job',
+              'Google review requests sent after every job',
+            ].map(item => (
+              <li class="flex items-start gap-3 text-sm" style="color:rgba(255,255,255,0.75);">
+                <svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <a href="/about#contact" class="btn-p">
+            Ask about automation
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- RIGHT: image -->
+        <div class="reveal reveal-d1 relative">
+          <div class="rounded-2xl overflow-hidden" style="aspect-ratio:4/3;">
+            <img
+              src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop&auto=format&fm=webp&q=80"
+              alt="Marketing automation for small businesses"
+              width="800" height="600"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 rounded-2xl" style="background:linear-gradient(135deg, rgba(13,34,64,0.2) 0%, transparent 60%);"></div>
+          </div>
+          <!-- Floating stat badge -->
+          <div class="absolute -bottom-4 -left-4 rounded-xl px-5 py-4 shadow-xl" style="background:#1C3557; border:1px solid rgba(46,204,154,0.25);">
+            <span class="font-heading font-black text-2xl block" style="color:#2ECC9A;">0 hrs</span>
+            <span class="text-xs" style="color:rgba(255,255,255,0.5);">of your time needed</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
   <!-- REAL BUSINESSES. REAL RESULTS. ─────────────────── -->
   <section class="py-20" style="background-color:#E8F5F1;">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
@@ -423,7 +539,7 @@ import Layout from '../layouts/Layout.astro';
             think about it again. Every site is built to rank from the first line of code.
             No fluff. No jargon. Just a website that brings in customers.
           </p>
-          <a href="/about#contact" class="btn-p" style="background-color:#1C3557; box-shadow:none;">
+          <a href="/about#contact" class="btn-p" style="background-color:#1C3557; color:#fff; box-shadow:none;">
             See how it works
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -437,7 +553,7 @@ import Layout from '../layouts/Layout.astro';
             <!-- Radial glow -->
             <div class="absolute" style="bottom:-30px; right:-30px; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.18), transparent 70%); pointer-events:none;"></div>
             <div class="font-heading font-black text-5xl leading-none mb-1" style="color:#2ECC9A; letter-spacing:-0.04em;">7<span style="font-size:1.6rem; color:rgba(46,204,154,0.8);"> days</span></div>
-            <p class="text-xs mb-4" style="color:rgba(255,255,255,0.45);">Average time to go live</p>
+            <p class="text-xs mb-4" style="color:rgba(255,255,255,0.65);">Average time to go live</p>
             <!-- Avatar stack -->
             <div class="flex items-center">
               {['/images/avatar-1.webp', '/images/avatar-2.webp', '/images/avatar-3.webp'].map((src, i) => (
@@ -522,7 +638,7 @@ import Layout from '../layouts/Layout.astro';
             ].map(s => (
               <div>
                 <span class="font-heading font-bold text-2xl" style="color:#2ECC9A;">{s.val}</span>
-                <p class="text-xs mt-1" style="color:rgba(255,255,255,0.45);">{s.label}</p>
+                <p class="text-xs mt-1" style="color:rgba(255,255,255,0.65);">{s.label}</p>
               </div>
             ))}
           </div>
@@ -533,6 +649,74 @@ import Layout from '../layouts/Layout.astro';
           </a>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ ─────────────────────────────────────────────── -->
+  <section class="py-20 bg-offwhite" id="faq">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="mb-12 text-center">
+        <span class="sec-label reveal">FAQ</span>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
+          Questions we get asked a lot.
+        </h2>
+      </div>
+
+      <div class="space-y-3 reveal reveal-d1">
+        {[
+          {
+            q: "What does Pixova do?",
+            a: "We build fast, SEO-ready websites for small businesses, handle local SEO to get you found on Google, and set up AI-powered marketing automation so enquiries are followed up automatically. Everything is fully managed — you don't need any technical knowledge."
+          },
+          {
+            q: "How much does a small business website cost?",
+            a: "We offer three packages: a Starter Website (built in around 7 days, SEO included), a Growth Bundle (website plus monthly SEO and content), and a Full Service package (website, SEO, and AI marketing automation). Get in touch for a straight conversation about which fits your budget."
+          },
+          {
+            q: "How long does local SEO take to work?",
+            a: "Three to six months before you see consistent results. Google needs time to find, crawl, and trust your site. The results compound — a site that ranks keeps ranking without ongoing ad spend. The businesses on page one today started six months ago."
+          },
+          {
+            q: "What is marketing automation and do I need it?",
+            a: "Marketing automation means systems that respond to enquiries, follow up with leads, and request reviews automatically — without you lifting a finger. If you're missing follow-ups, losing leads who don't book immediately, or forgetting to ask for Google reviews, automation fixes all three."
+          },
+          {
+            q: "Can AI help my small business get more customers?",
+            a: "Yes. AI automation helps you respond faster to enquiries (faster response = higher conversion), follow up consistently with leads who don't buy immediately, and handle repetitive tasks like review requests. We build these systems once and they run in the background while you get on with your work."
+          },
+          {
+            q: "Does Pixova work with businesses outside Birmingham?",
+            a: "Yes. We're based in Birmingham but work with small businesses across the whole of the UK. Web design, local SEO, and marketing automation are all delivered remotely."
+          },
+          {
+            q: "How quickly can you build my website?",
+            a: "Our average time to go live is 7 days from the point of starting. We use AI-assisted development to build fast, and once it's live we manage everything so you never have to touch it."
+          },
+          {
+            q: "What types of businesses do you work with?",
+            a: "Tradespeople (plumbers, electricians, builders, landscapers), professional services (accountants, solicitors, consultants), and lifestyle and beauty businesses (salons, therapists, personal trainers). Essentially any UK small business that needs to be found on Google and wants everything managed for them."
+          },
+          {
+            q: "Do I need to know anything technical?",
+            a: "No. We handle the website, SEO, content, and automation. You don't need to know what any of it means. The whole point is that it's fully managed so you can focus on running your business."
+          },
+          {
+            q: "What is the difference between SEO and local SEO?",
+            a: "Regular SEO targets national rankings for broad terms. Local SEO targets your specific area — searches like 'plumber Birmingham' or 'accountant Manchester'. For most small businesses, local SEO is far more valuable because it targets people nearby who are ready to book right now."
+          },
+        ].map((item, i) => (
+          <details class="group bg-white rounded-xl overflow-hidden shadow-sm" style="border:1px solid #e8f0f0;">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5 font-heading font-semibold text-base select-none" style="color:#1C3557; list-style:none;">
+              {item.q}
+              <svg class="flex-shrink-0 transition-transform duration-200 group-open:rotate-45" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-sm leading-relaxed" style="color:#4a6070;">
+              {item.a}
+            </div>
+          </details>
+        ))}
       </div>
     </div>
   </section>

@@ -53,6 +53,22 @@ const defaultSchema = {
     'https://www.linkedin.com/in/anil-jaishi-150050208/',
   ],
   priceRange: '££',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Digital Marketing Services',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Small Business Website Design', description: 'Fast, SEO-ready websites for small businesses built in around 7 days and fully managed.' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Local SEO', description: 'Local search engine optimisation to get small businesses found on Google in their area.' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marketing Automation', description: 'AI-powered marketing automation including enquiry response systems, lead follow-up sequences, and review request automation.' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Google Business Profile Optimisation', description: 'Setup and optimisation of Google Business Profile to improve local search visibility and Google Maps rankings.' } },
+    ],
+  },
+  review: {
+    '@type': 'Review',
+    author: { '@type': 'Person', name: 'Jake Victor' },
+    reviewBody: 'Within 90 days of launching our new site with Pixova, we were getting consistent enquiries from Google — people who had never heard of us before. The whole process was managed completely, we didn\'t have to do a thing.',
+    reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+  },
 };
 
 const activeSchema = schema ?? defaultSchema;
