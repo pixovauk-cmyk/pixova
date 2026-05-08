@@ -8,7 +8,6 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://pixova.uk',
-  output: 'hybrid',
   adapter: vercel(),
   server: { port: 4401 },
   integrations: [
