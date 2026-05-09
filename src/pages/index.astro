@@ -364,7 +364,6 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-
         {[
           {
             n: '1',
@@ -386,8 +385,14 @@ import Layout from '../layouts/Layout.astro';
           },
         ].map((step, i) => (
           <div class={`glass-card p-7 relative reveal ${i === 1 ? 'reveal-d1' : i === 2 ? 'reveal-d2' : ''}`}>
-            <div class="absolute top-5 right-5 font-heading font-black text-7xl select-none pointer-events-none" style={`color:#fff; opacity:0.04; line-height:1;`}>{step.n}</div>
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white mb-5" style="background-color:#2ECC9A;">{step.n}</div>
+
+            <!-- Teal corner accents -->
+            <div class="absolute top-0 right-0 pointer-events-none" style="width:64px; height:64px; border-top:3px solid #2ECC9A; border-right:3px solid #2ECC9A; border-top-right-radius:14px;"></div>
+            <div class="absolute bottom-0 left-0 pointer-events-none" style="width:64px; height:64px; border-bottom:3px solid #2ECC9A; border-left:3px solid #2ECC9A; border-bottom-left-radius:14px;"></div>
+
+            <!-- Step number — large teal, top left -->
+            <div class="font-heading font-black mb-4 leading-none select-none" style="font-size:3rem; color:#2ECC9A; letter-spacing:-0.04em; opacity:0.9;">0{step.n}</div>
+
             <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(46,204,154,0.12); border:1px solid rgba(46,204,154,0.2);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={step.icon}/>
             </div>
@@ -395,7 +400,6 @@ import Layout from '../layouts/Layout.astro';
             <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.55);">{step.desc}</p>
           </div>
         ))}
-
       </div>
     </div>
   </section>
