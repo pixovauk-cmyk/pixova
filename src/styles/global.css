@@ -63,6 +63,10 @@ h1, h2, h3, h4, h5, h6 {
   66%  { transform: translate(-30px, 20px) scale(0.96); }
   100% { transform: translate(0, 0) scale(1); }
 }
+@keyframes lines-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 64px 64px; }
+}
 
 .hero-animate {
   animation: fadeInUp 0.75s cubic-bezier(0.22,1,0.36,1) both;
@@ -142,9 +146,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 10px;
   background-color: #2ECC9A;
   color: #0D2240;
-  transition: background-color 0.15s;
+  transition: background-color 0.15s, transform 0.4s cubic-bezier(0.22,1,0.36,1);
   min-height: 48px;
   text-decoration: none;
+  will-change: transform;
 }
 .btn-p:hover { background-color: #26b887; color: #0D2240; }
 
@@ -159,9 +164,10 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(255,255,255,0.3);
   color: #fff;
   background: transparent;
-  transition: border-color 0.15s, background-color 0.15s;
+  transition: border-color 0.15s, background-color 0.15s, transform 0.4s cubic-bezier(0.22,1,0.36,1);
   min-height: 48px;
   text-decoration: none;
+  will-change: transform;
 }
 .btn-g:hover {
   border-color: rgba(255,255,255,0.55);
