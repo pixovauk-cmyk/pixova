@@ -97,7 +97,7 @@ import Layout from '../layouts/Layout.astro';
             website built with AI — managed by us, so your phone rings from Google.
           </p>
 
-          <div class="flex flex-wrap gap-3 mb-10">
+          <div class="flex flex-wrap gap-3 mb-5">
             <a href="/about#contact" class="btn-p" style="box-shadow:0 4px 20px rgba(46,204,154,0.3);">
               Let's have a chat
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -106,6 +106,13 @@ import Layout from '../layouts/Layout.astro';
               See how it works
             </a>
           </div>
+
+          <!-- Free site offer -->
+          <a href="/about?offer=free-site#contact" class="inline-flex items-center gap-3 mb-10 rounded-xl px-4 py-3 group transition-all" style="background:rgba(46,204,154,0.1); border:1px solid rgba(46,204,154,0.35);">
+            <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#2ECC9A; color:#0D2240;">5 spots</span>
+            <span class="text-sm font-semibold" style="color:#fff;">Claim your free website — limited offer</span>
+            <svg class="flex-shrink-0 transition-transform group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
 
           <div class="flex flex-wrap gap-x-5 gap-y-2 hero-animate-delay">
             {['UK-based team', 'Live in 7 days', 'Fully managed', 'No long contracts'].map(badge => (
@@ -179,16 +186,37 @@ import Layout from '../layouts/Layout.astro';
 
       </div>
 
-      <!-- Trust bar inside hero -->
+      <!-- Live stats bar -->
       <div class="mt-12 pt-8 relative z-10" style="border-top:1px solid rgba(255,255,255,0.07);">
-        <div class="flex items-center gap-4 flex-wrap">
-          <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Trusted by businesses in</span>
-          <div class="w-px h-4 flex-shrink-0" style="background:rgba(255,255,255,0.1);"></div>
-          <div class="flex flex-wrap gap-x-6 gap-y-1">
-            {['Birmingham', 'Manchester', 'Leeds', 'Bristol', 'London'].map(city => (
-              <span class="font-heading font-bold text-sm" style="color:rgba(255,255,255,0.55);">{city}</span>
+        <div class="flex flex-wrap items-center gap-6 sm:gap-10">
+
+          <!-- Live indicator -->
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="live-dot"></span>
+            <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.4);">Live</span>
+          </div>
+
+          <div class="w-px h-6 flex-shrink-0 hidden sm:block" style="background:rgba(255,255,255,0.1);"></div>
+
+          <!-- Stats -->
+          <div class="flex flex-wrap gap-6 sm:gap-10">
+            {[
+              { target: 3,  suffix: '',  label: 'sites built this week' },
+              { target: 2,  suffix: '',  label: 'currently in progress' },
+              { target: 11, suffix: '',  label: 'launched this month' },
+            ].map((s, i) => (
+              <div class="flex items-baseline gap-2">
+                <span
+                  class="live-counter font-heading font-black text-2xl leading-none"
+                  data-target={s.target}
+                  data-delay={i * 120}
+                  style="color:#2ECC9A; letter-spacing:-0.03em;"
+                >0</span>
+                <span class="text-xs" style="color:rgba(255,255,255,0.45);">{s.label}</span>
+              </div>
             ))}
           </div>
+
         </div>
       </div>
     </div>
@@ -198,7 +226,7 @@ import Layout from '../layouts/Layout.astro';
   <!-- TESTIMONIAL ─────────────────────────────────────── -->
   <section class="py-10" style="background-color:#E8F5F1;">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="fade-up overflow-hidden rounded-2xl shadow-md flex flex-col md:flex-row" style="border:1px solid rgba(46,204,154,0.15);">
+      <div class="card-light fade-up overflow-hidden rounded-2xl flex flex-col md:flex-row">
 
         <!-- Left 70%: Jake's journey -->
         <div class="flex-1 bg-white px-7 py-8">
@@ -278,7 +306,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- WHO WE HELP ─────────────────────────────────────── -->
-  <section class="py-20 bg-offwhite">
+  <section class="py-28 bg-offwhite">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="mb-12">
         <span class="sec-label reveal">Who we help</span>
@@ -406,7 +434,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- SERVICES ────────────────────────────────────────── -->
-  <section class="py-20 bg-offwhite">
+  <section class="py-28 bg-offwhite">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="mb-12">
         <span class="sec-label reveal">WHAT WE DO</span>
@@ -418,7 +446,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
         <!-- Starter Website -->
-        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col reveal reveal-d1">
+        <div class="card-light rounded-2xl p-10 flex flex-col reveal reveal-d1">
           <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-5" style="background-color:#E8F5F1;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
           </div>
@@ -449,7 +477,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- Full Service -->
-        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col reveal reveal-d3">
+        <div class="card-light rounded-2xl p-10 flex flex-col reveal reveal-d3">
           <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-5" style="background-color:#E8F5F1;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
           </div>
@@ -602,55 +630,74 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 
-  <!-- ABOUT SNAPSHOT ──────────────────────────────────── -->
-  <section class="py-20" style="background-color:#0D2240;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
-        <div class="rounded-2xl overflow-hidden shadow-lg reveal" style="aspect-ratio:4/3;">
-          <img
-            src="/images/hero-collage.webp"
-            alt="Anil Jaishi and the Pixova team working with small businesses across Birmingham"
-            width="1400" height="781"
-            loading="lazy"
-            class="w-full h-full object-cover"
-          />
+  <!-- WHY PIXOVA ───────────────────────────────────────── -->
+  <section class="pt-20 pb-0 relative overflow-hidden" style="background-color:#0D2240;">
+    <!-- Subtle teal glow bottom-right -->
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 100% 100%, rgba(46,204,154,0.08) 0%, transparent 70%);"></div>
+    <!-- Faint teal glow top-left -->
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 40% 40% at 0% 0%, rgba(46,204,154,0.05) 0%, transparent 70%);"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
+
+      <div class="text-center mb-12">
+        <span class="sec-label reveal">WHY PIXOVA</span>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#fff; letter-spacing:-0.025em;">
+          Meet the person behind your website.
+        </h2>
+      </div>
+
+      <!-- 3-col layout: steps | photo | stats -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-end">
+
+        <!-- LEFT: steps -->
+        <div class="flex flex-col gap-5 pb-10 self-center reveal">
+          {[
+            { label: 'We learn your business', desc: 'A quick chat about your trade, area, and customers.' },
+            { label: 'We build & launch your site', desc: 'SEO-ready and live in 7 days. Fully managed from day one.' },
+            { label: 'Google sends you customers', desc: 'Your phone rings from people who\'ve never heard of you.' },
+          ].map((step, i) => (
+            <div class="flex items-start gap-4 rounded-xl px-5 py-4" style="background:rgba(255,255,255,0.06); border:1px solid rgba(46,204,154,0.18);">
+              <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold" style="background:#2ECC9A; color:#0D2240;">{i + 1}</div>
+              <div>
+                <p class="font-semibold text-sm mb-0.5" style="color:#fff;">{step.label}</p>
+                <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">{step.desc}</p>
+              </div>
+              <div class="ml-auto flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center" style="background:rgba(46,204,154,0.15);">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div>
-          <span class="sec-label reveal reveal-d1">ABOUT PIXOVA</span>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 mb-5 reveal reveal-d1" style="color:#fff; letter-spacing:-0.025em;">
-            A Birmingham digital agency<br class="hidden sm:block"/> built for real businesses
-          </h2>
-          <p class="text-sm leading-relaxed mb-4" style="color:rgba(255,255,255,0.6);">
-            Pixova was started by Anil Jaishi — Digital Marketing graduate from the
-            University of Birmingham — because he kept seeing the same thing: small
-            businesses being overcharged for websites that did nothing.
-          </p>
-          <p class="text-sm leading-relaxed mb-8" style="color:rgba(255,255,255,0.6);">
-            We use AI to build faster, smarter websites, then manage everything
-            so you never think about it again. Serving businesses across Birmingham,
-            the West Midlands, and the whole of the UK.
-          </p>
-
-          <div class="grid grid-cols-2 gap-5 mb-8">
-            {[
-              { val: '7 days', label: 'Average time to go live' },
-              { val: '100%', label: 'Managed, you do nothing' },
-              { val: 'UK-wide', label: 'Based in Birmingham' },
-              { val: 'Zero', label: 'Tech knowledge needed' },
-            ].map(s => (
-              <div>
-                <span class="font-heading font-bold text-2xl" style="color:#2ECC9A;">{s.val}</span>
-                <p class="text-xs mt-1" style="color:rgba(255,255,255,0.65);">{s.label}</p>
-              </div>
-            ))}
+        <!-- CENTRE: Anil cut-out -->
+        <div class="flex justify-center items-end hero-animate-images">
+          <div class="relative" style="display:inline-block;">
+            <div class="absolute pointer-events-none" style="top:10px; left:50%; transform:translateX(-50%); width:248px; height:333px; border:1px solid rgba(46,204,154,0.35); border-radius:124px 124px 97px 97px; z-index:11;"></div>
+            <div class="absolute pointer-events-none" style="top:17px; left:50%; transform:translateX(-50%); width:233px; height:318px; border:2px solid #2ECC9A; border-radius:117px 117px 92px 92px; z-index:11;"></div>
+            <img
+              src="/images/anil-cutout.png"
+              alt="Anil Jaishi, founder of Pixova"
+              loading="lazy"
+              style="display:block; width:340px; position:relative; z-index:10;"
+            />
           </div>
+        </div>
 
-          <a href="/about" class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#2ECC9A;">
-            Meet Anil &amp; learn more
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+        <!-- RIGHT: stats -->
+        <div class="flex flex-col gap-6 pb-10 self-center reveal reveal-d2">
+          {[
+            { val: '7 days', label: 'Average launch time' },
+            { val: '100%', label: 'Fully managed' },
+            { val: 'UK-wide', label: 'Businesses served' },
+            { val: '£0', label: 'Tech knowledge needed' },
+          ].map(s => (
+            <div class="text-center lg:text-left">
+              <div class="font-heading font-black text-4xl leading-none mb-1" style="color:#2ECC9A; letter-spacing:-0.03em;">{s.val}</div>
+              <p class="text-xs" style="color:rgba(255,255,255,0.55);">{s.label}</p>
+              <div class="mt-2 h-px" style="background:linear-gradient(90deg,rgba(46,204,154,0.5),transparent);"></div>
+            </div>
+          ))}
         </div>
 
       </div>
@@ -753,6 +800,192 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+<!-- EXIT INTENT MODAL -->
+<div id="exit-modal" class="fixed inset-0 z-[999] flex items-end sm:items-center justify-center" style="display:none; background:rgba(13,34,64,0.6); backdrop-filter:blur(4px);" aria-modal="true" role="dialog" aria-label="Limited offer">
+
+  <div id="exit-modal-panel" class="relative w-full sm:max-w-md mx-0 sm:mx-6 bg-white overflow-hidden" style="border-radius:16px 16px 0 0; box-shadow:0 32px 80px rgba(0,0,0,0.25);">
+
+    <!-- Navy top bar with Anil photo + name -->
+    <div class="flex items-center gap-3 px-5 py-4" style="background:#0D2240;">
+      <div class="relative flex-shrink-0">
+        <img src="/images/anil.webp" alt="Anil Jaishi" width="40" height="40"
+          class="rounded-full object-cover object-top"
+          style="width:40px;height:40px;border:2px solid #2ECC9A;"
+        />
+        <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full" style="background:#2ECC9A; border:2px solid #0D2240;"></span>
+      </div>
+      <div>
+        <p class="text-sm font-bold leading-none mb-0.5" style="color:#fff;">Anil Jaishi</p>
+        <p class="text-xs" style="color:rgba(255,255,255,0.5);">Founder, Pixova · typically replies in minutes</p>
+      </div>
+      <button id="exit-modal-close" class="ml-auto w-7 h-7 flex items-center justify-center rounded-full flex-shrink-0" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.4);" aria-label="Close">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Chat bubble from Anil -->
+    <div class="px-5 pt-5 pb-3">
+      <div class="rounded-2xl rounded-tl-sm px-4 py-3 inline-block max-w-xs mb-1" style="background:#f0f4f8;">
+        <p class="text-sm leading-relaxed" style="color:#1A2E3D;">Hey — before you go. I'm giving away <strong>2 free websites</strong> this month to UK businesses. Takes 30 seconds to grab a spot.</p>
+      </div>
+      <p class="text-xs ml-1" style="color:#aab0ba;">just now</p>
+    </div>
+
+    <!-- Spots bar -->
+    <div class="mx-5 mb-4 rounded-xl px-4 py-3 flex items-center gap-3" style="background:#f7fafa; border:1px solid #e4edf0;">
+      <div class="flex gap-1">
+        {[1,2,3,4,5].map(i => (
+          <span class="w-2.5 h-2.5 rounded-full" style={i <= 3 ? 'background:#2ECC9A;' : 'background:#dde5e8;'}></span>
+        ))}
+      </div>
+      <span class="text-xs font-semibold" style="color:#1C3557;">3 of 5 spots taken</span>
+      <span class="live-dot ml-auto"></span>
+    </div>
+
+    <!-- Form -->
+    <form id="exit-form" action="https://formspree.io/f/mlgzlnqn" method="POST" class="px-5 pb-5">
+      <input type="hidden" name="help_type" value="free-site" />
+      <input type="hidden" name="source" value="exit-intent-popup" />
+
+      <div class="grid grid-cols-2 gap-2 mb-2">
+        <input type="text" name="name" required placeholder="Your name"
+          class="rounded-lg px-3.5 py-2.5 text-sm focus:outline-none"
+          style="background:#f7fafa; border:1px solid #dde5e8; color:#1A2E3D;"
+        />
+        <input type="tel" name="phone" required placeholder="Phone number"
+          class="rounded-lg px-3.5 py-2.5 text-sm focus:outline-none"
+          style="background:#f7fafa; border:1px solid #dde5e8; color:#1A2E3D;"
+        />
+      </div>
+      <input type="email" name="email" required placeholder="Email address"
+        class="w-full rounded-lg px-3.5 py-2.5 text-sm focus:outline-none mb-3"
+        style="background:#f7fafa; border:1px solid #dde5e8; color:#1A2E3D;"
+      />
+      <button type="submit" id="exit-form-btn" class="w-full py-3 rounded-xl font-heading font-bold text-sm" style="background:#0D2240; color:#fff;">
+        Claim my free spot →
+      </button>
+    </form>
+
+    <div id="exit-form-success" class="hidden px-5 pb-6 text-center">
+      <div class="text-3xl mb-2">👋</div>
+      <p class="font-heading font-bold text-lg mb-1" style="color:#0D2240;">You're on the list.</p>
+      <p class="text-sm" style="color:#6a8090;">Anil will message you personally within 24 hours.</p>
+    </div>
+
+    <button id="exit-modal-dismiss" class="w-full pb-5 text-xs text-center" style="color:#aab0ba;">No thanks</button>
+  </div>
+</div>
+
+<script>
+  // Count-up animation for live stats
+  const counters = document.querySelectorAll<HTMLElement>('.live-counter');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      const target = parseInt(el.dataset.target || '0');
+      const delay = parseInt(el.dataset.delay || '0');
+      const duration = 1200;
+      const start = performance.now();
+      setTimeout(() => {
+        const tick = (now: number) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = String(Math.round(ease * target));
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }, delay);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => obs.observe(c));
+
+  // ── Exit intent modal ──────────────────────────────────
+  const modal      = document.getElementById('exit-modal')!;
+  const panel      = document.getElementById('exit-modal-panel')!;
+  const closeBtn   = document.getElementById('exit-modal-close')!;
+  const dismissBtn = document.getElementById('exit-modal-dismiss')!;
+  const exitForm   = document.getElementById('exit-form') as HTMLFormElement;
+  const exitSuccess = document.getElementById('exit-form-success')!;
+  const exitBtn    = document.getElementById('exit-form-btn') as HTMLButtonElement;
+
+  const SESSION_KEY = 'px_exit_shown';
+  let readyToShow = false;
+  let lastScrollY = window.scrollY;
+
+  const isPreview = new URLSearchParams(window.location.search).has('preview_popup');
+  if (isPreview) sessionStorage.removeItem(SESSION_KEY);
+
+  if (!sessionStorage.getItem(SESSION_KEY)) {
+    setTimeout(() => { readyToShow = true; }, isPreview ? 0 : 5000);
+  }
+
+  function showModal() {
+    if (!readyToShow || sessionStorage.getItem(SESSION_KEY)) return;
+    sessionStorage.setItem(SESSION_KEY, '1');
+    modal.style.display = 'flex';
+    panel.style.opacity = '0';
+    panel.style.transform = window.innerWidth < 640 ? 'translateY(100%)' : 'translateY(20px)';
+    panel.style.transition = 'transform 0.38s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      panel.style.opacity = '1';
+      panel.style.transform = 'translateY(0)';
+    }));
+  }
+
+  function hideModal() {
+    panel.style.opacity = '0';
+    panel.style.transform = window.innerWidth < 640 ? 'translateY(100%)' : 'translateY(20px)';
+    setTimeout(() => { modal.style.display = 'none'; }, 350);
+  }
+
+  // Desktop: cursor leaves document toward the top (back/close button area)
+  document.addEventListener('mouseout', (e) => {
+    if (!e.relatedTarget && (e as MouseEvent).clientY < 10) showModal();
+  });
+
+  // Mobile: fast scroll upward (backing out behaviour)
+  window.addEventListener('scroll', () => {
+    const delta = lastScrollY - window.scrollY;
+    if (delta > 50 && window.scrollY > 200) showModal();
+    lastScrollY = window.scrollY;
+  }, { passive: true });
+
+  // Mobile: switching tabs or pressing home
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') showModal();
+  });
+
+  closeBtn.addEventListener('click', hideModal);
+  dismissBtn.addEventListener('click', hideModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+
+  // Form submit
+  exitForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    exitBtn.disabled = true;
+    exitBtn.textContent = 'Sending…';
+    try {
+      const res = await fetch(exitForm.action, {
+        method: 'POST',
+        body: new FormData(exitForm),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        exitForm.classList.add('hidden');
+        exitSuccess.classList.remove('hidden');
+        setTimeout(hideModal, 3000);
+      } else {
+        exitBtn.disabled = false;
+        exitBtn.textContent = 'Claim my free website';
+      }
+    } catch {
+      exitBtn.disabled = false;
+      exitBtn.textContent = 'Claim my free website';
+    }
+  });
+</script>
 
 </Layout>
 

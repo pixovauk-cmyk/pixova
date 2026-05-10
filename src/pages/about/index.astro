@@ -329,14 +329,15 @@ const localBusinessSchema = {
                 <legend class="block text-xs font-semibold mb-2" style="color:#1C3557;">What do you need help with? <span style="color:#2ECC9A;">*</span></legend>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {[
+                    { value: 'free-site', label: '🎁 Free website (limited — 5 spots)', highlight: true },
                     { value: 'new-website', label: 'A new website' },
                     { value: 'seo', label: 'SEO and getting found on Google' },
                     { value: 'both', label: 'Both — website and SEO' },
                     { value: 'automation', label: 'AI & marketing automation' },
                     { value: 'not-sure', label: "Not sure yet — happy to chat" },
                   ].map(opt => (
-                    <label class="flex items-center gap-2.5 cursor-pointer p-3 rounded-lg border border-gray-200 hover:border-teal transition-colors text-xs font-medium" style="color:#1A2E3D;">
-                      <input type="radio" name="help_type" value={opt.value} required class="accent-teal w-4 h-4 flex-shrink-0" />
+                    <label class={`flex items-center gap-2.5 cursor-pointer p-3 rounded-lg border transition-colors text-xs font-medium ${opt.highlight ? 'border-yellow-400 bg-yellow-50' : 'border-gray-200 hover:border-teal'}`} style={opt.highlight ? 'color:#92660a;' : 'color:#1A2E3D;'}>
+                      <input type="radio" name="help_type" value={opt.value} required class="accent-teal w-4 h-4 flex-shrink-0" id={`radio-${opt.value}`} />
                       {opt.label}
                     </label>
                   ))}
@@ -390,6 +391,12 @@ const localBusinessSchema = {
 </Layout>
 
 <script>
+  // Auto-select free site option if arriving via offer link
+  if (new URLSearchParams(window.location.search).get('offer') === 'free-site') {
+    const radio = document.getElementById('radio-free-site') as HTMLInputElement;
+    if (radio) radio.checked = true;
+  }
+
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const success = document.getElementById('form-success');
   const error = document.getElementById('form-error');

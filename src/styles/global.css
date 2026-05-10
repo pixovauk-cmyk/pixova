@@ -156,7 +156,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   padding: 0.875rem 1.75rem;
   border-radius: 10px;
-  border: 2px solid rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.3);
   color: #fff;
   background: transparent;
   transition: border-color 0.15s, background-color 0.15s;
@@ -164,6 +164,34 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 .btn-g:hover {
-  border-color: rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Live dot */
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2ECC9A;
+  box-shadow: 0 0 0 0 rgba(46,204,154,0.5);
+  animation: live-pulse 2s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(46,204,154,0.5); }
+  60%  { box-shadow: 0 0 0 7px rgba(46,204,154,0); }
+  100% { box-shadow: 0 0 0 0 rgba(46,204,154,0); }
+}
+
+/* Ambient card — hairline border, minimal shadow, no heavy lift */
+.card-light {
+  background: #ffffff;
+  border: 1px solid rgba(13,34,64,0.08);
+  box-shadow: 0 2px 24px rgba(13,34,64,0.05);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.card-light:hover {
+  border-color: rgba(13,34,64,0.13);
+  box-shadow: 0 4px 32px rgba(13,34,64,0.09);
 }
