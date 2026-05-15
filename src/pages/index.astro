@@ -93,16 +93,16 @@ import Layout from '../layouts/Layout.astro';
   <!-- HERO ─────────────────────────────────────────────── -->
   <section
     class="relative overflow-hidden flex items-center"
-    style="background-color:#0D2240; min-height:calc(100svh - 64px);"
+    style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%); min-height:calc(100svh - 64px);"
   >
-    <!-- Bold teal glow — top right -->
-    <div class="orb absolute pointer-events-none" style="width:750px;height:750px;top:-200px;right:-200px;border-radius:50%;background:radial-gradient(circle, rgba(46,204,154,0.28) 0%, transparent 55%);"></div>
-    <!-- Purple accent glow — centre left -->
-    <div class="orb-2 absolute pointer-events-none" style="width:600px;height:600px;top:10%;left:-150px;border-radius:50%;background:radial-gradient(circle, rgba(120,60,255,0.18) 0%, transparent 55%);"></div>
+    <!-- Teal glow — top right -->
+    <div class="orb absolute pointer-events-none" style="width:750px;height:750px;top:-200px;right:-200px;border-radius:50%;background:radial-gradient(circle, rgba(46,204,154,0.22) 0%, transparent 55%);"></div>
+    <!-- Navy accent — centre left -->
+    <div class="orb-2 absolute pointer-events-none" style="width:600px;height:600px;top:10%;left:-150px;border-radius:50%;background:radial-gradient(circle, rgba(13,34,64,0.06) 0%, transparent 55%);"></div>
     <!-- Teal glow — bottom right -->
-    <div class="orb absolute pointer-events-none" style="width:500px;height:500px;bottom:-150px;right:10%;border-radius:50%;background:radial-gradient(circle, rgba(46,204,154,0.18) 0%, transparent 55%);"></div>
-    <!-- Cyan accent — bottom left -->
-    <div class="orb-2 absolute pointer-events-none" style="width:400px;height:400px;bottom:-80px;left:20%;border-radius:50%;background:radial-gradient(circle, rgba(0,210,230,0.1) 0%, transparent 55%);"></div>
+    <div class="orb absolute pointer-events-none" style="width:500px;height:500px;bottom:-150px;right:10%;border-radius:50%;background:radial-gradient(circle, rgba(46,204,154,0.15) 0%, transparent 55%);"></div>
+    <!-- Teal accent — bottom left -->
+    <div class="orb-2 absolute pointer-events-none" style="width:400px;height:400px;bottom:-80px;left:20%;border-radius:50%;background:radial-gradient(circle, rgba(46,204,154,0.1) 0%, transparent 55%);"></div>
 
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full py-16 md:py-20">
@@ -111,55 +111,39 @@ import Layout from '../layouts/Layout.astro';
         <!-- Left: text -->
         <div class="order-2 lg:order-1 hero-animate">
           <div class="flex items-center gap-2 mb-5">
-            <span class="block w-5 h-0.5 rounded" style="background:#2ECC9A;"></span>
-            <span class="sec-label">Birmingham · AI-Powered · UK-Wide</span>
+            <span class="block w-5 h-0.5 rounded" style="background:rgba(13,34,64,0.4);"></span>
+            <span class="sec-label" style="color:rgba(13,34,64,0.65);">Birmingham · AI-Powered · UK-Wide</span>
           </div>
-          <h1 class="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5" style="color:#fff; letter-spacing:-0.025em;">
+          <h1 class="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5" style="color:#0D2240; letter-spacing:-0.025em;">
             Small business<br/>websites that<br/>actually <span style="color:#2ECC9A;">get you found.</span>
           </h1>
 
-          <!-- Industry selector pills -->
-          <div class="flex flex-wrap gap-2 mb-5 hero-animate-delay">
-            {[
-              { key: 'trades',       label: '🔧 Trades'       },
-              { key: 'beauty',       label: '💅 Salons'        },
-              { key: 'professional', label: '💼 Professional'  },
-            ].map(ind => (
-              <button
-                class="ind-pill text-xs font-semibold px-3 py-1.5 rounded-full cursor-pointer"
-                data-key={ind.key}
-                type="button"
-                style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.5); transition:background 0.2s, border-color 0.2s, color 0.2s;"
-              >{ind.label}</button>
-            ))}
-          </div>
-
-          <p id="hero-desc" class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style="color:rgba(255,255,255,0.62); transition:opacity 0.2s ease, transform 0.2s ease;">
+          <p class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style="color:rgba(13,34,64,0.7);">
             No confusing tech. No overpriced agencies. Just a proper
             website built with AI — managed by us, so your phone rings from Google.
           </p>
 
           <div class="flex flex-wrap gap-3 mb-5">
-            <a href="/about#contact" class="btn-p" style="box-shadow:0 4px 20px rgba(46,204,154,0.3);">
+            <a href="/about#contact" class="btn-p" style="background-color:#0D2240; color:#fff; box-shadow:0 4px 20px rgba(13,34,64,0.25);">
               Let's have a chat
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="#how-it-works" class="btn-g">
+            <a href="#how-it-works" class="btn-g" style="border-color:rgba(13,34,64,0.35); color:#0D2240;">
               See how it works
             </a>
           </div>
 
           <!-- Free site offer -->
-          <a href="/about?offer=free-site#contact" class="inline-flex items-center gap-3 mb-10 rounded-xl px-4 py-3 group transition-all" style="background:rgba(46,204,154,0.1); border:1px solid rgba(46,204,154,0.35);">
-            <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#2ECC9A; color:#0D2240;">5 spots</span>
-            <span class="text-sm font-semibold" style="color:#fff;">Claim your free website — limited offer</span>
-            <svg class="flex-shrink-0 transition-transform group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <a href="/about?offer=free-site#contact" class="inline-flex items-center gap-3 mb-10 rounded-xl px-4 py-3 group transition-all" style="background:rgba(13,34,64,0.08); border:1px solid rgba(13,34,64,0.2);">
+            <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#0D2240; color:#2ECC9A;">5 spots</span>
+            <span class="text-sm font-semibold" style="color:#0D2240;">Claim your free website — limited offer</span>
+            <svg class="flex-shrink-0 transition-transform group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
 
           <div class="flex flex-wrap gap-x-5 gap-y-2 hero-animate-delay">
             {['UK-based team', 'Live in 7 days', 'Fully managed', 'No long contracts'].map(badge => (
-              <span class="flex items-center gap-1.5 text-xs font-medium" style="color:rgba(255,255,255,0.55);">
-                <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#2ECC9A;"></span>
+              <span class="flex items-center gap-1.5 text-xs font-medium" style="color:rgba(13,34,64,0.65);">
+                <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:rgba(13,34,64,0.5);"></span>
                 {badge}
               </span>
             ))}
@@ -179,25 +163,25 @@ import Layout from '../layouts/Layout.astro';
               class="w-full h-full object-cover object-top"
             />
             <!-- Gradient overlay -->
-            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.75) 0%, transparent 55%);"></div>
+            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.8) 0%, transparent 55%);"></div>
             <!-- Badge -->
-            <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2.5 rounded-xl px-3 py-2.5" style="background:rgba(13,34,64,0.85); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.1);">
+            <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2.5 rounded-xl px-3 py-2.5" style="background:rgba(13,34,64,0.88); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.12);">
               <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#2ECC9A;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
               </div>
               <div>
                 <p class="text-white text-xs font-semibold leading-tight" style="font-family:'DM Sans',sans-serif;">Live in 7 days</p>
-                <p class="text-xs leading-tight" style="color:rgba(255,255,255,0.5);">Not 7 weeks</p>
+                <p class="text-xs leading-tight" style="color:rgba(255,255,255,0.7);">Not 7 weeks</p>
               </div>
             </div>
           </div>
 
           <!-- Card 2: Stat card -->
-          <div class="rounded-2xl p-5 flex flex-col justify-between" style="background:#fff; height:260px; grid-column:2; grid-row:1;">
+          <div class="rounded-2xl p-5 flex flex-col justify-between" style="background:#E8F5F1; height:260px; grid-column:2; grid-row:1;">
             <div>
               <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:#2ECC9A; letter-spacing:0.1em;">UK-wide reach</p>
               <div class="font-heading font-bold text-5xl leading-none mb-2" style="color:#1C3557; letter-spacing:-0.04em;">100<span style="color:#2ECC9A; font-size:2rem;">%</span></div>
-              <p class="text-xs leading-relaxed" style="color:#6a8090;">Fully managed — hosting, updates, security. You do nothing.</p>
+              <p class="text-xs leading-relaxed" style="color:#556272;">Fully managed — hosting, updates, security. You do nothing.</p>
             </div>
             <div>
               <div class="h-1 rounded-full mb-1" style="background:#E8F5F1; overflow:hidden;">
@@ -211,7 +195,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="col-span-2 rounded-2xl p-5 flex items-center justify-between gap-4" style="background:linear-gradient(135deg,#0D1F2D 0%,#1C3557 100%); height:140px;">
             <div>
               <p class="text-xs font-semibold uppercase tracking-widest mb-2" style="color:#2ECC9A; letter-spacing:0.08em;">SEO &amp; traffic growth</p>
-              <h3 class="font-heading font-bold text-base leading-snug" style="color:#fff;">Your Google rankings,<br/>handled for you.</h3>
+              <p class="font-heading font-bold text-base leading-snug" style="color:#fff;">Your Google rankings,<br/>handled for you.</p>
             </div>
             <!-- Mini bar chart -->
             <div class="flex items-end gap-1.5 flex-shrink-0" style="height:56px;">
@@ -229,16 +213,16 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <!-- Live stats bar -->
-      <div class="mt-12 pt-8 relative z-10" style="border-top:1px solid rgba(255,255,255,0.07);">
+      <div class="mt-12 pt-8 relative z-10" style="border-top:1px solid rgba(13,34,64,0.15);">
         <div class="flex flex-wrap items-center gap-6 sm:gap-10">
 
           <!-- Live indicator -->
           <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="live-dot"></span>
-            <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.4);">Live</span>
+            <span class="live-dot" style="background:#0D2240; box-shadow:none; animation:none;"></span>
+            <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(13,34,64,0.5);">Live</span>
           </div>
 
-          <div class="w-px h-6 flex-shrink-0 hidden sm:block" style="background:rgba(255,255,255,0.1);"></div>
+          <div class="w-px h-6 flex-shrink-0 hidden sm:block" style="background:rgba(13,34,64,0.15);"></div>
 
           <!-- Stats -->
           <div class="flex flex-wrap gap-6 sm:gap-10">
@@ -252,9 +236,9 @@ import Layout from '../layouts/Layout.astro';
                   class="live-counter font-heading font-black text-2xl leading-none"
                   data-target={s.target}
                   data-delay={i * 120}
-                  style="color:#2ECC9A; letter-spacing:-0.03em;"
+                  style="color:#0D2240; letter-spacing:-0.03em;"
                 >0</span>
-                <span class="text-xs" style="color:rgba(255,255,255,0.45);">{s.label}</span>
+                <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
               </div>
             ))}
           </div>
@@ -266,7 +250,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- TESTIMONIAL ─────────────────────────────────────── -->
-  <section class="py-10" style="background-color:#E8F5F1;">
+  <section class="py-10 bg-offwhite">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <div class="card-light fade-up overflow-hidden rounded-2xl flex flex-col md:flex-row">
 
@@ -284,7 +268,7 @@ import Layout from '../layouts/Layout.astro';
               </div>
               <div class="pb-5">
                 <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">No online presence</p>
-                <p class="text-xs leading-relaxed" style="color:#6a8090;">Invisible on Google. Relying on word of mouth alone with no way to reach new customers searching online.</p>
+                <p class="text-xs leading-relaxed" style="color:#556272;">Invisible on Google. Relying on word of mouth alone with no way to reach new customers searching online.</p>
               </div>
             </div>
 
@@ -296,7 +280,7 @@ import Layout from '../layouts/Layout.astro';
               </div>
               <div class="pb-5">
                 <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">Pixova built &amp; launched in 7 days</p>
-                <p class="text-xs leading-relaxed" style="color:#6a8090;">A fast, SEO-ready website live in under a week. Fully managed from day one — Jake didn't touch a thing.</p>
+                <p class="text-xs leading-relaxed" style="color:#556272;">A fast, SEO-ready website live in under a week. Fully managed from day one — Jake didn't touch a thing.</p>
               </div>
             </div>
 
@@ -307,7 +291,7 @@ import Layout from '../layouts/Layout.astro';
               </div>
               <div>
                 <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">Phone started ringing from Google</p>
-                <p class="text-xs leading-relaxed" style="color:#6a8090;">New customers calling within the first month — people who had never heard of him, finding him through search.</p>
+                <p class="text-xs leading-relaxed" style="color:#556272;">New customers calling within the first month — people who had never heard of him, finding him through search.</p>
               </div>
             </div>
 
@@ -348,7 +332,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- WHO WE HELP ─────────────────────────────────────── -->
-  <section class="py-28 bg-offwhite">
+  <section class="py-28" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="mb-12">
         <span class="sec-label reveal">Who we help</span>
@@ -476,7 +460,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- LAUNCH WEEK TIMELINE ────────────────────────────── -->
-  <section class="py-20" style="background-color:#E8F5F1;">
+  <section class="py-20" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
 
       <div class="text-center mb-14">
@@ -670,7 +654,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- REAL BUSINESSES. REAL RESULTS. ─────────────────── -->
-  <section class="py-20" style="background-color:#E8F5F1;">
+  <section class="py-20" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
@@ -719,7 +703,7 @@ import Layout from '../layouts/Layout.astro';
           <!-- Light stat card — 100% managed -->
           <div class="bg-white rounded-2xl p-6 shadow-sm reveal reveal-d1">
             <div class="font-heading font-black text-5xl leading-none mb-1" style="color:#1C3557; letter-spacing:-0.04em;">100<span style="color:#2ECC9A; font-size:2rem;">%</span></div>
-            <p class="text-xs mb-3" style="color:#6a8090;">Managed — you do nothing</p>
+            <p class="text-xs mb-3" style="color:#556272;">Managed — you do nothing</p>
             <p class="text-xs leading-relaxed" style="color:#4a6070;">From brief to live site — not 7 weeks. Not 7 months.</p>
           </div>
 
@@ -790,8 +774,9 @@ import Layout from '../layouts/Layout.astro';
             <div class="absolute pointer-events-none" style="top:10px; left:50%; transform:translateX(-50%); width:248px; height:333px; border:1px solid rgba(46,204,154,0.35); border-radius:124px 124px 97px 97px; z-index:11;"></div>
             <div class="absolute pointer-events-none" style="top:17px; left:50%; transform:translateX(-50%); width:233px; height:318px; border:2px solid #2ECC9A; border-radius:117px 117px 92px 92px; z-index:11;"></div>
             <img
-              src="/images/anil-cutout.png"
+              src="/images/anil-cutout-680.png"
               alt="Anil Jaishi, founder of Pixova"
+              width="340" height="340"
               loading="lazy"
               style="display:block; width:340px; position:relative; z-index:10;"
             />
@@ -820,7 +805,7 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- FAQ ─────────────────────────────────────────────── -->
-  <section class="py-20 bg-offwhite" id="faq">
+  <section class="py-20" id="faq" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
       <div class="mb-12 text-center">
         <span class="sec-label reveal">FAQ</span>
@@ -996,7 +981,7 @@ import Layout from '../layouts/Layout.astro';
     <div id="exit-form-success" class="hidden px-5 pb-6 text-center">
       <div class="text-3xl mb-2">👋</div>
       <p class="font-heading font-bold text-lg mb-1" style="color:#0D2240;">You're on the list.</p>
-      <p class="text-sm" style="color:#6a8090;">Anil will message you personally within 24 hours.</p>
+      <p class="text-sm" style="color:#556272;">Anil will message you personally within 24 hours.</p>
     </div>
 
     <button id="exit-modal-dismiss" class="w-full pb-5 text-xs text-center" style="color:#aab0ba;">No thanks</button>
@@ -1127,47 +1112,6 @@ import Layout from '../layouts/Layout.astro';
         setTimeout(() => { urgencyBar.style.display = 'none'; }, 420);
       });
     }
-  }
-
-  // ── Industry selector ───────────────────────────────
-  const industryData: Record<string, string> = {
-    trades:       'No confusing tech. No overpriced agencies. Just a proper website built with AI — managed by us, so your phone rings from Google.',
-    beauty:       'Salons, therapists, studios — your website attracts clients who find you on Google, not just Instagram. Fully managed by us.',
-    professional: 'Accountants, solicitors, consultants — build authority online before a prospect has spoken to a competitor.',
-  };
-  const pills     = document.querySelectorAll<HTMLElement>('.ind-pill');
-  const heroDesc  = document.getElementById('hero-desc') as HTMLElement | null;
-  let autoCycle: ReturnType<typeof setInterval> | null = null;
-
-  function setIndustry(key: string, stopCycle = false) {
-    if (stopCycle && autoCycle) { clearInterval(autoCycle); autoCycle = null; }
-    pills.forEach(p => {
-      const active = p.dataset.key === key;
-      p.style.background   = active ? 'rgba(46,204,154,0.15)' : 'rgba(255,255,255,0.06)';
-      p.style.borderColor  = active ? 'rgba(46,204,154,0.5)'  : 'rgba(255,255,255,0.12)';
-      p.style.color        = active ? '#2ECC9A'                : 'rgba(255,255,255,0.5)';
-    });
-    if (heroDesc && industryData[key]) {
-      heroDesc.style.opacity   = '0';
-      heroDesc.style.transform = 'translateY(5px)';
-      setTimeout(() => {
-        heroDesc.textContent     = industryData[key];
-        heroDesc.style.opacity   = '1';
-        heroDesc.style.transform = 'translateY(0)';
-      }, 200);
-    }
-  }
-
-  if (pills.length) {
-    pills.forEach(p => p.addEventListener('click', () => setIndustry(p.dataset.key!, true)));
-    // Initial state — set trades (matches SSR text, no flash)
-    setIndustry('trades');
-    const cycleKeys = ['trades', 'beauty', 'professional'];
-    let cycleIdx = 0;
-    autoCycle = setInterval(() => {
-      cycleIdx = (cycleIdx + 1) % cycleKeys.length;
-      setIndustry(cycleKeys[cycleIdx]);
-    }, 3500);
   }
 
   // ── Magnetic buttons (desktop pointer only) ─────────
