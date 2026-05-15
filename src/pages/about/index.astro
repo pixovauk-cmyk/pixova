@@ -5,8 +5,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pixova.uk/' },
-    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://pixova.uk/about/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pixova.uk/' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://www.pixova.uk/about/' },
   ],
 };
 
@@ -14,8 +14,8 @@ const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'Pixova',
-  url: 'https://pixova.uk',
-  logo: 'https://pixova.uk/favicon.svg',
+  url: 'https://www.pixova.uk',
+  logo: 'https://www.pixova.uk/favicon.svg',
   description: 'Pixova builds fast, SEO-ready websites and handles local SEO for small and medium businesses across the UK. Based in Birmingham.',
   telephone: '+447786366109',
   email: 'hello@pixova.uk',
@@ -42,7 +42,7 @@ const localBusinessSchema = {
 <Layout
   title="About Pixova | Birmingham Digital Agency | Anil Jaishi"
   description="Pixova is a Birmingham digital agency helping small businesses get found on Google. AI-powered web design and local SEO — no jargon, no long contracts."
-  canonicalUrl="https://pixova.uk/about/"
+  canonicalUrl="https://www.pixova.uk/about/"
   schema={localBusinessSchema}
 >
 
@@ -54,11 +54,10 @@ const localBusinessSchema = {
     <div class="absolute inset-0">
       <img
         src="/images/hero-collage.webp"
-        alt=""
+        alt="Pixova digital agency Birmingham — web design and SEO for small businesses"
         width="1400" height="781"
         loading="eager" fetchpriority="high"
         class="w-full h-full object-cover"
-        aria-hidden="true"
       />
       <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(13,34,64,0.93) 0%, rgba(13,34,64,0.82) 60%, rgba(13,34,64,0.75) 100%);"></div>
     </div>

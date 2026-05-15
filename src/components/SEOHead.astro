@@ -16,7 +16,7 @@ const {
   title,
   description,
   canonicalUrl,
-  ogImage = 'https://pixova.uk/images/og-image.jpg',
+  ogImage = 'https://www.pixova.uk/images/og-image.jpg',
   schema,
   articleSchema,
 } = Astro.props;
@@ -25,8 +25,8 @@ const defaultSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'Pixova',
-  url: 'https://pixova.uk',
-  logo: 'https://pixova.uk/favicon.svg',
+  url: 'https://www.pixova.uk',
+  logo: 'https://www.pixova.uk/favicon.svg',
   image: ogImage,
   description:
     'Pixova builds fast, SEO-ready websites and handles local SEO for small and medium businesses across the UK. Based in Birmingham.',
@@ -82,7 +82,7 @@ const articleJsonLd = articleSchema
       publisher: {
         '@type': 'Organization',
         name: 'Pixova',
-        logo: { '@type': 'ImageObject', url: 'https://pixova.uk/favicon.svg' },
+        logo: { '@type': 'ImageObject', url: 'https://www.pixova.uk/favicon.svg' },
       },
       datePublished: articleSchema.datePublished,
       dateModified: articleSchema.dateModified,

@@ -30,9 +30,9 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pixova.uk/' },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://pixova.uk/blog/' },
-    { '@type': 'ListItem', position: 3, name: postTitle, item: `https://pixova.uk/blog/${post.id}/` },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pixova.uk/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.pixova.uk/blog/' },
+    { '@type': 'ListItem', position: 3, name: postTitle, item: `https://www.pixova.uk/blog/${post.id}/` },
   ],
 };
 ---
@@ -40,7 +40,7 @@ const breadcrumbSchema = {
 <Layout
   title={`${post.data.seoTitle ?? postTitle} | Pixova`}
   description={post.data.description}
-  canonicalUrl={`https://pixova.uk/blog/${post.id}/`}
+  canonicalUrl={`https://www.pixova.uk/blog/${post.id}/`}
   ogImage={post.data.heroImage}
   articleSchema={{
     headline: postTitle,

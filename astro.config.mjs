@@ -7,7 +7,7 @@ import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  site: 'https://pixova.uk',
+  site: 'https://www.pixova.uk',
   adapter: vercel(),
   server: { port: 4401 },
   integrations: [
