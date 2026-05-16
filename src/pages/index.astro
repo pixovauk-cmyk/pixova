@@ -940,10 +940,17 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Chat bubble from Anil -->
     <div class="px-5 pt-5 pb-3">
-      <div class="rounded-2xl rounded-tl-sm px-4 py-3.5 inline-block max-w-xs mb-1" style="background:rgba(255,255,255,0.07); border:1px solid rgba(46,204,154,0.14);">
+      <!-- Typing indicator -->
+      <div id="chat-typing" class="rounded-2xl rounded-tl-sm px-4 py-3.5 inline-flex items-center gap-1.5 mb-1" style="display:none; background:rgba(255,255,255,0.07); border:1px solid rgba(46,204,154,0.14);">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+      <!-- Actual message (hidden until typing finishes) -->
+      <div id="chat-message" class="rounded-2xl rounded-tl-sm px-4 py-3.5 inline-block max-w-xs mb-1" style="display:none; background:rgba(255,255,255,0.07); border:1px solid rgba(46,204,154,0.14);">
         <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.82);">Hey — before you go. I'm giving away <strong style="color:#2ECC9A; font-weight:700;">2 free websites</strong> this month to UK businesses. Takes 30 seconds to grab a spot.</p>
       </div>
-      <p class="text-xs ml-1 mt-1" style="color:rgba(255,255,255,0.28);">just now</p>
+      <p id="chat-timestamp" class="text-xs ml-1 mt-1" style="display:none; color:rgba(255,255,255,0.28);">just now</p>
     </div>
 
     <!-- Spots bar -->
@@ -996,6 +1003,23 @@ import Layout from '../layouts/Layout.astro';
   .exit-input:focus { border-color: rgba(46,204,154,0.4) !important; }
   #exit-form-btn:hover { opacity: 0.9; }
   #exit-modal-dismiss:hover { color: rgba(255,255,255,0.55); }
+
+  /* Typing indicator dots */
+  .typing-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #2ECC9A;
+    opacity: 0.7;
+    animation: typing-bounce 1.3s ease-in-out infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.18s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.36s; }
+
+  @keyframes typing-bounce {
+    0%, 60%, 100% { transform: translateY(0);    opacity: 0.5; }
+    30%            { transform: translateY(-6px); opacity: 1;   }
+  }
 </style>
 
 <script>
@@ -1043,9 +1067,19 @@ import Layout from '../layouts/Layout.astro';
     setTimeout(() => { readyToShow = true; }, isPreview ? 0 : 5000);
   }
 
+  const typingEl   = document.getElementById('chat-typing')!;
+  const messageEl  = document.getElementById('chat-message')!;
+  const stampEl    = document.getElementById('chat-timestamp')!;
+
   function showModal() {
     if (!readyToShow || sessionStorage.getItem(SESSION_KEY)) return;
     sessionStorage.setItem(SESSION_KEY, '1');
+
+    // Reset chat state
+    typingEl.style.display  = 'none';
+    messageEl.style.display = 'none';
+    stampEl.style.display   = 'none';
+
     modal.style.display = 'flex';
     panel.style.opacity = '0';
     panel.style.transform = window.innerWidth < 640 ? 'translateY(100%)' : 'translateY(20px)';
@@ -1054,6 +1088,25 @@ import Layout from '../layouts/Layout.astro';
       panel.style.opacity = '1';
       panel.style.transform = 'translateY(0)';
     }));
+
+    // Typing indicator appears after panel slides in
+    setTimeout(() => {
+      typingEl.style.display = 'inline-flex';
+    }, 500);
+
+    // Swap typing → message after 2s of "typing"
+    setTimeout(() => {
+      typingEl.style.display  = 'none';
+      messageEl.style.display = 'inline-block';
+      messageEl.style.opacity = '0';
+      messageEl.style.transform = 'translateY(5px)';
+      messageEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        messageEl.style.opacity   = '1';
+        messageEl.style.transform = 'translateY(0)';
+      }));
+      setTimeout(() => { stampEl.style.display = 'block'; }, 320);
+    }, 2500);
   }
 
   function hideModal() {
