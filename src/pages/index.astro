@@ -913,44 +913,47 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 <!-- EXIT INTENT MODAL -->
-<div id="exit-modal" class="fixed inset-0 z-[999] flex items-end sm:items-center justify-center" style="display:none; background:rgba(13,34,64,0.6); backdrop-filter:blur(4px);" aria-modal="true" role="dialog" aria-label="Limited offer">
+<div id="exit-modal" class="fixed inset-0 z-[999] flex items-end sm:items-center justify-center" style="display:none; background:rgba(5,12,22,0.82); backdrop-filter:blur(6px);" aria-modal="true" role="dialog" aria-label="Limited offer">
 
-  <div id="exit-modal-panel" class="relative w-full sm:max-w-md mx-0 sm:mx-6 bg-white overflow-hidden" style="border-radius:16px 16px 0 0; box-shadow:0 32px 80px rgba(0,0,0,0.25);">
+  <div id="exit-modal-panel" class="relative w-full sm:max-w-md mx-0 sm:mx-6 overflow-hidden rounded-t-[22px] sm:rounded-[22px]" style="background:linear-gradient(160deg,#0A1C31 0%,#112840 100%); border:1px solid rgba(46,204,154,0.2); box-shadow:0 40px 80px rgba(0,0,0,0.65), 0 0 60px rgba(46,204,154,0.06);">
 
-    <!-- Navy top bar with Anil photo + name -->
-    <div class="flex items-center gap-3 px-5 py-4" style="background:#0D2240;">
+    <!-- Ambient teal glow — top right -->
+    <div class="absolute pointer-events-none" style="top:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(46,204,154,0.1) 0%,transparent 70%);"></div>
+
+    <!-- Top bar: Anil photo + name -->
+    <div class="flex items-center gap-3 px-5 py-4" style="border-bottom:1px solid rgba(46,204,154,0.1);">
       <div class="relative flex-shrink-0">
         <img src="/images/anil.webp" alt="Anil Jaishi" width="40" height="40"
           class="rounded-full object-cover object-top"
           style="width:40px;height:40px;border:2px solid #2ECC9A;"
         />
-        <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full" style="background:#2ECC9A; border:2px solid #0D2240;"></span>
+        <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full" style="background:#2ECC9A; border:2px solid #0A1C31;"></span>
       </div>
       <div>
         <p class="text-sm font-bold leading-none mb-0.5" style="color:#fff;">Anil Jaishi</p>
-        <p class="text-xs" style="color:rgba(255,255,255,0.5);">Founder, Pixova · typically replies in minutes</p>
+        <p class="text-xs" style="color:rgba(255,255,255,0.42);">Founder, Pixova · typically replies in minutes</p>
       </div>
-      <button id="exit-modal-close" class="ml-auto w-7 h-7 flex items-center justify-center rounded-full flex-shrink-0" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.4);" aria-label="Close">
+      <button id="exit-modal-close" class="ml-auto w-7 h-7 flex items-center justify-center rounded-full flex-shrink-0" style="background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.45); border:1px solid rgba(255,255,255,0.08);" aria-label="Close">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
 
     <!-- Chat bubble from Anil -->
     <div class="px-5 pt-5 pb-3">
-      <div class="rounded-2xl rounded-tl-sm px-4 py-3 inline-block max-w-xs mb-1" style="background:#f0f4f8;">
-        <p class="text-sm leading-relaxed" style="color:#1A2E3D;">Hey — before you go. I'm giving away <strong>2 free websites</strong> this month to UK businesses. Takes 30 seconds to grab a spot.</p>
+      <div class="rounded-2xl rounded-tl-sm px-4 py-3.5 inline-block max-w-xs mb-1" style="background:rgba(255,255,255,0.07); border:1px solid rgba(46,204,154,0.14);">
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.82);">Hey — before you go. I'm giving away <strong style="color:#2ECC9A; font-weight:700;">2 free websites</strong> this month to UK businesses. Takes 30 seconds to grab a spot.</p>
       </div>
-      <p class="text-xs ml-1" style="color:#aab0ba;">just now</p>
+      <p class="text-xs ml-1 mt-1" style="color:rgba(255,255,255,0.28);">just now</p>
     </div>
 
     <!-- Spots bar -->
-    <div class="mx-5 mb-4 rounded-xl px-4 py-3 flex items-center gap-3" style="background:#f7fafa; border:1px solid #e4edf0;">
-      <div class="flex gap-1">
+    <div class="mx-5 mb-4 rounded-xl px-4 py-3 flex items-center gap-3" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
+      <div class="flex gap-1.5">
         {[1,2,3,4,5].map(i => (
-          <span class="w-2.5 h-2.5 rounded-full" style={i <= 3 ? 'background:#2ECC9A;' : 'background:#dde5e8;'}></span>
+          <span class="w-2.5 h-2.5 rounded-full" style={i <= 3 ? 'background:#2ECC9A; box-shadow:0 0 6px rgba(46,204,154,0.5);' : 'background:rgba(255,255,255,0.12);'}></span>
         ))}
       </div>
-      <span class="text-xs font-semibold" style="color:#1C3557;">3 of 5 spots taken</span>
+      <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.78);">3 of 5 spots taken</span>
       <span class="live-dot ml-auto"></span>
     </div>
 
@@ -961,32 +964,39 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="grid grid-cols-2 gap-2 mb-2">
         <input type="text" name="name" required placeholder="Your name"
-          class="rounded-lg px-3.5 py-2.5 text-sm focus:outline-none"
-          style="background:#f7fafa; border:1px solid #dde5e8; color:#1A2E3D;"
+          class="exit-input rounded-lg px-3.5 py-2.5 text-sm focus:outline-none"
+          style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.11); color:#fff;"
         />
         <input type="tel" name="phone" required placeholder="Phone number"
-          class="rounded-lg px-3.5 py-2.5 text-sm focus:outline-none"
-          style="background:#f7fafa; border:1px solid #dde5e8; color:#1A2E3D;"
+          class="exit-input rounded-lg px-3.5 py-2.5 text-sm focus:outline-none"
+          style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.11); color:#fff;"
         />
       </div>
       <input type="email" name="email" required placeholder="Email address"
-        class="w-full rounded-lg px-3.5 py-2.5 text-sm focus:outline-none mb-3"
-        style="background:#f7fafa; border:1px solid #dde5e8; color:#1A2E3D;"
+        class="exit-input w-full rounded-lg px-3.5 py-2.5 text-sm focus:outline-none mb-3"
+        style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.11); color:#fff;"
       />
-      <button type="submit" id="exit-form-btn" class="w-full py-3 rounded-xl font-heading font-bold text-sm" style="background:#0D2240; color:#fff;">
+      <button type="submit" id="exit-form-btn" class="w-full py-3 rounded-xl font-heading font-bold text-sm transition-opacity" style="background:#2ECC9A; color:#0A1C31; box-shadow:0 4px 20px rgba(46,204,154,0.3);">
         Claim my free spot →
       </button>
     </form>
 
     <div id="exit-form-success" class="hidden px-5 pb-6 text-center">
       <div class="text-3xl mb-2">👋</div>
-      <p class="font-heading font-bold text-lg mb-1" style="color:#0D2240;">You're on the list.</p>
-      <p class="text-sm" style="color:#556272;">Anil will message you personally within 24 hours.</p>
+      <p class="font-heading font-bold text-lg mb-1" style="color:#fff;">You're on the list.</p>
+      <p class="text-sm" style="color:rgba(255,255,255,0.5);">Anil will message you personally within 24 hours.</p>
     </div>
 
-    <button id="exit-modal-dismiss" class="w-full pb-5 text-xs text-center" style="color:#aab0ba;">No thanks</button>
+    <button id="exit-modal-dismiss" class="w-full pb-5 text-xs text-center transition-colors" style="color:rgba(255,255,255,0.28);">No thanks</button>
   </div>
 </div>
+
+<style>
+  .exit-input::placeholder { color: rgba(255,255,255,0.32); }
+  .exit-input:focus { border-color: rgba(46,204,154,0.4) !important; }
+  #exit-form-btn:hover { opacity: 0.9; }
+  #exit-modal-dismiss:hover { color: rgba(255,255,255,0.55); }
+</style>
 
 <script>
   // Count-up animation for live stats
