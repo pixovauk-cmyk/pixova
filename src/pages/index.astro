@@ -249,83 +249,171 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 
-  <!-- TESTIMONIAL ─────────────────────────────────────── -->
-  <section class="py-10 bg-offwhite">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="card-light fade-up overflow-hidden rounded-2xl flex flex-col md:flex-row">
+  <!-- TESTIMONIALS ───────────────────────────────────── -->
+  <section class="py-20 bg-offwhite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
-        <!-- Left 70%: Jake's journey -->
-        <div class="flex-1 bg-white px-7 py-8">
-          <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#2ECC9A; letter-spacing:0.1em;">Client journey</p>
+      <div class="mb-10">
+        <span class="sec-label reveal">CLIENT RESULTS</span>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
+          Don't take our word for it.
+        </h2>
+        <p class="text-base mt-3 max-w-lg reveal reveal-d2" style="color:#4a6070; line-height:1.7;">
+          Three businesses, three different services. Here's what actually happened.
+        </p>
+      </div>
 
-          <div class="flex flex-col gap-0">
+      <!-- Bento grid: Jake large left, Ayoush + Luke stacked right -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
 
-            <!-- Step 1 -->
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#E8F5F1; color:#2ECC9A; border:2px solid #2ECC9A;">1</div>
-                <div class="flex-1 w-px my-1" style="background:rgba(46,204,154,0.2); min-height:28px;"></div>
+        <!-- Jake — spans 2 cols, journey card -->
+        <div class="lg:col-span-2 overflow-hidden rounded-2xl flex flex-col md:flex-row reveal" style="border:1px solid #e8f0f0; box-shadow:0 2px 16px rgba(28,53,87,0.06);">
+
+          <!-- Left: journey steps -->
+          <div class="flex-1 bg-white px-7 py-8">
+            <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#2ECC9A; letter-spacing:0.1em;">Client journey</p>
+            <div class="flex flex-col gap-0">
+
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#E8F5F1; color:#2ECC9A; border:2px solid #2ECC9A;">1</div>
+                  <div class="flex-1 w-px my-1" style="background:rgba(46,204,154,0.2); min-height:28px;"></div>
+                </div>
+                <div class="pb-5">
+                  <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">No online presence</p>
+                  <p class="text-xs leading-relaxed" style="color:#556272;">Invisible on Google. Relying on word of mouth with no way to reach new customers searching online.</p>
+                </div>
               </div>
-              <div class="pb-5">
-                <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">No online presence</p>
-                <p class="text-xs leading-relaxed" style="color:#556272;">Invisible on Google. Relying on word of mouth alone with no way to reach new customers searching online.</p>
+
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#E8F5F1; color:#2ECC9A; border:2px solid #2ECC9A;">2</div>
+                  <div class="flex-1 w-px my-1" style="background:rgba(46,204,154,0.2); min-height:28px;"></div>
+                </div>
+                <div class="pb-5">
+                  <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">Website built and live in 7 days</p>
+                  <p class="text-xs leading-relaxed" style="color:#556272;">Fast, SEO-ready and fully managed from day one. Jake handed over the brief and we handled everything else.</p>
+                </div>
               </div>
+
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#2ECC9A; color:#fff; border:2px solid #2ECC9A;">3</div>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">Phone started ringing from Google</p>
+                  <p class="text-xs leading-relaxed" style="color:#556272;">New customers calling within the first month. People who had never heard of him, finding him through search.</p>
+                </div>
+              </div>
+
             </div>
-
-            <!-- Step 2 -->
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#E8F5F1; color:#2ECC9A; border:2px solid #2ECC9A;">2</div>
-                <div class="flex-1 w-px my-1" style="background:rgba(46,204,154,0.2); min-height:28px;"></div>
-              </div>
-              <div class="pb-5">
-                <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">Pixova built &amp; launched in 7 days</p>
-                <p class="text-xs leading-relaxed" style="color:#556272;">A fast, SEO-ready website live in under a week. Fully managed from day one — Jake didn't touch a thing.</p>
-              </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#2ECC9A; color:#fff; border:2px solid #2ECC9A;">3</div>
-              </div>
-              <div>
-                <p class="font-semibold text-sm mb-0.5" style="color:#1C3557;">Phone started ringing from Google</p>
-                <p class="text-xs leading-relaxed" style="color:#556272;">New customers calling within the first month — people who had never heard of him, finding him through search.</p>
-              </div>
-            </div>
-
           </div>
+
+          <!-- Right: Jake photo + stars + quote -->
+          <div class="md:w-56 flex flex-col items-center justify-center px-6 py-8 text-center" style="background:#1C3557;">
+            <div style="width:76px; height:76px; border-radius:50%; padding:3px; background:linear-gradient(135deg,#2ECC9A,#1db37a); flex-shrink:0;">
+              <img
+                src="/images/jake-victor.webp"
+                alt="Jake Victor"
+                width="70" height="70"
+                loading="lazy"
+                style="width:100%; height:100%; border-radius:50%; object-fit:cover; object-position:top; display:block; border:3px solid #1C3557;"
+              />
+            </div>
+            <p style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.875rem; color:#fff; margin-top:0.65rem; line-height:1.2;">Jake Victor</p>
+            <p style="font-size:0.7rem; color:rgba(255,255,255,0.55); margin-bottom:0.85rem; letter-spacing:0.02em;">Website &amp; SEO · Birmingham</p>
+            <div class="flex gap-0.5 justify-center mb-4">
+              {[1,2,3,4,5].map(() => (
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            <p style="font-size:0.8rem; color:rgba(255,255,255,0.75); line-height:1.65; font-style:italic;">"Honestly the best money we've spent on marketing."</p>
+          </div>
+
         </div>
 
-        <!-- Right 30%: photo + gold stars + quote -->
-        <div class="md:w-56 flex flex-col items-center justify-center px-6 py-8 text-center" style="background:#1C3557;">
-          <!-- Circular photo -->
-          <div style="width:76px; height:76px; border-radius:50%; padding:3px; background:linear-gradient(135deg,#2ECC9A,#1db37a); flex-shrink:0;">
-            <img
-              src="/images/jake-victor.webp"
-              alt="Jake Victor"
-              width="70" height="70"
-              loading="lazy"
-              style="width:100%; height:100%; border-radius:50%; object-fit:cover; object-position:top; display:block; border:3px solid #1C3557;"
-            />
-          </div>
-          <p style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.85rem; color:#fff; margin-top:0.6rem; line-height:1.2;">Jake Victor</p>
-          <p style="font-size:0.68rem; color:rgba(255,255,255,0.7); margin-bottom:0.8rem;">SEO client · Birmingham</p>
+        <!-- Right column: Ayoush + Luke stacked -->
+        <div class="flex flex-col gap-4">
 
-          <!-- Gold stars -->
-          <div class="flex gap-0.5 justify-center mb-4">
-            {[1,2,3,4,5].map(() => (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-            ))}
+          <!-- Ayoush — dark navy card -->
+          <div class="rounded-2xl overflow-hidden reveal reveal-d1" style="background:linear-gradient(145deg,#0D2240 0%,#1C3557 100%); border:1px solid rgba(46,204,154,0.18); box-shadow:0 2px 20px rgba(13,34,64,0.15);">
+            <!-- Teal top accent line -->
+            <div style="height:3px; background:linear-gradient(90deg,#2ECC9A,rgba(46,204,154,0.2));"></div>
+            <div class="p-6">
+              <!-- Person row -->
+              <div class="flex items-center gap-3 mb-4">
+                <div style="width:50px; height:50px; border-radius:50%; padding:2px; background:linear-gradient(135deg,#2ECC9A,#1db37a); flex-shrink:0;">
+                  <img
+                    src="/images/[Ayoush].webp"
+                    alt="Ayoush, Founder of TranoVex"
+                    width="46" height="46"
+                    loading="lazy"
+                    style="width:100%; height:100%; border-radius:50%; object-fit:cover; object-position:top; display:block; border:2px solid #0D2240;"
+                  />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-bold text-sm leading-tight" style="color:#fff;">Ayoush</p>
+                  <p class="text-xs truncate" style="color:rgba(255,255,255,0.45);">Founder, TranoVex</p>
+                </div>
+                <div class="flex gap-0.5 flex-shrink-0">
+                  {[1,2,3,4,5].map(() => (
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
+                </div>
+              </div>
+              <!-- Quote -->
+              <p class="text-sm leading-relaxed mb-4" style="color:rgba(255,255,255,0.75); font-style:italic;">"Anil built the site and sorted our SEO. Within a few weeks clients were calling who'd found us on Google. We weren't doing anything different. It just started working."</p>
+              <!-- Service badge -->
+              <div class="inline-flex items-center gap-2 rounded-lg px-3 py-1.5" style="background:rgba(46,204,154,0.1); border:1px solid rgba(46,204,154,0.2);">
+                <span class="w-1.5 h-1.5 rounded-full" style="background:#2ECC9A;"></span>
+                <span class="text-xs font-semibold" style="color:#2ECC9A;">Website &amp; SEO</span>
+              </div>
+            </div>
           </div>
 
-          <!-- Quote -->
-          <p style="font-size:0.8rem; color:rgba(255,255,255,0.75); line-height:1.65; font-style:italic;">"Honestly the best money we've spent on marketing."</p>
+          <!-- Luke — light card -->
+          <div class="rounded-2xl overflow-hidden reveal reveal-d2" style="background:#fff; border:1px solid #e4eeea; box-shadow:0 2px 16px rgba(28,53,87,0.05);">
+            <!-- Mint top accent line -->
+            <div style="height:3px; background:linear-gradient(90deg,#2ECC9A,rgba(46,204,154,0.15));"></div>
+            <div class="p-6">
+              <!-- Person row -->
+              <div class="flex items-center gap-3 mb-4">
+                <div style="width:50px; height:50px; border-radius:50%; padding:2px; background:linear-gradient(135deg,#2ECC9A,#1db37a); flex-shrink:0;">
+                  <img
+                    src="/images/[Luke].webp"
+                    alt="Luke, Senior Sales Professional"
+                    width="46" height="46"
+                    loading="lazy"
+                    style="width:100%; height:100%; border-radius:50%; object-fit:cover; object-position:top; display:block; border:2px solid #fff;"
+                  />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-bold text-sm leading-tight" style="color:#1C3557;">Luke</p>
+                  <p class="text-xs truncate" style="color:#7a909e;">Senior Sales Professional</p>
+                </div>
+                <div class="flex gap-0.5 flex-shrink-0">
+                  {[1,2,3,4,5].map(() => (
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
+                </div>
+              </div>
+              <!-- Quote -->
+              <p class="text-sm leading-relaxed mb-4" style="color:#4a6070; font-style:italic;">"I referred a client to Anil for CRM and automation. They came back to thank me. Saved them hours every week and the follow-up system brought in work they would have lost."</p>
+              <!-- Service badge -->
+              <div class="inline-flex items-center gap-2 rounded-lg px-3 py-1.5" style="background:#E8F5F1; border:1px solid rgba(46,204,154,0.25);">
+                <span class="w-1.5 h-1.5 rounded-full" style="background:#2ECC9A;"></span>
+                <span class="text-xs font-semibold" style="color:#1C3557;">CRM &amp; Automation</span>
+              </div>
+            </div>
+          </div>
+
         </div>
-
       </div>
     </div>
   </section>
