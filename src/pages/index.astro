@@ -263,182 +263,76 @@ import Layout from '../layouts/Layout.astro';
         </p>
       </div>
 
-      <!-- Masonry: Jake tall left, Ayoush + Luke stacked right -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+      <!-- Portrait photo cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
 
-        <!-- Jake — tall left, dark navy -->
-        <div class="reveal rounded-2xl overflow-hidden flex flex-col" style="background:linear-gradient(160deg,#0D2240 0%,#1C3557 100%); border:1px solid rgba(46,204,154,0.15); box-shadow:0 4px 30px rgba(13,34,64,0.2);">
-          <div style="height:3px; background:linear-gradient(90deg,#2ECC9A 0%,rgba(46,204,154,0.15) 100%);"></div>
-
-          <!-- Photo + identity centred -->
-          <div class="flex flex-col items-center pt-9 pb-7 px-8">
-            <div style="width:88px; height:88px; border-radius:50%; padding:3px; background:linear-gradient(135deg,#2ECC9A,#1db37a); flex-shrink:0;">
-              <img
-                src="/images/jake-victor.webp"
-                alt="Jake Victor"
-                width="82" height="82"
-                loading="lazy"
-                style="width:100%; height:100%; border-radius:50%; object-fit:cover; object-position:top; display:block; border:3px solid #0D2240;"
-              />
-            </div>
-            <p class="font-heading font-bold mt-3 mb-0.5" style="color:#fff; font-size:1rem;">Jake Victor</p>
-            <p style="font-size:0.7rem; color:rgba(255,255,255,0.45); letter-spacing:0.04em;">Website &amp; SEO · Birmingham</p>
-            <div class="flex gap-1 mt-2">
-              {[1,2,3,4,5].map(() => (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              ))}
-            </div>
-          </div>
-
-          <!-- Divider -->
-          <div class="mx-8" style="height:1px; background:rgba(46,204,154,0.12);"></div>
-
-          <!-- Journey steps -->
-          <div class="px-8 pt-7 pb-5 flex-1">
-            <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#2ECC9A; letter-spacing:0.1em;">Client journey</p>
-            <div class="flex flex-col">
-
-              <div class="flex gap-4">
-                <div class="flex flex-col items-center">
-                  <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:rgba(46,204,154,0.15); color:#2ECC9A; border:1.5px solid rgba(46,204,154,0.4);">1</div>
-                  <div class="w-px flex-1 my-1.5" style="background:rgba(46,204,154,0.18); min-height:24px;"></div>
-                </div>
-                <div class="pb-5 pt-0.5">
-                  <p class="font-semibold text-sm mb-1" style="color:rgba(255,255,255,0.9);">No online presence</p>
-                  <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.45);">Invisible on Google. Relying on word of mouth with no way to reach new customers searching online.</p>
-                </div>
+        <!-- Jake -->
+        <div class="reveal tcard">
+          <img src="/images/jake-victorsquare.webp" alt="Jake Victor" width="480" height="480" loading="lazy" class="tcard-img" />
+          <div class="tcard-overlay"></div>
+          <span class="tcard-badge">Website &amp; SEO</span>
+          <div class="tcard-body">
+            <p class="tcard-quote">"Honestly the best money we've spent on marketing. Phone started ringing within the first month."</p>
+            <div class="tcard-meta">
+              <div>
+                <p class="tcard-name">Jake Victor</p>
+                <p class="tcard-role">Birmingham</p>
               </div>
-
-              <div class="flex gap-4">
-                <div class="flex flex-col items-center">
-                  <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:rgba(46,204,154,0.15); color:#2ECC9A; border:1.5px solid rgba(46,204,154,0.4);">2</div>
-                  <div class="w-px flex-1 my-1.5" style="background:rgba(46,204,154,0.18); min-height:24px;"></div>
-                </div>
-                <div class="pb-5 pt-0.5">
-                  <p class="font-semibold text-sm mb-1" style="color:rgba(255,255,255,0.9);">Website live in 7 days</p>
-                  <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.45);">Fast, SEO-ready and fully managed from day one. Jake handed over the brief and we handled everything else.</p>
-                </div>
+              <div class="tcard-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
               </div>
-
-              <div class="flex gap-4">
-                <div>
-                  <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#2ECC9A; color:#0D2240;">3</div>
-                </div>
-                <div class="pt-0.5">
-                  <p class="font-semibold text-sm mb-1" style="color:rgba(255,255,255,0.9);">Phone started ringing from Google</p>
-                  <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.45);">New customers calling within the first month. People who had never heard of him, finding him through search.</p>
-                </div>
-              </div>
-
             </div>
-          </div>
-
-          <!-- Quote block -->
-          <div class="mx-8 mb-8 rounded-xl px-5 py-4" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.12);">
-            <svg width="24" height="18" viewBox="0 0 24 18" fill="none" aria-hidden="true" class="mb-2" style="opacity:0.35;">
-              <path d="M0 18V10.8C0 7.2 1.2 4.2 3.6 1.8L6 4.2C4.8 5.4 4.2 6.9 4.2 8.4H7.8V18H0ZM13.2 18V10.8C13.2 7.2 14.4 4.2 16.8 1.8L19.2 4.2C18 5.4 17.4 6.9 17.4 8.4H21V18H13.2Z" fill="#2ECC9A"/>
-            </svg>
-            <p style="font-size:0.9rem; color:rgba(255,255,255,0.78); line-height:1.7; font-style:italic;">"Honestly the best money we've spent on marketing."</p>
           </div>
         </div>
 
-        <!-- Right column: Ayoush + Luke stacked -->
-        <div class="flex flex-col gap-5">
-
-          <!-- Ayoush — white card -->
-          <div class="reveal reveal-d1 rounded-2xl overflow-hidden flex-1" style="background:#fff; border:1px solid #e2eeea; box-shadow:0 2px 20px rgba(28,53,87,0.07);">
-            <div style="height:3px; background:linear-gradient(90deg,#2ECC9A 0%,rgba(46,204,154,0.12) 100%);"></div>
-            <div class="p-7">
-
-              <!-- Person row -->
-              <div class="flex items-center gap-4 mb-6">
-                <div style="width:72px; height:72px; border-radius:50%; padding:3px; background:linear-gradient(135deg,#2ECC9A,#1db37a); flex-shrink:0;">
-                  <img
-                    src="/images/ayoush.webp"
-                    alt="Ayoush, Founder of TranoVex"
-                    width="66" height="66"
-                    loading="lazy"
-                    style="width:100%; height:100%; border-radius:50%; object-fit:cover; object-position:top; display:block; border:3px solid #fff;"
-                  />
-                </div>
-                <div class="flex-1">
-                  <div class="flex gap-0.5 mb-1">
-                    {[1,2,3,4,5].map(() => (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                      </svg>
-                    ))}
-                  </div>
-                  <p class="font-heading font-bold" style="color:#1C3557; font-size:0.95rem;">Ayoush</p>
-                  <p class="text-xs" style="color:#7a909e;">Founder, TranoVex</p>
-                </div>
-                <div class="flex-shrink-0">
-                  <div class="inline-flex items-center gap-1.5 rounded-full px-3 py-1" style="background:#E8F5F1; border:1px solid rgba(46,204,154,0.3);">
-                    <span class="w-1.5 h-1.5 rounded-full" style="background:#2ECC9A;"></span>
-                    <span class="text-xs font-semibold" style="color:#1C3557;">Website &amp; SEO</span>
-                  </div>
-                </div>
+        <!-- Ayoush -->
+        <div class="reveal reveal-d1 tcard">
+          <img src="/images/Ayoushsqaure.webp" alt="Ayoush, Founder of TranoVex" width="480" height="480" loading="lazy" class="tcard-img" />
+          <div class="tcard-overlay"></div>
+          <span class="tcard-badge">Website &amp; SEO</span>
+          <div class="tcard-body">
+            <p class="tcard-quote">"Within a few weeks clients were calling who'd found us on Google. We weren't doing anything differently. It just started working."</p>
+            <div class="tcard-meta">
+              <div>
+                <p class="tcard-name">Ayoush</p>
+                <p class="tcard-role">Founder, TranoVex</p>
               </div>
-
-              <!-- Quote -->
-              <svg width="28" height="20" viewBox="0 0 24 18" fill="none" aria-hidden="true" class="mb-3" style="opacity:0.2;">
-                <path d="M0 18V10.8C0 7.2 1.2 4.2 3.6 1.8L6 4.2C4.8 5.4 4.2 6.9 4.2 8.4H7.8V18H0ZM13.2 18V10.8C13.2 7.2 14.4 4.2 16.8 1.8L19.2 4.2C18 5.4 17.4 6.9 17.4 8.4H21V18H13.2Z" fill="#1C3557"/>
-              </svg>
-              <p style="color:#1A2E3D; font-size:0.975rem; line-height:1.75; font-style:italic;">"Anil built the site and sorted our SEO. Within a few weeks clients were calling who'd found us on Google. We weren't doing anything differently. It just started working."</p>
-
+              <div class="tcard-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+              </div>
             </div>
           </div>
-
-          <!-- Luke — dark navy card -->
-          <div class="reveal reveal-d2 rounded-2xl overflow-hidden flex-1" style="background:linear-gradient(145deg,#0D2240 0%,#1C3557 100%); border:1px solid rgba(46,204,154,0.15); box-shadow:0 4px 24px rgba(13,34,64,0.18);">
-            <div style="height:3px; background:linear-gradient(90deg,#2ECC9A 0%,rgba(46,204,154,0.15) 100%);"></div>
-            <div class="p-7">
-
-              <!-- Person row -->
-              <div class="flex items-center gap-4 mb-6">
-                <div style="width:72px; height:72px; border-radius:50%; padding:3px; background:linear-gradient(135deg,#2ECC9A,#1db37a); flex-shrink:0;">
-                  <img
-                    src="/images/luke.webp"
-                    alt="Luke, Senior Sales Professional"
-                    width="66" height="66"
-                    loading="lazy"
-                    style="width:100%; height:100%; border-radius:50%; object-fit:cover; object-position:top; display:block; border:3px solid #0D2240;"
-                  />
-                </div>
-                <div class="flex-1">
-                  <div class="flex gap-0.5 mb-1">
-                    {[1,2,3,4,5].map(() => (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                      </svg>
-                    ))}
-                  </div>
-                  <p class="font-heading font-bold" style="color:#fff; font-size:0.95rem;">Luke</p>
-                  <p class="text-xs" style="color:rgba(255,255,255,0.45);">Senior Sales Professional</p>
-                </div>
-                <div class="flex-shrink-0">
-                  <div class="inline-flex items-center gap-1.5 rounded-full px-3 py-1" style="background:rgba(46,204,154,0.12); border:1px solid rgba(46,204,154,0.25);">
-                    <span class="w-1.5 h-1.5 rounded-full" style="background:#2ECC9A;"></span>
-                    <span class="text-xs font-semibold" style="color:#2ECC9A;">CRM &amp; Automation</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Quote -->
-              <svg width="28" height="20" viewBox="0 0 24 18" fill="none" aria-hidden="true" class="mb-3" style="opacity:0.25;">
-                <path d="M0 18V10.8C0 7.2 1.2 4.2 3.6 1.8L6 4.2C4.8 5.4 4.2 6.9 4.2 8.4H7.8V18H0ZM13.2 18V10.8C13.2 7.2 14.4 4.2 16.8 1.8L19.2 4.2C18 5.4 17.4 6.9 17.4 8.4H21V18H13.2Z" fill="#2ECC9A"/>
-              </svg>
-              <p style="color:rgba(255,255,255,0.78); font-size:0.975rem; line-height:1.75; font-style:italic;">"I put a client onto Anil for CRM and automation. They came back to say it changed how they follow up leads completely. I've sent two more people his way since. Says everything."</p>
-
-            </div>
-          </div>
-
         </div>
+
+        <!-- Luke -->
+        <div class="reveal reveal-d2 tcard">
+          <img src="/images/lukesquare.png" alt="Luke, Senior Sales Professional" width="480" height="480" loading="lazy" class="tcard-img" />
+          <div class="tcard-overlay"></div>
+          <span class="tcard-badge">CRM &amp; Automation</span>
+          <div class="tcard-body">
+            <p class="tcard-quote">"I've sent two more people his way since. That says everything about the results he delivers."</p>
+            <div class="tcard-meta">
+              <div>
+                <p class="tcard-name">Luke</p>
+                <p class="tcard-role">Senior Sales</p>
+              </div>
+              <div class="tcard-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
+
 
 
   <!-- WHO WE HELP ─────────────────────────────────────── -->
@@ -1109,6 +1003,90 @@ import Layout from '../layouts/Layout.astro';
 </div>
 
 <style>
+  /* Testimonial cards */
+  .tcard {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    border-radius: 18px;
+    box-shadow: 0 8px 40px rgba(13,34,64,0.22);
+  }
+  .tcard-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .tcard:hover .tcard-img {
+    transform: scale(1.04);
+  }
+  .tcard-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,22,44,0.04) 0%,
+      rgba(10,22,44,0.15) 35%,
+      rgba(10,22,44,0.75) 62%,
+      rgba(10,22,44,0.97) 100%
+    );
+  }
+  .tcard-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #0D2240;
+    background: #2ECC9A;
+    padding: 4px 11px;
+    border-radius: 20px;
+  }
+  .tcard-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 20px 20px;
+  }
+  .tcard-quote {
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.93);
+    margin-bottom: 14px;
+  }
+  .tcard-meta {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .tcard-stars {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+    padding-bottom: 2px;
+  }
+  .tcard-name {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #fff;
+    margin-bottom: 1px;
+  }
+  .tcard-role {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.02em;
+  }
+
   .exit-input::placeholder { color: rgba(255,255,255,0.32); }
   .exit-input:focus { border-color: rgba(46,204,154,0.4) !important; }
   #exit-form-btn:hover { opacity: 0.9; }
