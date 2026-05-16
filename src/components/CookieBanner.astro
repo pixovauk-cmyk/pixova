@@ -1,0 +1,135 @@
+---
+---
+<div id="cookie-banner" aria-label="Cookie consent" role="dialog" aria-live="polite">
+  <div class="cb-inner">
+    <p class="cb-text">
+      We use cookies to understand how people use our website (Google Analytics). No advertising or third-party tracking cookies are set.
+      <a href="/cookie-policy">Cookie Policy</a>
+    </p>
+    <div class="cb-actions">
+      <button id="cookie-decline" type="button">Decline</button>
+      <button id="cookie-accept" type="button">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = 'pixova_cookie_consent';
+  const GA_ID = 'G-QJ0B1RVQ9L';
+  const banner = document.getElementById('cookie-banner') as HTMLElement;
+
+  function loadGA4() {
+    const s = document.createElement('script');
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    s.async = true;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID);
+  }
+
+  function hideBanner() {
+    banner.style.transform = 'translateY(110%)';
+    setTimeout(() => banner.remove(), 350);
+  }
+
+  const consent = localStorage.getItem(CONSENT_KEY);
+
+  if (consent === 'accepted') {
+    loadGA4();
+  } else if (!consent) {
+    banner.style.display = 'block';
+    document.getElementById('cookie-accept')!.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      loadGA4();
+      hideBanner();
+    });
+    document.getElementById('cookie-decline')!.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'declined');
+      hideBanner();
+    });
+  }
+</script>
+
+<style>
+  #cookie-banner {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #0D2240;
+    border-top: 2px solid rgba(46, 204, 154, 0.35);
+    padding: 1rem 1.5rem;
+    transition: transform 0.35s ease;
+  }
+
+  .cb-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cb-text {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cb-text a {
+    color: #2ECC9A;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+    margin-left: 0.25rem;
+  }
+
+  .cb-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  #cookie-decline {
+    font-family: inherit;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.55);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 0.45rem 1.25rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  #cookie-decline:hover {
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  #cookie-accept {
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #0D2240;
+    background: #2ECC9A;
+    border: none;
+    padding: 0.45rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  #cookie-accept:hover {
+    opacity: 0.88;
+  }
+</style>
