@@ -843,11 +843,8 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- WHY PIXOVA ───────────────────────────────────────── -->
-  <section class="pt-20 pb-0 relative overflow-hidden" style="background-color:#0D2240;">
-    <!-- Subtle teal glow bottom-right -->
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 100% 100%, rgba(46,204,154,0.08) 0%, transparent 70%);"></div>
-    <!-- Faint teal glow top-left -->
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 40% 40% at 0% 0%, rgba(46,204,154,0.05) 0%, transparent 70%);"></div>
+  <section class="pt-20 pb-16 relative" style="background-color:#0D2240;">
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 100% 100%, rgba(46,204,154,0.07) 0%, transparent 70%);"></div>
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
 
@@ -862,20 +859,17 @@ import Layout from '../layouts/Layout.astro';
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-end">
 
         <!-- LEFT: steps -->
-        <div class="flex flex-col gap-5 pb-10 self-center reveal">
+        <div class="flex flex-col gap-5 self-center reveal">
           {[
-            { label: 'We learn your business', desc: 'A quick chat about your trade, area, and customers.' },
-            { label: 'We build & launch your site', desc: 'SEO-ready and live in 7 days. Fully managed from day one.' },
-            { label: 'Google sends you customers', desc: 'Your phone rings from people who\'ve never heard of you.' },
+            { label: 'We learn your business', desc: 'Tell us your trade and your area. That\'s enough to get started.' },
+            { label: 'We build and launch your site', desc: 'Up in 7 days, built to rank. We handle everything after that too.' },
+            { label: 'Google sends you customers', desc: 'New enquiries come in from people who\'d never heard of you before.' },
           ].map((step, i) => (
             <div class="flex items-start gap-4 rounded-xl px-5 py-4" style="background:rgba(255,255,255,0.06); border:1px solid rgba(46,204,154,0.18);">
               <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold" style="background:#2ECC9A; color:#0D2240;">{i + 1}</div>
               <div>
                 <p class="font-semibold text-sm mb-0.5" style="color:#fff;">{step.label}</p>
-                <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">{step.desc}</p>
-              </div>
-              <div class="ml-auto flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center" style="background:rgba(46,204,154,0.15);">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.5);">{step.desc}</p>
               </div>
             </div>
           ))}
@@ -884,30 +878,29 @@ import Layout from '../layouts/Layout.astro';
         <!-- CENTRE: Anil cut-out -->
         <div class="flex justify-center items-end hero-animate-images">
           <div class="relative" style="display:inline-block;">
-            <div class="absolute pointer-events-none" style="top:10px; left:50%; transform:translateX(-50%); width:248px; height:333px; border:1px solid rgba(46,204,154,0.35); border-radius:124px 124px 97px 97px; z-index:11;"></div>
-            <div class="absolute pointer-events-none" style="top:17px; left:50%; transform:translateX(-50%); width:233px; height:318px; border:2px solid #2ECC9A; border-radius:117px 117px 92px 92px; z-index:11;"></div>
+            <div class="absolute pointer-events-none" style="top:8px; left:50%; transform:translateX(-50%); width:204px; height:274px; border:1px solid rgba(46,204,154,0.35); border-radius:102px 102px 80px 80px; z-index:11;"></div>
+            <div class="absolute pointer-events-none" style="top:14px; left:50%; transform:translateX(-50%); width:192px; height:262px; border:2px solid #2ECC9A; border-radius:96px 96px 76px 76px; z-index:11;"></div>
             <img
               src="/images/anil-cutout-680.png"
               alt="Anil Jaishi, founder of Pixova"
-              width="340" height="340"
+              width="680" height="680"
               loading="lazy"
-              style="display:block; width:340px; position:relative; z-index:10;"
+              style="display:block; width:280px; position:relative; z-index:10;"
             />
           </div>
         </div>
 
         <!-- RIGHT: stats -->
-        <div class="flex flex-col gap-6 pb-10 self-center reveal reveal-d2">
+        <div class="flex flex-col gap-7 self-center reveal reveal-d2">
           {[
-            { val: '7 days', label: 'Average launch time' },
-            { val: '100%', label: 'Fully managed' },
-            { val: 'UK-wide', label: 'Businesses served' },
-            { val: '£0', label: 'Tech knowledge needed' },
+            { val: '7 days', label: 'From first chat to live site' },
+            { val: '100%', label: 'Managed — you do nothing' },
+            { val: 'UK-wide', label: 'From Birmingham, reaching everywhere' },
+            { val: '£0', label: 'Tech know-how required' },
           ].map(s => (
             <div class="text-center lg:text-left">
               <div class="font-heading font-black text-4xl leading-none mb-1" style="color:#2ECC9A; letter-spacing:-0.03em;">{s.val}</div>
-              <p class="text-xs" style="color:rgba(255,255,255,0.55);">{s.label}</p>
-              <div class="mt-2 h-px" style="background:linear-gradient(90deg,rgba(46,204,154,0.5),transparent);"></div>
+              <p class="text-xs" style="color:rgba(255,255,255,0.5);">{s.label}</p>
             </div>
           ))}
         </div>
