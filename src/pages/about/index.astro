@@ -89,38 +89,60 @@ const localBusinessSchema = {
   <!-- ABOUT STORY ─────────────────────────────────────── -->
   <section class="py-20" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <div class="flex flex-col lg:flex-row gap-12 items-start">
 
-        <!-- Photo -->
-        <div class="relative reveal">
-          <div class="rounded-2xl overflow-hidden shadow-lg" style="background-color:#1C3557; min-height:420px;">
-            <img
-              src="/images/anil.webp"
-              alt="Anil Jaishi, founder of Pixova — web design and SEO agency based in Birmingham"
-              width="560" height="620"
-              loading="lazy"
-              class="w-full h-full object-cover object-top"
-              onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.style.display='none';"
-            />
-            <div class="hidden absolute inset-0 flex items-center justify-center flex-col p-8 text-center">
-              <div class="w-20 h-20 rounded-full flex items-center justify-center mb-4" style="background-color:#2ECC9A;">
-                <span class="font-heading font-bold text-2xl" style="color:#1C3557;">AJ</span>
-              </div>
-              <p class="text-white font-semibold">Anil Jaishi</p>
-              <p class="text-white/60 text-sm">Founder, Pixova</p>
+        <!-- LEFT: Profile card — photo + details self-contained -->
+        <div class="reveal flex-shrink-0 w-full lg:w-auto flex justify-center lg:block">
+          <div class="rounded-2xl overflow-hidden" style="width:270px; background:linear-gradient(160deg, #0D2240 0%, #1C3557 100%); border:1px solid rgba(46,204,154,0.25); box-shadow:0 24px 56px rgba(13,34,64,0.18);">
+
+            <!-- Photo -->
+            <div style="height:300px; overflow:hidden;">
+              <img
+                src="/images/anil.webp"
+                alt="Anil Jaishi, founder of Pixova"
+                width="560" height="620"
+                loading="lazy"
+                style="width:100%; height:100%; object-fit:cover; object-position:top center; display:block;"
+              />
             </div>
-          </div>
-          <!-- Floating badge -->
-          <div class="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-md px-5 py-4">
-            <p class="font-heading font-semibold text-sm" style="color:#1C3557;">University of Birmingham</p>
-            <p class="text-xs mt-0.5" style="color:#2ECC9A;">Digital Marketing Graduate</p>
+
+            <!-- Divider -->
+            <div style="height:3px; background:linear-gradient(90deg, #2ECC9A 0%, rgba(46,204,154,0.15) 100%);"></div>
+
+            <!-- Card footer -->
+            <div class="px-5 py-5">
+              <p class="font-heading font-bold text-base leading-tight" style="color:#fff;">Anil Jaishi</p>
+              <p class="text-xs mt-0.5 mb-5" style="color:#2ECC9A;">Founder & Director, Pixova</p>
+
+              <div class="space-y-3" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px;">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0" style="background:rgba(46,204,154,0.12);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                  </div>
+                  <span class="text-xs" style="color:rgba(255,255,255,0.55);">Birmingham, UK</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0" style="background:rgba(46,204,154,0.12);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  </div>
+                  <span class="text-xs" style="color:rgba(255,255,255,0.55);">Univ. of Birmingham</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0" style="background:rgba(46,204,154,0.12);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                  </div>
+                  <span class="text-xs" style="color:rgba(255,255,255,0.55);">Digital Marketing</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Story text -->
-        <div>
-          <span class="sec-label reveal">WHY I STARTED PIXOVA</span>
-          <h2 class="font-heading font-semibold text-3xl sm:text-4xl mt-3 mb-6 reveal reveal-d1" style="color:#1C3557;">
+        <!-- RIGHT: Story text -->
+        <div class="reveal reveal-d1 flex-1 pt-2">
+          <span class="sec-label">WHY I STARTED PIXOVA</span>
+          <h2 class="font-heading font-semibold text-3xl sm:text-4xl mt-3 mb-6" style="color:#1C3557;">
             Fed up with agencies that overpromise and underdeliver.
           </h2>
 
@@ -138,7 +160,7 @@ const localBusinessSchema = {
             <p>
               Pixova is different in the way that actually matters: we build websites
               with SEO from the first line of code, not as an afterthought. Then we
-              manage everything — so you never have to think about it again.
+              manage everything so you never have to think about it again.
             </p>
             <p>
               We use AI to build faster and smarter. But every site is reviewed, refined,
@@ -147,15 +169,17 @@ const localBusinessSchema = {
             </p>
           </div>
 
-          <div class="grid grid-cols-2 gap-5 mt-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
             {[
-              { icon:'🎓', label:'Digital Marketing, University of Birmingham' },
-              { icon:'📍', label:'Based in Birmingham, serving the whole of the UK' },
-              { icon:'⚡', label:'AI-built websites that rank from day one' },
-              { icon:'🔧', label:'Fully managed — you never touch a thing' },
+              { label: 'Sites built to rank on Google from the very first line of code', path: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
+              { label: 'Fully managed after launch — you never have to touch a thing',  path: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> },
+              { label: 'No jargon, no big agency fees — just results you can measure',   path: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> },
+              { label: 'Always available when you need something sorted or updated',     path: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> },
             ].map(item => (
-              <div class="flex items-start gap-3">
-                <span class="text-lg">{item.icon}</span>
+              <div class="flex items-start gap-3 rounded-xl p-3.5" style="background:rgba(255,255,255,0.6); border:1px solid rgba(13,34,64,0.06);">
+                <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style="background:#E8F5F1;">
+                  {item.path}
+                </div>
                 <p class="text-xs leading-relaxed" style="color:#1A2E3D;">{item.label}</p>
               </div>
             ))}
