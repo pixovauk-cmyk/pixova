@@ -1,0 +1,30 @@
+# Pixova
+
+> Web design, local SEO, and AI marketing automation for UK small businesses. Based in Birmingham. Fully managed, no long contracts.
+
+Pixova builds fast, SEO-ready websites for small businesses across the UK and handles everything after launch — hosting, updates, security, and local SEO. We also set up AI-powered marketing automation so enquiries are followed up automatically.
+
+## Pages
+
+- [Home](https://www.pixova.uk/): Overview of services, pricing, and how Pixova works
+- [About & Contact](https://www.pixova.uk/about/): About Pixova and Anil Jaishi, contact form
+- [Blog](https://www.pixova.uk/blog/): SEO and web design guides for UK small businesses
+
+## Blog
+
+- [Web Design for Tradespeople](https://www.pixova.uk/blog/web-design-for-tradespeople/): How to get a trades website that ranks on Google
+- [What Are Local SEO Services?](https://www.pixova.uk/blog/what-are-local-seo-services/): Plain English guide to local SEO for small businesses
+- [SEO Optimisation Services for Small Businesses](https://www.pixova.uk/blog/seo-optimisation-services-small-business/): What good SEO work includes month to month
+- [Benefits of Marketing Automation](https://www.pixova.uk/blog/benefits-of-marketing-automation/): How automation helps small businesses convert more leads
+
+## Services
+
+- Starter: Website only — 7-page site live in 7 days, £299 setup + £79/month
+- Growth: Website + SEO — includes 2 blog posts/month, Google Business Profile, local keyword targeting, £299 setup + £149/month
+- Full Service: Website + SEO + Automation — includes lead auto-reply, review requests, CRM, £299 setup + £249/month
+
+## Contact
+
+- Email: hello@pixova.uk
+- Website: https://www.pixova.uk
+- Location: Birmingham, UK
