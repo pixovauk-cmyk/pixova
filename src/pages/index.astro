@@ -969,6 +969,54 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 
+  <!-- FROM THE BLOG ──────────────────────────────────── -->
+  <section class="py-20" style="background:#f7fafa;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12 reveal">
+        <span class="sec-label">FROM THE BLOG</span>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2" style="color:#1C3557; letter-spacing:-0.025em;">
+          Free guides for small businesses.
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {[
+          {
+            href: '/blog/web-design-for-tradespeople/',
+            label: 'WEB DESIGN',
+            title: 'Web Design for Tradespeople',
+            desc: 'What a good trades website actually needs — and why most fall short.',
+          },
+          {
+            href: '/blog/what-are-local-seo-services/',
+            label: 'LOCAL SEO',
+            title: 'What Are Local SEO Services?',
+            desc: 'Plain English breakdown of what local SEO is and what it costs.',
+          },
+          {
+            href: '/blog/seo-optimisation-services-small-business/',
+            label: 'SEO',
+            title: 'SEO Optimisation Services Explained',
+            desc: 'What good SEO actually includes, month to month, for UK small businesses.',
+          },
+          {
+            href: '/blog/benefits-of-marketing-automation/',
+            label: 'AUTOMATION',
+            title: 'Benefits of Marketing Automation',
+            desc: 'How automated follow-ups and review requests win more jobs without extra work.',
+          },
+        ].map(post => (
+          <a href={post.href} class="group flex flex-col rounded-2xl p-6 border transition-shadow hover:shadow-md reveal" style="background:#fff; border-color:#dde5ef; text-decoration:none;">
+            <span class="text-xs font-bold tracking-widest mb-3" style="color:#2ECC9A;">{post.label}</span>
+            <h3 class="font-heading font-semibold text-base mb-2 group-hover:underline" style="color:#1C3557; text-decoration-color:#2ECC9A;">{post.title}</h3>
+            <p class="text-xs leading-relaxed flex-1" style="color:#4a6070;">{post.desc}</p>
+            <span class="text-xs font-semibold mt-4" style="color:#2ECC9A;">Read more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
   <!-- FINAL CTA ────────────────────────────────────────── -->
   <section class="py-20 bg-offwhite">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
