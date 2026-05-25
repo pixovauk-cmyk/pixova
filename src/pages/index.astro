@@ -239,36 +239,81 @@ import Layout from '../layouts/Layout.astro';
 
       <!-- Live stats bar -->
       <div class="mt-12 pt-8 relative z-10" style="border-top:1px solid rgba(13,34,64,0.15);">
-        <div class="flex flex-wrap items-center gap-6 sm:gap-10">
 
-          <!-- Live indicator -->
+        <!-- Desktop layout (hidden on mobile) -->
+        <div class="hidden sm:flex flex-wrap items-center gap-6 sm:gap-10">
           <div class="flex items-center gap-2 flex-shrink-0">
             <span class="live-dot" style="background:#0D2240; box-shadow:none; animation:none;"></span>
             <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(13,34,64,0.5);">Live</span>
           </div>
-
-          <div class="w-px h-6 flex-shrink-0 hidden sm:block" style="background:rgba(13,34,64,0.15);"></div>
-
-          <!-- Stats -->
+          <div class="w-px h-6 flex-shrink-0" style="background:rgba(13,34,64,0.15);"></div>
           <div class="flex flex-wrap gap-6 sm:gap-10">
             {[
-              { target: 3,  suffix: '',  label: 'sites built this week' },
-              { target: 2,  suffix: '',  label: 'currently in progress' },
-              { target: 11, suffix: '',  label: 'launched this month' },
+              { target: 3,  label: 'sites built this week' },
+              { target: 2,  label: 'currently in progress' },
+              { target: 11, label: 'launched this month' },
             ].map((s, i) => (
               <div class="flex items-baseline gap-2">
-                <span
-                  class="live-counter font-heading font-black text-2xl leading-none"
-                  data-target={s.target}
-                  data-delay={i * 120}
-                  style="color:#0D2240; letter-spacing:-0.03em;"
-                >0</span>
+                <span class="live-counter font-heading font-black text-2xl leading-none" data-target={s.target} data-delay={i * 120} style="color:#0D2240; letter-spacing:-0.03em;">0</span>
                 <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
               </div>
             ))}
           </div>
-
+          <div class="w-px h-6 flex-shrink-0" style="background:rgba(13,34,64,0.15);"></div>
+          <a href="https://www.feldonhaynes.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 group flex-shrink-0">
+            <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
+            <span class="text-xs font-medium" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
+            <span class="text-xs font-semibold group-hover:underline" style="color:#0D2240;">Feldon Haynes</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" class="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
+
+        <!-- Mobile auto-scroll marquee (hidden on sm+) -->
+        <div class="sm:hidden overflow-hidden" style="mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%); -webkit-mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%);">
+          <div class="stats-marquee-track flex items-center gap-8" style="width:max-content;">
+            {/* First set */}
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <span class="live-dot" style="background:#0D2240; box-shadow:none; animation:none;"></span>
+              <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(13,34,64,0.5);">Live</span>
+            </div>
+            {[
+              { target: 3,  label: 'sites built this week' },
+              { target: 2,  label: 'currently in progress' },
+              { target: 11, label: 'launched this month' },
+            ].map(s => (
+              <div class="flex items-baseline gap-1.5 flex-shrink-0">
+                <span class="font-heading font-black text-xl leading-none" style="color:#0D2240; letter-spacing:-0.03em;">{s.target}</span>
+                <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
+              </div>
+            ))}
+            <a href="https://www.feldonhaynes.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 flex-shrink-0">
+              <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
+              <span class="text-xs" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
+              <span class="text-xs font-semibold" style="color:#0D2240;">Feldon Haynes →</span>
+            </a>
+            {/* Duplicate for seamless loop */}
+            <div class="flex items-center gap-2 flex-shrink-0" aria-hidden="true">
+              <span class="live-dot" style="background:#0D2240; box-shadow:none; animation:none;"></span>
+              <span class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(13,34,64,0.5);">Live</span>
+            </div>
+            {[
+              { target: 3,  label: 'sites built this week' },
+              { target: 2,  label: 'currently in progress' },
+              { target: 11, label: 'launched this month' },
+            ].map(s => (
+              <div class="flex items-baseline gap-1.5 flex-shrink-0" aria-hidden="true">
+                <span class="font-heading font-black text-xl leading-none" style="color:#0D2240; letter-spacing:-0.03em;">{s.target}</span>
+                <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
+              </div>
+            ))}
+            <a href="https://www.feldonhaynes.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 flex-shrink-0" aria-hidden="true" tabindex="-1">
+              <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
+              <span class="text-xs" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
+              <span class="text-xs font-semibold" style="color:#0D2240;">Feldon Haynes →</span>
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1457,8 +1502,16 @@ import Layout from '../layouts/Layout.astro';
   }
   @media (prefers-reduced-motion: reduce) {
     .tcarousel-track { animation: none; }
+    .stats-marquee-track { animation: none; }
   }
   @keyframes tcScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .stats-marquee-track {
+    animation: statsScroll 20s linear infinite;
+  }
+  @keyframes statsScroll {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
