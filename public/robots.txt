@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://pixova.uk/sitemap.xml
+Sitemap: https://www.pixova.uk/sitemap-index.xml
