@@ -1165,12 +1165,20 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Featured card -->
         <a href="/blog/web-design-for-tradespeople/" class="blog-feat group reveal" style="text-decoration:none;">
-          <div class="absolute pointer-events-none" style="top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(46,204,154,0.12) 0%,transparent 70%);"></div>
+          <img
+            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop&auto=format&fm=webp&q=75"
+            alt=""
+            width="800" height="600"
+            loading="lazy"
+            class="blog-feat-bg"
+            aria-hidden="true"
+          />
+          <div class="absolute inset-0 rounded-[20px]" style="background:linear-gradient(160deg, rgba(10,25,41,0.55) 0%, rgba(10,25,41,0.92) 100%);"></div>
           <span class="blog-feat-num" aria-hidden="true">01</span>
           <div class="relative z-10 flex flex-col h-full">
             <span class="blog-cat-badge">WEB DESIGN</span>
             <h3 class="font-heading font-bold text-2xl sm:text-3xl mt-4 mb-4 leading-snug" style="color:#fff; letter-spacing:-0.02em;">Web Design for Tradespeople</h3>
-            <p class="text-sm leading-relaxed flex-1" style="color:rgba(255,255,255,0.55);">What a good trades website actually needs — and why most fall short.</p>
+            <p class="text-sm leading-relaxed flex-1" style="color:rgba(255,255,255,0.7);">What a good trades website actually needs — and why most fall short.</p>
             <div class="blog-arrow-btn mt-8">
               Read the guide
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -1535,6 +1543,18 @@ import Layout from '../layouts/Layout.astro';
   .blog-feat:hover {
     border-color: rgba(46,204,154,0.4);
     box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(46,204,154,0.06);
+  }
+  .blog-feat-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.6s ease;
+  }
+  .blog-feat:hover .blog-feat-bg {
+    transform: scale(1.04);
   }
   .blog-feat-num {
     position: absolute;
