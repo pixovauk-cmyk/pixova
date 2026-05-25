@@ -108,9 +108,32 @@ import Layout from '../layouts/Layout.astro';
     <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full py-16 md:py-20">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
 
+        <!-- Mobile hero image (hidden on sm+) -->
+        <div class="order-1 lg:order-2 sm:hidden hero-animate-images">
+          <div class="relative rounded-2xl overflow-hidden" style="height:280px;">
+            <img
+              src="/images/hero-anil.webp"
+              alt="Anil Jaishi, founder of Pixova Birmingham web design agency"
+              width="800" height="446"
+              loading="eager" fetchpriority="high"
+              class="w-full h-full object-cover object-top"
+            />
+            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.85) 0%, rgba(13,34,64,0.2) 50%, transparent 100%);"></div>
+            <div class="absolute bottom-4 left-4 right-4 flex items-center gap-2.5 rounded-xl px-3 py-2.5" style="background:rgba(13,34,64,0.88); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.12);">
+              <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#2ECC9A;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div>
+                <p class="text-white text-xs font-semibold leading-tight" style="font-family:'DM Sans',sans-serif;">Live in 7 days</p>
+                <p class="text-xs leading-tight" style="color:rgba(255,255,255,0.7);">Not 7 weeks</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Left: text -->
-        <div class="order-2 lg:order-1 hero-animate">
-          <div class="flex items-center gap-2 mb-5">
+        <div class="order-2 lg:order-1 hero-animate text-center lg:text-left">
+          <div class="flex items-center gap-2 mb-5 justify-center lg:justify-start">
             <span class="block w-5 h-0.5 rounded" style="background:rgba(13,34,64,0.4);"></span>
             <span class="sec-label" style="color:rgba(13,34,64,0.65);">Web Design & SEO · Birmingham · UK-Wide</span>
           </div>
@@ -118,12 +141,12 @@ import Layout from '../layouts/Layout.astro';
             We build websites for<br/>small businesses, handle<br/><span style="color:#2ECC9A;">your SEO, and get results.</span>
           </h1>
 
-          <p class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style="color:rgba(13,34,64,0.7);">
+          <p class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0" style="color:rgba(13,34,64,0.7);">
             We handle the whole thing. Website design, SEO, hosting and updates.
             Most clients go live within 7 days. Your only job is to answer the phone.
           </p>
 
-          <div class="flex flex-wrap gap-3 mb-5">
+          <div class="flex flex-wrap gap-3 mb-5 justify-center lg:justify-start">
             <a href="/about#contact" class="btn-p" style="background-color:#0D2240; color:#fff; box-shadow:0 4px 20px rgba(13,34,64,0.25);">
               Let's have a chat
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -134,13 +157,15 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <!-- Free site offer -->
-          <a href="/about?offer=free-site#contact" class="inline-flex items-center gap-3 mb-10 rounded-xl px-4 py-3 group transition-all" style="background:rgba(13,34,64,0.08); border:1px solid rgba(13,34,64,0.2);">
-            <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#0D2240; color:#2ECC9A;">5 spots</span>
-            <span class="text-sm font-semibold" style="color:#0D2240;">Claim your free website. Only 5 spots this month.</span>
-            <svg class="flex-shrink-0 transition-transform group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          <div class="flex justify-center lg:justify-start mb-10">
+            <a href="/about?offer=free-site#contact" class="inline-flex items-center gap-3 rounded-xl px-4 py-3 group transition-all" style="background:rgba(13,34,64,0.08); border:1px solid rgba(13,34,64,0.2);">
+              <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#0D2240; color:#2ECC9A;">5 spots</span>
+              <span class="text-sm font-semibold" style="color:#0D2240;">Claim your free website. Only 5 spots this month.</span>
+              <svg class="flex-shrink-0 transition-transform group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
 
-          <div class="flex flex-wrap gap-x-5 gap-y-2 hero-animate-delay">
+          <div class="flex flex-wrap gap-x-5 gap-y-2 hero-animate-delay justify-center lg:justify-start">
             {['UK-based team', 'Live in 7 days', 'Fully managed', 'No long contracts'].map(badge => (
               <span class="flex items-center gap-1.5 text-xs font-medium" style="color:rgba(13,34,64,0.65);">
                 <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:rgba(13,34,64,0.5);"></span>
@@ -251,23 +276,23 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- TESTIMONIALS ───────────────────────────────────── -->
   <section class="py-20 bg-offwhite">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-10">
+      <span class="sec-label reveal">CLIENT RESULTS</span>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
+        Don't take our word for it.
+      </h2>
+      <p class="text-base mt-3 max-w-lg reveal reveal-d2" style="color:#4a6070; line-height:1.7;">
+        Four businesses. Here's what actually happened.
+      </p>
+    </div>
 
-      <div class="mb-10">
-        <span class="sec-label reveal">CLIENT RESULTS</span>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
-          Don't take our word for it.
-        </h2>
-        <p class="text-base mt-3 max-w-lg reveal reveal-d2" style="color:#4a6070; line-height:1.7;">
-          Three businesses, three different services. Here's what actually happened.
-        </p>
-      </div>
-
-      <!-- Portrait photo cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+    <!-- Auto-scroll carousel -->
+    <div class="tcarousel-outer">
+    <div class="tcarousel-wrapper">
+      <div class="tcarousel-track">
 
         <!-- Jake -->
-        <div class="reveal tcard">
+        <div class="tcard">
           <img src="/images/jake-victorsquare.webp" alt="Jake Victor" width="480" height="480" loading="lazy" class="tcard-img" />
           <div class="tcard-overlay"></div>
           <span class="tcard-badge">Website &amp; SEO</span>
@@ -288,7 +313,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- Ayoush -->
-        <div class="reveal reveal-d1 tcard">
+        <div class="tcard">
           <img src="/images/Ayoushsqaure.webp" alt="Ayoush, Founder of TranoVex" width="480" height="480" loading="lazy" class="tcard-img" />
           <div class="tcard-overlay"></div>
           <span class="tcard-badge">Website &amp; SEO</span>
@@ -309,7 +334,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- Luke -->
-        <div class="reveal reveal-d2 tcard">
+        <div class="tcard">
           <img src="/images/lukesquare.png" alt="Luke, Senior Sales Professional" width="480" height="480" loading="lazy" class="tcard-img" />
           <div class="tcard-overlay"></div>
           <span class="tcard-badge">CRM &amp; Automation</span>
@@ -329,7 +354,110 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
+        <!-- Feldon -->
+        <div class="tcard">
+          <img src="/images/feldon-haynes-professional-headshot.webp" alt="Feldon Haynes" width="480" height="480" loading="lazy" class="tcard-img" />
+          <div class="tcard-overlay"></div>
+          <span class="tcard-badge">Website Design</span>
+          <div class="tcard-body">
+            <p class="tcard-quote">"Great work, knows what they are doing. Website designs are slick, professional and works like a charm."</p>
+            <div class="tcard-meta">
+              <div>
+                <p class="tcard-name">Feldon Haynes</p>
+                <p class="tcard-role">Client</p>
+              </div>
+              <div class="tcard-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Duplicates for seamless loop -->
+        <div class="tcard" aria-hidden="true">
+          <img src="/images/jake-victorsquare.webp" alt="" width="480" height="480" loading="lazy" class="tcard-img" />
+          <div class="tcard-overlay"></div>
+          <span class="tcard-badge">Website &amp; SEO</span>
+          <div class="tcard-body">
+            <p class="tcard-quote">"Honestly the best money we've spent on marketing. Phone started ringing within the first month."</p>
+            <div class="tcard-meta">
+              <div>
+                <p class="tcard-name">Jake Victor</p>
+                <p class="tcard-role">Birmingham</p>
+              </div>
+              <div class="tcard-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tcard" aria-hidden="true">
+          <img src="/images/Ayoushsqaure.webp" alt="" width="480" height="480" loading="lazy" class="tcard-img" />
+          <div class="tcard-overlay"></div>
+          <span class="tcard-badge">Website &amp; SEO</span>
+          <div class="tcard-body">
+            <p class="tcard-quote">"Within a few weeks clients were calling who'd found us on Google. We weren't doing anything differently. It just started working."</p>
+            <div class="tcard-meta">
+              <div>
+                <p class="tcard-name">Ayoush</p>
+                <p class="tcard-role">Founder, TranoVex</p>
+              </div>
+              <div class="tcard-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tcard" aria-hidden="true">
+          <img src="/images/lukesquare.png" alt="" width="480" height="480" loading="lazy" class="tcard-img" />
+          <div class="tcard-overlay"></div>
+          <span class="tcard-badge">CRM &amp; Automation</span>
+          <div class="tcard-body">
+            <p class="tcard-quote">"I've sent two more people his way since. That says everything about the results he delivers."</p>
+            <div class="tcard-meta">
+              <div>
+                <p class="tcard-name">Luke</p>
+                <p class="tcard-role">Senior Sales</p>
+              </div>
+              <div class="tcard-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tcard" aria-hidden="true">
+          <img src="/images/feldon-haynes-professional-headshot.webp" alt="" width="480" height="480" loading="lazy" class="tcard-img" />
+          <div class="tcard-overlay"></div>
+          <span class="tcard-badge">Website Design</span>
+          <div class="tcard-body">
+            <p class="tcard-quote">"Great work, knows what they are doing. Website designs are slick, professional and works like a charm."</p>
+            <div class="tcard-meta">
+              <div>
+                <p class="tcard-name">Feldon Haynes</p>
+                <p class="tcard-role">Client</p>
+              </div>
+              <div class="tcard-stars">
+                {[1,2,3,4,5].map(() => (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div>
     </div>
   </section>
 
@@ -867,7 +995,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- CENTRE: Anil cut-out -->
-        <div class="flex justify-center items-end hero-animate-images" style="margin-bottom:-4rem;">
+        <div class="flex justify-center items-end hero-animate-images lg:-mb-16">
           <div class="relative" style="display:inline-block;">
             <div class="absolute pointer-events-none" style="top:8px; left:50%; transform:translateX(-50%); width:233px; height:313px; border:1px solid rgba(46,204,154,0.35); border-radius:117px 117px 92px 92px; z-index:11;"></div>
             <div class="absolute pointer-events-none" style="top:14px; left:50%; transform:translateX(-50%); width:219px; height:300px; border:2px solid #2ECC9A; border-radius:110px 110px 87px 87px; z-index:11;"></div>
@@ -1310,11 +1438,48 @@ import Layout from '../layouts/Layout.astro';
     }
   }
 
+  /* Testimonial carousel */
+  .tcarousel-outer {
+    overflow: hidden;
+  }
+  .tcarousel-wrapper {
+    position: relative;
+    padding: 8px 0 12px;
+  }
+  .tcarousel-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: tcScroll 32s linear infinite;
+  }
+  .tcarousel-wrapper:hover .tcarousel-track {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tcarousel-track { animation: none; }
+  }
+  @keyframes tcScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @media (min-width: 640px) {
+    .tcarousel-outer {
+      max-width: 72rem;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 18px;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+  }
+
   /* Testimonial cards */
   .tcard {
     position: relative;
     overflow: hidden;
     aspect-ratio: 3/4;
+    width: clamp(240px, 28vw, 320px);
+    flex-shrink: 0;
     border-radius: 18px;
     box-shadow: 0 8px 40px rgba(13,34,64,0.22);
   }
