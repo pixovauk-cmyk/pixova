@@ -54,7 +54,7 @@ const localBusinessSchema = {
     <div class="absolute inset-0">
       <img
         src="/images/hero-collage.webp"
-        alt="Pixova digital agency Birmingham — web design and SEO for small businesses"
+        alt="Pixova digital agency Birmingham, web design and SEO for small businesses"
         width="1400" height="781"
         loading="eager" fetchpriority="high"
         class="w-full h-full object-cover"
@@ -351,14 +351,6 @@ const localBusinessSchema = {
               <fieldset>
                 <legend class="block text-xs font-semibold mb-2" style="color:#1C3557;">What do you need help with? <span style="color:#2ECC9A;">*</span></legend>
 
-                <!-- Free site option — hidden by default, shown via JS when ?offer=free-site -->
-                <div id="free-site-option" class="hidden mb-2">
-                  <label class="flex items-center gap-2.5 cursor-pointer p-3 rounded-lg border text-xs font-medium sm:col-span-2" style="border-color:#F59E0B; background:#fffbeb; color:#92660a;">
-                    <input type="checkbox" name="help_free_site" value="yes" id="check-free-site" class="accent-teal w-4 h-4 flex-shrink-0" />
-                    🎁 Free website build (limited, 5 spots this month)
-                  </label>
-                </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {[
                     { name: 'help_website',    label: 'A new website' },
@@ -435,14 +427,6 @@ const localBusinessSchema = {
   const service = params.get('service');
   if (service && serviceMap[service]) {
     const cb = document.getElementById(serviceMap[service]) as HTMLInputElement;
-    if (cb) cb.checked = true;
-  }
-
-  // Show and pre-tick the free site option when arriving via hero CTA
-  if (params.get('offer') === 'free-site') {
-    const wrapper = document.getElementById('free-site-option');
-    const cb = document.getElementById('check-free-site') as HTMLInputElement;
-    if (wrapper) wrapper.classList.remove('hidden');
     if (cb) cb.checked = true;
   }
 

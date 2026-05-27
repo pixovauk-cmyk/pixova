@@ -1,0 +1,456 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Web Design Prices & Local SEO Packages | Pixova Birmingham"
+  description="Web design prices and local SEO packages for small businesses from £49/month. No upfront cost. No long contracts. Based in Birmingham."
+  canonicalUrl="https://www.pixova.uk/pricing/"
+>
+
+  <!-- HERO -->
+  <section class="relative pt-20 pb-16 overflow-hidden" style="background:#0D2240; min-height:320px;">
+    <div class="absolute inset-0" style="background-image:url('/images/hero-laptop.webp'); background-size:cover; background-position:center; opacity:0.10;"></div>
+    <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(13,34,64,0.97) 0%, rgba(28,53,87,0.88) 60%, rgba(13,34,64,0.97) 100%);"></div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+      <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">PRICING</span>
+      <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-5" style="color:#fff;">
+        Web design prices and local SEO packages for small businesses.
+      </h1>
+      <p class="text-base max-w-2xl leading-relaxed" style="color:rgba(255,255,255,0.72);">
+        Most small businesses arrive here with the same question: what does it actually cost, and will it be worth it? Monthly plans start at £49. I offer affordable SEO and website design for small businesses across the UK, with nothing to pay upfront. I build your site first. You start paying once it's live. Based in Birmingham, I'll always give you a clear quote before anything starts.
+      </p>
+    </div>
+  </section>
+
+  <!-- GROUP 1: Monthly plans -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+      <div class="max-w-2xl mb-12">
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">MONTHLY PLANS</span>
+        <h2 class="font-heading font-semibold text-3xl mt-3 mb-3" style="color:#1C3557;">
+          Website plans and SEO packages for small businesses. No upfront cost.
+        </h2>
+        <p class="text-sm leading-relaxed" style="color:#4a6070;">
+          Every plan includes a professionally built website, Google tracking, and a content editor so you can make changes yourself. You pay monthly. Nothing until it's live. Pick the plan that matches where you are right now.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- Plan 1: Get started -->
+        <div class="rounded-2xl border p-6 flex flex-col" style="border-color:#e5e7eb;">
+          <h3 class="font-heading font-bold text-lg mb-1" style="color:#1C3557;">Get started</h3>
+          <div class="flex items-end gap-1 mb-1">
+            <span class="font-bold" style="font-size:2rem; line-height:1; color:#1C3557;">£49</span>
+            <span class="text-xs pb-1.5" style="color:#8a9ab0;">/month</span>
+          </div>
+          <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
+          <p class="text-xs mb-5" style="color:#8a9ab0;">6 month minimum</p>
+          <ul class="flex flex-col gap-2.5 flex-1 mb-6">
+            {[
+              'Professional website built for you',
+              'Shows up on Google from day one',
+              'Edit your own content anytime',
+              'I handle all the technical stuff',
+              'One update a month included',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="block text-center text-sm font-semibold py-3 rounded-xl transition-colors" style="background:#E8F5F1; color:#1C3557;">
+            Get started →
+          </a>
+        </div>
+
+        <!-- Plan 2: Grow on Google (featured) -->
+        <div class="rounded-2xl p-6 flex flex-col relative" style="background:#0D2240;">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap" style="background:#2ECC9A; color:#0D2240;">Most popular</div>
+          <h3 class="font-heading font-bold text-lg mb-1" style="color:#fff;">Grow on Google</h3>
+          <div class="flex items-end gap-1 mb-1">
+            <span class="font-bold" style="font-size:2rem; line-height:1; color:#fff;">£99</span>
+            <span class="text-xs pb-1.5" style="color:rgba(255,255,255,0.45);">/month</span>
+          </div>
+          <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
+          <p class="text-xs mb-5" style="color:rgba(255,255,255,0.35);">6 month minimum</p>
+          <ul class="flex flex-col gap-2.5 flex-1 mb-6">
+            {[
+              'Everything in Get started',
+              'Blog article written every month',
+              'Monthly report on visitors and sources',
+              'Google listing kept up to date',
+              'Up to 3 updates a month',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.7);">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.2); color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="block text-center text-sm font-semibold py-3 rounded-xl transition-colors" style="background:#2ECC9A; color:#0D2240;">
+            Get started →
+          </a>
+        </div>
+
+        <!-- Plan 3: Fully handed off -->
+        <div class="rounded-2xl border p-6 flex flex-col" style="border-color:#e5e7eb;">
+          <h3 class="font-heading font-bold text-lg mb-1" style="color:#1C3557;">Fully handed off</h3>
+          <div class="flex items-end gap-1 mb-1">
+            <span class="font-bold" style="font-size:2rem; line-height:1; color:#1C3557;">£149</span>
+            <span class="text-xs pb-1.5" style="color:#8a9ab0;">/month</span>
+          </div>
+          <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
+          <p class="text-xs mb-5" style="color:#8a9ab0;">6 month minimum</p>
+          <ul class="flex flex-col gap-2.5 flex-1 mb-6">
+            {[
+              'Everything in Grow on Google',
+              'Unlimited updates, same day',
+              'Monthly catch-up call',
+              'Smart tools set up to save you time',
+              'Priority response',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="block text-center text-sm font-semibold py-3 rounded-xl transition-colors" style="background:#E8F5F1; color:#1C3557;">
+            Get started →
+          </a>
+        </div>
+
+        <!-- Plan 4: I'll manage it myself -->
+        <div class="rounded-2xl border p-6 flex flex-col" style="border-color:#e5e7eb;">
+          <h3 class="font-heading font-bold text-lg mb-1" style="color:#1C3557;">I'll manage it myself</h3>
+          <div class="flex items-end gap-1 mb-1">
+            <span class="font-bold" style="font-size:2rem; line-height:1; color:#1C3557;">£299</span>
+            <span class="text-xs pb-1.5" style="color:#8a9ab0;">one-off</span>
+          </div>
+          <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">then £15/hr</p>
+          <p class="text-xs mb-5" style="color:#8a9ab0;">No monthly commitment</p>
+          <ul class="flex flex-col gap-2.5 flex-1 mb-6">
+            {[
+              'Site fully built and live',
+              'Shown how to update it yourself',
+              'Google tracking connected',
+              'Optional £29/month hosting cover',
+              'Call me anytime at £15/hr (min 1 hr)',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="block text-center text-sm font-semibold py-3 rounded-xl transition-colors" style="background:#E8F5F1; color:#1C3557;">
+            Get in touch →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GROUP 2: Add-ons -->
+  <section class="py-16" style="background:#f2f5f7;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+      <div class="max-w-2xl mb-12">
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">ADD-ONS</span>
+        <h2 class="font-heading font-semibold text-3xl mt-3 mb-3" style="color:#1C3557;">
+          Bolt these on to any plan. At any point.
+        </h2>
+        <p class="text-sm leading-relaxed" style="color:#4a6070;">
+          You don't have to decide now. Most clients add these in once they realise how much time they're losing to manual follow-up.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+        <!-- Add-on 1 -->
+        <div class="bg-white rounded-2xl p-6 flex flex-col">
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">Never miss an enquiry</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-bold text-lg" style="color:#1C3557;">£149 setup</span>
+            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £29/month</span>
+          </div>
+          <p class="text-sm mb-4" style="color:#4a6070;">Someone contacts you, they get an instant reply, you get notified, lead is saved automatically.</p>
+          <ul class="flex flex-col gap-2 flex-1 mb-5">
+            {[
+              'Instant auto-reply on enquiry',
+              'Notification to your phone',
+              'Every lead saved in one place',
+              '48hr follow-up reminder',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
+        </div>
+
+        <!-- Add-on 2 -->
+        <div class="bg-white rounded-2xl p-6 flex flex-col">
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">Stay in touch automatically</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-bold text-lg" style="color:#1C3557;">£199 setup</span>
+            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £49/month</span>
+          </div>
+          <p class="text-sm mb-4" style="color:#4a6070;">New enquiry comes in, they get a series of helpful emails from you over the next few days. All automatic.</p>
+          <ul class="flex flex-col gap-2 flex-1 mb-5">
+            {[
+              '5 emails written and scheduled',
+              'Sends automatically on enquiry',
+              'Monthly newsletter written and sent',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
+        </div>
+
+        <!-- Add-on 3 -->
+        <div class="bg-white rounded-2xl p-6 flex flex-col">
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">Know where every lead stands</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-bold text-lg" style="color:#1C3557;">£149 setup</span>
+            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £29/month</span>
+          </div>
+          <p class="text-sm mb-4" style="color:#4a6070;">All enquiries in one place. Who's interested, who you've quoted, who's gone quiet.</p>
+          <ul class="flex flex-col gap-2 flex-1 mb-5">
+            {[
+              'Simple pipeline from enquiry to won',
+              'Website leads land here automatically',
+              'Monthly tidy-up together',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
+        </div>
+
+        <!-- Add-on 4: Best value -->
+        <div class="bg-white rounded-2xl p-6 flex flex-col relative">
+          <div class="absolute -top-3.5 left-6 text-xs font-bold px-3 py-1 rounded-full" style="background:#0D2240; color:#2ECC9A;">Best value</div>
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">The whole system connected</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-bold text-lg" style="color:#1C3557;">£399 setup</span>
+            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £79/month</span>
+          </div>
+          <p class="text-sm mb-4" style="color:#4a6070;">Enquiry in, auto-reply out, lead saved, follow-up emails sent. All automatic.</p>
+          <ul class="flex flex-col gap-2 flex-1 mb-5">
+            {[
+              'Everything above joined up',
+              'Review requests sent after each job',
+              'Monthly report on leads and emails',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GROUP 3: AI services -->
+  <section class="py-16" style="background:#0D2240;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+      <div class="max-w-2xl mb-12">
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">AI SERVICES</span>
+        <h2 class="font-heading font-semibold text-3xl mt-3 mb-3" style="color:#fff;">
+          Custom AI built around your business.
+        </h2>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.5);">
+          You don't need to understand it. Just tell me what's eating your time. Every project is scoped individually. Prices below are starting points. I'll always give you a clear quote before anything starts.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+        <!-- AI 1 -->
+        <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">AI assistant for your website</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-bold text-lg" style="color:#fff;">from £499 setup</span>
+            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £49/month</span>
+          </div>
+          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">A chat window on your site that answers customer questions 24/7 without you being there. Knows your services, prices, and area.</p>
+          <ul class="flex flex-col gap-2 flex-1 mb-5">
+            {[
+              'Answers FAQs instantly, any time',
+              'Captures leads while you sleep',
+              'Trained on your business specifically',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.6);">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.15); color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
+        </div>
+
+        <!-- AI 2 -->
+        <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">Make your data flow automatically</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-bold text-lg" style="color:#fff;">from £299 setup</span>
+            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £29/month</span>
+          </div>
+          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">Stop copying things between apps. Enquiries, bookings, invoices, emails all connected up.</p>
+          <ul class="flex flex-col gap-2 flex-1 mb-5">
+            {[
+              'Apps connected and talking to each other',
+              'No more copy-pasting between systems',
+              'Saves hours every week',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.6);">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.15); color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
+        </div>
+
+        <!-- AI 3 -->
+        <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">An AI that does tasks for you</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-bold text-lg" style="color:#fff;">from £599 setup</span>
+            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £59/month</span>
+          </div>
+          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">A custom AI that handles repetitive jobs: writing quotes, summarising enquiries, drafting replies, generating reports. Built around how you work.</p>
+          <ul class="flex flex-col gap-2 flex-1 mb-5">
+            {[
+              'Handles repetitive tasks automatically',
+              'Built for your workflow',
+              'Gets smarter the more you use it',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.6);">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.15); color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
+        </div>
+
+        <!-- AI 4 -->
+        <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">Connect AI to your existing software</h3>
+          <div class="flex items-baseline gap-2 mb-3">
+            <span class="font-bold text-lg" style="color:#fff;">from £799 setup</span>
+            <span class="text-xs" style="color:rgba(255,255,255,0.4);">quoted per project</span>
+          </div>
+          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">Already using a CRM, booking system, or app you love? I plug AI directly into it.</p>
+          <ul class="flex flex-col gap-2 flex-1 mb-5">
+            {[
+              'AI built into your existing tools',
+              'No need to change how you work',
+              'Scoped and priced to your needs',
+            ].map(item => (
+              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.6);">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.15); color:#2ECC9A; font-size:9px;">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="/about#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+      <h2 class="font-heading font-semibold text-2xl mb-8" style="color:#1C3557;">Questions people usually ask first.</h2>
+
+      <div class="flex flex-col gap-3">
+        {[
+          {
+            q: "Do I pay anything upfront on the monthly plans?",
+            a: "No. I build your site and you start paying monthly once it's live. Nothing until you're happy."
+          },
+          {
+            q: "What happens after 6 months?",
+            a: "It rolls to monthly. Cancel anytime with 30 days' notice. Most clients stay because it's working."
+          },
+          {
+            q: "Can I add the AI stuff to my existing website?",
+            a: "Yes. The AI services work on any website, not just ones I've built. Get in touch and I'll talk it through with you."
+          },
+          {
+            q: "I don't really understand AI. Is it still worth it?",
+            a: "That's exactly why I'm here. You don't need to understand it. You just tell me what's taking up your time and I'll show you what's possible."
+          },
+          {
+            q: "How much does the AI work actually cost?",
+            a: "It depends on what you need. The prices shown are starting points. I'll always give you a clear quote before any work starts. No surprises."
+          },
+        ].map(faq => (
+          <details class="rounded-xl overflow-hidden" style="border:1px solid #e5e7eb;">
+            <summary class="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer font-semibold text-sm" style="color:#1C3557; list-style:none;">
+              {faq.q}
+              <svg class="flex-shrink-0 faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-sm leading-relaxed" style="color:#4a6070;">{faq.a}</div>
+          </details>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16" style="background:#E8F5F1;">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="font-heading font-semibold text-2xl sm:text-3xl mb-4" style="color:#1C3557;">
+        Not sure which plan is right for you?
+      </h2>
+      <p class="text-sm mb-2" style="color:#4a6070;">
+        Too much choice is its own problem. Most people spend longer on this page than they need to.
+      </p>
+      <p class="text-sm mb-8" style="color:#4a6070;">
+        Drop me a message. Tell me what you're trying to sort out. I'll point you to the right option. Usually takes five minutes.
+      </p>
+      <a href="/about#contact" class="inline-flex items-center gap-2 font-semibold text-sm px-6 py-3.5 rounded-xl" style="background:#0D2240; color:#fff;">
+        Get in touch
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  details[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-chevron {
+    transition: transform 0.2s ease;
+  }
+  details summary::-webkit-details-marker { display: none; }
+</style>
