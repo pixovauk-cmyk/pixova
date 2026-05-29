@@ -25,7 +25,7 @@ import Layout from '../layouts/Layout.astro';
       {
         "@type": "Question",
         "name": "How much does a small business website cost?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Monthly plans start from £49/month with no upfront cost. I build your site and you start paying once it's live. Plans go up to £149/month for a fully managed service including SEO, unlimited updates, and a monthly call. There's also a one-off option at £299 for those who want to manage the site themselves. Add-ons and AI services are available on top of any plan." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Plans start from £49/month (Get Online) up to £129/month (Get Leads). A one-off setup fee is paid when your site goes live — nothing before that. Add-ons including CRM, email nurture, and AI chatbot are available on any plan." }
       },
       {
         "@type": "Question",
@@ -76,7 +76,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="flex items-center gap-2.5 min-w-0">
         <span class="live-dot flex-shrink-0"></span>
         <span class="text-xs sm:text-sm font-medium" style="color:rgba(255,255,255,0.8);">
-          Websites from <strong style="color:#2ECC9A;">£49/month</strong>. No upfront cost. I build it, you start paying when it's live.
+          Websites from <strong style="color:#2ECC9A;">£49/month</strong>. Setup fee paid on go-live. Nothing to pay now.
         </span>
       </div>
       <div class="flex items-center gap-2 flex-shrink-0">
@@ -160,7 +160,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="flex justify-center lg:justify-start mb-10">
             <a href="/pricing/" class="inline-flex items-center gap-3 rounded-xl px-4 py-3 group transition-all" style="background:rgba(13,34,64,0.08); border:1px solid rgba(13,34,64,0.2);">
               <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#0D2240; color:#2ECC9A;">From £49</span>
-              <span class="text-sm font-semibold" style="color:#0D2240;">No upfront cost. See all plans and pricing.</span>
+              <span class="text-sm font-semibold" style="color:#0D2240;">Setup fee on go-live. See all plans and pricing.</span>
               <svg class="flex-shrink-0 transition-transform group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
@@ -712,11 +712,13 @@ import Layout from '../layouts/Layout.astro';
   <section id="services">
 
     <!-- Dark top: label + heading -->
-    <div class="pricing-top">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center reveal">
+    <div class="pricing-top relative overflow-hidden">
+      <div class="absolute inset-0" style="background-image:url('/images/pricing-hero.webp'); background-size:cover; background-position:center; opacity:0.22;"></div>
+      <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(13,34,64,0.95) 0%, rgba(28,53,87,0.85) 55%, rgba(13,34,64,0.95) 100%);"></div>
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 text-center reveal">
         <span class="sec-label" style="color:rgba(255,255,255,0.45); border-color:rgba(255,255,255,0.15);">PLANS</span>
         <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3" style="color:#fff; letter-spacing:-0.025em;">
-          Your website, built and looked after.<br class="hidden sm:block"/> No upfront cost.
+          Your website, built and looked after.<br class="hidden sm:block"/> Setup fee on go-live only.
         </h2>
         <p class="text-sm mt-3" style="color:rgba(255,255,255,0.45);">
           I build your site. You start paying monthly once it's live.
@@ -730,22 +732,22 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="pricing-wrap">
 
-          <!-- Plan 1: Get started -->
+          <!-- Plan 1: Get Online -->
           <div class="p-card p-card-side p-card-left reveal reveal-d1" style="flex:1;">
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;">Get started</h3>
+            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;">Get Online</h3>
             <div class="flex items-end gap-1.5 mt-2 mb-0.5">
               <span class="font-bold" style="font-size:2.2rem; line-height:1; color:#1C3557;">£49</span>
               <span class="text-xs font-medium pb-1.5" style="color:#8a9ab0;">/month</span>
             </div>
-            <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
-            <p class="text-xs mb-4" style="color:#8a9ab0;">6 month minimum</p>
+            <p class="text-xs font-semibold mb-0.5" style="color:#2ECC9A;">+ £99 setup on go-live</p>
+            <p class="text-xs mb-4" style="color:#8a9ab0;">6 month minimum · nothing to pay now</p>
             <ul class="flex flex-col gap-2.5 mb-4">
               {[
-                'Professional website built for you',
-                'Shows up on Google from day one',
-                'Edit your own content anytime',
-                'I handle all the technical stuff',
-                'One update a month included',
+                '5 pages built for you',
+                'Mobile first, fast loading',
+                'Google Business Profile setup',
+                'Free domain + SSL included',
+                '1 update per month',
               ].map(item => (
                 <li class="flex items-center gap-2 text-xs" style="color:#4a6070;">
                   <span class="p-check" style="background:#E8F5F1; color:#2ECC9A;">✓</span>
@@ -757,23 +759,23 @@ import Layout from '../layouts/Layout.astro';
             <a href="/about/#contact" class="p-btn p-btn-light">Get started →</a>
           </div>
 
-          <!-- Plan 2: Grow on Google (featured) -->
+          <!-- Plan 2: Get Found (featured) -->
           <div class="p-card p-card-mid reveal reveal-d2">
             <div class="p-popular-badge">Most popular</div>
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#fff;">Grow on Google</h3>
+            <h3 class="font-heading font-bold text-xl mb-1" style="color:#fff;">Get Found</h3>
             <div class="flex items-end gap-1.5 mt-2 mb-0.5">
-              <span class="font-bold" style="font-size:2.2rem; line-height:1; color:#fff;">£99</span>
+              <span class="font-bold" style="font-size:2.2rem; line-height:1; color:#fff;">£89</span>
               <span class="text-xs font-medium pb-1.5" style="color:rgba(255,255,255,0.45);">/month</span>
             </div>
-            <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
-            <p class="text-xs mb-4" style="color:rgba(255,255,255,0.35);">6 month minimum</p>
+            <p class="text-xs font-semibold mb-0.5" style="color:#2ECC9A;">+ £199 setup on go-live</p>
+            <p class="text-xs mb-4" style="color:rgba(255,255,255,0.35);">6 month minimum · nothing to pay now</p>
             <ul class="flex flex-col gap-2.5 mb-5">
               {[
-                'Everything in Get started',
-                'Blog article written every month',
-                'Monthly visitor report',
-                'Google listing kept up to date',
-                'Up to 3 updates a month',
+                'Everything in Get Online',
+                '1 SEO blog post written monthly',
+                'Google ranking report monthly',
+                'Google review request system',
+                '3 updates per month',
               ].map(item => (
                 <li class="flex items-center gap-2 text-xs" style="color:rgba(255,255,255,0.7);">
                   <span class="p-check" style="background:rgba(46,204,154,0.2); color:#2ECC9A;">✓</span>
@@ -785,22 +787,22 @@ import Layout from '../layouts/Layout.astro';
             <a href="/about/#contact" class="p-btn p-btn-teal">Get started →</a>
           </div>
 
-          <!-- Plan 3: Fully handed off -->
+          <!-- Plan 3: Get Leads -->
           <div class="p-card p-card-side p-card-right reveal reveal-d3" style="flex:1;">
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;">Fully handed off</h3>
+            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;">Get Leads</h3>
             <div class="flex items-end gap-1.5 mt-2 mb-0.5">
-              <span class="font-bold" style="font-size:2.2rem; line-height:1; color:#1C3557;">£149</span>
+              <span class="font-bold" style="font-size:2.2rem; line-height:1; color:#1C3557;">£129</span>
               <span class="text-xs font-medium pb-1.5" style="color:#8a9ab0;">/month</span>
             </div>
-            <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
-            <p class="text-xs mb-4" style="color:#8a9ab0;">6 month minimum</p>
+            <p class="text-xs font-semibold mb-0.5" style="color:#2ECC9A;">+ £349 setup on go-live</p>
+            <p class="text-xs mb-4" style="color:#8a9ab0;">6 month minimum · nothing to pay now</p>
             <ul class="flex flex-col gap-2.5 mb-4">
               {[
-                'Everything in Grow on Google',
-                'Unlimited updates, same day',
-                'Monthly catch-up call',
-                'Smart tools set up to save you time',
-                'Priority response',
+                'Everything in Get Found',
+                '2 blog posts per month',
+                'Google Business Profile managed',
+                'Same-day emergency fixes',
+                'WhatsApp direct + quarterly call',
               ].map(item => (
                 <li class="flex items-center gap-2 text-xs" style="color:#4a6070;">
                   <span class="p-check" style="background:#E8F5F1; color:#2ECC9A;">✓</span>
@@ -817,10 +819,10 @@ import Layout from '../layouts/Layout.astro';
         <!-- Link to full pricing -->
         <div class="mt-8 text-center reveal">
           <p class="text-sm mb-3" style="color:#8a9ab0;">
-            Also available: manage-it-yourself option, add-ons, and custom AI services.
+            6-month and 12-month terms available. Setup fee reduced on 12-month. Add-ons and AI services available on any plan.
           </p>
           <a href="/pricing/" class="inline-flex items-center gap-2 text-sm font-semibold" style="color:#2ECC9A;">
-            See full pricing and all plans
+            See full pricing and all terms
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
@@ -1053,7 +1055,7 @@ import Layout from '../layouts/Layout.astro';
           },
           {
             q: "How much does a small business website cost?",
-            a: "Monthly plans start from £49/month with no upfront cost. I build your site first and you start paying once it's live. Plans go up to £149/month for a fully managed service including SEO, unlimited updates, and a monthly call. There's also a one-off option at £299 for those who want to manage the site themselves. No long contracts, cancel any time."
+            a: "Plans start from £49/month (Get Online) up to £129/month (Get Leads). A one-off setup fee is paid when your site goes live — nothing to pay before that. 6 or 12-month terms available. Add-ons including CRM, email nurture, and AI chatbot are available on any plan."
           },
           {
             q: "How long does local SEO take to work?",
@@ -1267,14 +1269,14 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <!-- Actual message (hidden until typing finishes) -->
       <div id="chat-message" class="rounded-2xl rounded-tl-sm px-4 py-3.5 inline-block max-w-xs mb-1" style="display:none; background:rgba(255,255,255,0.07); border:1px solid rgba(46,204,154,0.14);">
-        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.82);">Before you go. I'm taking on new clients this month. From <strong style="color:#2ECC9A; font-weight:700;">£49/month</strong>, no upfront cost. Takes 30 seconds to drop me a message.</p>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.82);">Before you go. I'm taking on new clients this month. From <strong style="color:#2ECC9A; font-weight:700;">£49/month</strong> — setup fee paid when live, nothing now. Takes 30 seconds to drop me a message.</p>
       </div>
       <p id="chat-timestamp" class="text-xs ml-1 mt-1" style="display:none; color:rgba(255,255,255,0.28);">just now</p>
     </div>
 
     <!-- Plans teaser -->
     <div class="mx-5 mb-4 rounded-xl px-4 py-3 flex items-center gap-3" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
-      <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.78);">Plans from £49/month · No upfront cost · 6 month min</span>
+      <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.78);">Plans from £49/month · Setup on go-live · 6 or 12 month terms</span>
       <span class="live-dot ml-auto"></span>
     </div>
 

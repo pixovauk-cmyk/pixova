@@ -3,23 +3,40 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="Web Design Prices & Local SEO Packages | Pixova Birmingham"
-  description="Web design prices and local SEO packages for small businesses from £49/month. No upfront cost. No long contracts. Based in Birmingham."
+  title="Local SEO Packages & Web Design Prices | Pixova Birmingham"
+  description="Affordable local SEO packages and web design prices for UK small businesses. From £49/month. Setup fee paid on go-live. Birmingham-based."
   canonicalUrl="https://www.pixova.uk/pricing/"
 >
 
   <!-- HERO -->
-  <section class="relative pt-20 pb-16 overflow-hidden" style="background:#0D2240; min-height:320px;">
-    <div class="absolute inset-0" style="background-image:url('/images/hero-laptop.webp'); background-size:cover; background-position:center; opacity:0.10;"></div>
-    <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(13,34,64,0.97) 0%, rgba(28,53,87,0.88) 60%, rgba(13,34,64,0.97) 100%);"></div>
+  <section class="relative pt-20 pb-16 overflow-hidden" style="background:#0D2240; min-height:340px;">
+    <div class="absolute inset-0" style="background-image:url('/images/pricing-hero.webp'); background-size:cover; background-position:center; opacity:0.55;"></div>
+    <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(13,34,64,0.82) 0%, rgba(28,53,87,0.55) 50%, rgba(13,34,64,0.82) 100%);"></div>
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
       <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">PRICING</span>
       <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-5" style="color:#fff;">
-        Web design prices and local SEO packages for small businesses.
+        Local SEO Packages &amp; Web Design Prices for Small Businesses.
       </h1>
       <p class="text-base max-w-2xl leading-relaxed" style="color:rgba(255,255,255,0.72);">
-        Most small businesses arrive here with the same question: what does it actually cost, and will it be worth it? Monthly plans start at £49. I offer affordable SEO and website design for small businesses across the UK, with nothing to pay upfront. I build your site first. You start paying once it's live. Based in Birmingham, I'll always give you a clear quote before anything starts.
+        You want to know what it costs. Fair enough.
+
+        My local SEO packages and web design plans are priced for UK small businesses, not agency budgets. I build your site first. The setup fee is paid when it goes live. Not a day before.
+
+        One monthly fee covers everything after that: hosting, content updates, SEO, and support. No hidden costs. Birmingham-based.
       </p>
+      <!-- Trust indicators -->
+      <div class="flex flex-wrap items-center gap-4 mt-7">
+        {[
+          'Nothing to pay until live',
+          'Live in 7 working days',
+          'You own the site',
+          'Cancel after minimum term',
+        ].map(item => (
+          <span class="flex items-center gap-1.5 text-xs font-medium" style="color:rgba(255,255,255,0.75);">
+            <span style="color:#2ECC9A;">✓</span> {item}
+          </span>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -27,34 +44,64 @@ import Layout from '../layouts/Layout.astro';
   <section class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
-      <div class="max-w-2xl mb-12">
-        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">MONTHLY PLANS</span>
+      <div class="max-w-2xl mb-10">
+        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">WEBSITE PLANS</span>
         <h2 class="font-heading font-semibold text-3xl mt-3 mb-3" style="color:#1C3557;">
-          Website plans and SEO packages for small businesses. No upfront cost.
+          Affordable Local SEO Packages and Web Design Plans.
         </h2>
         <p class="text-sm leading-relaxed" style="color:#4a6070;">
-          Every plan includes a professionally built website, Google tracking, and a content editor so you can make changes yourself. You pay monthly. Nothing until it's live. Pick the plan that matches where you are right now.
+          Inexpensive web design built properly. Setup fee paid on go-live, nothing before that. Monthly fee covers hosting, content updates, SEO, and support. Pick your plan, choose your term.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Term toggle -->
+      <div class="flex items-center gap-2 mb-8 flex-wrap">
+        <button class="term-btn text-xs font-bold px-4 py-2 rounded-full border transition-all" data-term="six" style="background:#fff; color:#1C3557; border-color:#e5e7eb;">
+          6 months
+        </button>
+        <button class="term-btn active-term text-xs font-bold px-4 py-2 rounded-full border transition-all relative" data-term="annual" style="background:#2ECC9A; color:#0D2240; border-color:#2ECC9A;">
+          12 months, best value
+          <span class="absolute -top-2.5 -right-2 text-[9px] font-black px-1.5 py-0.5 rounded-full" style="background:#0D2240; color:#2ECC9A;">★</span>
+        </button>
+        <button class="term-btn text-xs font-bold px-4 py-2 rounded-full border transition-all" data-term="rolling" style="background:#fff; color:#1C3557; border-color:#e5e7eb;">
+          Rolling monthly
+        </button>
+      </div>
 
-        <!-- Plan 1: Get started -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+        <!-- Plan 1: Starter -->
         <div class="rounded-2xl border p-6 flex flex-col" style="border-color:#e5e7eb;">
-          <h3 class="font-heading font-bold text-lg mb-1" style="color:#1C3557;">Get started</h3>
-          <div class="flex items-end gap-1 mb-1">
-            <span class="font-bold" style="font-size:2rem; line-height:1; color:#1C3557;">£49</span>
-            <span class="text-xs pb-1.5" style="color:#8a9ab0;">/month</span>
+          <span class="text-xs font-semibold tracking-widest uppercase mb-3" style="color:#8a9ab0;">STARTER</span>
+          <h3 class="font-heading font-bold text-xl mb-4" style="color:#1C3557;">Get Online</h3>
+
+          <!-- Setup fee -->
+          <div class="rounded-xl px-4 py-3 mb-4 flex items-center justify-between" style="background:#f7fafa;">
+            <span class="text-xs font-semibold" style="color:#4a6070;">Setup fee (paid on go-live)</span>
+            <span class="font-bold text-base plan-setup" data-six="£99" data-annual="£49" data-rolling="£169" style="color:#1C3557;">£49</span>
           </div>
-          <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
-          <p class="text-xs mb-5" style="color:#8a9ab0;">6 month minimum</p>
+
+          <!-- Monthly price -->
+          <div class="flex items-end gap-1 mb-1">
+            <span class="font-bold plan-monthly" data-six="£49" data-annual="£39" data-rolling="£65" style="font-size:2.2rem; line-height:1; color:#1C3557;">£49</span>
+            <span class="text-xs pb-2" style="color:#8a9ab0;">/month</span>
+          </div>
+          <p class="text-xs mb-1 plan-term" data-six="6-month minimum" data-annual="12-month minimum" data-rolling="Cancel anytime (30 days notice)" style="color:#8a9ab0;">6-month minimum</p>
+          <p class="text-xs font-semibold mb-5 plan-save hidden annual-badge" style="color:#2ECC9A;">Save £50 on setup + £120 over year</p>
+          <p class="text-xs font-semibold mb-5 plan-save hidden rolling-badge" style="color:#8a9ab0;">Flexible, no commitment</p>
+          <p class="text-xs font-semibold mb-5 plan-save six-badge" style="color:#2ECC9A;">Nothing to pay until live</p>
+
           <ul class="flex flex-col gap-2.5 flex-1 mb-6">
             {[
-              'Professional website built for you',
-              'Shows up on Google from day one',
-              'Edit your own content anytime',
-              'I handle all the technical stuff',
-              'One update a month included',
+              '5 pages built for you',
+              'Mobile first, fast loading',
+              'Contact form + click-to-call',
+              'Google Analytics 4 connected',
+              'Google Business Profile setup',
+              'Free domain, year 1 included',
+              'SSL + hosting included',
+              '1 content update per month',
+              'Email support, 48hr response',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
                 <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
@@ -67,23 +114,39 @@ import Layout from '../layouts/Layout.astro';
           </a>
         </div>
 
-        <!-- Plan 2: Grow on Google (featured) -->
+        <!-- Plan 2: Growth (featured) -->
         <div class="rounded-2xl p-6 flex flex-col relative" style="background:#0D2240;">
-          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap" style="background:#2ECC9A; color:#0D2240;">Most popular</div>
-          <h3 class="font-heading font-bold text-lg mb-1" style="color:#fff;">Grow on Google</h3>
-          <div class="flex items-end gap-1 mb-1">
-            <span class="font-bold" style="font-size:2rem; line-height:1; color:#fff;">£99</span>
-            <span class="text-xs pb-1.5" style="color:rgba(255,255,255,0.45);">/month</span>
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap" style="background:#2ECC9A; color:#0D2240;">Most popular</div>
+          <span class="text-xs font-semibold tracking-widest uppercase mb-3" style="color:rgba(46,204,154,0.6);">GROWTH</span>
+          <h3 class="font-heading font-bold text-xl mb-4" style="color:#fff;">Get Found</h3>
+
+          <!-- Setup fee -->
+          <div class="rounded-xl px-4 py-3 mb-4 flex items-center justify-between" style="background:rgba(255,255,255,0.07);">
+            <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.5);">Setup fee (paid on go-live)</span>
+            <span class="font-bold text-base plan-setup" data-six="£199" data-annual="£99" data-rolling="£299" style="color:#2ECC9A;">£199</span>
           </div>
-          <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
-          <p class="text-xs mb-5" style="color:rgba(255,255,255,0.35);">6 month minimum</p>
+
+          <!-- Monthly price -->
+          <div class="flex items-end gap-1 mb-1">
+            <span class="font-bold plan-monthly" data-six="£89" data-annual="£75" data-rolling="£115" style="font-size:2.2rem; line-height:1; color:#fff;">£89</span>
+            <span class="text-xs pb-2" style="color:rgba(255,255,255,0.4);">/month</span>
+          </div>
+          <p class="text-xs mb-1 plan-term" data-six="6-month minimum" data-annual="12-month minimum" data-rolling="Cancel anytime (30 days notice)" style="color:rgba(255,255,255,0.35);">6-month minimum</p>
+          <p class="text-xs font-semibold mb-5 plan-save hidden annual-badge" style="color:#2ECC9A;">Save £100 on setup + £168 over year</p>
+          <p class="text-xs font-semibold mb-5 plan-save hidden rolling-badge" style="color:rgba(255,255,255,0.4);">Flexible, no commitment</p>
+          <p class="text-xs font-semibold mb-5 plan-save six-badge" style="color:#2ECC9A;">Nothing to pay until live</p>
+
           <ul class="flex flex-col gap-2.5 flex-1 mb-6">
             {[
-              'Everything in Get started',
-              'Blog article written every month',
-              'Monthly report on visitors and sources',
-              'Google listing kept up to date',
-              'Up to 3 updates a month',
+              'Everything in Starter',
+              '8 pages built (adds Blog, FAQ, Testimonials)',
+              'Local SEO setup for your area',
+              '1 SEO blog post written monthly',
+              '3 content updates per month',
+              'Google Search Console monitored',
+              'Google review request system',
+              'Monthly Google ranking report',
+              'Priority support, 24hr response',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.7);">
                 <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.2); color:#2ECC9A; font-size:9px;">✓</span>
@@ -96,22 +159,38 @@ import Layout from '../layouts/Layout.astro';
           </a>
         </div>
 
-        <!-- Plan 3: Fully handed off -->
+        <!-- Plan 3: Pro -->
         <div class="rounded-2xl border p-6 flex flex-col" style="border-color:#e5e7eb;">
-          <h3 class="font-heading font-bold text-lg mb-1" style="color:#1C3557;">Fully handed off</h3>
-          <div class="flex items-end gap-1 mb-1">
-            <span class="font-bold" style="font-size:2rem; line-height:1; color:#1C3557;">£149</span>
-            <span class="text-xs pb-1.5" style="color:#8a9ab0;">/month</span>
+          <span class="text-xs font-semibold tracking-widest uppercase mb-3" style="color:#8a9ab0;">PRO</span>
+          <h3 class="font-heading font-bold text-xl mb-4" style="color:#1C3557;">Get Leads</h3>
+
+          <!-- Setup fee -->
+          <div class="rounded-xl px-4 py-3 mb-4 flex items-center justify-between" style="background:#f7fafa;">
+            <span class="text-xs font-semibold" style="color:#4a6070;">Setup fee (paid on go-live)</span>
+            <span class="font-bold text-base plan-setup" data-six="£349" data-annual="£199" data-rolling="£499" style="color:#1C3557;">£349</span>
           </div>
-          <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">No upfront cost</p>
-          <p class="text-xs mb-5" style="color:#8a9ab0;">6 month minimum</p>
+
+          <!-- Monthly price -->
+          <div class="flex items-end gap-1 mb-1">
+            <span class="font-bold plan-monthly" data-six="£129" data-annual="£109" data-rolling="£159" style="font-size:2.2rem; line-height:1; color:#1C3557;">£129</span>
+            <span class="text-xs pb-2" style="color:#8a9ab0;">/month</span>
+          </div>
+          <p class="text-xs mb-1 plan-term" data-six="6-month minimum" data-annual="12-month minimum" data-rolling="Cancel anytime (30 days notice)" style="color:#8a9ab0;">6-month minimum</p>
+          <p class="text-xs font-semibold mb-5 plan-save hidden annual-badge" style="color:#2ECC9A;">Save £150 on setup + £240 over year</p>
+          <p class="text-xs font-semibold mb-5 plan-save hidden rolling-badge" style="color:#8a9ab0;">Flexible, no commitment</p>
+          <p class="text-xs font-semibold mb-5 plan-save six-badge" style="color:#2ECC9A;">Nothing to pay until live</p>
+
           <ul class="flex flex-col gap-2.5 flex-1 mb-6">
             {[
-              'Everything in Grow on Google',
-              'Unlimited updates, same day',
-              'Monthly catch-up call',
-              'Smart tools set up to save you time',
-              'Priority response',
+              'Everything in Growth',
+              '12 pages built (full service breakdown)',
+              '2 SEO blog posts per month',
+              '6 content updates per month',
+              'Google Business Profile managed weekly',
+              'Monthly competitor ranking report',
+              'Same-day emergency fixes',
+              'WhatsApp direct access',
+              'Quarterly 30-min strategy call',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
                 <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
@@ -124,37 +203,58 @@ import Layout from '../layouts/Layout.astro';
           </a>
         </div>
 
-        <!-- Plan 4: I'll manage it myself -->
-        <div class="rounded-2xl border p-6 flex flex-col" style="border-color:#e5e7eb;">
-          <h3 class="font-heading font-bold text-lg mb-1" style="color:#1C3557;">I'll manage it myself</h3>
-          <div class="flex items-end gap-1 mb-1">
-            <span class="font-bold" style="font-size:2rem; line-height:1; color:#1C3557;">£299</span>
-            <span class="text-xs pb-1.5" style="color:#8a9ab0;">one-off</span>
-          </div>
-          <p class="text-xs font-semibold mb-1" style="color:#2ECC9A;">then £15/hr</p>
-          <p class="text-xs mb-5" style="color:#8a9ab0;">No monthly commitment</p>
-          <ul class="flex flex-col gap-2.5 flex-1 mb-6">
-            {[
-              'Site fully built and live',
-              'Shown how to update it yourself',
-              'Google tracking connected',
-              'Optional £29/month hosting cover',
-              'Call me anytime at £15/hr (min 1 hr)',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a href="/about/#contact" class="block text-center text-sm font-semibold py-3 rounded-xl transition-colors" style="background:#E8F5F1; color:#1C3557;">
-            Get in touch →
-          </a>
-        </div>
-
       </div>
+
+      <!-- Footer note -->
+      <p class="text-xs mt-6 text-center" style="color:#8a9ab0;">
+        All plans: live in 7 working days or first month free. You own the site. No lock-in beyond the minimum term.
+      </p>
+
     </div>
   </section>
+
+  <script>
+    const termBtns = document.querySelectorAll('.term-btn');
+    const setupEls = document.querySelectorAll('.plan-setup');
+    const monthlyEls = document.querySelectorAll('.plan-monthly');
+    const termEls = document.querySelectorAll('.plan-term');
+    const annualBadges = document.querySelectorAll('.annual-badge');
+    const rollingBadges = document.querySelectorAll('.rolling-badge');
+    const sixBadges = document.querySelectorAll('.six-badge');
+
+    function switchTerm(term) {
+      setupEls.forEach(el => {
+        el.textContent = el.dataset[term];
+        el.style.color = term === 'annual' ? '#2ECC9A' : (el.closest('[style*="0D2240"]') ? '#2ECC9A' : '#1C3557');
+      });
+      monthlyEls.forEach(el => { el.textContent = el.dataset[term]; });
+      termEls.forEach(el => { el.textContent = el.dataset[term]; });
+
+      annualBadges.forEach(el => el.classList.toggle('hidden', term !== 'annual'));
+      rollingBadges.forEach(el => el.classList.toggle('hidden', term !== 'rolling'));
+      sixBadges.forEach(el => el.classList.toggle('hidden', term !== 'six'));
+
+      termBtns.forEach(btn => {
+        const active = btn.dataset.term === term;
+        if (btn.dataset.term === 'annual') {
+          btn.style.background = active ? '#2ECC9A' : '#fff';
+          btn.style.color = active ? '#0D2240' : '#1C3557';
+          btn.style.borderColor = active ? '#2ECC9A' : '#e5e7eb';
+        } else {
+          btn.style.background = active ? '#0D2240' : '#fff';
+          btn.style.color = active ? '#fff' : '#1C3557';
+          btn.style.borderColor = active ? '#0D2240' : '#e5e7eb';
+        }
+      });
+    }
+
+    // Default to 12-month
+    switchTerm('annual');
+
+    termBtns.forEach(btn => {
+      btn.addEventListener('click', () => switchTerm(btn.dataset.term));
+    });
+  </script>
 
   <!-- GROUP 2: Add-ons -->
   <section class="py-16" style="background:#f2f5f7;">
@@ -163,29 +263,29 @@ import Layout from '../layouts/Layout.astro';
       <div class="max-w-2xl mb-12">
         <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">ADD-ONS</span>
         <h2 class="font-heading font-semibold text-3xl mt-3 mb-3" style="color:#1C3557;">
-          Bolt these on to any plan. At any point.
+          Add CRM, Email Nurture and Automation to Any Plan.
         </h2>
         <p class="text-sm leading-relaxed" style="color:#4a6070;">
-          You don't have to decide now. Most clients add these in once they realise how much time they're losing to manual follow-up.
+          Most clients add these once their site is live. It happens when they realise how many leads they're losing to slow follow-up.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
-        <!-- Add-on 1 -->
+        <!-- Add-on 1: CRM -->
         <div class="bg-white rounded-2xl p-6 flex flex-col">
-          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">Never miss an enquiry</h3>
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">CRM setup</h3>
           <div class="flex items-center gap-3 mb-3">
             <span class="font-bold text-lg" style="color:#1C3557;">£149 setup</span>
             <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £29/month</span>
           </div>
-          <p class="text-sm mb-4" style="color:#4a6070;">Someone contacts you, they get an instant reply, you get notified, lead is saved automatically.</p>
+          <p class="text-sm mb-4" style="color:#4a6070;">Every enquiry saved, tracked, and followed up. Never lose a lead again.</p>
           <ul class="flex flex-col gap-2 flex-1 mb-5">
             {[
-              'Instant auto-reply on enquiry',
-              'Notification to your phone',
-              'Every lead saved in one place',
-              '48hr follow-up reminder',
+              'All leads from your site saved automatically',
+              'Simple pipeline, enquiry to won',
+              'Instant notification to your phone',
+              '48hr follow-up reminder if no reply',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
                 <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
@@ -196,18 +296,19 @@ import Layout from '../layouts/Layout.astro';
           <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
         </div>
 
-        <!-- Add-on 2 -->
+        <!-- Add-on 2: Nurture -->
         <div class="bg-white rounded-2xl p-6 flex flex-col">
-          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">Stay in touch automatically</h3>
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">Email nurture sequence</h3>
           <div class="flex items-center gap-3 mb-3">
             <span class="font-bold text-lg" style="color:#1C3557;">£199 setup</span>
             <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £49/month</span>
           </div>
-          <p class="text-sm mb-4" style="color:#4a6070;">New enquiry comes in, they get a series of helpful emails from you over the next few days. All automatic.</p>
+          <p class="text-sm mb-4" style="color:#4a6070;">Enquiry comes in. They get a series of helpful emails from you automatically over the next week.</p>
           <ul class="flex flex-col gap-2 flex-1 mb-5">
             {[
-              '5 emails written and scheduled',
-              'Sends automatically on enquiry',
+              '5-email sequence written in your voice',
+              'Triggers automatically on every enquiry',
+              'Keeps you front of mind while they decide',
               'Monthly newsletter written and sent',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
@@ -219,43 +320,21 @@ import Layout from '../layouts/Layout.astro';
           <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
         </div>
 
-        <!-- Add-on 3 -->
-        <div class="bg-white rounded-2xl p-6 flex flex-col">
-          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">Know where every lead stands</h3>
-          <div class="flex items-center gap-3 mb-3">
-            <span class="font-bold text-lg" style="color:#1C3557;">£149 setup</span>
-            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £29/month</span>
-          </div>
-          <p class="text-sm mb-4" style="color:#4a6070;">All enquiries in one place. Who's interested, who you've quoted, who's gone quiet.</p>
-          <ul class="flex flex-col gap-2 flex-1 mb-5">
-            {[
-              'Simple pipeline from enquiry to won',
-              'Website leads land here automatically',
-              'Monthly tidy-up together',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
-        </div>
-
-        <!-- Add-on 4: Best value -->
+        <!-- Add-on 3: Full system bundle -->
         <div class="bg-white rounded-2xl p-6 flex flex-col relative">
           <div class="absolute -top-3.5 left-6 text-xs font-bold px-3 py-1 rounded-full" style="background:#0D2240; color:#2ECC9A;">Best value</div>
-          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">The whole system connected</h3>
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#1C3557;">CRM + nurture bundle</h3>
           <div class="flex items-center gap-3 mb-3">
-            <span class="font-bold text-lg" style="color:#1C3557;">£399 setup</span>
-            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £79/month</span>
+            <span class="font-bold text-lg" style="color:#1C3557;">£299 setup</span>
+            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £69/month</span>
           </div>
-          <p class="text-sm mb-4" style="color:#4a6070;">Enquiry in, auto-reply out, lead saved, follow-up emails sent. All automatic.</p>
+          <p class="text-sm mb-4" style="color:#4a6070;">Enquiry in. Auto-reply sent, lead saved, follow-up emails go out. All connected, all automatic.</p>
           <ul class="flex flex-col gap-2 flex-1 mb-5">
             {[
-              'Everything above joined up',
-              'Review requests sent after each job',
-              'Monthly report on leads and emails',
+              'Everything in CRM + nurture sequence',
+              'Review request sent after each job',
+              'Monthly report on leads and open rates',
+              'Save £49 vs buying separately',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
                 <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
@@ -277,28 +356,29 @@ import Layout from '../layouts/Layout.astro';
       <div class="max-w-2xl mb-12">
         <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">AI SERVICES</span>
         <h2 class="font-heading font-semibold text-3xl mt-3 mb-3" style="color:#fff;">
-          Custom AI built around your business.
+          AI and Automation Services for UK Small Businesses.
         </h2>
         <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.5);">
           You don't need to understand it. Just tell me what's eating your time. Every project is scoped individually. Prices below are starting points. I'll always give you a clear quote before anything starts.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
-        <!-- AI 1 -->
+        <!-- AI 1: Chatbot -->
         <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
-          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">AI assistant for your website</h3>
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">AI chatbot for your site</h3>
           <div class="flex items-center gap-3 mb-3">
-            <span class="font-bold text-lg" style="color:#fff;">from £499 setup</span>
+            <span class="font-bold text-lg" style="color:#fff;">£399 setup</span>
             <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £49/month</span>
           </div>
-          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">A chat window on your site that answers customer questions 24/7 without you being there. Knows your services, prices, and area.</p>
+          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">A chat window trained on your services, prices, and area. It answers customer questions 24/7 and captures leads while you sleep.</p>
           <ul class="flex flex-col gap-2 flex-1 mb-5">
             {[
               'Answers FAQs instantly, any time',
-              'Captures leads while you sleep',
-              'Trained on your business specifically',
+              'Collects name, number, and enquiry',
+              'Trained on your specific business',
+              'Works on any website we build',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.6);">
                 <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.15); color:#2ECC9A; font-size:9px;">✓</span>
@@ -309,18 +389,19 @@ import Layout from '../layouts/Layout.astro';
           <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
         </div>
 
-        <!-- AI 2 -->
+        <!-- AI 2: Automation -->
         <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
-          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">Make your data flow automatically</h3>
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">Business automation</h3>
           <div class="flex items-center gap-3 mb-3">
             <span class="font-bold text-lg" style="color:#fff;">from £299 setup</span>
             <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £29/month</span>
           </div>
-          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">Stop copying things between apps. Enquiries, bookings, invoices, emails all connected up.</p>
+          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">Stop copying things between apps. Enquiries, bookings, invoices, and emails all connected and flowing automatically.</p>
           <ul class="flex flex-col gap-2 flex-1 mb-5">
             {[
-              'Apps connected and talking to each other',
+              'Apps connected and synced',
               'No more copy-pasting between systems',
+              'New enquiry triggers actions automatically',
               'Saves hours every week',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.6);">
@@ -332,42 +413,20 @@ import Layout from '../layouts/Layout.astro';
           <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
         </div>
 
-        <!-- AI 3 -->
+        <!-- AI 3: Custom -->
         <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
-          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">An AI that does tasks for you</h3>
-          <div class="flex items-center gap-3 mb-3">
-            <span class="font-bold text-lg" style="color:#fff;">from £599 setup</span>
-            <span class="text-sm font-semibold" style="color:#2ECC9A;">+ £59/month</span>
-          </div>
-          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">A custom AI that handles repetitive jobs: writing quotes, summarising enquiries, drafting replies, generating reports. Built around how you work.</p>
-          <ul class="flex flex-col gap-2 flex-1 mb-5">
-            {[
-              'Handles repetitive tasks automatically',
-              'Built for your workflow',
-              'Gets smarter the more you use it',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.6);">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.15); color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
-        </div>
-
-        <!-- AI 4 -->
-        <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
-          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">Connect AI to your existing software</h3>
+          <h3 class="font-heading font-bold text-lg mb-2" style="color:#fff;">Custom AI project</h3>
           <div class="flex items-baseline gap-2 mb-3">
-            <span class="font-bold text-lg" style="color:#fff;">from £799 setup</span>
+            <span class="font-bold text-lg" style="color:#fff;">from £599</span>
             <span class="text-xs" style="color:rgba(255,255,255,0.4);">quoted per project</span>
           </div>
-          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">Already using a CRM, booking system, or app you love? I plug AI directly into it.</p>
+          <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">Already using a CRM, booking system, or software you love? I build AI directly into it. No need to change how you work.</p>
           <ul class="flex flex-col gap-2 flex-1 mb-5">
             {[
               'AI built into your existing tools',
-              'No need to change how you work',
-              'Scoped and priced to your needs',
+              'Handles repetitive tasks and reports',
+              'Scoped and priced before anything starts',
+              'No surprises. Clear quote upfront.',
             ].map(item => (
               <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.6);">
                 <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.15); color:#2ECC9A; font-size:9px;">✓</span>
@@ -386,16 +445,16 @@ import Layout from '../layouts/Layout.astro';
   <section class="py-16 bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
 
-      <h2 class="font-heading font-semibold text-2xl mb-8" style="color:#1C3557;">Questions people usually ask first.</h2>
+      <h2 class="font-heading font-semibold text-2xl mb-8" style="color:#1C3557;">Common questions about web design prices and SEO packages.</h2>
 
       <div class="flex flex-col gap-3">
         {[
           {
-            q: "Do I pay anything upfront on the monthly plans?",
-            a: "No. I build your site and you start paying monthly once it's live. Nothing until you're happy."
+            q: "When do I pay the setup fee?",
+            a: "Only when your site goes live. Not before. I build it first, you see it, then you pay the setup fee and I switch it on. Zero risk."
           },
           {
-            q: "What happens after 6 months?",
+            q: "What happens after the minimum term?",
             a: "It rolls to monthly. Cancel anytime with 30 days' notice. Most clients stay because it's working."
           },
           {
