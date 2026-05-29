@@ -76,7 +76,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="flex items-center gap-2.5 min-w-0">
         <span class="live-dot flex-shrink-0"></span>
         <span class="text-xs sm:text-sm font-medium" style="color:rgba(255,255,255,0.8);">
-          Websites from <strong style="color:#2ECC9A;">£49/month</strong>. Setup fee paid on go-live. Nothing to pay now.
+          <span class="font-bold px-1.5 py-0.5 rounded text-xs mr-1" style="background:#DC2626; color:#fff;">JUNE OFFER</span> Setup fees reduced on all plans. 3 spots left. Closes 30 June — <strong style="color:#2ECC9A;">from £49/month</strong>.
         </span>
       </div>
       <div class="flex items-center gap-2 flex-shrink-0">
@@ -729,6 +729,13 @@ import Layout from '../layouts/Layout.astro';
     <!-- Light bottom: floating cards -->
     <div class="pricing-bottom">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+        <!-- June offer -->
+        <div class="flex items-center gap-3 rounded-xl px-4 py-3 mb-6 flex-wrap" style="background:#FEF2F2; border:1px solid #FECACA; margin-top:-120px; position:relative; z-index:10;">
+          <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#DC2626; color:#fff;">June offer</span>
+          <p class="text-sm font-semibold" style="color:#991B1B;">Setup fees reduced on all plans. 3 spots left this month. Closes 30 June.</p>
+          <a href="/pricing/" class="ml-auto text-xs font-bold whitespace-nowrap" style="color:#DC2626;">See pricing →</a>
+        </div>
 
         <div class="pricing-wrap">
 
