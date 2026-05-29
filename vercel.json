@@ -8,12 +8,32 @@
     },
     {
       "source": "/privacy",
-      "destination": "/privacy-policy",
+      "destination": "/privacy-policy/",
       "statusCode": 301
     },
     {
       "source": "/privacy/",
       "destination": "/privacy-policy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms/",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "source": "/about",
+      "destination": "/about/",
+      "statusCode": 301
+    },
+    {
+      "source": "/pricing",
+      "destination": "/pricing/",
       "statusCode": 301
     }
   ],
