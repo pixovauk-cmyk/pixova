@@ -17,6 +17,7 @@ interface Props {
   canonicalUrl: string;
   ogImage?: string;
   schema?: object;
+  noindex?: boolean;
   articleSchema?: {
     headline: string;
     datePublished: string;
@@ -24,7 +25,7 @@ interface Props {
   };
 }
 
-const { title, description, canonicalUrl, ogImage, schema, articleSchema } = Astro.props;
+const { title, description, canonicalUrl, ogImage, schema, noindex, articleSchema } = Astro.props;
 ---
 
 <!doctype html>
@@ -36,6 +37,7 @@ const { title, description, canonicalUrl, ogImage, schema, articleSchema } = Ast
       canonicalUrl={canonicalUrl}
       ogImage={ogImage}
       schema={schema}
+      noindex={noindex}
       articleSchema={articleSchema}
     />
     <!-- Page-specific head content -->
