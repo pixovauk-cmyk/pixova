@@ -521,8 +521,43 @@ import Layout from '../layouts/Layout.astro';
         </p>
       </div>
 
+      <!-- Mobile carousel: Who I help (hidden on md+) -->
+      <div class="swipe-wrap md:hidden mb-2">
+        <div class="swipe-grid">
+          <div class="relative rounded-2xl overflow-hidden" style="min-height:320px;">
+            <img src="/images/who-trades.webp" alt="Tradespeople web design Birmingham" width="800" height="600" loading="lazy" class="w-full h-full object-cover absolute inset-0"/>
+            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(13,34,64,0.95) 0%,rgba(13,34,64,0.45) 100%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background:#2ECC9A;color:#0D2240;">Tradespeople</span>
+              <h3 class="font-heading font-bold text-xl mb-2 leading-snug" style="color:#fff;">Your phone should ring from Google.</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.68);">Plumbers, electricians, builders, landscapers. I make Google send you customers.</p>
+            </div>
+          </div>
+          <div class="relative rounded-2xl overflow-hidden" style="min-height:320px;">
+            <img src="/images/who-beauty.webp" alt="Beauty and lifestyle business website design UK" width="800" height="600" loading="lazy" class="w-full h-full object-cover absolute inset-0"/>
+            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(13,34,64,0.88) 0%,rgba(13,34,64,0.2) 100%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3" style="background:rgba(46,204,154,0.15);color:#2ECC9A;border:1px solid rgba(46,204,154,0.3);">Lifestyle &amp; beauty</span>
+              <h3 class="font-heading font-bold text-xl mb-2 leading-snug" style="color:#fff;">Instagram gets you so far.</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">A proper website gets you found by people who've never heard of you yet.</p>
+            </div>
+          </div>
+          <div class="relative rounded-2xl overflow-hidden" style="min-height:320px;">
+            <img src="/images/who-professional.webp" alt="Professional services website design UK" width="800" height="600" loading="lazy" class="w-full h-full object-cover absolute inset-0"/>
+            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(13,34,64,0.92) 0%,transparent 60%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3" style="background:rgba(46,204,154,0.15);color:#2ECC9A;border:1px solid rgba(46,204,154,0.3);">Professional services</span>
+              <h3 class="font-heading font-bold text-xl mb-2 leading-snug" style="color:#fff;">You're credible in person.</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">Your website should say the same.</p>
+            </div>
+          </div>
+        </div>
+        <div class="swipe-dots" aria-hidden="true"></div>
+      </div>
+
+      <!-- Desktop bento (hidden on mobile) -->
       <!-- Asymmetric bento: big card left, 2 stacked right -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="hidden md:grid grid-cols-2 gap-4">
 
         <!-- Big tall card — Tradespeople -->
         <div class="relative rounded-2xl overflow-hidden reveal" style="min-height:440px;">
@@ -594,7 +629,8 @@ import Layout from '../layouts/Layout.astro';
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="swipe-wrap">
+      <div class="swipe-grid proc-grid">
         {[
           {
             n: '1',
@@ -631,6 +667,8 @@ import Layout from '../layouts/Layout.astro';
             <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.55);">{step.desc}</p>
           </div>
         ))}
+      </div>
+      <div class="swipe-dots" aria-hidden="true"></div>
       </div>
     </div>
   </section>
@@ -730,6 +768,7 @@ import Layout from '../layouts/Layout.astro';
     <div class="pricing-bottom">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
+        <div class="swipe-wrap">
         <div class="pricing-wrap">
 
           <!-- Plan 1: Get Online -->
@@ -814,6 +853,8 @@ import Layout from '../layouts/Layout.astro';
             <a href="/about/#contact" class="p-btn p-btn-light">Get started →</a>
           </div>
 
+        </div>
+        <div class="swipe-dots pricing-dots" aria-hidden="true"></div>
         </div>
 
         <!-- June offer + full pricing link -->
@@ -1129,8 +1170,39 @@ import Layout from '../layouts/Layout.astro';
         </a>
       </div>
 
+        <!-- Mobile carousel: blog posts (hidden on lg+) -->
+        <div class="swipe-wrap lg:hidden mb-2">
+          <div class="swipe-grid">
+            <a href="/blog/web-design-for-tradespeople/" class="blog-mob-card group" style="text-decoration:none;">
+              <span class="blog-cat-badge">WEB DESIGN</span>
+              <h3 class="font-heading font-semibold text-lg mt-3 mb-2 leading-snug" style="color:#fff;">Web Design for Tradespeople</h3>
+              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">What a good trades website actually needs. And why most fall short.</p>
+              <span class="blog-mob-arrow">Read →</span>
+            </a>
+            <a href="/blog/what-are-local-seo-services/" class="blog-mob-card group" style="text-decoration:none;">
+              <span class="blog-cat-badge">LOCAL SEO</span>
+              <h3 class="font-heading font-semibold text-lg mt-3 mb-2 leading-snug" style="color:#fff;">What Are Local SEO Services?</h3>
+              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">Plain English breakdown of what local SEO is and what it costs.</p>
+              <span class="blog-mob-arrow">Read →</span>
+            </a>
+            <a href="/blog/seo-optimisation-services-small-business/" class="blog-mob-card group" style="text-decoration:none;">
+              <span class="blog-cat-badge">SEO</span>
+              <h3 class="font-heading font-semibold text-lg mt-3 mb-2 leading-snug" style="color:#fff;">SEO Optimisation Services Explained</h3>
+              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">What good SEO actually includes, month to month.</p>
+              <span class="blog-mob-arrow">Read →</span>
+            </a>
+            <a href="/blog/benefits-of-marketing-automation/" class="blog-mob-card group" style="text-decoration:none;">
+              <span class="blog-cat-badge">AUTOMATION</span>
+              <h3 class="font-heading font-semibold text-lg mt-3 mb-2 leading-snug" style="color:#fff;">Benefits of Marketing Automation</h3>
+              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">Why fast follow-up wins more clients than any ad spend.</p>
+              <span class="blog-mob-arrow">Read →</span>
+            </a>
+          </div>
+          <div class="swipe-dots" aria-hidden="true"></div>
+        </div>
+
       <!-- Bento grid: featured left + 3 compact right -->
-      <div class="grid grid-cols-1 lg:grid-cols-5 gap-5">
+      <div class="hidden lg:grid grid-cols-5 gap-5">
 
         <!-- Featured card -->
         <a href="/blog/web-design-for-tradespeople/" class="blog-feat group reveal" style="text-decoration:none;">
@@ -1727,6 +1799,40 @@ import Layout from '../layouts/Layout.astro';
     0%, 60%, 100% { transform: translateY(0);    opacity: 0.5; }
     30%            { transform: translateY(-6px); opacity: 1;   }
   }
+
+  /* ── Mobile swipe carousel ─── */
+  .swipe-wrap { position: relative; }
+  .swipe-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    gap: 14px;
+    padding: 4px 16px 8px;
+    margin: 0 -16px;
+    scrollbar-width: none;
+  }
+  .swipe-grid::-webkit-scrollbar { display: none; }
+  .swipe-grid > * { flex: 0 0 84%; scroll-snap-align: start; min-width: 0; }
+  .swipe-dots { display: flex; justify-content: center; align-items: center; gap: 7px; padding: 14px 0 4px; }
+  .swipe-dot { width: 7px; height: 7px; border-radius: 4px; background: rgba(255,255,255,0.25); border: none; cursor: pointer; padding: 0; transition: all 0.2s ease; }
+  .swipe-dot.is-active { background: #2ECC9A; width: 22px; }
+  @media (min-width: 768px) {
+    .swipe-wrap { overflow: visible; }
+    .proc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; overflow: visible; margin: 0; padding: 0; scroll-snap-type: none; }
+    .proc-grid > * { flex: unset; }
+    .proc-grid ~ .swipe-dots { display: none; }
+  }
+  @media (max-width: 767px) {
+    .pricing-wrap { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; gap: 14px; margin-top: 0 !important; padding: 4px 16px 8px; margin-left: -16px; margin-right: -16px; }
+    .p-card-side { flex: 0 0 84%; scroll-snap-align: start; margin-top: 0 !important; border-radius: 16px !important; border: 1.5px solid #dde5ef !important; }
+    .p-card-mid { flex: 0 0 84%; scroll-snap-align: start; margin-top: 0 !important; border-radius: 16px !important; }
+    .pricing-dots { display: flex !important; }
+  }
+  @media (min-width: 768px) { .pricing-dots { display: none !important; } }
+  .blog-mob-card { display: flex; flex-direction: column; background: rgba(255,255,255,0.06); border: 1px solid rgba(46,204,154,0.15); border-radius: 16px; padding: 20px; min-height: 200px; }
+  .blog-mob-arrow { margin-top: auto; padding-top: 16px; font-size: 0.75rem; font-weight: 700; color: #2ECC9A; }
 </style>
 
 <script>
@@ -1905,5 +2011,67 @@ import Layout from '../layouts/Layout.astro';
   }
 </script>
 
+
+  <script>
+    (function() {
+      function initCarousels() {
+        document.querySelectorAll('.swipe-wrap').forEach(wrap => {
+          const grid = wrap.querySelector('.swipe-grid, .pricing-wrap');
+          const dotsEl = wrap.querySelector('.swipe-dots');
+          if (!grid || !dotsEl) return;
+          dotsEl.innerHTML = '';
+          const items = Array.from(grid.children).filter(el => !el.classList.contains('p-popular-badge'));
+          if (items.length < 2) return;
+          const dots = items.map((_, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'swipe-dot' + (i === 0 ? ' is-active' : '');
+            btn.setAttribute('aria-label', 'Item ' + (i + 1));
+            btn.onclick = () => items[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
+            dotsEl.appendChild(btn);
+            return btn;
+          });
+          const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+                const idx = items.indexOf(e.target);
+                if (idx >= 0) dots.forEach((d,i) => d.classList.toggle('is-active', i === idx));
+              }
+            });
+          }, {root: grid, threshold: 0.5});
+          items.forEach(item => obs.observe(item));
+        });
+      }
+      initCarousels();
+    })();
+  </script>
+  <script>
+    (function() {
+      document.querySelectorAll('.swipe-wrap').forEach(wrap => {
+        const grid = wrap.querySelector('.swipe-grid, .pricing-wrap');
+        const dotsEl = wrap.querySelector('.swipe-dots');
+        if (!grid || !dotsEl) return;
+        dotsEl.innerHTML = '';
+        const items = Array.from(grid.children).filter(el => el.tagName !== 'SCRIPT' && !el.classList.contains('p-popular-badge'));
+        if (items.length < 2) return;
+        const dots = items.map((_, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'swipe-dot' + (i === 0 ? ' is-active' : '');
+          btn.setAttribute('aria-label', 'Item ' + (i + 1));
+          btn.onclick = () => items[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
+          dotsEl.appendChild(btn);
+          return btn;
+        });
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+              const idx = items.indexOf(e.target);
+              if (idx >= 0) dots.forEach((d,i) => d.classList.toggle('is-active', i === idx));
+            }
+          });
+        }, {root: grid, threshold: 0.5});
+        items.forEach(item => obs.observe(item));
+      });
+    })();
+  </script>
 </Layout>
 

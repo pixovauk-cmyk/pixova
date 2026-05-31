@@ -169,7 +169,8 @@ const pricingSchema = {
       </div>
 
       <!-- Plan cards -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="swipe-wrap">
+      <div class="swipe-grid">
 
         <!-- Starter -->
         <div class="rounded-2xl border bg-white flex flex-col plan-card" style="border-color:#e8ecef; box-shadow:0 2px 20px rgba(13,34,64,0.06);">
@@ -393,6 +394,8 @@ const pricingSchema = {
           </div>
         </div>
 
+      </div>
+      <div class="swipe-dots" aria-hidden="true"></div>
       </div>
 
       <p class="text-xs mt-8 text-center" style="color:#a0aab4;">
@@ -743,9 +746,87 @@ const pricingSchema = {
     </div>
   </section>
 
+
+  <script>
+    (function() {
+      document.querySelectorAll('.swipe-wrap').forEach(wrap => {
+        const grid = wrap.querySelector('.swipe-grid');
+        const dotsEl = wrap.querySelector('.swipe-dots');
+        if (!grid || !dotsEl) return;
+        const items = Array.from(grid.children);
+        if (items.length < 2) return;
+        const dots = items.map((_, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'swipe-dot' + (i === 0 ? ' is-active' : '');
+          btn.setAttribute('aria-label', 'Plan ' + (i + 1));
+          btn.onclick = () => items[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
+          dotsEl.appendChild(btn);
+          return btn;
+        });
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+              const idx = items.indexOf(e.target);
+              if (idx >= 0) dots.forEach((d,i) => d.classList.toggle('is-active', i === idx));
+            }
+          });
+        }, {root: grid, threshold: 0.5});
+        items.forEach(item => obs.observe(item));
+      });
+    })();
+  </script>
 </Layout>
 
 <style>
+
+  /* ── Mobile swipe carousel ─── */
+  .swipe-wrap { position: relative; }
+  .swipe-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    gap: 14px;
+    padding: 4px 16px 8px;
+    margin: 0 -16px;
+    scrollbar-width: none;
+  }
+  .swipe-grid::-webkit-scrollbar { display: none; }
+  .swipe-grid > * {
+    flex: 0 0 84%;
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+  .swipe-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    padding: 14px 0 4px;
+  }
+  .swipe-dot {
+    width: 7px; height: 7px;
+    border-radius: 4px;
+    background: rgba(28,53,87,0.18);
+    border: none; cursor: pointer; padding: 0;
+    transition: all 0.2s ease;
+  }
+  .swipe-dot.is-active { background: #2ECC9A; width: 22px; }
+  @media (min-width: 1024px) {
+    .swipe-wrap { overflow: visible; }
+    .swipe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      overflow: visible;
+      margin: 0;
+      padding: 0;
+      scroll-snap-type: none;
+    }
+    .swipe-grid > * { flex: unset; }
+    .swipe-dots { display: none; }
+  }
   details[open] .faq-chevron {
     transform: rotate(180deg);
   }
