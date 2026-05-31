@@ -237,7 +237,7 @@ const pricingSchema = {
           </div>
 
           <div class="p-6 pt-5 mt-auto">
-            <a href="/about/#contact" class="block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" style="background:#f0f4f7; color:#1C3557;">
+            <a href="/api/checkout/starter/?term=monthly" class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan="starter" style="background:#f0f4f7; color:#1C3557;">
               Get started →
             </a>
           </div>
@@ -315,7 +315,7 @@ const pricingSchema = {
           </div>
 
           <div class="p-6 pt-5 mt-auto">
-            <a href="/about/#contact" class="block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" style="background:#2ECC9A; color:#0D2240;">
+            <a href="/api/checkout/growth/?term=monthly" class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan="growth" style="background:#2ECC9A; color:#0D2240;">
               Get started →
             </a>
           </div>
@@ -387,7 +387,7 @@ const pricingSchema = {
           </div>
 
           <div class="p-6 pt-5 mt-auto">
-            <a href="/about/#contact" class="block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" style="background:#f0f4f7; color:#1C3557;">
+            <a href="/api/checkout/pro/?term=monthly" class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan="pro" style="background:#f0f4f7; color:#1C3557;">
               Get started →
             </a>
           </div>
@@ -423,10 +423,22 @@ const pricingSchema = {
       });
     }
 
-    switchTerm('monthly');
+    function updateCheckoutLinks(term) {
+      document.querySelectorAll('.checkout-btn').forEach(el => {
+        const plan = el.dataset.plan;
+        if (plan) el.setAttribute('href', `/api/checkout/${plan}/?term=${term}`);
+      });
+    }
+
+    function activate(term) {
+      switchTerm(term);
+      updateCheckoutLinks(term);
+    }
+
+    activate('monthly');
 
     termBtns.forEach(btn => {
-      btn.addEventListener('click', () => switchTerm(btn.dataset.term));
+      btn.addEventListener('click', () => activate(btn.dataset.term));
     });
   </script>
 
