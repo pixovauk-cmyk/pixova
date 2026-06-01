@@ -47,6 +47,7 @@ export const GET: APIRoute = async ({ params, request, url }) => {
 
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
+    metadata: { plan, term },
     payment_method_types: ['card'],
     line_items: [
       { price: sub, quantity: 1 },
