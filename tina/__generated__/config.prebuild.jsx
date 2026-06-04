@@ -78,9 +78,10 @@ var config_default = defineConfig({
             options: ["neil", "dave", "sarah", "all"]
           },
           {
-            type: "rich-text",
+            type: "string",
             name: "body",
-            label: "Body",
+            label: "Body (Markdown)",
+            ui: { component: "textarea" },
             isBody: true
           }
         ]

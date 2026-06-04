@@ -97,7 +97,7 @@ type Blog implements Node & Document {
   heroImage: String
   readTime: String
   avatar: String
-  body: JSON
+  body: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -118,12 +118,6 @@ input DatetimeFilter {
   in: [String]
 }
 
-input RichTextFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-}
-
 input BlogFilter {
   title: StringFilter
   seoTitle: StringFilter
@@ -134,7 +128,7 @@ input BlogFilter {
   heroImage: StringFilter
   readTime: StringFilter
   avatar: StringFilter
-  body: RichTextFilter
+  body: StringFilter
 }
 
 type BlogConnectionEdges {
@@ -177,7 +171,7 @@ input BlogMutation {
   heroImage: String
   readTime: String
   avatar: String
-  body: JSON
+  body: String
 }
 
 schema {
