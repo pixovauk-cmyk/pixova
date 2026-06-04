@@ -4,6 +4,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { BlogDocument } from '../../../tina/__generated__/types';
 import { tinaField } from '@tinacms/bridge/tina-field';
 import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
+import { TinaContext } from '../../components/TinaContext';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -187,6 +188,26 @@ const breadcrumbSchema = {
     </div>
   </section>
 
+  <!-- TinaCMS visual editor context — invisible, enables form fields in admin preview -->
+  <TinaContext
+    client:only="react"
+    query={BlogDocument as string}
+    variables={{ relativePath: `${post.id}.mdx` }}
+    data={{
+      blog: {
+        title:          post.data.title         ?? null,
+        seoTitle:       post.data.seoTitle      ?? null,
+        description:    post.data.description,
+        pubDate:        post.data.pubDate.toISOString(),
+        updatedDate:    post.data.updatedDate?.toISOString() ?? null,
+        primaryKeyword: post.data.primaryKeyword ?? null,
+        heroImage:      post.data.heroImage      ?? null,
+        readTime:       post.data.readTime       ?? null,
+        avatar:         post.data.avatar         ?? null,
+        body:           null,
+      }
+    }}
+  />
 </Layout>
 
 <style is:global>
