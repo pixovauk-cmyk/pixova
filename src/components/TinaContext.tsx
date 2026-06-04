@@ -1,4 +1,5 @@
 import { useTina } from 'tinacms/dist/react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   query: string;
@@ -6,9 +7,21 @@ interface Props {
   data: Record<string, unknown>;
 }
 
-// Invisible island — registers the current document with TinaCMS visual
-// editor so the left-panel form fields load when viewing a page in preview.
-export function TinaContext({ query, variables, data }: Props) {
+// Only activates when the page is loaded inside the TinaCMS admin iframe.
+// On direct page visits, does nothing — prevents useTina() from redirecting
+// the user to the admin when the TinaCMS dev server is running locally.
+export function TinaContext(props: Props) {
+  const [inIframe, setInIframe] = useState(false);
+
+  useEffect(() => {
+    setInIframe(window !== window.parent);
+  }, []);
+
+  if (!inIframe) return null;
+  return <TinaContextActive {...props} />;
+}
+
+function TinaContextActive({ query, variables, data }: Props) {
   useTina({ query, variables, data });
   return null;
 }
