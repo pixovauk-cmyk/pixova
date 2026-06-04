@@ -1,5 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import pricing from '../content/pricing.json';
+import { PricingDocument } from '../../tina/__generated__/types';
+import { tinaField } from '@tinacms/bridge/tina-field';
+import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
+
+const prQueryId = hashFromQuery(PricingDocument as string);
+const pr = addMetadata(prQueryId, pricing);
+const tf = (obj: any, field: string) => tinaField(obj, field) || undefined;
+
+const s = pricing.plans[0]; // starter
+const g = pricing.plans[1]; // growth
+const p = pricing.plans[2]; // pro
+const ps = (pr.plans as any[])[0];
+const pg = (pr.plans as any[])[1];
+const pp = (pr.plans as any[])[2];
 
 const pricingSchema = {
   "@context": "https://schema.org",
@@ -139,10 +154,10 @@ const pricingSchema = {
         <div class="relative px-5 py-4 sm:px-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
           <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(135deg, rgba(46,204,154,0.04) 0px, rgba(46,204,154,0.04) 1px, transparent 1px, transparent 12px);"></div>
           <div class="relative flex items-center gap-3 flex-1">
-            <span class="flex-shrink-0 text-xs font-black tracking-widest uppercase px-2.5 py-1.5 rounded-lg" style="background:#DC2626; color:#fff; letter-spacing:0.08em;">June only</span>
+            <span class="flex-shrink-0 text-xs font-black tracking-widest uppercase px-2.5 py-1.5 rounded-lg" style="background:#DC2626; color:#fff; letter-spacing:0.08em;" data-tina-field={tf(pr.juneOffer, 'badge')}>{pricing.juneOffer.badge}</span>
             <div>
-              <p class="text-sm font-semibold leading-snug" style="color:#fff;">£50 off setup fee on the Monthly plan. <span style="color:#2ECC9A;">3 spots left.</span></p>
-              <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.45);">Closes 30 June. Just mention it when you get in touch.</p>
+              <p class="text-sm font-semibold leading-snug" style="color:#fff;">{pricing.juneOffer.message} <span style="color:#2ECC9A;" data-tina-field={tf(pr.juneOffer, 'highlight')}>{pricing.juneOffer.highlight}</span></p>
+              <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.45);" data-tina-field={tf(pr.juneOffer, 'closingNote')}>{pricing.juneOffer.closingNote}</p>
             </div>
           </div>
           <a href="/about/#contact" class="relative flex-shrink-0 text-xs font-bold px-4 py-2.5 rounded-xl whitespace-nowrap transition-opacity hover:opacity-90" style="background:#2ECC9A; color:#0D2240;">
@@ -178,12 +193,12 @@ const pricingSchema = {
             <div class="flex items-center justify-between mb-5">
               <span class="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#f0f4f7; color:#8a9ab0;">STARTER</span>
             </div>
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;">Get Online</h3>
-            <p class="text-xs mb-6" style="color:#8a9ab0;">Your first proper web presence.</p>
+            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;" data-tina-field={tf(ps, 'name')}>{s.name}</h3>
+            <p class="text-xs mb-6" style="color:#8a9ab0;" data-tina-field={tf(ps, 'tagline')}>{s.tagline}</p>
 
             <div class="mb-2">
               <div class="flex items-end gap-1.5">
-                <span class="font-bold plan-monthly" data-monthly="£69" data-six="£59" data-rolling="£79" style="font-size:3rem; line-height:1; color:#1C3557; letter-spacing:-0.02em;">£69</span>
+                <span class="font-bold plan-monthly" data-monthly={`£${s.monthlyPrice}`} data-six={`£${s.sixMonthPrice}`} data-rolling={`£${s.rollingPrice}`} style="font-size:3rem; line-height:1; color:#1C3557; letter-spacing:-0.02em;" data-tina-field={tf(ps, 'monthlyPrice')}>£{s.monthlyPrice}</span>
                 <span class="text-sm font-medium pb-2" style="color:#8a9ab0;">/month</span>
               </div>
               <p class="text-xs mt-1.5 plan-term" data-monthly="3-month minimum" data-six="6-month minimum" data-rolling="Cancel anytime · 30 days notice" style="color:#8a9ab0;">3-month minimum</p>
@@ -191,7 +206,7 @@ const pricingSchema = {
 
             <div class="mt-4 mb-1 inline-flex items-center gap-2 rounded-xl px-3 py-2" style="background:#f7f9fb;">
               <span class="text-xs" style="color:#8a9ab0;">Setup fee</span>
-              <span class="font-bold text-sm" style="color:#1C3557;">£199</span>
+              <span class="font-bold text-sm" style="color:#1C3557;" data-tina-field={tf(ps, 'setupFee')}>£{s.setupFee}</span>
               <span class="text-xs" style="color:#8a9ab0;">· paid on go-live</span>
             </div>
 
@@ -205,29 +220,15 @@ const pricingSchema = {
           <div class="px-6 pb-2">
             <div class="border-t pt-5" style="border-color:#f0f0f0;">
               <ul class="flex flex-col gap-2.5">
-                {[
-                  '5-page website built and launched',
-                  'Mobile first, fast loading',
-                  'Contact form + click-to-call',
-                  'Google Analytics 4 connected',
-                  'SSL + hosting included',
-                  '2 content updates per month',
-                  'Monthly traffic snapshot',
-                  'Email support, 48hr response',
-                ].map(item => (
-                  <li class="flex items-start gap-2.5 text-xs" style="color:#4a6070;">
+                {s.features.map((item, i) => (
+                  <li class="flex items-start gap-2.5 text-xs" style="color:#4a6070;" data-tina-field={tf((ps.features as any[])[i], 'item')}>
                     <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
                     {item}
                   </li>
                 ))}
               </ul>
               <div class="mt-4 flex flex-col gap-2 pt-4" style="border-top:1px solid #eef0f2;">
-                {[
-                  'Domain (~£10/yr, buy your own)',
-                  'Google Business Profile',
-                  'SEO or blog content',
-                  'Design or layout changes',
-                ].map(item => (
+                {s.notIncluded.map(item => (
                   <div class="flex items-start gap-2.5 text-xs" style="color:#c8d0d8;">
                     <span class="flex-shrink-0 mt-0.5" style="color:#dde1e6; font-size:10px;">✕</span>
                     {item}
@@ -238,7 +239,7 @@ const pricingSchema = {
           </div>
 
           <div class="p-6 pt-5 mt-auto">
-            <a href="/api/checkout/starter/?term=monthly" class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan="starter" style="background:#f0f4f7; color:#1C3557;">
+            <a href={`/api/checkout/${s.slug}/?term=monthly`} class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan={s.slug} style="background:#f0f4f7; color:#1C3557;">
               Get started →
             </a>
           </div>
@@ -254,12 +255,12 @@ const pricingSchema = {
             <div class="flex items-center justify-between mb-5">
               <span class="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:rgba(46,204,154,0.12); color:rgba(46,204,154,0.7);">GROWTH</span>
             </div>
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#fff;">Get Found</h3>
-            <p class="text-xs mb-6" style="color:rgba(255,255,255,0.4);">SEO, content, and visibility built in.</p>
+            <h3 class="font-heading font-bold text-xl mb-1" style="color:#fff;" data-tina-field={tf(pg, 'name')}>{g.name}</h3>
+            <p class="text-xs mb-6" style="color:rgba(255,255,255,0.4);" data-tina-field={tf(pg, 'tagline')}>{g.tagline}</p>
 
             <div class="mb-2">
               <div class="flex items-end gap-1.5">
-                <span class="font-bold plan-monthly" data-monthly="£119" data-six="£99" data-rolling="£139" style="font-size:3rem; line-height:1; color:#fff; letter-spacing:-0.02em;">£119</span>
+                <span class="font-bold plan-monthly" data-monthly={`£${g.monthlyPrice}`} data-six={`£${g.sixMonthPrice}`} data-rolling={`£${g.rollingPrice}`} style="font-size:3rem; line-height:1; color:#fff; letter-spacing:-0.02em;" data-tina-field={tf(pg, 'monthlyPrice')}>£{g.monthlyPrice}</span>
                 <span class="text-sm font-medium pb-2" style="color:rgba(255,255,255,0.35);">/month</span>
               </div>
               <p class="text-xs mt-1.5 plan-term" data-monthly="3-month minimum" data-six="6-month minimum" data-rolling="Cancel anytime · 30 days notice" style="color:rgba(255,255,255,0.35);">3-month minimum</p>
@@ -267,7 +268,7 @@ const pricingSchema = {
 
             <div class="mt-4 mb-1 inline-flex items-center gap-2 rounded-xl px-3 py-2" style="background:rgba(255,255,255,0.07);">
               <span class="text-xs" style="color:rgba(255,255,255,0.35);">Setup fee</span>
-              <span class="font-bold text-sm" style="color:#2ECC9A;">£359</span>
+              <span class="font-bold text-sm" style="color:#2ECC9A;" data-tina-field={tf(pg, 'setupFee')}>£{g.setupFee}</span>
               <span class="text-xs" style="color:rgba(255,255,255,0.35);">· paid on go-live</span>
             </div>
 
@@ -281,18 +282,7 @@ const pricingSchema = {
           <div class="px-6 pb-2">
             <div class="pt-5" style="border-top:1px solid rgba(255,255,255,0.08);">
               <ul class="flex flex-col gap-2.5">
-                {[
-                  'Everything in Get Online',
-                  '8 pages — Blog, FAQ, Testimonials',
-                  'Google Business Profile setup',
-                  'Local SEO foundations',
-                  '1 SEO blog post written monthly',
-                  '3 content updates per month',
-                  'Google Search Console monitored',
-                  'Review request system',
-                  'Monthly ranking report',
-                  'Priority support, 24hr response',
-                ].map(item => (
+                {g.features.map(item => (
                   <li class="flex items-start gap-2.5 text-xs" style="color:rgba(255,255,255,0.65);">
                     <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.18); color:#2ECC9A; font-size:9px;">✓</span>
                     {item}
@@ -300,12 +290,7 @@ const pricingSchema = {
                 ))}
               </ul>
               <div class="mt-4 flex flex-col gap-2 pt-4" style="border-top:1px solid rgba(255,255,255,0.08);">
-                {[
-                  'GBP managed weekly',
-                  'More than 3 updates/month',
-                  'WhatsApp or same-day support',
-                  'Competitor monitoring',
-                ].map(item => (
+                {g.notIncluded.map(item => (
                   <div class="flex items-start gap-2.5 text-xs" style="color:rgba(255,255,255,0.2);">
                     <span class="flex-shrink-0 mt-0.5" style="color:rgba(255,255,255,0.15); font-size:10px;">✕</span>
                     {item}
@@ -316,7 +301,7 @@ const pricingSchema = {
           </div>
 
           <div class="p-6 pt-5 mt-auto">
-            <a href="/api/checkout/growth/?term=monthly" class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan="growth" style="background:#2ECC9A; color:#0D2240;">
+            <a href={`/api/checkout/${g.slug}/?term=monthly`} class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan={g.slug} style="background:#2ECC9A; color:#0D2240;">
               Get started →
             </a>
           </div>
@@ -328,12 +313,12 @@ const pricingSchema = {
             <div class="flex items-center justify-between mb-5">
               <span class="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#f0f4f7; color:#8a9ab0;">PRO</span>
             </div>
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;">Get Leads</h3>
-            <p class="text-xs mb-6" style="color:#8a9ab0;">Full-service, fully managed.</p>
+            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;" data-tina-field={tf(pp, 'name')}>{p.name}</h3>
+            <p class="text-xs mb-6" style="color:#8a9ab0;" data-tina-field={tf(pp, 'tagline')}>{p.tagline}</p>
 
             <div class="mb-2">
               <div class="flex items-end gap-1.5">
-                <span class="font-bold plan-monthly" data-monthly="£169" data-six="£149" data-rolling="£189" style="font-size:3rem; line-height:1; color:#1C3557; letter-spacing:-0.02em;">£169</span>
+                <span class="font-bold plan-monthly" data-monthly={`£${p.monthlyPrice}`} data-six={`£${p.sixMonthPrice}`} data-rolling={`£${p.rollingPrice}`} style="font-size:3rem; line-height:1; color:#1C3557; letter-spacing:-0.02em;" data-tina-field={tf(pp, 'monthlyPrice')}>£{p.monthlyPrice}</span>
                 <span class="text-sm font-medium pb-2" style="color:#8a9ab0;">/month</span>
               </div>
               <p class="text-xs mt-1.5 plan-term" data-monthly="3-month minimum" data-six="6-month minimum" data-rolling="Cancel anytime · 30 days notice" style="color:#8a9ab0;">3-month minimum</p>
@@ -341,7 +326,7 @@ const pricingSchema = {
 
             <div class="mt-4 mb-1 inline-flex items-center gap-2 rounded-xl px-3 py-2" style="background:#f7f9fb;">
               <span class="text-xs" style="color:#8a9ab0;">Setup fee</span>
-              <span class="font-bold text-sm" style="color:#1C3557;">£599</span>
+              <span class="font-bold text-sm" style="color:#1C3557;" data-tina-field={tf(pp, 'setupFee')}>£{p.setupFee}</span>
               <span class="text-xs" style="color:#8a9ab0;">· paid on go-live</span>
             </div>
 
@@ -355,17 +340,7 @@ const pricingSchema = {
           <div class="px-6 pb-2">
             <div class="border-t pt-5" style="border-color:#f0f0f0;">
               <ul class="flex flex-col gap-2.5">
-                {[
-                  'Everything in Get Found',
-                  '12 pages — full service breakdown',
-                  '2 SEO blog posts per month',
-                  '6 content updates per month',
-                  'GBP managed weekly + posts',
-                  'Monthly competitor ranking report',
-                  'Same-day emergency fixes',
-                  'WhatsApp direct access',
-                  'Quarterly 30-min strategy call',
-                ].map(item => (
+                {p.features.map(item => (
                   <li class="flex items-start gap-2.5 text-xs" style="color:#4a6070;">
                     <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
                     {item}
@@ -373,11 +348,7 @@ const pricingSchema = {
                 ))}
               </ul>
               <div class="mt-4 flex flex-col gap-2 pt-4" style="border-top:1px solid #eef0f2;">
-                {[
-                  'Paid ads management',
-                  'Social media content creation',
-                  'Video or photography',
-                ].map(item => (
+                {p.notIncluded.map(item => (
                   <div class="flex items-start gap-2.5 text-xs" style="color:#c8d0d8;">
                     <span class="flex-shrink-0 mt-0.5" style="color:#dde1e6; font-size:10px;">✕</span>
                     {item}
@@ -388,7 +359,7 @@ const pricingSchema = {
           </div>
 
           <div class="p-6 pt-5 mt-auto">
-            <a href="/api/checkout/pro/?term=monthly" class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan="pro" style="background:#f0f4f7; color:#1C3557;">
+            <a href={`/api/checkout/${p.slug}/?term=monthly`} class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan={p.slug} style="background:#f0f4f7; color:#1C3557;">
               Get started →
             </a>
           </div>
@@ -690,40 +661,19 @@ const pricingSchema = {
       <p class="text-sm mb-10" style="color:#8a9ab0;">The ones worth answering properly.</p>
 
       <div class="flex flex-col gap-2">
-        {[
-          {
-            q: "When do I pay the setup fee?",
-            a: "Only when your site goes live. I build it first, you see it, and only then do you pay the setup fee and I switch it on. You're not handing money over for something you haven't seen yet."
-          },
-          {
-            q: "What's the difference between Monthly, 6 months, and Rolling?",
-            a: "Monthly (3-month min) is the most popular — lower rate than rolling, short commitment. Six months saves you £10–20/month if you're ready to commit longer. Rolling is fully cancel-anytime with 30 days notice, but costs a little more per month. Setup fee is the same across all three."
-          },
-          {
-            q: "What happens after the minimum term?",
-            a: "It rolls month to month automatically. Cancel anytime after that with 30 days notice. Most clients stay because the SEO is working and they don't want to lose the momentum."
-          },
-          {
-            q: "Can I add the AI stuff to my existing website?",
-            a: "Yes. The AI and automation services work on any website, not just ones I've built. Just get in touch and I'll talk it through."
-          },
-          {
-            q: "I don't really understand AI. Is it still worth it?",
-            a: "That's exactly the right starting point. You don't need to understand how it works. Tell me what's taking up your time and I'll show you what's possible. No jargon."
-          },
-          {
-            q: "Do prices include VAT?",
-            a: "Pixova is not VAT registered, so no VAT is added to any prices shown. What you see is what you pay."
-          },
-        ].map(faq => (
-          <details class="rounded-xl overflow-hidden group" style="border:1px solid #eef0f3;">
-            <summary class="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer font-semibold text-sm" style="color:#1C3557; list-style:none;">
-              {faq.q}
-              <svg class="flex-shrink-0 faq-chevron transition-transform" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="px-5 pb-5 pt-1 text-sm leading-relaxed" style="color:#5a6e80;">{faq.a}</div>
-          </details>
-        ))}
+        {pricing.faq.map((faq, i) => {
+          const fi = (pr.faq as any[])[i];
+          const ftf = (field: string) => fi ? tinaField(fi, field) || undefined : undefined;
+          return (
+            <details class="rounded-xl overflow-hidden group" style="border:1px solid #eef0f3;">
+              <summary class="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer font-semibold text-sm" style="color:#1C3557; list-style:none;" data-tina-field={ftf('question')}>
+                {faq.question}
+                <svg class="flex-shrink-0 faq-chevron transition-transform" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <div class="px-5 pb-5 pt-1 text-sm leading-relaxed" style="color:#5a6e80;" data-tina-field={ftf('answer')}>{faq.answer}</div>
+            </details>
+          );
+        })}
       </div>
 
     </div>

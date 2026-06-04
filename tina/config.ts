@@ -94,6 +94,68 @@ export default defineConfig({
         ],
       },
       {
+        name: 'pricing',
+        label: 'Pricing',
+        path: 'src/content',
+        match: { include: 'pricing' },
+        format: 'json',
+        ui: {
+          allowedActions: { create: false, delete: false },
+        },
+        fields: [
+          {
+            type: 'object',
+            name: 'juneOffer',
+            label: 'Offer Banner',
+            fields: [
+              { type: 'string', name: 'badge', label: 'Badge label' },
+              { type: 'string', name: 'message', label: 'Message' },
+              { type: 'string', name: 'highlight', label: 'Highlighted text (teal)' },
+              { type: 'string', name: 'closingNote', label: 'Closing note' },
+            ],
+          },
+          {
+            type: 'object',
+            name: 'plans',
+            label: 'Plans',
+            list: true,
+            fields: [
+              { type: 'string', name: 'slug', label: 'Slug (starter/growth/pro)' },
+              { type: 'string', name: 'badge', label: 'Badge label' },
+              { type: 'string', name: 'name', label: 'Plan name' },
+              { type: 'string', name: 'tagline', label: 'Tagline' },
+              { type: 'number', name: 'monthlyPrice', label: 'Monthly price (£)' },
+              { type: 'number', name: 'sixMonthPrice', label: '6-month price (£)' },
+              { type: 'number', name: 'rollingPrice', label: 'Rolling price (£)' },
+              { type: 'number', name: 'setupFee', label: 'Setup fee (£)' },
+              { type: 'boolean', name: 'featured', label: 'Featured (dark card)' },
+              {
+                type: 'string',
+                name: 'features',
+                label: 'Included features',
+                list: true,
+              },
+              {
+                type: 'string',
+                name: 'notIncluded',
+                label: 'Not included',
+                list: true,
+              },
+            ],
+          },
+          {
+            type: 'object',
+            name: 'faq',
+            label: 'FAQ',
+            list: true,
+            fields: [
+              { type: 'string', name: 'question', label: 'Question' },
+              { type: 'string', name: 'answer', label: 'Answer', ui: { component: 'textarea' } },
+            ],
+          },
+        ],
+      },
+      {
         name: 'homepage',
         label: 'Homepage',
         path: 'src/content',

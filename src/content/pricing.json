@@ -1,0 +1,119 @@
+{
+  "juneOffer": {
+    "badge": "June only",
+    "message": "£50 off setup fee on the Monthly plan.",
+    "highlight": "3 spots left.",
+    "closingNote": "Closes 30 June. Just mention it when you get in touch."
+  },
+  "plans": [
+    {
+      "slug": "starter",
+      "badge": "STARTER",
+      "name": "Get Online",
+      "tagline": "Your first proper web presence.",
+      "monthlyPrice": 69,
+      "sixMonthPrice": 59,
+      "rollingPrice": 79,
+      "setupFee": 199,
+      "featured": false,
+      "features": [
+        "5-page website built and launched",
+        "Mobile first, fast loading",
+        "Contact form + click-to-call",
+        "Google Analytics 4 connected",
+        "SSL + hosting included",
+        "2 content updates per month",
+        "Monthly traffic snapshot",
+        "Email support, 48hr response"
+      ],
+      "notIncluded": [
+        "Domain (~£10/yr, buy your own)",
+        "Google Business Profile",
+        "SEO or blog content",
+        "Design or layout changes"
+      ]
+    },
+    {
+      "slug": "growth",
+      "badge": "GROWTH",
+      "name": "Get Found",
+      "tagline": "SEO, content, and visibility built in.",
+      "monthlyPrice": 119,
+      "sixMonthPrice": 99,
+      "rollingPrice": 139,
+      "setupFee": 359,
+      "featured": true,
+      "features": [
+        "Everything in Get Online",
+        "8 pages — Blog, FAQ, Testimonials",
+        "Google Business Profile setup",
+        "Local SEO foundations",
+        "1 SEO blog post written monthly",
+        "3 content updates per month",
+        "Google Search Console monitored",
+        "Review request system",
+        "Monthly ranking report",
+        "Priority support, 24hr response"
+      ],
+      "notIncluded": [
+        "GBP managed weekly",
+        "More than 3 updates/month",
+        "WhatsApp or same-day support",
+        "Competitor monitoring"
+      ]
+    },
+    {
+      "slug": "pro",
+      "badge": "PRO",
+      "name": "Get Leads",
+      "tagline": "Full-service, fully managed.",
+      "monthlyPrice": 169,
+      "sixMonthPrice": 149,
+      "rollingPrice": 189,
+      "setupFee": 599,
+      "featured": false,
+      "features": [
+        "Everything in Get Found",
+        "12 pages — full service breakdown",
+        "2 SEO blog posts per month",
+        "6 content updates per month",
+        "GBP managed weekly + posts",
+        "Monthly competitor ranking report",
+        "Same-day emergency fixes",
+        "WhatsApp direct access",
+        "Quarterly 30-min strategy call"
+      ],
+      "notIncluded": [
+        "Paid ads management",
+        "Social media content creation",
+        "Video or photography"
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "question": "When do I pay the setup fee?",
+      "answer": "Only when your site goes live. I build it first, you see it, and only then do you pay the setup fee and I switch it on. You're not handing money over for something you haven't seen yet."
+    },
+    {
+      "question": "What's the difference between Monthly, 6 months, and Rolling?",
+      "answer": "Monthly (3-month min) is the most popular — lower rate than rolling, short commitment. Six months saves you £10–20/month if you're ready to commit longer. Rolling is fully cancel-anytime with 30 days notice, but costs a little more per month. Setup fee is the same across all three."
+    },
+    {
+      "question": "What happens after the minimum term?",
+      "answer": "It rolls month to month automatically. Cancel anytime after that with 30 days notice. Most clients stay because the SEO is working and they don't want to lose the momentum."
+    },
+    {
+      "question": "Can I add the AI stuff to my existing website?",
+      "answer": "Yes. The AI and automation services work on any website, not just ones I've built. Just get in touch and I'll talk it through."
+    },
+    {
+      "question": "I don't really understand AI. Is it still worth it?",
+      "answer": "That's exactly the right starting point. You don't need to understand how it works. Tell me what's taking up your time and I'll show you what's possible. No jargon."
+    },
+    {
+      "question": "Do prices include VAT?",
+      "answer": "Pixova is not VAT registered, so no VAT is added to any prices shown. What you see is what you pay."
+    }
+  ]
+}

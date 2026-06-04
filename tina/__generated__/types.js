@@ -20,6 +20,37 @@ export const BlogPartsFragmentDoc = gql`
   body
 }
     `;
+export const PricingPartsFragmentDoc = gql`
+    fragment PricingParts on Pricing {
+  __typename
+  juneOffer {
+    __typename
+    badge
+    message
+    highlight
+    closingNote
+  }
+  plans {
+    __typename
+    slug
+    badge
+    name
+    tagline
+    monthlyPrice
+    sixMonthPrice
+    rollingPrice
+    setupFee
+    featured
+    features
+    notIncluded
+  }
+  faq {
+    __typename
+    question
+    answer
+  }
+}
+    `;
 export const HomepagePartsFragmentDoc = gql`
     fragment HomepageParts on Homepage {
   __typename
@@ -116,6 +147,63 @@ export const BlogConnectionDocument = gql`
   }
 }
     ${BlogPartsFragmentDoc}`;
+export const PricingDocument = gql`
+    query pricing($relativePath: String!) {
+  pricing(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PricingParts
+  }
+}
+    ${PricingPartsFragmentDoc}`;
+export const PricingConnectionDocument = gql`
+    query pricingConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PricingFilter) {
+  pricingConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PricingParts
+      }
+    }
+  }
+}
+    ${PricingPartsFragmentDoc}`;
 export const HomepageDocument = gql`
     query homepage($relativePath: String!) {
   homepage(relativePath: $relativePath) {
@@ -180,6 +268,12 @@ export function getSdk(requester) {
     },
     blogConnection(variables, options) {
       return requester(BlogConnectionDocument, variables, options);
+    },
+    pricing(variables, options) {
+      return requester(PricingDocument, variables, options);
+    },
+    pricingConnection(variables, options) {
+      return requester(PricingConnectionDocument, variables, options);
     },
     homepage(variables, options) {
       return requester(HomepageDocument, variables, options);

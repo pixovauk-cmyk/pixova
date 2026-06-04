@@ -56,12 +56,15 @@ type Query {
   document(collection: String, relativePath: String): DocumentNode!
   blog(relativePath: String): Blog!
   blogConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: BlogFilter): BlogConnection!
+  pricing(relativePath: String): Pricing!
+  pricingConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PricingFilter): PricingConnection!
   homepage(relativePath: String): Homepage!
   homepageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomepageFilter): HomepageConnection!
 }
 
 input DocumentFilter {
   blog: BlogFilter
+  pricing: PricingFilter
   homepage: HomepageFilter
 }
 
@@ -88,7 +91,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Blog | Homepage | Folder
+union DocumentNode = Blog | Pricing | Homepage | Folder
 
 type Blog implements Node & Document {
   title: String
@@ -143,6 +146,99 @@ type BlogConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
   edges: [BlogConnectionEdges]
+}
+
+type PricingJuneOffer {
+  badge: String
+  message: String
+  highlight: String
+  closingNote: String
+}
+
+type PricingPlans {
+  slug: String
+  badge: String
+  name: String
+  tagline: String
+  monthlyPrice: Float
+  sixMonthPrice: Float
+  rollingPrice: Float
+  setupFee: Float
+  featured: Boolean
+  features: [String]
+  notIncluded: [String]
+}
+
+type PricingFaq {
+  question: String
+  answer: String
+}
+
+type Pricing implements Node & Document {
+  juneOffer: PricingJuneOffer
+  plans: [PricingPlans]
+  faq: [PricingFaq]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input PricingJuneOfferFilter {
+  badge: StringFilter
+  message: StringFilter
+  highlight: StringFilter
+  closingNote: StringFilter
+}
+
+input NumberFilter {
+  lt: Float
+  lte: Float
+  gte: Float
+  gt: Float
+  eq: Float
+  exists: Boolean
+  in: [Float]
+}
+
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input PricingPlansFilter {
+  slug: StringFilter
+  badge: StringFilter
+  name: StringFilter
+  tagline: StringFilter
+  monthlyPrice: NumberFilter
+  sixMonthPrice: NumberFilter
+  rollingPrice: NumberFilter
+  setupFee: NumberFilter
+  featured: BooleanFilter
+  features: StringFilter
+  notIncluded: StringFilter
+}
+
+input PricingFaqFilter {
+  question: StringFilter
+  answer: StringFilter
+}
+
+input PricingFilter {
+  juneOffer: PricingJuneOfferFilter
+  plans: PricingPlansFilter
+  faq: PricingFaqFilter
+}
+
+type PricingConnectionEdges {
+  cursor: String!
+  node: Pricing
+}
+
+type PricingConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PricingConnectionEdges]
 }
 
 type HomepageUrgencyBar {
@@ -203,16 +299,6 @@ input HomepageHeroFilter {
   subheadline: StringFilter
 }
 
-input NumberFilter {
-  lt: Float
-  lte: Float
-  gte: Float
-  gt: Float
-  eq: Float
-  exists: Boolean
-  in: [Float]
-}
-
 input HomepageLiveStatsFilter {
   sitesThisWeek: NumberFilter
   inProgress: NumberFilter
@@ -261,18 +347,22 @@ type Mutation {
   createFolder(collection: String, relativePath: String!): DocumentNode!
   updateBlog(relativePath: String!, params: BlogMutation!): Blog!
   createBlog(relativePath: String!, params: BlogMutation!): Blog!
+  updatePricing(relativePath: String!, params: PricingMutation!): Pricing!
+  createPricing(relativePath: String!, params: PricingMutation!): Pricing!
   updateHomepage(relativePath: String!, params: HomepageMutation!): Homepage!
   createHomepage(relativePath: String!, params: HomepageMutation!): Homepage!
 }
 
 input DocumentUpdateMutation {
   blog: BlogMutation
+  pricing: PricingMutation
   homepage: HomepageMutation
   relativePath: String
 }
 
 input DocumentMutation {
   blog: BlogMutation
+  pricing: PricingMutation
   homepage: HomepageMutation
 }
 
@@ -287,6 +377,38 @@ input BlogMutation {
   readTime: String
   avatar: String
   body: String
+}
+
+input PricingJuneOfferMutation {
+  badge: String
+  message: String
+  highlight: String
+  closingNote: String
+}
+
+input PricingPlansMutation {
+  slug: String
+  badge: String
+  name: String
+  tagline: String
+  monthlyPrice: Float
+  sixMonthPrice: Float
+  rollingPrice: Float
+  setupFee: Float
+  featured: Boolean
+  features: [String]
+  notIncluded: [String]
+}
+
+input PricingFaqMutation {
+  question: String
+  answer: String
+}
+
+input PricingMutation {
+  juneOffer: PricingJuneOfferMutation
+  plans: [PricingPlansMutation]
+  faq: [PricingFaqMutation]
 }
 
 input HomepageUrgencyBarMutation {

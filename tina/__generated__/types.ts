@@ -84,6 +84,8 @@ export type Query = {
   document: DocumentNode;
   blog: Blog;
   blogConnection: BlogConnection;
+  pricing: Pricing;
+  pricingConnection: PricingConnection;
   homepage: Homepage;
   homepageConnection: HomepageConnection;
 };
@@ -125,6 +127,21 @@ export type QueryBlogConnectionArgs = {
 };
 
 
+export type QueryPricingArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPricingConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PricingFilter>;
+};
+
+
 export type QueryHomepageArgs = {
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
@@ -141,6 +158,7 @@ export type QueryHomepageConnectionArgs = {
 
 export type DocumentFilter = {
   blog?: InputMaybe<BlogFilter>;
+  pricing?: InputMaybe<PricingFilter>;
   homepage?: InputMaybe<HomepageFilter>;
 };
 
@@ -181,7 +199,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Blog | Homepage | Folder;
+export type DocumentNode = Blog | Pricing | Homepage | Folder;
 
 export type Blog = Node & Document & {
   __typename?: 'Blog';
@@ -239,6 +257,105 @@ export type BlogConnection = Connection & {
   pageInfo: PageInfo;
   totalCount: Scalars['Float']['output'];
   edges?: Maybe<Array<Maybe<BlogConnectionEdges>>>;
+};
+
+export type PricingJuneOffer = {
+  __typename?: 'PricingJuneOffer';
+  badge?: Maybe<Scalars['String']['output']>;
+  message?: Maybe<Scalars['String']['output']>;
+  highlight?: Maybe<Scalars['String']['output']>;
+  closingNote?: Maybe<Scalars['String']['output']>;
+};
+
+export type PricingPlans = {
+  __typename?: 'PricingPlans';
+  slug?: Maybe<Scalars['String']['output']>;
+  badge?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  tagline?: Maybe<Scalars['String']['output']>;
+  monthlyPrice?: Maybe<Scalars['Float']['output']>;
+  sixMonthPrice?: Maybe<Scalars['Float']['output']>;
+  rollingPrice?: Maybe<Scalars['Float']['output']>;
+  setupFee?: Maybe<Scalars['Float']['output']>;
+  featured?: Maybe<Scalars['Boolean']['output']>;
+  features?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  notIncluded?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+export type PricingFaq = {
+  __typename?: 'PricingFaq';
+  question?: Maybe<Scalars['String']['output']>;
+  answer?: Maybe<Scalars['String']['output']>;
+};
+
+export type Pricing = Node & Document & {
+  __typename?: 'Pricing';
+  juneOffer?: Maybe<PricingJuneOffer>;
+  plans?: Maybe<Array<Maybe<PricingPlans>>>;
+  faq?: Maybe<Array<Maybe<PricingFaq>>>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type PricingJuneOfferFilter = {
+  badge?: InputMaybe<StringFilter>;
+  message?: InputMaybe<StringFilter>;
+  highlight?: InputMaybe<StringFilter>;
+  closingNote?: InputMaybe<StringFilter>;
+};
+
+export type NumberFilter = {
+  lt?: InputMaybe<Scalars['Float']['input']>;
+  lte?: InputMaybe<Scalars['Float']['input']>;
+  gte?: InputMaybe<Scalars['Float']['input']>;
+  gt?: InputMaybe<Scalars['Float']['input']>;
+  eq?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PricingPlansFilter = {
+  slug?: InputMaybe<StringFilter>;
+  badge?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  tagline?: InputMaybe<StringFilter>;
+  monthlyPrice?: InputMaybe<NumberFilter>;
+  sixMonthPrice?: InputMaybe<NumberFilter>;
+  rollingPrice?: InputMaybe<NumberFilter>;
+  setupFee?: InputMaybe<NumberFilter>;
+  featured?: InputMaybe<BooleanFilter>;
+  features?: InputMaybe<StringFilter>;
+  notIncluded?: InputMaybe<StringFilter>;
+};
+
+export type PricingFaqFilter = {
+  question?: InputMaybe<StringFilter>;
+  answer?: InputMaybe<StringFilter>;
+};
+
+export type PricingFilter = {
+  juneOffer?: InputMaybe<PricingJuneOfferFilter>;
+  plans?: InputMaybe<PricingPlansFilter>;
+  faq?: InputMaybe<PricingFaqFilter>;
+};
+
+export type PricingConnectionEdges = {
+  __typename?: 'PricingConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Pricing>;
+};
+
+export type PricingConnection = Connection & {
+  __typename?: 'PricingConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<PricingConnectionEdges>>>;
 };
 
 export type HomepageUrgencyBar = {
@@ -305,16 +422,6 @@ export type HomepageHeroFilter = {
   subheadline?: InputMaybe<StringFilter>;
 };
 
-export type NumberFilter = {
-  lt?: InputMaybe<Scalars['Float']['input']>;
-  lte?: InputMaybe<Scalars['Float']['input']>;
-  gte?: InputMaybe<Scalars['Float']['input']>;
-  gt?: InputMaybe<Scalars['Float']['input']>;
-  eq?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
-};
-
 export type HomepageLiveStatsFilter = {
   sitesThisWeek?: InputMaybe<NumberFilter>;
   inProgress?: InputMaybe<NumberFilter>;
@@ -366,6 +473,8 @@ export type Mutation = {
   createFolder: DocumentNode;
   updateBlog: Blog;
   createBlog: Blog;
+  updatePricing: Pricing;
+  createPricing: Pricing;
   updateHomepage: Homepage;
   createHomepage: Homepage;
 };
@@ -416,6 +525,18 @@ export type MutationCreateBlogArgs = {
 };
 
 
+export type MutationUpdatePricingArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PricingMutation;
+};
+
+
+export type MutationCreatePricingArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PricingMutation;
+};
+
+
 export type MutationUpdateHomepageArgs = {
   relativePath: Scalars['String']['input'];
   params: HomepageMutation;
@@ -429,12 +550,14 @@ export type MutationCreateHomepageArgs = {
 
 export type DocumentUpdateMutation = {
   blog?: InputMaybe<BlogMutation>;
+  pricing?: InputMaybe<PricingMutation>;
   homepage?: InputMaybe<HomepageMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DocumentMutation = {
   blog?: InputMaybe<BlogMutation>;
+  pricing?: InputMaybe<PricingMutation>;
   homepage?: InputMaybe<HomepageMutation>;
 };
 
@@ -449,6 +572,38 @@ export type BlogMutation = {
   readTime?: InputMaybe<Scalars['String']['input']>;
   avatar?: InputMaybe<Scalars['String']['input']>;
   body?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PricingJuneOfferMutation = {
+  badge?: InputMaybe<Scalars['String']['input']>;
+  message?: InputMaybe<Scalars['String']['input']>;
+  highlight?: InputMaybe<Scalars['String']['input']>;
+  closingNote?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PricingPlansMutation = {
+  slug?: InputMaybe<Scalars['String']['input']>;
+  badge?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  tagline?: InputMaybe<Scalars['String']['input']>;
+  monthlyPrice?: InputMaybe<Scalars['Float']['input']>;
+  sixMonthPrice?: InputMaybe<Scalars['Float']['input']>;
+  rollingPrice?: InputMaybe<Scalars['Float']['input']>;
+  setupFee?: InputMaybe<Scalars['Float']['input']>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
+  features?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  notIncluded?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PricingFaqMutation = {
+  question?: InputMaybe<Scalars['String']['input']>;
+  answer?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PricingMutation = {
+  juneOffer?: InputMaybe<PricingJuneOfferMutation>;
+  plans?: InputMaybe<Array<InputMaybe<PricingPlansMutation>>>;
+  faq?: InputMaybe<Array<InputMaybe<PricingFaqMutation>>>;
 };
 
 export type HomepageUrgencyBarMutation = {
@@ -495,6 +650,8 @@ export type HomepageMutation = {
 
 export type BlogPartsFragment = { __typename: 'Blog', title?: string | null, seoTitle?: string | null, description: string, pubDate: string, updatedDate?: string | null, primaryKeyword?: string | null, heroImage?: string | null, readTime?: string | null, avatar?: string | null, body?: string | null };
 
+export type PricingPartsFragment = { __typename: 'Pricing', juneOffer?: { __typename: 'PricingJuneOffer', badge?: string | null, message?: string | null, highlight?: string | null, closingNote?: string | null } | null, plans?: Array<{ __typename: 'PricingPlans', slug?: string | null, badge?: string | null, name?: string | null, tagline?: string | null, monthlyPrice?: number | null, sixMonthPrice?: number | null, rollingPrice?: number | null, setupFee?: number | null, featured?: boolean | null, features?: Array<string | null> | null, notIncluded?: Array<string | null> | null } | null> | null, faq?: Array<{ __typename: 'PricingFaq', question?: string | null, answer?: string | null } | null> | null };
+
 export type HomepagePartsFragment = { __typename: 'Homepage', urgencyBar?: { __typename: 'HomepageUrgencyBar', badge?: string | null, message?: string | null, highlight?: string | null, linkHref?: string | null } | null, hero?: { __typename: 'HomepageHero', headline?: string | null, headlineHighlight?: string | null, subheadline?: string | null } | null, liveStats?: { __typename: 'HomepageLiveStats', sitesThisWeek?: number | null, inProgress?: number | null, launchedThisMonth?: number | null, latestLaunchName?: string | null, latestLaunchUrl?: string | null } | null, testimonials?: Array<{ __typename: 'HomepageTestimonials', name?: string | null, role?: string | null, badge?: string | null, image?: string | null, quote?: string | null } | null> | null, faq?: Array<{ __typename: 'HomepageFaq', question?: string | null, answer?: string | null } | null> | null };
 
 export type BlogQueryVariables = Exact<{
@@ -515,6 +672,25 @@ export type BlogConnectionQueryVariables = Exact<{
 
 
 export type BlogConnectionQuery = { __typename?: 'Query', blogConnection: { __typename?: 'BlogConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'BlogConnectionEdges', cursor: string, node?: { __typename: 'Blog', id: string, title?: string | null, seoTitle?: string | null, description: string, pubDate: string, updatedDate?: string | null, primaryKeyword?: string | null, heroImage?: string | null, readTime?: string | null, avatar?: string | null, body?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export type PricingQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type PricingQuery = { __typename?: 'Query', pricing: { __typename: 'Pricing', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, juneOffer?: { __typename: 'PricingJuneOffer', badge?: string | null, message?: string | null, highlight?: string | null, closingNote?: string | null } | null, plans?: Array<{ __typename: 'PricingPlans', slug?: string | null, badge?: string | null, name?: string | null, tagline?: string | null, monthlyPrice?: number | null, sixMonthPrice?: number | null, rollingPrice?: number | null, setupFee?: number | null, featured?: boolean | null, features?: Array<string | null> | null, notIncluded?: Array<string | null> | null } | null> | null, faq?: Array<{ __typename: 'PricingFaq', question?: string | null, answer?: string | null } | null> | null } };
+
+export type PricingConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PricingFilter>;
+}>;
+
+
+export type PricingConnectionQuery = { __typename?: 'Query', pricingConnection: { __typename?: 'PricingConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PricingConnectionEdges', cursor: string, node?: { __typename: 'Pricing', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, juneOffer?: { __typename: 'PricingJuneOffer', badge?: string | null, message?: string | null, highlight?: string | null, closingNote?: string | null } | null, plans?: Array<{ __typename: 'PricingPlans', slug?: string | null, badge?: string | null, name?: string | null, tagline?: string | null, monthlyPrice?: number | null, sixMonthPrice?: number | null, rollingPrice?: number | null, setupFee?: number | null, featured?: boolean | null, features?: Array<string | null> | null, notIncluded?: Array<string | null> | null } | null> | null, faq?: Array<{ __typename: 'PricingFaq', question?: string | null, answer?: string | null } | null> | null } | null } | null> | null } };
 
 export type HomepageQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -548,6 +724,37 @@ export const BlogPartsFragmentDoc = gql`
   readTime
   avatar
   body
+}
+    `;
+export const PricingPartsFragmentDoc = gql`
+    fragment PricingParts on Pricing {
+  __typename
+  juneOffer {
+    __typename
+    badge
+    message
+    highlight
+    closingNote
+  }
+  plans {
+    __typename
+    slug
+    badge
+    name
+    tagline
+    monthlyPrice
+    sixMonthPrice
+    rollingPrice
+    setupFee
+    featured
+    features
+    notIncluded
+  }
+  faq {
+    __typename
+    question
+    answer
+  }
 }
     `;
 export const HomepagePartsFragmentDoc = gql`
@@ -646,6 +853,63 @@ export const BlogConnectionDocument = gql`
   }
 }
     ${BlogPartsFragmentDoc}`;
+export const PricingDocument = gql`
+    query pricing($relativePath: String!) {
+  pricing(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PricingParts
+  }
+}
+    ${PricingPartsFragmentDoc}`;
+export const PricingConnectionDocument = gql`
+    query pricingConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PricingFilter) {
+  pricingConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PricingParts
+      }
+    }
+  }
+}
+    ${PricingPartsFragmentDoc}`;
 export const HomepageDocument = gql`
     query homepage($relativePath: String!) {
   homepage(relativePath: $relativePath) {
@@ -711,6 +975,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     blogConnection(variables?: BlogConnectionQueryVariables, options?: C): Promise<{data: BlogConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogConnectionQueryVariables, query: string}> {
         return requester<{data: BlogConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogConnectionQueryVariables, query: string}, BlogConnectionQueryVariables>(BlogConnectionDocument, variables, options);
+      },
+    pricing(variables: PricingQueryVariables, options?: C): Promise<{data: PricingQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PricingQueryVariables, query: string}> {
+        return requester<{data: PricingQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PricingQueryVariables, query: string}, PricingQueryVariables>(PricingDocument, variables, options);
+      },
+    pricingConnection(variables?: PricingConnectionQueryVariables, options?: C): Promise<{data: PricingConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PricingConnectionQueryVariables, query: string}> {
+        return requester<{data: PricingConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PricingConnectionQueryVariables, query: string}, PricingConnectionQueryVariables>(PricingConnectionDocument, variables, options);
       },
     homepage(variables: HomepageQueryVariables, options?: C): Promise<{data: HomepageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageQueryVariables, query: string}> {
         return requester<{data: HomepageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageQueryVariables, query: string}, HomepageQueryVariables>(HomepageDocument, variables, options);

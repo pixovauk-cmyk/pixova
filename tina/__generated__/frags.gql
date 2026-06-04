@@ -12,6 +12,36 @@ fragment BlogParts on Blog {
   body
 }
 
+fragment PricingParts on Pricing {
+  __typename
+  juneOffer {
+    __typename
+    badge
+    message
+    highlight
+    closingNote
+  }
+  plans {
+    __typename
+    slug
+    badge
+    name
+    tagline
+    monthlyPrice
+    sixMonthPrice
+    rollingPrice
+    setupFee
+    featured
+    features
+    notIncluded
+  }
+  faq {
+    __typename
+    question
+    answer
+  }
+}
+
 fragment HomepageParts on Homepage {
   __typename
   urgencyBar {
