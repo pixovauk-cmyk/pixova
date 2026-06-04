@@ -1,0 +1,13 @@
+fragment BlogParts on Blog {
+  __typename
+  title
+  seoTitle
+  description
+  pubDate
+  updatedDate
+  primaryKeyword
+  heroImage
+  readTime
+  avatar
+  body
+}

@@ -6,8 +6,10 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "tinacms dev -c \"astro dev --port 4401\"",
+    "dev:astro": "astro dev",
     "build": "astro build",
+    "build:tina": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -23,10 +25,12 @@
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.50",
     "@tailwindcss/vite": "^4.2.4",
+    "@tinacms/cli": "^2.4.3",
     "astro": "^6.2.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "stripe": "^22.1.1",
-    "tailwindcss": "^4.2.4"
+    "tailwindcss": "^4.2.4",
+    "tinacms": "^3.9.0"
   }
 }
