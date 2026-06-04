@@ -84,6 +84,8 @@ export type Query = {
   document: DocumentNode;
   blog: Blog;
   blogConnection: BlogConnection;
+  homepage: Homepage;
+  homepageConnection: HomepageConnection;
 };
 
 
@@ -122,8 +124,24 @@ export type QueryBlogConnectionArgs = {
   filter?: InputMaybe<BlogFilter>;
 };
 
+
+export type QueryHomepageArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryHomepageConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<HomepageFilter>;
+};
+
 export type DocumentFilter = {
   blog?: InputMaybe<BlogFilter>;
+  homepage?: InputMaybe<HomepageFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -163,7 +181,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Blog | Folder;
+export type DocumentNode = Blog | Homepage | Folder;
 
 export type Blog = Node & Document & {
   __typename?: 'Blog';
@@ -223,6 +241,122 @@ export type BlogConnection = Connection & {
   edges?: Maybe<Array<Maybe<BlogConnectionEdges>>>;
 };
 
+export type HomepageUrgencyBar = {
+  __typename?: 'HomepageUrgencyBar';
+  badge?: Maybe<Scalars['String']['output']>;
+  message?: Maybe<Scalars['String']['output']>;
+  highlight?: Maybe<Scalars['String']['output']>;
+  linkHref?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomepageHero = {
+  __typename?: 'HomepageHero';
+  headline?: Maybe<Scalars['String']['output']>;
+  headlineHighlight?: Maybe<Scalars['String']['output']>;
+  subheadline?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomepageLiveStats = {
+  __typename?: 'HomepageLiveStats';
+  sitesThisWeek?: Maybe<Scalars['Float']['output']>;
+  inProgress?: Maybe<Scalars['Float']['output']>;
+  launchedThisMonth?: Maybe<Scalars['Float']['output']>;
+  latestLaunchName?: Maybe<Scalars['String']['output']>;
+  latestLaunchUrl?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomepageTestimonials = {
+  __typename?: 'HomepageTestimonials';
+  name?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+  badge?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  quote?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomepageFaq = {
+  __typename?: 'HomepageFaq';
+  question?: Maybe<Scalars['String']['output']>;
+  answer?: Maybe<Scalars['String']['output']>;
+};
+
+export type Homepage = Node & Document & {
+  __typename?: 'Homepage';
+  urgencyBar?: Maybe<HomepageUrgencyBar>;
+  hero?: Maybe<HomepageHero>;
+  liveStats?: Maybe<HomepageLiveStats>;
+  testimonials?: Maybe<Array<Maybe<HomepageTestimonials>>>;
+  faq?: Maybe<Array<Maybe<HomepageFaq>>>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type HomepageUrgencyBarFilter = {
+  badge?: InputMaybe<StringFilter>;
+  message?: InputMaybe<StringFilter>;
+  highlight?: InputMaybe<StringFilter>;
+  linkHref?: InputMaybe<StringFilter>;
+};
+
+export type HomepageHeroFilter = {
+  headline?: InputMaybe<StringFilter>;
+  headlineHighlight?: InputMaybe<StringFilter>;
+  subheadline?: InputMaybe<StringFilter>;
+};
+
+export type NumberFilter = {
+  lt?: InputMaybe<Scalars['Float']['input']>;
+  lte?: InputMaybe<Scalars['Float']['input']>;
+  gte?: InputMaybe<Scalars['Float']['input']>;
+  gt?: InputMaybe<Scalars['Float']['input']>;
+  eq?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+export type HomepageLiveStatsFilter = {
+  sitesThisWeek?: InputMaybe<NumberFilter>;
+  inProgress?: InputMaybe<NumberFilter>;
+  launchedThisMonth?: InputMaybe<NumberFilter>;
+  latestLaunchName?: InputMaybe<StringFilter>;
+  latestLaunchUrl?: InputMaybe<StringFilter>;
+};
+
+export type HomepageTestimonialsFilter = {
+  name?: InputMaybe<StringFilter>;
+  role?: InputMaybe<StringFilter>;
+  badge?: InputMaybe<StringFilter>;
+  image?: InputMaybe<StringFilter>;
+  quote?: InputMaybe<StringFilter>;
+};
+
+export type HomepageFaqFilter = {
+  question?: InputMaybe<StringFilter>;
+  answer?: InputMaybe<StringFilter>;
+};
+
+export type HomepageFilter = {
+  urgencyBar?: InputMaybe<HomepageUrgencyBarFilter>;
+  hero?: InputMaybe<HomepageHeroFilter>;
+  liveStats?: InputMaybe<HomepageLiveStatsFilter>;
+  testimonials?: InputMaybe<HomepageTestimonialsFilter>;
+  faq?: InputMaybe<HomepageFaqFilter>;
+};
+
+export type HomepageConnectionEdges = {
+  __typename?: 'HomepageConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Homepage>;
+};
+
+export type HomepageConnection = Connection & {
+  __typename?: 'HomepageConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<HomepageConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -232,6 +366,8 @@ export type Mutation = {
   createFolder: DocumentNode;
   updateBlog: Blog;
   createBlog: Blog;
+  updateHomepage: Homepage;
+  createHomepage: Homepage;
 };
 
 
@@ -279,13 +415,27 @@ export type MutationCreateBlogArgs = {
   params: BlogMutation;
 };
 
+
+export type MutationUpdateHomepageArgs = {
+  relativePath: Scalars['String']['input'];
+  params: HomepageMutation;
+};
+
+
+export type MutationCreateHomepageArgs = {
+  relativePath: Scalars['String']['input'];
+  params: HomepageMutation;
+};
+
 export type DocumentUpdateMutation = {
   blog?: InputMaybe<BlogMutation>;
+  homepage?: InputMaybe<HomepageMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DocumentMutation = {
   blog?: InputMaybe<BlogMutation>;
+  homepage?: InputMaybe<HomepageMutation>;
 };
 
 export type BlogMutation = {
@@ -301,7 +451,51 @@ export type BlogMutation = {
   body?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type HomepageUrgencyBarMutation = {
+  badge?: InputMaybe<Scalars['String']['input']>;
+  message?: InputMaybe<Scalars['String']['input']>;
+  highlight?: InputMaybe<Scalars['String']['input']>;
+  linkHref?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomepageHeroMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+  headlineHighlight?: InputMaybe<Scalars['String']['input']>;
+  subheadline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomepageLiveStatsMutation = {
+  sitesThisWeek?: InputMaybe<Scalars['Float']['input']>;
+  inProgress?: InputMaybe<Scalars['Float']['input']>;
+  launchedThisMonth?: InputMaybe<Scalars['Float']['input']>;
+  latestLaunchName?: InputMaybe<Scalars['String']['input']>;
+  latestLaunchUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomepageTestimonialsMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
+  badge?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  quote?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomepageFaqMutation = {
+  question?: InputMaybe<Scalars['String']['input']>;
+  answer?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomepageMutation = {
+  urgencyBar?: InputMaybe<HomepageUrgencyBarMutation>;
+  hero?: InputMaybe<HomepageHeroMutation>;
+  liveStats?: InputMaybe<HomepageLiveStatsMutation>;
+  testimonials?: InputMaybe<Array<InputMaybe<HomepageTestimonialsMutation>>>;
+  faq?: InputMaybe<Array<InputMaybe<HomepageFaqMutation>>>;
+};
+
 export type BlogPartsFragment = { __typename: 'Blog', title?: string | null, seoTitle?: string | null, description: string, pubDate: string, updatedDate?: string | null, primaryKeyword?: string | null, heroImage?: string | null, readTime?: string | null, avatar?: string | null, body?: string | null };
+
+export type HomepagePartsFragment = { __typename: 'Homepage', urgencyBar?: { __typename: 'HomepageUrgencyBar', badge?: string | null, message?: string | null, highlight?: string | null, linkHref?: string | null } | null, hero?: { __typename: 'HomepageHero', headline?: string | null, headlineHighlight?: string | null, subheadline?: string | null } | null, liveStats?: { __typename: 'HomepageLiveStats', sitesThisWeek?: number | null, inProgress?: number | null, launchedThisMonth?: number | null, latestLaunchName?: string | null, latestLaunchUrl?: string | null } | null, testimonials?: Array<{ __typename: 'HomepageTestimonials', name?: string | null, role?: string | null, badge?: string | null, image?: string | null, quote?: string | null } | null> | null, faq?: Array<{ __typename: 'HomepageFaq', question?: string | null, answer?: string | null } | null> | null };
 
 export type BlogQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -322,6 +516,25 @@ export type BlogConnectionQueryVariables = Exact<{
 
 export type BlogConnectionQuery = { __typename?: 'Query', blogConnection: { __typename?: 'BlogConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'BlogConnectionEdges', cursor: string, node?: { __typename: 'Blog', id: string, title?: string | null, seoTitle?: string | null, description: string, pubDate: string, updatedDate?: string | null, primaryKeyword?: string | null, heroImage?: string | null, readTime?: string | null, avatar?: string | null, body?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
+export type HomepageQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type HomepageQuery = { __typename?: 'Query', homepage: { __typename: 'Homepage', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, urgencyBar?: { __typename: 'HomepageUrgencyBar', badge?: string | null, message?: string | null, highlight?: string | null, linkHref?: string | null } | null, hero?: { __typename: 'HomepageHero', headline?: string | null, headlineHighlight?: string | null, subheadline?: string | null } | null, liveStats?: { __typename: 'HomepageLiveStats', sitesThisWeek?: number | null, inProgress?: number | null, launchedThisMonth?: number | null, latestLaunchName?: string | null, latestLaunchUrl?: string | null } | null, testimonials?: Array<{ __typename: 'HomepageTestimonials', name?: string | null, role?: string | null, badge?: string | null, image?: string | null, quote?: string | null } | null> | null, faq?: Array<{ __typename: 'HomepageFaq', question?: string | null, answer?: string | null } | null> | null } };
+
+export type HomepageConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<HomepageFilter>;
+}>;
+
+
+export type HomepageConnectionQuery = { __typename?: 'Query', homepageConnection: { __typename?: 'HomepageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomepageConnectionEdges', cursor: string, node?: { __typename: 'Homepage', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, urgencyBar?: { __typename: 'HomepageUrgencyBar', badge?: string | null, message?: string | null, highlight?: string | null, linkHref?: string | null } | null, hero?: { __typename: 'HomepageHero', headline?: string | null, headlineHighlight?: string | null, subheadline?: string | null } | null, liveStats?: { __typename: 'HomepageLiveStats', sitesThisWeek?: number | null, inProgress?: number | null, launchedThisMonth?: number | null, latestLaunchName?: string | null, latestLaunchUrl?: string | null } | null, testimonials?: Array<{ __typename: 'HomepageTestimonials', name?: string | null, role?: string | null, badge?: string | null, image?: string | null, quote?: string | null } | null> | null, faq?: Array<{ __typename: 'HomepageFaq', question?: string | null, answer?: string | null } | null> | null } | null } | null> | null } };
+
 export const BlogPartsFragmentDoc = gql`
     fragment BlogParts on Blog {
   __typename
@@ -335,6 +548,45 @@ export const BlogPartsFragmentDoc = gql`
   readTime
   avatar
   body
+}
+    `;
+export const HomepagePartsFragmentDoc = gql`
+    fragment HomepageParts on Homepage {
+  __typename
+  urgencyBar {
+    __typename
+    badge
+    message
+    highlight
+    linkHref
+  }
+  hero {
+    __typename
+    headline
+    headlineHighlight
+    subheadline
+  }
+  liveStats {
+    __typename
+    sitesThisWeek
+    inProgress
+    launchedThisMonth
+    latestLaunchName
+    latestLaunchUrl
+  }
+  testimonials {
+    __typename
+    name
+    role
+    badge
+    image
+    quote
+  }
+  faq {
+    __typename
+    question
+    answer
+  }
 }
     `;
 export const BlogDocument = gql`
@@ -394,6 +646,63 @@ export const BlogConnectionDocument = gql`
   }
 }
     ${BlogPartsFragmentDoc}`;
+export const HomepageDocument = gql`
+    query homepage($relativePath: String!) {
+  homepage(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...HomepageParts
+  }
+}
+    ${HomepagePartsFragmentDoc}`;
+export const HomepageConnectionDocument = gql`
+    query homepageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: HomepageFilter) {
+  homepageConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...HomepageParts
+      }
+    }
+  }
+}
+    ${HomepagePartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -402,6 +711,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     blogConnection(variables?: BlogConnectionQueryVariables, options?: C): Promise<{data: BlogConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogConnectionQueryVariables, query: string}> {
         return requester<{data: BlogConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogConnectionQueryVariables, query: string}, BlogConnectionQueryVariables>(BlogConnectionDocument, variables, options);
+      },
+    homepage(variables: HomepageQueryVariables, options?: C): Promise<{data: HomepageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageQueryVariables, query: string}> {
+        return requester<{data: HomepageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageQueryVariables, query: string}, HomepageQueryVariables>(HomepageDocument, variables, options);
+      },
+    homepageConnection(variables?: HomepageConnectionQueryVariables, options?: C): Promise<{data: HomepageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageConnectionQueryVariables, query: string}> {
+        return requester<{data: HomepageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageConnectionQueryVariables, query: string}, HomepageConnectionQueryVariables>(HomepageConnectionDocument, variables, options);
       }
     };
   }

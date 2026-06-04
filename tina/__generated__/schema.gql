@@ -56,10 +56,13 @@ type Query {
   document(collection: String, relativePath: String): DocumentNode!
   blog(relativePath: String): Blog!
   blogConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: BlogFilter): BlogConnection!
+  homepage(relativePath: String): Homepage!
+  homepageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomepageFilter): HomepageConnection!
 }
 
 input DocumentFilter {
   blog: BlogFilter
+  homepage: HomepageFilter
 }
 
 type DocumentConnectionEdges {
@@ -85,7 +88,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Blog | Folder
+union DocumentNode = Blog | Homepage | Folder
 
 type Blog implements Node & Document {
   title: String
@@ -142,6 +145,114 @@ type BlogConnection implements Connection {
   edges: [BlogConnectionEdges]
 }
 
+type HomepageUrgencyBar {
+  badge: String
+  message: String
+  highlight: String
+  linkHref: String
+}
+
+type HomepageHero {
+  headline: String
+  headlineHighlight: String
+  subheadline: String
+}
+
+type HomepageLiveStats {
+  sitesThisWeek: Float
+  inProgress: Float
+  launchedThisMonth: Float
+  latestLaunchName: String
+  latestLaunchUrl: String
+}
+
+type HomepageTestimonials {
+  name: String
+  role: String
+  badge: String
+  image: String
+  quote: String
+}
+
+type HomepageFaq {
+  question: String
+  answer: String
+}
+
+type Homepage implements Node & Document {
+  urgencyBar: HomepageUrgencyBar
+  hero: HomepageHero
+  liveStats: HomepageLiveStats
+  testimonials: [HomepageTestimonials]
+  faq: [HomepageFaq]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input HomepageUrgencyBarFilter {
+  badge: StringFilter
+  message: StringFilter
+  highlight: StringFilter
+  linkHref: StringFilter
+}
+
+input HomepageHeroFilter {
+  headline: StringFilter
+  headlineHighlight: StringFilter
+  subheadline: StringFilter
+}
+
+input NumberFilter {
+  lt: Float
+  lte: Float
+  gte: Float
+  gt: Float
+  eq: Float
+  exists: Boolean
+  in: [Float]
+}
+
+input HomepageLiveStatsFilter {
+  sitesThisWeek: NumberFilter
+  inProgress: NumberFilter
+  launchedThisMonth: NumberFilter
+  latestLaunchName: StringFilter
+  latestLaunchUrl: StringFilter
+}
+
+input HomepageTestimonialsFilter {
+  name: StringFilter
+  role: StringFilter
+  badge: StringFilter
+  image: StringFilter
+  quote: StringFilter
+}
+
+input HomepageFaqFilter {
+  question: StringFilter
+  answer: StringFilter
+}
+
+input HomepageFilter {
+  urgencyBar: HomepageUrgencyBarFilter
+  hero: HomepageHeroFilter
+  liveStats: HomepageLiveStatsFilter
+  testimonials: HomepageTestimonialsFilter
+  faq: HomepageFaqFilter
+}
+
+type HomepageConnectionEdges {
+  cursor: String!
+  node: Homepage
+}
+
+type HomepageConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [HomepageConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -150,15 +261,19 @@ type Mutation {
   createFolder(collection: String, relativePath: String!): DocumentNode!
   updateBlog(relativePath: String!, params: BlogMutation!): Blog!
   createBlog(relativePath: String!, params: BlogMutation!): Blog!
+  updateHomepage(relativePath: String!, params: HomepageMutation!): Homepage!
+  createHomepage(relativePath: String!, params: HomepageMutation!): Homepage!
 }
 
 input DocumentUpdateMutation {
   blog: BlogMutation
+  homepage: HomepageMutation
   relativePath: String
 }
 
 input DocumentMutation {
   blog: BlogMutation
+  homepage: HomepageMutation
 }
 
 input BlogMutation {
@@ -172,6 +287,48 @@ input BlogMutation {
   readTime: String
   avatar: String
   body: String
+}
+
+input HomepageUrgencyBarMutation {
+  badge: String
+  message: String
+  highlight: String
+  linkHref: String
+}
+
+input HomepageHeroMutation {
+  headline: String
+  headlineHighlight: String
+  subheadline: String
+}
+
+input HomepageLiveStatsMutation {
+  sitesThisWeek: Float
+  inProgress: Float
+  launchedThisMonth: Float
+  latestLaunchName: String
+  latestLaunchUrl: String
+}
+
+input HomepageTestimonialsMutation {
+  name: String
+  role: String
+  badge: String
+  image: String
+  quote: String
+}
+
+input HomepageFaqMutation {
+  question: String
+  answer: String
+}
+
+input HomepageMutation {
+  urgencyBar: HomepageUrgencyBarMutation
+  hero: HomepageHeroMutation
+  liveStats: HomepageLiveStatsMutation
+  testimonials: [HomepageTestimonialsMutation]
+  faq: [HomepageFaqMutation]
 }
 
 schema {

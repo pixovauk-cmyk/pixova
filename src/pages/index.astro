@@ -1,5 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import homepage from '../content/homepage.json';
+import { HomepageDocument } from '../../tina/__generated__/types';
+import { tinaField } from '@tinacms/bridge/tina-field';
+import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
+
+const hpQueryId = hashFromQuery(HomepageDocument as string);
+const hp = addMetadata(hpQueryId, homepage);
+const tf = (obj: any, field: string) => tinaField(obj, field) || undefined;
 ---
 
 <Layout
@@ -75,8 +83,8 @@ import Layout from '../layouts/Layout.astro';
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2.5 min-w-0">
         <span class="live-dot flex-shrink-0"></span>
-        <span class="text-xs sm:text-sm font-medium" style="color:rgba(255,255,255,0.8);">
-          <span class="font-bold px-1.5 py-0.5 rounded text-xs mr-1" style="background:#DC2626; color:#fff;">JUNE OFFER</span> £50 off setup fee on the Monthly plan. 3 spots left. Closes 30 June — <strong style="color:#2ECC9A;">from £59/month</strong>.
+        <span class="text-xs sm:text-sm font-medium" style="color:rgba(255,255,255,0.8);" data-tina-field={tf(hp.urgencyBar, 'message')}>
+          <span class="font-bold px-1.5 py-0.5 rounded text-xs mr-1" style="background:#DC2626; color:#fff;" data-tina-field={tf(hp.urgencyBar, 'badge')}>{homepage.urgencyBar.badge}</span> {homepage.urgencyBar.message} <strong style="color:#2ECC9A;" data-tina-field={tf(hp.urgencyBar, 'highlight')}>{homepage.urgencyBar.highlight}</strong>.
         </span>
       </div>
       <div class="flex items-center gap-2 flex-shrink-0">
@@ -138,12 +146,12 @@ import Layout from '../layouts/Layout.astro';
             <span class="sec-label" style="color:rgba(13,34,64,0.65);">Web Design & SEO · Birmingham · UK-Wide</span>
           </div>
           <h1 class="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5" style="color:#0D2240; letter-spacing:-0.025em;">
-            I build websites for<br/>small businesses, handle<br/><span style="color:#2ECC9A;">your SEO, and get results.</span>
+            <span data-tina-field={tf(hp.hero, 'headline')}>{homepage.hero.headline}</span><br/>
+            <span style="color:#2ECC9A;" data-tina-field={tf(hp.hero, 'headlineHighlight')}>{homepage.hero.headlineHighlight}</span>
           </h1>
 
-          <p class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0" style="color:rgba(13,34,64,0.7);">
-            I handle the whole thing. Website design, SEO, hosting and updates.
-            Most clients go live within 7 days. Your only job is to answer the phone.
+          <p class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0" style="color:rgba(13,34,64,0.7);" data-tina-field={tf(hp.hero, 'subheadline')}>
+            {homepage.hero.subheadline}
           </p>
 
           <div class="flex flex-wrap gap-3 mb-5 justify-center lg:justify-start">
@@ -249,21 +257,21 @@ import Layout from '../layouts/Layout.astro';
           <div class="w-px h-6 flex-shrink-0" style="background:rgba(13,34,64,0.15);"></div>
           <div class="flex flex-wrap gap-6 sm:gap-10">
             {[
-              { target: 3,  label: 'sites built this week' },
-              { target: 2,  label: 'currently in progress' },
-              { target: 11, label: 'launched this month' },
+              { target: homepage.liveStats.sitesThisWeek, label: 'sites built this week', field: 'sitesThisWeek' },
+              { target: homepage.liveStats.inProgress,    label: 'currently in progress', field: 'inProgress' },
+              { target: homepage.liveStats.launchedThisMonth, label: 'launched this month', field: 'launchedThisMonth' },
             ].map((s, i) => (
               <div class="flex items-baseline gap-2">
-                <span class="live-counter font-heading font-black text-2xl leading-none" data-target={s.target} data-delay={i * 120} style="color:#0D2240; letter-spacing:-0.03em;">0</span>
+                <span class="live-counter font-heading font-black text-2xl leading-none" data-target={s.target} data-delay={i * 120} style="color:#0D2240; letter-spacing:-0.03em;" data-tina-field={tf(hp.liveStats, s.field)}>0</span>
                 <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
               </div>
             ))}
           </div>
           <div class="w-px h-6 flex-shrink-0" style="background:rgba(13,34,64,0.15);"></div>
-          <a href="https://www.feldonhaynes.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 group flex-shrink-0">
+          <a href={homepage.liveStats.latestLaunchUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 group flex-shrink-0">
             <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
             <span class="text-xs font-medium" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
-            <span class="text-xs font-semibold group-hover:underline" style="color:#0D2240;">Feldon Haynes</span>
+            <span class="text-xs font-semibold group-hover:underline" style="color:#0D2240;" data-tina-field={tf(hp.liveStats, 'latestLaunchName')}>{homepage.liveStats.latestLaunchName}</span>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" class="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
@@ -277,19 +285,19 @@ import Layout from '../layouts/Layout.astro';
               <span class="text-xs font-bold uppercase tracking-widest" style="color:#0D2240;">Live</span>
             </div>
             {[
-              { target: 3,  label: 'sites built this week' },
-              { target: 2,  label: 'currently in progress' },
-              { target: 11, label: 'launched this month' },
+              { val: homepage.liveStats.sitesThisWeek,    label: 'sites built this week' },
+              { val: homepage.liveStats.inProgress,       label: 'currently in progress' },
+              { val: homepage.liveStats.launchedThisMonth, label: 'launched this month' },
             ].map(s => (
               <div class="flex items-baseline gap-1.5 flex-shrink-0">
-                <span class="font-heading font-black text-xl leading-none" style="color:#0D2240; letter-spacing:-0.03em;">{s.target}</span>
+                <span class="font-heading font-black text-xl leading-none" style="color:#0D2240; letter-spacing:-0.03em;">{s.val}</span>
                 <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
               </div>
             ))}
-            <a href="https://www.feldonhaynes.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 flex-shrink-0">
+            <a href={homepage.liveStats.latestLaunchUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 flex-shrink-0">
               <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
               <span class="text-xs" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
-              <span class="text-xs font-semibold" style="color:#0D2240;">Feldon Haynes →</span>
+              <span class="text-xs font-semibold" style="color:#0D2240;">{homepage.liveStats.latestLaunchName} →</span>
             </a>
             {/* Duplicate for seamless loop */}
             <div class="flex items-center gap-2 flex-shrink-0" aria-hidden="true">
@@ -297,19 +305,19 @@ import Layout from '../layouts/Layout.astro';
               <span class="text-xs font-bold uppercase tracking-widest" style="color:#0D2240;">Live</span>
             </div>
             {[
-              { target: 3,  label: 'sites built this week' },
-              { target: 2,  label: 'currently in progress' },
-              { target: 11, label: 'launched this month' },
+              { val: homepage.liveStats.sitesThisWeek,    label: 'sites built this week' },
+              { val: homepage.liveStats.inProgress,       label: 'currently in progress' },
+              { val: homepage.liveStats.launchedThisMonth, label: 'launched this month' },
             ].map(s => (
               <div class="flex items-baseline gap-1.5 flex-shrink-0" aria-hidden="true">
-                <span class="font-heading font-black text-xl leading-none" style="color:#0D2240; letter-spacing:-0.03em;">{s.target}</span>
+                <span class="font-heading font-black text-xl leading-none" style="color:#0D2240; letter-spacing:-0.03em;">{s.val}</span>
                 <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
               </div>
             ))}
-            <a href="https://www.feldonhaynes.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 flex-shrink-0" aria-hidden="true" tabindex="-1">
+            <a href={homepage.liveStats.latestLaunchUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 flex-shrink-0" aria-hidden="true" tabindex="-1">
               <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
               <span class="text-xs" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
-              <span class="text-xs font-semibold" style="color:#0D2240;">Feldon Haynes →</span>
+              <span class="text-xs font-semibold" style="color:#0D2240;">{homepage.liveStats.latestLaunchName} →</span>
             </a>
           </div>
         </div>
@@ -336,170 +344,55 @@ import Layout from '../layouts/Layout.astro';
     <div class="tcarousel-wrapper">
       <div class="tcarousel-track">
 
-        <!-- Jake -->
-        <div class="tcard">
-          <img src="/images/jake-victorsquare.webp" alt="Jake Victor" width="480" height="480" loading="lazy" class="tcard-img" />
-          <div class="tcard-overlay"></div>
-          <span class="tcard-badge">Website &amp; SEO</span>
-          <div class="tcard-body">
-            <p class="tcard-quote">"Honestly the best money we've spent on marketing. Phone started ringing within the first month."</p>
-            <div class="tcard-meta">
-              <div>
-                <p class="tcard-name">Jake Victor</p>
-                <p class="tcard-role">Birmingham</p>
-              </div>
-              <div class="tcard-stars">
-                {[1,2,3,4,5].map(() => (
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
+        {/* Primary set */}
+        {homepage.testimonials.map((t, i) => {
+          const tp = (hp.testimonials as any[])[i];
+          const ttf = (field: string) => tp ? tinaField(tp, field) || undefined : undefined;
+          return (
+            <div class="tcard">
+              <img src={t.image} alt={t.name} width="480" height="480" loading="lazy" class="tcard-img" />
+              <div class="tcard-overlay"></div>
+              <span class="tcard-badge" data-tina-field={ttf('badge')}>{t.badge}</span>
+              <div class="tcard-body">
+                <p class="tcard-quote" data-tina-field={ttf('quote')}>"{t.quote}"</p>
+                <div class="tcard-meta">
+                  <div>
+                    <p class="tcard-name" data-tina-field={ttf('name')}>{t.name}</p>
+                    <p class="tcard-role" data-tina-field={ttf('role')}>{t.role}</p>
+                  </div>
+                  <div class="tcard-stars">
+                    {[1,2,3,4,5].map(() => (
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          );
+        })}
 
-        <!-- Ayoush -->
-        <div class="tcard">
-          <img src="/images/Ayoushsqaure.webp" alt="Ayoush, Founder of TranoVex" width="480" height="480" loading="lazy" class="tcard-img" />
-          <div class="tcard-overlay"></div>
-          <span class="tcard-badge">Website &amp; SEO</span>
-          <div class="tcard-body">
-            <p class="tcard-quote">"Within a few weeks clients were calling who'd found us on Google. We weren't doing anything differently. It just started working."</p>
-            <div class="tcard-meta">
-              <div>
-                <p class="tcard-name">Ayoush</p>
-                <p class="tcard-role">Founder, TranoVex</p>
-              </div>
-              <div class="tcard-stars">
-                {[1,2,3,4,5].map(() => (
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Luke -->
-        <div class="tcard">
-          <img src="/images/lukesquare.png" alt="Luke, Senior Sales Professional" width="480" height="480" loading="lazy" class="tcard-img" />
-          <div class="tcard-overlay"></div>
-          <span class="tcard-badge">CRM &amp; Automation</span>
-          <div class="tcard-body">
-            <p class="tcard-quote">"I've sent two more people his way since. That says everything about the results he delivers."</p>
-            <div class="tcard-meta">
-              <div>
-                <p class="tcard-name">Luke</p>
-                <p class="tcard-role">Senior Sales</p>
-              </div>
-              <div class="tcard-stars">
-                {[1,2,3,4,5].map(() => (
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
+        {/* Duplicates for seamless carousel loop */}
+        {homepage.testimonials.map(t => (
+          <div class="tcard" aria-hidden="true">
+            <img src={t.image} alt="" width="480" height="480" loading="lazy" class="tcard-img" />
+            <div class="tcard-overlay"></div>
+            <span class="tcard-badge">{t.badge}</span>
+            <div class="tcard-body">
+              <p class="tcard-quote">"{t.quote}"</p>
+              <div class="tcard-meta">
+                <div>
+                  <p class="tcard-name">{t.name}</p>
+                  <p class="tcard-role">{t.role}</p>
+                </div>
+                <div class="tcard-stars">
+                  {[1,2,3,4,5].map(() => (
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Feldon -->
-        <div class="tcard">
-          <img src="/images/feldon-haynes.webp" alt="Feldon Haynes" width="480" height="480" loading="lazy" class="tcard-img" />
-          <div class="tcard-overlay"></div>
-          <span class="tcard-badge">Website Design</span>
-          <div class="tcard-body">
-            <p class="tcard-quote">"Great work, knows what they are doing. Website designs are slick, professional and works like a charm."</p>
-            <div class="tcard-meta">
-              <div>
-                <p class="tcard-name">Feldon Haynes</p>
-                <p class="tcard-role">Client</p>
-              </div>
-              <div class="tcard-stars">
-                {[1,2,3,4,5].map(() => (
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Duplicates for seamless loop -->
-        <div class="tcard" aria-hidden="true">
-          <img src="/images/jake-victorsquare.webp" alt="" width="480" height="480" loading="lazy" class="tcard-img" />
-          <div class="tcard-overlay"></div>
-          <span class="tcard-badge">Website &amp; SEO</span>
-          <div class="tcard-body">
-            <p class="tcard-quote">"Honestly the best money we've spent on marketing. Phone started ringing within the first month."</p>
-            <div class="tcard-meta">
-              <div>
-                <p class="tcard-name">Jake Victor</p>
-                <p class="tcard-role">Birmingham</p>
-              </div>
-              <div class="tcard-stars">
-                {[1,2,3,4,5].map(() => (
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tcard" aria-hidden="true">
-          <img src="/images/Ayoushsqaure.webp" alt="" width="480" height="480" loading="lazy" class="tcard-img" />
-          <div class="tcard-overlay"></div>
-          <span class="tcard-badge">Website &amp; SEO</span>
-          <div class="tcard-body">
-            <p class="tcard-quote">"Within a few weeks clients were calling who'd found us on Google. We weren't doing anything differently. It just started working."</p>
-            <div class="tcard-meta">
-              <div>
-                <p class="tcard-name">Ayoush</p>
-                <p class="tcard-role">Founder, TranoVex</p>
-              </div>
-              <div class="tcard-stars">
-                {[1,2,3,4,5].map(() => (
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tcard" aria-hidden="true">
-          <img src="/images/lukesquare.png" alt="" width="480" height="480" loading="lazy" class="tcard-img" />
-          <div class="tcard-overlay"></div>
-          <span class="tcard-badge">CRM &amp; Automation</span>
-          <div class="tcard-body">
-            <p class="tcard-quote">"I've sent two more people his way since. That says everything about the results he delivers."</p>
-            <div class="tcard-meta">
-              <div>
-                <p class="tcard-name">Luke</p>
-                <p class="tcard-role">Senior Sales</p>
-              </div>
-              <div class="tcard-stars">
-                {[1,2,3,4,5].map(() => (
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tcard" aria-hidden="true">
-          <img src="/images/feldon-haynes.webp" alt="" width="480" height="480" loading="lazy" class="tcard-img" />
-          <div class="tcard-overlay"></div>
-          <span class="tcard-badge">Website Design</span>
-          <div class="tcard-body">
-            <p class="tcard-quote">"Great work, knows what they are doing. Website designs are slick, professional and works like a charm."</p>
-            <div class="tcard-meta">
-              <div>
-                <p class="tcard-name">Feldon Haynes</p>
-                <p class="tcard-role">Client</p>
-              </div>
-              <div class="tcard-stars">
-                {[1,2,3,4,5].map(() => (
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
 
       </div>
     </div>
@@ -1095,58 +988,21 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="space-y-3 reveal reveal-d1">
-        {[
-          {
-            q: "What does Pixova do?",
-            a: "I build fast, SEO-ready websites for small businesses, handle local SEO to get you found on Google, and set up AI-powered marketing automation so enquiries are followed up automatically. Everything is fully managed. You don't need any technical knowledge."
-          },
-          {
-            q: "How much does a small business website cost?",
-            a: "Plans start from £59/month (Get Online on 6-month term) up to £189/month (Get Leads on rolling monthly). A one-off setup fee is paid when your site goes live — nothing to pay before that. Monthly, 6-month, or rolling terms available. Add-ons including CRM, email nurture, and AI chatbot are available on any plan."
-          },
-          {
-            q: "How long does local SEO take to work?",
-            a: "Three to six months before you see consistent results. Google needs time to find, crawl, and trust your site. The results compound. A site that ranks keeps ranking without ongoing ad spend. The businesses on page one today started six months ago."
-          },
-          {
-            q: "What is marketing automation and do I need it?",
-            a: "Marketing automation means systems that respond to enquiries, follow up with leads, and request reviews automatically. You don't need to do anything. If you're missing follow-ups, losing leads who don't book immediately, or forgetting to ask for Google reviews, automation fixes all three."
-          },
-          {
-            q: "Can AI help my small business get more customers?",
-            a: "Yes. AI automation helps you respond faster to enquiries (faster response = higher conversion), follow up consistently with leads who don't buy immediately, and handle repetitive tasks like review requests. I build these systems once and they run in the background while you get on with your work."
-          },
-          {
-            q: "Does Pixova work with businesses outside Birmingham?",
-            a: "Yes. I'm based in Birmingham but work with small businesses across the whole of the UK. Web design, local SEO, and marketing automation are all delivered remotely."
-          },
-          {
-            q: "How quickly can you build my website?",
-            a: "The average time to go live is 7 days from the point of starting. I use AI-assisted development to build fast, and once it's live I manage everything so you never have to touch it."
-          },
-          {
-            q: "What types of businesses do you work with?",
-            a: "Tradespeople (plumbers, electricians, builders, landscapers), professional services (accountants, solicitors, consultants), and lifestyle and beauty businesses (salons, therapists, personal trainers). Any UK small business that needs to be found on Google and wants everything managed."
-          },
-          {
-            q: "Do I need to know anything technical?",
-            a: "No. I handle the website, SEO, content, and automation. You don't need to know what any of it means. The whole point is that it's fully managed so you can focus on running your business."
-          },
-          {
-            q: "What is the difference between SEO and local SEO?",
-            a: "Regular SEO targets national rankings for broad terms. Local SEO targets your specific area, like 'plumber Birmingham' or 'accountant Manchester'. For most small businesses, local SEO is far more valuable because it targets people nearby who are ready to book right now."
-          },
-        ].map((item, i) => (
-          <details class="group bg-white rounded-xl overflow-hidden shadow-sm" style="border:1px solid #e8f0f0;">
-            <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5 font-heading font-semibold text-base select-none" style="color:#1C3557; list-style:none;">
-              {item.q}
-              <svg class="flex-shrink-0 transition-transform duration-200 group-open:rotate-45" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-            </summary>
-            <div class="px-6 pb-5 text-sm leading-relaxed" style="color:#4a6070;">
-              {item.a}
-            </div>
-          </details>
-        ))}
+        {homepage.faq.map((item, i) => {
+          const faqItem = (hp.faq as any[])[i];
+          const ftf = (field: string) => faqItem ? tinaField(faqItem, field) || undefined : undefined;
+          return (
+            <details class="group bg-white rounded-xl overflow-hidden shadow-sm" style="border:1px solid #e8f0f0;">
+              <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5 font-heading font-semibold text-base select-none" style="color:#1C3557; list-style:none;" data-tina-field={ftf('question')}>
+                {item.question}
+                <svg class="flex-shrink-0 transition-transform duration-200 group-open:rotate-45" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </summary>
+              <div class="px-6 pb-5 text-sm leading-relaxed" style="color:#4a6070;" data-tina-field={ftf('answer')}>
+                {item.answer}
+              </div>
+            </details>
+          );
+        })}
       </div>
     </div>
   </section>

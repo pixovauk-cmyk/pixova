@@ -1,0 +1,92 @@
+{
+  "urgencyBar": {
+    "badge": "JUNE OFFER",
+    "message": "£50 off setup fee on the Monthly plan. 3 spots left. Closes 30 June —",
+    "highlight": "from £59/month",
+    "linkHref": "/pricing/"
+  },
+  "hero": {
+    "headline": "I build websites for small businesses, handle",
+    "headlineHighlight": "your SEO, and get results.",
+    "subheadline": "I handle the whole thing. Website design, SEO, hosting and updates. Most clients go live within 7 days. Your only job is to answer the phone."
+  },
+  "liveStats": {
+    "sitesThisWeek": 3,
+    "inProgress": 2,
+    "launchedThisMonth": 11,
+    "latestLaunchName": "Feldon Haynes",
+    "latestLaunchUrl": "https://www.feldonhaynes.com/"
+  },
+  "testimonials": [
+    {
+      "name": "Jake Victor",
+      "role": "Birmingham",
+      "badge": "Website & SEO",
+      "image": "/images/jake-victorsquare.webp",
+      "quote": "Honestly the best money we've spent on marketing. Phone started ringing within the first month."
+    },
+    {
+      "name": "Ayoush",
+      "role": "Founder, TranoVex",
+      "badge": "Website & SEO",
+      "image": "/images/Ayoushsqaure.webp",
+      "quote": "Within a few weeks clients were calling who'd found us on Google. We weren't doing anything differently. It just started working."
+    },
+    {
+      "name": "Luke",
+      "role": "Senior Sales",
+      "badge": "CRM & Automation",
+      "image": "/images/lukesquare.png",
+      "quote": "I've sent two more people his way since. That says everything about the results he delivers."
+    },
+    {
+      "name": "Feldon Haynes",
+      "role": "Client",
+      "badge": "Website Design",
+      "image": "/images/feldon-haynes.webp",
+      "quote": "Great work, knows what they are doing. Website designs are slick, professional and works like a charm."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What does Pixova do?",
+      "answer": "I build fast, SEO-ready websites for small businesses, handle local SEO to get you found on Google, and set up AI-powered marketing automation so enquiries are followed up automatically. Everything is fully managed. You don't need any technical knowledge."
+    },
+    {
+      "question": "How much does a small business website cost?",
+      "answer": "Plans start from £59/month (Get Online on 6-month term) up to £189/month (Get Leads on rolling monthly). A one-off setup fee is paid when your site goes live — nothing to pay before that. Monthly, 6-month, or rolling terms available. Add-ons including CRM, email nurture, and AI chatbot are available on any plan."
+    },
+    {
+      "question": "How long does local SEO take to work?",
+      "answer": "Three to six months before you see consistent results. Google needs time to find, crawl, and trust your site. The results compound. A site that ranks keeps ranking without ongoing ad spend. The businesses on page one today started six months ago."
+    },
+    {
+      "question": "What is marketing automation and do I need it?",
+      "answer": "Marketing automation means systems that respond to enquiries, follow up with leads, and request reviews automatically. You don't need to do anything. If you're missing follow-ups, losing leads who don't book immediately, or forgetting to ask for Google reviews, automation fixes all three."
+    },
+    {
+      "question": "Can AI help my small business get more customers?",
+      "answer": "Yes. AI automation helps you respond faster to enquiries (faster response = higher conversion), follow up consistently with leads who don't buy immediately, and handle repetitive tasks like review requests. I build these systems once and they run in the background while you get on with your work."
+    },
+    {
+      "question": "Does Pixova work with businesses outside Birmingham?",
+      "answer": "Yes. I'm based in Birmingham but work with small businesses across the whole of the UK. Web design, local SEO, and marketing automation are all delivered remotely."
+    },
+    {
+      "question": "How quickly can you build my website?",
+      "answer": "The average time to go live is 7 days from the point of starting. I use AI-assisted development to build fast, and once it's live I manage everything so you never have to touch it."
+    },
+    {
+      "question": "What types of businesses do you work with?",
+      "answer": "Tradespeople (plumbers, electricians, builders, landscapers), professional services (accountants, solicitors, consultants), and lifestyle and beauty businesses (salons, therapists, personal trainers). Any UK small business that needs to be found on Google and wants everything managed."
+    },
+    {
+      "question": "Do I need to know anything technical?",
+      "answer": "No. I handle the website, SEO, content, and automation. You don't need to know what any of it means. The whole point is that it's fully managed so you can focus on running your business."
+    },
+    {
+      "question": "What is the difference between SEO and local SEO?",
+      "answer": "Regular SEO targets national rankings for broad terms. Local SEO targets your specific area, like 'plumber Birmingham' or 'accountant Manchester'. For most small businesses, local SEO is far more valuable because it targets people nearby who are ready to book right now."
+    }
+  ]
+}

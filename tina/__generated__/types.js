@@ -20,6 +20,45 @@ export const BlogPartsFragmentDoc = gql`
   body
 }
     `;
+export const HomepagePartsFragmentDoc = gql`
+    fragment HomepageParts on Homepage {
+  __typename
+  urgencyBar {
+    __typename
+    badge
+    message
+    highlight
+    linkHref
+  }
+  hero {
+    __typename
+    headline
+    headlineHighlight
+    subheadline
+  }
+  liveStats {
+    __typename
+    sitesThisWeek
+    inProgress
+    launchedThisMonth
+    latestLaunchName
+    latestLaunchUrl
+  }
+  testimonials {
+    __typename
+    name
+    role
+    badge
+    image
+    quote
+  }
+  faq {
+    __typename
+    question
+    answer
+  }
+}
+    `;
 export const BlogDocument = gql`
     query blog($relativePath: String!) {
   blog(relativePath: $relativePath) {
@@ -77,6 +116,63 @@ export const BlogConnectionDocument = gql`
   }
 }
     ${BlogPartsFragmentDoc}`;
+export const HomepageDocument = gql`
+    query homepage($relativePath: String!) {
+  homepage(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...HomepageParts
+  }
+}
+    ${HomepagePartsFragmentDoc}`;
+export const HomepageConnectionDocument = gql`
+    query homepageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: HomepageFilter) {
+  homepageConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...HomepageParts
+      }
+    }
+  }
+}
+    ${HomepagePartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     blog(variables, options) {
@@ -84,6 +180,12 @@ export function getSdk(requester) {
     },
     blogConnection(variables, options) {
       return requester(BlogConnectionDocument, variables, options);
+    },
+    homepage(variables, options) {
+      return requester(HomepageDocument, variables, options);
+    },
+    homepageConnection(variables, options) {
+      return requester(HomepageConnectionDocument, variables, options);
     }
   };
 }

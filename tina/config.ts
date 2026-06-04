@@ -96,6 +96,75 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: 'homepage',
+        label: 'Homepage',
+        path: 'src/content',
+        match: { include: 'homepage' },
+        format: 'json',
+        ui: {
+          allowedActions: { create: false, delete: false },
+          router: () => '/',
+        },
+        fields: [
+          {
+            type: 'object',
+            name: 'urgencyBar',
+            label: 'Urgency Bar',
+            fields: [
+              { type: 'string', name: 'badge', label: 'Badge label' },
+              { type: 'string', name: 'message', label: 'Message text' },
+              { type: 'string', name: 'highlight', label: 'Highlighted text (bold teal)' },
+              { type: 'string', name: 'linkHref', label: 'CTA link URL' },
+            ],
+          },
+          {
+            type: 'object',
+            name: 'hero',
+            label: 'Hero',
+            fields: [
+              { type: 'string', name: 'headline', label: 'Headline (black text)' },
+              { type: 'string', name: 'headlineHighlight', label: 'Headline (teal text)' },
+              { type: 'string', name: 'subheadline', label: 'Subheadline', ui: { component: 'textarea' } },
+            ],
+          },
+          {
+            type: 'object',
+            name: 'liveStats',
+            label: 'Live Stats',
+            fields: [
+              { type: 'number', name: 'sitesThisWeek', label: 'Sites built this week' },
+              { type: 'number', name: 'inProgress', label: 'Currently in progress' },
+              { type: 'number', name: 'launchedThisMonth', label: 'Launched this month' },
+              { type: 'string', name: 'latestLaunchName', label: 'Latest launch name' },
+              { type: 'string', name: 'latestLaunchUrl', label: 'Latest launch URL' },
+            ],
+          },
+          {
+            type: 'object',
+            name: 'testimonials',
+            label: 'Testimonials',
+            list: true,
+            fields: [
+              { type: 'string', name: 'name', label: 'Name' },
+              { type: 'string', name: 'role', label: 'Role / location' },
+              { type: 'string', name: 'badge', label: 'Badge text' },
+              { type: 'string', name: 'image', label: 'Image path' },
+              { type: 'string', name: 'quote', label: 'Quote', ui: { component: 'textarea' } },
+            ],
+          },
+          {
+            type: 'object',
+            name: 'faq',
+            label: 'FAQ',
+            list: true,
+            fields: [
+              { type: 'string', name: 'question', label: 'Question' },
+              { type: 'string', name: 'answer', label: 'Answer', ui: { component: 'textarea' } },
+            ],
+          },
+        ],
+      },
     ],
   },
 })
