@@ -7,6 +7,11 @@
       "statusCode": 301
     },
     {
+      "source": "/admin",
+      "destination": "/admin/index.html",
+      "statusCode": 302
+    },
+    {
       "source": "/privacy",
       "destination": "/privacy-policy/",
       "statusCode": 301
