@@ -1,6 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { BlogDocument } from '../../../tina/__generated__/types';
+import { tinaField } from '@tinacms/bridge/tina-field';
+import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -16,6 +19,25 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// Build a TinaCMS-enriched object from astro:content data.
+// addMetadata adds _content_source to each level so tinaField() generates
+// the correct data-tina-field attribute value — same queryId the admin uses.
+const queryId = hashFromQuery(BlogDocument as string);
+const tinaPost = addMetadata(queryId, {
+  title:          post.data.title         ?? null,
+  seoTitle:       post.data.seoTitle      ?? null,
+  description:    post.data.description,
+  pubDate:        post.data.pubDate.toISOString(),
+  updatedDate:    post.data.updatedDate?.toISOString() ?? null,
+  primaryKeyword: post.data.primaryKeyword ?? null,
+  heroImage:      post.data.heroImage      ?? null,
+  readTime:       post.data.readTime       ?? null,
+  avatar:         post.data.avatar         ?? null,
+  body:           null,
+});
+
+const tf = (field: string) => tinaField(tinaPost, field) || undefined;
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -60,17 +82,32 @@ const breadcrumbSchema = {
           ← Back to blog
         </a>
         <span style="color:rgba(255,255,255,0.2);">·</span>
-        <time datetime={pubDateISO} class="text-xs" style="color:rgba(255,255,255,0.4);">
+        <time
+          datetime={pubDateISO}
+          class="text-xs"
+          style="color:rgba(255,255,255,0.4);"
+          data-tina-field={tf('pubDate')}
+        >
           {formatDate(post.data.pubDate)}
         </time>
         {post.data.readTime && (
           <>
             <span style="color:rgba(255,255,255,0.2);">·</span>
-            <span class="text-xs" style="color:rgba(255,255,255,0.4);">{post.data.readTime}</span>
+            <span
+              class="text-xs"
+              style="color:rgba(255,255,255,0.4);"
+              data-tina-field={tf('readTime')}
+            >
+              {post.data.readTime}
+            </span>
           </>
         )}
       </div>
-      <h1 class="font-heading font-semibold text-3xl sm:text-4xl leading-tight" style="color:#fff;">
+      <h1
+        class="font-heading font-semibold text-3xl sm:text-4xl leading-tight"
+        style="color:#fff;"
+        data-tina-field={tf('title')}
+      >
         {postTitle}
       </h1>
     </div>
@@ -85,6 +122,7 @@ const breadcrumbSchema = {
             width="1200" height="500"
             loading="eager" fetchpriority="high"
             class="w-full h-full object-cover"
+            data-tina-field={tf('heroImage')}
           />
         </div>
       </div>
@@ -96,7 +134,7 @@ const breadcrumbSchema = {
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
 
       <!-- Body -->
-      <div class="prose-content">
+      <div class="prose-content" data-tina-field={tf('body')}>
         <Content />
       </div>
 
@@ -174,40 +212,19 @@ const breadcrumbSchema = {
     margin-top: 2rem;
     margin-bottom: 0.5rem;
   }
-  .prose-content p {
-    margin-bottom: 1.2rem;
-  }
-  .prose-content strong {
-    font-weight: 600;
-    color: #1C3557;
-  }
+  .prose-content p { margin-bottom: 1.2rem; }
+  .prose-content strong { font-weight: 600; color: #1C3557; }
   .prose-content a {
     color: #2ECC9A;
     font-weight: 500;
     text-decoration: underline;
     text-underline-offset: 3px;
   }
-  .prose-content a:hover {
-    opacity: 0.8;
-  }
-  .prose-content ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1.2rem;
-  }
-  .prose-content ol {
-    list-style: decimal;
-    padding-left: 1.5rem;
-    margin-bottom: 1.2rem;
-  }
-  .prose-content li {
-    margin-bottom: 0.4rem;
-  }
-  .prose-content hr {
-    border: none;
-    border-top: 1px solid #E8F5F1;
-    margin: 2.5rem 0;
-  }
+  .prose-content a:hover { opacity: 0.8; }
+  .prose-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.2rem; }
+  .prose-content ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.2rem; }
+  .prose-content li { margin-bottom: 0.4rem; }
+  .prose-content hr { border: none; border-top: 1px solid #E8F5F1; margin: 2.5rem 0; }
   .prose-content blockquote {
     border-left: 3px solid #2ECC9A;
     padding-left: 1rem;

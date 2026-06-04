@@ -1,9 +1,29 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { BlogConnectionDocument } from '../../../tina/__generated__/types';
+import { tinaField } from '@tinacms/bridge/tina-field';
+import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Compute queryId once. Each post card gets an enriched object at the path
+// [edges, i, node] — matching the shape useTina() sees in the admin.
+const connectionQueryId = hashFromQuery(BlogConnectionDocument as string);
+const enrichedPosts = posts.map((post, i) =>
+  addMetadata(
+    connectionQueryId,
+    {
+      title:       post.data.title       ?? null,
+      description: post.data.description,
+      pubDate:     post.data.pubDate.toISOString(),
+      heroImage:   post.data.heroImage   ?? null,
+      readTime:    post.data.readTime    ?? null,
+    },
+    ['edges', i, 'node'],
+  )
 );
 
 function formatDate(date: Date) {
@@ -23,9 +43,7 @@ function getTitle(post: typeof posts[0]) {
 
   <!-- HERO ───────────────────────────────────────────── -->
   <section class="relative overflow-hidden pt-28 pb-16" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
-    <!-- Teal glow — top right -->
     <div class="orb absolute pointer-events-none" style="width:500px; height:500px; top:-120px; right:-100px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.25) 0%, transparent 60%);"></div>
-    <!-- Softer teal — bottom left -->
     <div class="orb-2 absolute pointer-events-none" style="width:400px; height:400px; bottom:-80px; left:-60px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.15) 0%, transparent 60%);"></div>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
       <span class="sec-label mb-3 block">THE BLOG</span>
@@ -49,64 +67,81 @@ function getTitle(post: typeof posts[0]) {
         </div>
       ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map(post => (
-            <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col reveal">
-              {post.data.heroImage && (
-                <a href={`/blog/${post.id}`} class="block overflow-hidden" style="height:200px;">
-                  <img
-                    src={post.data.heroImage}
-                    alt={getTitle(post)}
-                    width="600" height="300"
-                    loading="lazy"
-                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </a>
-              )}
-              <div class="p-6 flex flex-col flex-1">
-                <div class="flex items-center gap-3 mb-3">
-                  <time
-                    datetime={post.data.pubDate.toISOString()}
-                    class="text-xs"
-                    style="color:#6B7580;"
-                  >
-                    {formatDate(post.data.pubDate)}
-                  </time>
-                  {post.data.readTime && (
-                    <span class="text-xs" style="color:#6B7580;">· {post.data.readTime}</span>
-                  )}
-                </div>
-                <h2 class="font-heading font-semibold text-lg mb-3 leading-snug" style="color:#1C3557;">
-                  <a href={`/blog/${post.id}`} class="hover:opacity-80 transition-opacity">
-                    {getTitle(post)}
+          {posts.map((post, i) => {
+            const tp = enrichedPosts[i];
+            const tf = (field: string) => tinaField(tp, field) || undefined;
+            return (
+              <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col reveal">
+                {post.data.heroImage && (
+                  <a href={`/blog/${post.id}/`} class="block overflow-hidden" style="height:200px;">
+                    <img
+                      src={post.data.heroImage}
+                      alt={getTitle(post)}
+                      width="600" height="300"
+                      loading="lazy"
+                      class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      data-tina-field={tf('heroImage')}
+                    />
                   </a>
-                </h2>
-                <p class="text-sm leading-relaxed mb-5 flex-1" style="color:#1A2E3D; opacity:0.8;">
-                  {post.data.description}
-                </p>
-                <a
-                  href={`/blog/${post.id}`}
-                  aria-label={`Read: ${getTitle(post)}`}
-                  class="inline-flex items-center gap-1.5 text-sm font-semibold"
-                  style="color:#2ECC9A;"
-                >
-                  Read more
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-              </div>
-            </article>
-          ))}
+                )}
+                <div class="p-6 flex flex-col flex-1">
+                  <div class="flex items-center gap-3 mb-3">
+                    <time
+                      datetime={post.data.pubDate.toISOString()}
+                      class="text-xs"
+                      style="color:#6B7580;"
+                      data-tina-field={tf('pubDate')}
+                    >
+                      {formatDate(post.data.pubDate)}
+                    </time>
+                    {post.data.readTime && (
+                      <span
+                        class="text-xs"
+                        style="color:#6B7580;"
+                        data-tina-field={tf('readTime')}
+                      >
+                        · {post.data.readTime}
+                      </span>
+                    )}
+                  </div>
+                  <h2 class="font-heading font-semibold text-lg mb-3 leading-snug" style="color:#1C3557;">
+                    <a
+                      href={`/blog/${post.id}/`}
+                      class="hover:opacity-80 transition-opacity"
+                      data-tina-field={tf('title')}
+                    >
+                      {getTitle(post)}
+                    </a>
+                  </h2>
+                  <p
+                    class="text-sm leading-relaxed mb-5 flex-1"
+                    style="color:#1A2E3D; opacity:0.8;"
+                    data-tina-field={tf('description')}
+                  >
+                    {post.data.description}
+                  </p>
+                  <a
+                    href={`/blog/${post.id}/`}
+                    aria-label={`Read: ${getTitle(post)}`}
+                    class="inline-flex items-center gap-1.5 text-sm font-semibold"
+                    style="color:#2ECC9A;"
+                  >
+                    Read more
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
         </div>
       )}
 
       <!-- CTA -->
       <div class="mt-16 text-center">
         <p class="text-sm mb-4" style="color:#1A2E3D;">
-          Want us to handle this for your business?
+          Want us to handle this for you?
         </p>
-        <a
-          href="/about/#contact"
-          class="btn-p"
-        >
+        <a href="/about/#contact" class="btn-p">
           Get in touch
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
