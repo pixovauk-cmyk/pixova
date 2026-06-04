@@ -29,10 +29,7 @@ export default defineConfig({
         label: 'Blog Posts',
         path: 'src/content/blog',
         format: 'mdx',
-        ui: {
-          router: ({ document }) =>
-            `/blog/${document._sys.filename}/`,
-        },
+        ui: {},
         fields: [
           {
             type: 'string',
@@ -104,7 +101,6 @@ export default defineConfig({
         format: 'json',
         ui: {
           allowedActions: { create: false, delete: false },
-          router: () => '/',
         },
         fields: [
           {
