@@ -8,8 +8,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"astro dev --port 4401\"",
     "dev:astro": "astro dev",
-    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" tinacms build --skip-cloud-checks && astro build",
-    "build:tina": "tinacms build && astro build",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -22,8 +21,6 @@
     "@astrojs/vercel": "^10.0.6",
     "@fontsource/dm-sans": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
-    "@keystatic/astro": "^5.0.6",
-    "@keystatic/core": "^0.5.50",
     "@tailwindcss/vite": "^4.2.4",
     "@tinacms/astro": "^0.4.1",
     "@tinacms/cli": "^2.4.3",
