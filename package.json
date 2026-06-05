@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"astro dev --port 4401\"",
     "dev:astro": "astro dev",
-    "build": "tinacms build; astro build",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" tinacms build --skip-cloud-checks; astro build",
     "build:tina": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro"
