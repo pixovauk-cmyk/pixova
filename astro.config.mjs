@@ -5,6 +5,7 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
+import tina from '@tinacms/astro/integration';
 
 export default defineConfig({
   site: 'https://www.pixova.uk',
@@ -16,6 +17,7 @@ export default defineConfig({
     react(),
     mdx(),
     keystatic(),
+    tina(),
   ],
   vite: {
     plugins: [tailwindcss()],

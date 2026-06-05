@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"astro dev --port 4401\"",
     "dev:astro": "astro dev",
-    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" tinacms build --skip-cloud-checks && python3 -c \"f='public/admin/index.html'; open(f,'w').write(open(f).read().replace('}, 2000)','}, 15000)')\" ; astro build",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" tinacms build --skip-cloud-checks && astro build",
     "build:tina": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -25,6 +25,7 @@
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.50",
     "@tailwindcss/vite": "^4.2.4",
+    "@tinacms/astro": "^0.4.1",
     "@tinacms/cli": "^2.4.3",
     "astro": "^6.2.2",
     "react": "^19.2.6",
