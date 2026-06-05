@@ -29,7 +29,9 @@ export default defineConfig({
         label: 'Blog Posts',
         path: 'src/content/blog',
         format: 'mdx',
-        ui: {},
+        ui: {
+          router: ({ document }) => `/blog/${document._sys.filename}/`,
+        },
         fields: [
           {
             type: 'string',
@@ -101,6 +103,7 @@ export default defineConfig({
         format: 'json',
         ui: {
           allowedActions: { create: false, delete: false },
+          router: () => '/pricing/',
         },
         fields: [
           {
@@ -163,6 +166,7 @@ export default defineConfig({
         format: 'json',
         ui: {
           allowedActions: { create: false, delete: false },
+          router: () => '/',
         },
         fields: [
           {

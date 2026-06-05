@@ -4,6 +4,7 @@ import homepage from '../content/homepage.json';
 import { HomepageDocument } from '../../tina/__generated__/types';
 import { tinaField } from '@tinacms/bridge/tina-field';
 import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
+import { TinaContext } from '../components/TinaContext';
 
 const hpQueryId = hashFromQuery(HomepageDocument as string);
 const hp = addMetadata(hpQueryId, homepage);
@@ -1929,5 +1930,11 @@ const tf = (obj: any, field: string) => tinaField(obj, field) || undefined;
       });
     })();
   </script>
+  <TinaContext
+    client:only="react"
+    query={HomepageDocument as string}
+    variables={{ relativePath: 'homepage.json' }}
+    data={{ homepage }}
+  />
 </Layout>
 

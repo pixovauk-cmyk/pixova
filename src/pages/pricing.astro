@@ -4,6 +4,7 @@ import pricing from '../content/pricing.json';
 import { PricingDocument } from '../../tina/__generated__/types';
 import { tinaField } from '@tinacms/bridge/tina-field';
 import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
+import { TinaContext } from '../components/TinaContext';
 
 const prQueryId = hashFromQuery(PricingDocument as string);
 const pr = addMetadata(prQueryId, pricing);
@@ -725,6 +726,12 @@ const pricingSchema = {
       });
     })();
   </script>
+  <TinaContext
+    client:only="react"
+    query={PricingDocument as string}
+    variables={{ relativePath: 'pricing.json' }}
+    data={{ pricing }}
+  />
 </Layout>
 
 <style>
