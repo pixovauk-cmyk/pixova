@@ -8,8 +8,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"astro dev --port 4401\"",
     "dev:astro": "astro dev",
-    "build": "astro build",
-    "build:tina": "tinacms build && astro build",
+    "build": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
