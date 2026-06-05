@@ -31,6 +31,40 @@ export default defineConfig({
         format: 'mdx',
         ui: {
           router: ({ document }) => `/blog/${document._sys.filename}/`,
+          filename: {
+            slugify: (values) =>
+              (values?.title ?? 'new-post')
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .trim()
+                .replace(/\s+/g, '-'),
+          },
+          defaultItem: {
+            title: 'New Blog Post',
+            pubDate: new Date().toISOString(),
+            readTime: '5 min read',
+            avatar: 'neil',
+            body: `## Introduction
+
+Write your opening paragraph here. Hook the reader with the core problem your post solves.
+
+## Section Heading
+
+Your first main point goes here. Keep paragraphs short — 2–4 sentences max.
+
+## Section Heading
+
+Your second main point goes here.
+
+## Section Heading
+
+Your third main point.
+
+## Conclusion
+
+Wrap up with the key takeaway and a call to action.
+`,
+          },
         },
         fields: [
           {
