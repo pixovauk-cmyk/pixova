@@ -23,6 +23,7 @@
     "@fontsource/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.2.4",
     "@tinacms/astro": "^0.4.1",
+    "graphql": "^16.14.0",
     "@tinacms/cli": "^2.4.3",
     "astro": "^6.2.2",
     "react": "^19.2.6",
