@@ -7,7 +7,7 @@ export default defineConfig({
     process.env.HEAD ||
     'main',
 
-  clientId: process.env.TINA_CLIENT_ID ?? null,
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? null,
   token: process.env.TINA_TOKEN ?? null,
 
   build: {
