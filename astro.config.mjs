@@ -12,7 +12,9 @@ export default defineConfig({
   adapter: vercel(),
   server: { port: 4401 },
   integrations: [
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes('/success/'),
+    }),
     react(),
     mdx(),
     tina(),
