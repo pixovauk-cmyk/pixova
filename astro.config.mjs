@@ -13,7 +13,9 @@ export default defineConfig({
   server: { port: 4401 },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/success/'),
+      filter: (page) =>
+        !page.includes('/success/') &&
+        !page.includes('/admin/'),
     }),
     react(),
     mdx(),
