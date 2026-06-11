@@ -165,6 +165,43 @@ const tf = (obj: any, field: string) => tinaField(obj, field) || undefined;
             </a>
           </div>
 
+          <!-- Gap Report quick bar -->
+          <form
+            id="gap-quick-bar"
+            class="flex items-center gap-2 mb-5 max-w-md mx-auto lg:mx-0"
+          >
+            <div class="flex flex-1 items-center gap-2 rounded-xl px-3 py-2.5" style="background:rgba(255,255,255,0.7);border:1px solid rgba(13,34,64,0.18);backdrop-filter:blur(4px);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(13,34,64,0.4)" stroke-width="2" stroke-linecap="round" class="flex-shrink-0" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input
+                id="gap-url-input"
+                type="text"
+                placeholder="yourwebsite.co.uk"
+                class="flex-1 bg-transparent text-sm outline-none min-w-0"
+                style="color:#0D2240;font-family:'Inter',sans-serif;"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </div>
+            <button
+              type="submit"
+              class="flex-shrink-0 text-xs font-semibold rounded-xl px-4 py-2.5 transition-opacity hover:opacity-85"
+              style="background:#2ECC9A;color:#0D2240;white-space:nowrap;"
+            >
+              Free Gap Report →
+            </button>
+          </form>
+          <p class="text-xs mb-6 text-center lg:text-left" style="color:rgba(13,34,64,0.45);margin-top:-0.75rem;">See who's outranking you and why — 60 seconds, no card.</p>
+
+          <script>
+            document.getElementById('gap-quick-bar')?.addEventListener('submit', function(e) {
+              e.preventDefault();
+              let val = (document.getElementById('gap-url-input') as HTMLInputElement)?.value?.trim() || '';
+              if (!val) { window.location.href = '/gap-report/'; return; }
+              if (!/^https?:\/\//i.test(val)) val = 'https://' + val;
+              window.location.href = '/gap-report/?website=' + encodeURIComponent(val);
+            });
+          </script>
+
           <!-- Pricing teaser -->
           <div class="flex justify-center lg:justify-start mb-10">
             <a href="/pricing/" class="inline-flex items-center gap-3 rounded-xl px-4 py-3 group transition-all" style="background:rgba(13,34,64,0.08); border:1px solid rgba(13,34,64,0.2);">
@@ -563,30 +600,6 @@ const tf = (obj: any, field: string) => tinaField(obj, field) || undefined;
         ))}
       </div>
       <div class="swipe-dots" aria-hidden="true"></div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- GAP REPORT TEASER ───────────────────────────────── -->
-  <section class="py-16 sm:py-20" style="background:#E8F5F1;">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-      <span class="sec-label reveal">FREE TOOL</span>
-      <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 mb-4 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
-        Who's beating you on Google?
-      </h2>
-      <p class="text-base sm:text-lg mb-8 max-w-xl mx-auto reveal reveal-d2" style="color:#4a6070; line-height:1.7;">
-        Enter your website and the job you want to rank for. In 60 seconds we'll show you who's above you, why they're above you, and what it's costing you.
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 reveal reveal-d3">
-        <a
-          href="/gap-report/"
-          class="inline-flex items-center gap-2 font-heading font-semibold text-base rounded-xl px-6 py-3.5 transition-all"
-          style="background:#2ECC9A; color:#fff;"
-        >
-          Run my free Gap Report →
-        </a>
-        <span class="text-sm" style="color:#6B7F8E;">No card. No catch.</span>
       </div>
     </div>
   </section>

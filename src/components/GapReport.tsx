@@ -138,6 +138,12 @@ export function GapReport() {
   const [apiError, setApiError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const w = params.get('website');
+    if (w) setQualifyData(d => ({ ...d, website: w }));
+  }, []);
+
   function validateEmail(email: string) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
