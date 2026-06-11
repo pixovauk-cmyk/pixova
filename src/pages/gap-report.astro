@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { GapReport } from '../components/GapReport';
+import '@fontsource/dm-sans/latin-400.css';
+import '@fontsource/dm-sans/latin-500.css';
+import '@fontsource/dm-sans/latin-600.css';
+import '@fontsource/dm-sans/latin-700.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '../styles/global.css';
+---
+
+<Layout
+  title="Free Gap Report – See Who's Beating You on Google | Pixova"
+  description="Enter your website and keyword. In 60 seconds, see who outranks you in your area, why they do, and what it's costing you. Free, no card needed."
+  canonicalUrl="https://www.pixova.uk/gap-report/"
+>
+  <GapReport client:load />
+</Layout>
