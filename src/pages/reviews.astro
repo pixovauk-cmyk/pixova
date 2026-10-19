@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { TESTIMONIALS } from '../content/testimonials';
+
+const jake = TESTIMONIALS[0];
+const ayoush = TESTIMONIALS[1];
+
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Pixova',
+  url: 'https://www.pixova.uk',
+  review: TESTIMONIALS.map(t => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: t.name },
+    reviewBody: t.quote,
+    reviewRating: { '@type': 'Rating', ratingValue: 5, bestRating: 5 },
+  })),
+};
+---
+
+<Layout
+  title="Client Reviews | What Small Businesses Say About Pixova"
+  description="Real reviews from small business owners who work with Pixova on websites, local SEO and automation. See what happened after their sites went live."
+  canonicalUrl="https://www.pixova.uk/reviews/"
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Reviews', url: 'https://www.pixova.uk/reviews/' }]}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />
+
+  <!-- HERO -->
+  <section class="px-5 sm:px-6 pt-10 sm:pt-12 pb-20">
+    <div class="max-w-[1240px] mx-auto grid gap-14 lg:grid-cols-2 items-center">
+      <div class="flex flex-col gap-[26px]">
+        <Eyebrow icon="star">Client feedback</Eyebrow>
+        <h1 class="font-medium text-[clamp(48px,5.8vw,84px)] leading-[0.98] tracking-[-0.055em]">Feedback That Proves The Phone <span class="grad-text">Rings.</span></h1>
+        <p class="text-base leading-relaxed text-body max-w-[480px]">I'd rather show you than tell you. These are small business owners, in their own words, talking about what happened after their new site went live.</p>
+        <Button href="/contact/" class="self-start">Got a project in mind?</Button>
+        <div class="flex items-center gap-3.5 pt-[22px] border-t border-line">
+          <span class="w-11 h-11 rounded-full bg-teal grid place-items-center font-bold text-[15px] shrink-0">7</span>
+          <span class="text-sm leading-snug text-body max-w-[340px]">Days from first chat to live site, and most clients start getting found within weeks.</span>
+        </div>
+      </div>
+      <div class="relative min-h-[460px]">
+        <div class="absolute right-0 top-0 w-[70%] h-[440px] rounded-[30px] overflow-hidden bg-navy shadow-[0_50px_90px_-40px_rgba(7,17,31,0.55)]">
+          <img src="/images/jake-victorsquare.webp" alt="Jake Victor, Pixova client in Birmingham" width="550" height="550" class="absolute inset-0 w-full h-full object-cover object-top" />
+          <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(7,17,31,0) 45%, rgba(7,17,31,0.85) 100%), linear-gradient(135deg, rgba(43,217,143,0.18) 0%, rgba(34,199,214,0) 50%)"></div>
+          <div class="absolute right-[22px] bottom-[22px] flex flex-col items-end text-white text-right"><span class="font-medium text-[44px] tracking-[-0.05em] leading-none">&lt; 1 month</span><span class="text-[13px] text-[#C8D3DD]">until Jake's phone was ringing</span></div>
+          <span class="absolute left-5 top-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 text-[12px] font-semibold text-navy"><span class="w-1.5 h-1.5 rounded-full bg-teal"></span>Website &amp; SEO client</span>
+        </div>
+        <div aria-hidden="true" class="absolute right-[64%] top-[68%] w-[120px] h-[120px] rounded-full border border-dashed border-[#9ED9C4] hidden sm:block"></div>
+        <figure class="px-float absolute left-0 top-[90px] w-[62%] sm:w-[52%] max-w-[300px] m-0 rounded-[24px] bg-white/95 backdrop-blur p-[22px] z-[2] flex flex-col gap-3.5 shadow-[0_30px_60px_-24px_rgba(11,23,38,0.35)]">
+          <span aria-hidden="true" class="font-semibold text-[44px] leading-[0.6] text-teal">“</span>
+          <blockquote class="m-0 text-[15px] leading-normal">{jake.quote}</blockquote>
+          <figcaption class="flex items-center gap-2.5"><img src={jake.image} alt="" width="32" height="32" class="w-8 h-8 rounded-full object-cover object-top" /><span class="text-[13px]"><strong>{jake.name}</strong> · {jake.role}</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED STORY -->
+  <section class="grid-tint section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto grid gap-16 lg:grid-cols-2 items-center">
+      <div class="relative min-h-[420px]">
+        <div class="absolute left-[6%] top-0 w-[70%] h-[420px] rounded-[30px] overflow-hidden bg-navy shadow-[0_40px_80px_-30px_rgba(7,17,31,0.5)]">
+          <img src="/images/Ayoushsqaure.webp" alt="Ayoush, founder of TranoVex" loading="lazy" class="absolute inset-0 w-full h-full object-cover object-top" />
+          <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(7,17,31,0.35) 0%, rgba(7,17,31,0) 40%)"></div>
+          <span class="absolute left-[22px] top-[22px] font-bold text-[22px] tracking-[-0.03em] text-white">TranoVex</span>
+        </div>
+        <span aria-hidden="true" class="absolute right-[18%] -top-3.5 w-14 h-14 rounded-full bg-teal grid place-items-center shadow-[0_14px_30px_-10px_rgba(11,23,38,0.4)]"><Icon name="check" size={24} stroke={2.6} /></span>
+        <div class="absolute left-0 bottom-[30px] rounded-[22px] bg-navy text-white px-[22px] py-[18px] flex flex-col gap-1 shadow-[0_24px_50px_-20px_rgba(11,23,38,0.5)]"><span class="font-medium text-[30px] tracking-[-0.04em] text-teal">Weeks</span><span class="text-xs text-[#A9B6C4]">to be found on Google</span></div>
+      </div>
+      <div class="flex flex-col gap-6">
+        <Eyebrow icon="star" white>Client story</Eyebrow>
+        <h2 class="h2">“Clients Found Us On Google Within Weeks.”</h2>
+        <p class="text-base leading-relaxed text-body max-w-[480px]">TranoVex came to Pixova for a website and SEO. A few weeks after launch, new clients were calling who'd found them on Google, without the team changing a thing about how they work.</p>
+        <blockquote class="m-0 text-lg leading-relaxed text-navy max-w-[500px] border-l-[3px] border-teal pl-5">“{ayoush.quote}”</blockquote>
+        <div class="flex flex-wrap items-center gap-4 pt-5 border-t border-[#CFE0D6]">
+          <span class="font-bold text-xl tracking-[-0.03em]">TranoVex</span>
+          <span class="w-px h-6 bg-[#CFE0D6]"></span>
+          <span class="text-sm text-body"><strong class="text-navy">Ayoush</strong> · Founder · {ayoush.service}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL REVIEWS -->
+  <section class="art section px-5 sm:px-6">
+    <img src="/images/art/aurora-dark.jpg" alt="" loading="lazy" class="art-bg opacity-60" />
+    <div class="art-shade" style="background:linear-gradient(180deg, rgba(7,17,31,0.2) 0%, rgba(7,17,31,0.88) 70%)"></div>
+    <div class="art-body max-w-[1240px] mx-auto flex flex-col items-center gap-12">
+      <div class="flex flex-col items-center gap-5 text-center">
+        <Eyebrow icon="star" dark>All reviews</Eyebrow>
+        <h2 class="h2 !text-white max-w-[760px]">Trusted By Local Businesses That Want Results</h2>
+      </div>
+      <Testimonials size="lg" />
+      <div class="w-full rounded-[24px] border border-dashed border-teal/50 p-7 flex flex-wrap justify-between items-center gap-6">
+        <span class="font-medium text-[28px] leading-tight tracking-[-0.04em]">Your review could be next.</span>
+        <div class="flex flex-wrap gap-2.5">
+          <Button href="/contact/">Start your project</Button>
+          <Button href="/gap-report/" variant="ghost" icon="none">Free Gap Report</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

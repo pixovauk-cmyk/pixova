@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+interface Props { icon: string; dark?: boolean; white?: boolean; class?: string; }
+const { icon, dark = false, white = false, class: cls = '' } = Astro.props;
+---
+<span class={`eyebrow has-icon ${dark ? '!text-[#C8D3DD]' : ''} ${cls}`}>
+  <span class={`eyebrow-ico ${dark ? 'dark' : ''} ${white ? 'white' : ''}`}><Icon name={icon} size={14} /></span>
+  <slot />
+</span>

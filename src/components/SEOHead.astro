@@ -11,6 +11,7 @@ interface Props {
     datePublished: string;
     dateModified: string;
   };
+  breadcrumbs?: { name: string; url: string }[];
 }
 
 const {
@@ -21,6 +22,7 @@ const {
   schema,
   noindex = false,
   articleSchema,
+  breadcrumbs,
 } = Astro.props;
 
 const defaultSchema = {
@@ -31,7 +33,7 @@ const defaultSchema = {
   logo: 'https://www.pixova.uk/favicon.svg',
   image: ogImage,
   description:
-    'Pixova builds fast, SEO-ready websites and handles local SEO for small and medium businesses across the UK. Based in Birmingham.',
+    'Pixova builds websites, handles local SEO and makes small custom software for UK small businesses. Based in Birmingham.',
   telephone: '+447786366109',
   email: 'hello@pixova.uk',
   address: {
@@ -57,19 +59,13 @@ const defaultSchema = {
   priceRange: '££',
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Digital Marketing Services',
+    name: 'Small business services',
     itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Small Business Website Design', description: 'Fast, SEO-ready websites for small businesses built in around 7 days and fully managed.' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Local SEO', description: 'Local search engine optimisation to get small businesses found on Google in their area.' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marketing Automation', description: 'AI-powered marketing automation including enquiry response systems, lead follow-up sequences, and review request automation.' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Google Business Profile Optimisation', description: 'Setup and optimisation of Google Business Profile to improve local search visibility and Google Maps rankings.' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Small business website design', url: 'https://www.pixova.uk/web-design/' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Local SEO', url: 'https://www.pixova.uk/local-seo/' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom software for small businesses', url: 'https://www.pixova.uk/custom-software/' }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 200, priceCurrency: 'GBP' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Google Business Profile setup' } },
     ],
-  },
-  review: {
-    '@type': 'Review',
-    author: { '@type': 'Person', name: 'Jake Victor' },
-    reviewBody: 'Within 90 days of launching our new site with Pixova, we were getting consistent enquiries from Google — people who had never heard of us before. The whole process was managed completely, we didn\'t have to do a thing.',
-    reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
   },
 };
 
@@ -90,6 +86,14 @@ const articleJsonLd = articleSchema
       dateModified: articleSchema.dateModified,
     }
   : null;
+
+const breadcrumbJsonLd = breadcrumbs?.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((b, i) => ({ '@type': 'ListItem', position: i + 1, name: b.name, item: b.url })),
+    }
+  : null;
 ---
 
 <!-- Primary meta -->
@@ -100,12 +104,7 @@ const articleJsonLd = articleSchema
 <link rel="canonical" href={canonicalUrl} />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<!-- Preconnect to external origins -->
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-<link rel="dns-prefetch" href="https://www.google-analytics.com" />
-
-<!-- Google Search Console verification placeholder -->
-<!-- <meta name="google-site-verification" content="REPLACE_WITH_GSC_TOKEN" /> -->
+<meta name="theme-color" content="#FAFAF7" />
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -133,4 +132,6 @@ const articleJsonLd = articleSchema
 {articleJsonLd && (
   <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
 )}
-
+{breadcrumbJsonLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+)}

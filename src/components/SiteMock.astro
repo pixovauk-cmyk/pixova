@@ -1,0 +1,261 @@
+---
+// Realistic mini website for the design catalogue: desktop browser + phone.
+// Everything is sized in em against a container-query font size, so it scales
+// like a screenshot at any card width.
+import { DETAILS, type Design } from '../data/designs';
+
+interface Props { design: Design; phone?: boolean; eager?: boolean; }
+const { design: d, phone = true, eager = false } = Astro.props;
+const x = DETAILS[d.slug];
+const { bg, ink, accent, soft } = d.colors;
+const dark = ['bold'].includes(d.layout);
+const font = d.serif ? "Georgia, 'Times New Roman', serif" : "'Geist Variable', system-ui, sans-serif";
+const navLinks = d.pages.length > 1 ? d.pages.slice(1, 5) : ['Services', 'Reviews', 'FAQ', 'Contact'];
+const img = (url: string, w: number) => `${url}&w=${w}`;
+const loading = eager ? 'eager' : 'lazy';
+const words = d.headline.split(' ');
+const lastWord = words.pop();
+const headStart = words.join(' ');
+const style = `--bg:${bg};--ink:${ink};--ac:${accent};--soft:${soft};--hf:${font}`;
+---
+
+<div class="sm" style={style} role="img" aria-label={`Concept website design for ${d.business}, ${d.industry}`}>
+  <div class="sm-desk">
+    <div class="sm-bar">
+      <span class="sm-dots"><i></i><i></i><i></i></span>
+      <span class="sm-url"><svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>{x.domain}</span>
+    </div>
+    <div class="sm-screen">
+      <div class={`sm-page l-${d.layout} ${dark ? 'is-dark' : ''}`}>
+        <!-- NAV -->
+        <div class="nav">
+          <span class="brand"><span class="mark">{d.business.charAt(0)}</span>{d.business}</span>
+          <span class="links">{navLinks.map(l => <span>{l}</span>)}</span>
+          <span class="nav-r"><span class="tel">{x.phone}</span><span class="mbtn">{d.cta}</span></span>
+        </div>
+
+        {d.layout === 'centered' ? (
+          <div class="hero hero-c">
+            <img src={img(x.img, 1200)} alt="" loading={loading} />
+            <div class="shade"></div>
+            <div class="hc-in">
+              <span class="mchip">{x.badge} · {x.area}</span>
+              <span class="h1">{d.headline}</span>
+              <span class="sub">Trusted by local families and businesses. Friendly, fixed prices and a real person on the phone.</span>
+              <span class="row"><span class="mbtn lg">{d.cta}</span><span class="mbtn ghost lg">Call {x.phone}</span></span>
+            </div>
+          </div>
+        ) : d.layout === 'shop' ? (
+          <div class="hero hero-shop">
+            <div class="banner">
+              <img src={img(x.img, 1200)} alt="" loading={loading} />
+              <div class="shade"></div>
+              <div class="ban-in"><span class="mchip">{x.badge}</span><span class="h1">{d.headline}</span><span class="mbtn lg">{d.cta}</span></div>
+            </div>
+            <div class="products">
+              {x.services.map((s, i) => (
+                <div class="prod">
+                  <img src={img(i === 1 ? x.img2 : x.img, 500)} alt="" loading="lazy" style={i === 2 ? 'object-position:30% 70%' : ''} />
+                  <span class="p-name">{s[0]}</span><span class="p-price">{s[1]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div class="hero hero-split">
+            <div class="copy">
+              <span class="mchip">{x.badge}</span>
+              <span class="h1">{headStart} <em>{lastWord}</em></span>
+              <span class="sub">Serving {x.area}. Clear prices, tidy work and a real person who picks up the phone.</span>
+              <span class="row"><span class="mbtn lg">{d.cta}</span><span class="mbtn ghost lg">{x.phone}</span></span>
+              <span class="stars"><b>★★★★★</b> {x.rating} from {x.reviews} Google reviews</span>
+            </div>
+            {d.layout === 'menu' ? (
+              <div class="menu">
+                <img src={img(x.img, 800)} alt="" loading={loading} />
+                <div class="menu-card">
+                  <span class="m-title">Popular today</span>
+                  {x.services.map(s => <span class="m-row"><span>{s[0]}</span><i></i><b>{s[1]}</b></span>)}
+                </div>
+              </div>
+            ) : d.layout === 'grid' ? (
+              <div class="gallery">
+                <div class="g"><img src={img(x.img, 600)} alt="" loading={loading} /><span class="tag">After</span></div>
+                <div class="g"><img src={img(x.img2, 600)} alt="" loading="lazy" /><span class="tag">Recent job</span></div>
+                <div class="g wide"><img src={img(x.img2, 900)} alt="" loading="lazy" style="object-position:50% 70%" /><span class="tag">{x.area}</span></div>
+              </div>
+            ) : (
+              <div class="photo">
+                <img src={img(x.img, 900)} alt="" loading={loading} />
+                <div class="float">
+                  <b>★★★★★</b>
+                  <span>“{x.review[0]}”</span>
+                  <small>{x.review[1]}</small>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        <!-- BELOW THE FOLD -->
+        {d.layout === 'shop' ? (
+          <div class="strip">
+            <span>✓ {x.badge}</span><span>✓ Secure checkout</span><span>★ {x.rating} · {x.reviews} reviews</span><span>☎ {x.phone}</span>
+          </div>
+        ) : (
+          <div class="services">
+            <span class="s-head">{d.layout === 'menu' ? 'On the menu' : 'Services & prices'}</span>
+            <div class="s-grid">
+              {x.services.map((s, i) => (
+                <div class="s-card">
+                  <img src={img(i % 2 ? x.img2 : x.img, 400)} alt="" loading="lazy" />
+                  <span class="s-name">{s[0]}</span>
+                  <span class="s-price">{s[1]}</span>
+                </div>
+              ))}
+              <div class="s-card s-quote">
+                <b>★★★★★</b>
+                <span>“{x.review[0]}”</span>
+                <small>{x.review[1]}</small>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+
+  {phone && (
+    <div class="sm-phone" aria-hidden="true">
+      <div class="ph-screen">
+        <div class={`ph-page ${dark ? 'is-dark' : ''}`}>
+          <div class="ph-status"><span>9:41</span><span>●●● ▮</span></div>
+          <div class="ph-nav"><span class="brand"><span class="mark">{d.business.charAt(0)}</span>{d.business.split(' ')[0]}</span><span class="burger"><i></i><i></i></span></div>
+          <div class="ph-hero"><img src={img(x.img, 400)} alt="" loading="lazy" /></div>
+          <div class="ph-copy">
+            <span class="ph-chip">{x.badge}</span>
+            <span class="ph-h1">{d.headline}</span>
+            <span class="ph-stars"><b>★★★★★</b> {x.rating} ({x.reviews})</span>
+            <span class="ph-btn">{d.cta}</span>
+            <span class="ph-svc">{x.services[0][0]} <b>{x.services[0][1]}</b></span>
+            <span class="ph-svc">{x.services[1][0]} <b>{x.services[1][1]}</b></span>
+          </div>
+          <div class="ph-call">☎ Call {x.phone}</div>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .sm { position: relative; padding: 6% 7% 9% 5%; background: linear-gradient(145deg, var(--soft), color-mix(in srgb, var(--soft) 55%, #fff)); }
+  .sm-desk { position: relative; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 24px 50px -24px rgba(7,17,31,0.45), 0 0 0 1px rgba(7,17,31,0.06); }
+  .sm-bar { height: 22px; display: flex; align-items: center; gap: 10px; padding: 0 10px; background: #F1F3F5; border-bottom: 1px solid #E4E7EA; }
+  .sm-dots { display: flex; gap: 4px; }
+  .sm-dots i { width: 6px; height: 6px; border-radius: 50%; background: #F87171; }
+  .sm-dots i:nth-child(2) { background: #FBBF24; }
+  .sm-dots i:nth-child(3) { background: #34D399; }
+  .sm-url { flex: 1; max-width: 62%; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 4px; height: 14px; border-radius: 7px; background: #fff; font: 500 8px/1 'Geist Variable', system-ui, sans-serif; color: #5B6672; white-space: nowrap; overflow: hidden; }
+  .sm-screen { container-type: inline-size; aspect-ratio: 16 / 10.4; overflow: hidden; }
+
+  /* Page — 1em = 1/80 of the screen width */
+  .sm-page { font-size: calc(100cqw / 80); width: 80em; height: 52em; overflow: hidden; background: var(--bg); color: var(--ink); font-family: 'Geist Variable', system-ui, sans-serif; line-height: 1.35; }
+  .sm-page img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .nav { height: 5.4em; display: flex; align-items: center; justify-content: space-between; gap: 2em; padding: 0 3.6em; border-bottom: 0.1em solid color-mix(in srgb, var(--ink) 8%, transparent); }
+  .brand { display: flex; align-items: center; gap: 0.7em; font: 700 1.5em/1 var(--hf); letter-spacing: -0.02em; white-space: nowrap; }
+  .mark { width: 1.5em; height: 1.5em; border-radius: 0.4em; display: grid; place-items: center; background: var(--ac); color: #fff; font-size: 0.85em; }
+  .links { display: flex; gap: 2.2em; font-size: 1.05em; opacity: 0.75; white-space: nowrap; }
+  .nav-r { display: flex; align-items: center; gap: 1.4em; font-size: 1.05em; white-space: nowrap; }
+  .tel { font-weight: 600; }
+  .mbtn { display: inline-flex; align-items: center; padding: 0.75em 1.3em; border-radius: 0.5em; background: var(--ac); color: #fff; font-weight: 600; white-space: nowrap; }
+  .mbtn.lg { font-size: 1.2em; padding: 0.9em 1.5em; }
+  .mbtn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 0.12em color-mix(in srgb, var(--ink) 22%, transparent); }
+  .mchip { display: inline-flex; width: fit-content; padding: 0.45em 0.9em; border-radius: 99em; background: color-mix(in srgb, var(--ac) 14%, transparent); color: var(--ac); font-size: 1em; font-weight: 600; }
+  .h1 { font: 600 3.9em/1.02 var(--hf); letter-spacing: -0.035em; }
+  .h1 em { font-style: normal; color: var(--ac); }
+  .sub { font-size: 1.3em; line-height: 1.5; opacity: 0.75; max-width: 30em; }
+  .row { display: flex; gap: 0.8em; }
+  .stars { font-size: 1.05em; opacity: 0.85; }
+  .stars b { color: #F5B841; letter-spacing: 0.1em; margin-right: 0.3em; }
+
+  .hero-split { height: 30em; display: grid; grid-template-columns: 1.05fr 1fr; gap: 3em; padding: 2.6em 3.6em 0; align-items: center; }
+  .copy { display: flex; flex-direction: column; gap: 1.2em; }
+  .photo { position: relative; height: 26em; border-radius: 1.4em; overflow: hidden; }
+  .float { position: absolute; left: 1.4em; bottom: 1.4em; width: 20em; padding: 1.2em 1.3em; border-radius: 1em; background: #fff; color: #07111F; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.95em; box-shadow: 0 1em 2.5em -1em rgba(0,0,0,0.4); }
+  .float b { color: #F5B841; letter-spacing: 0.1em; }
+  .float small { opacity: 0.6; }
+  .l-bold .photo { border-radius: 0; box-shadow: 1.2em 1.2em 0 var(--ac); }
+  .l-bold .h1 { font-size: 5em; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.95; }
+  .is-dark .mbtn.ghost { color: var(--ink); }
+  .is-dark .mchip { background: color-mix(in srgb, var(--ac) 22%, transparent); }
+  .l-bold .mbtn { color: var(--bg); }
+
+  .gallery { height: 26em; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.8em; }
+  .g { position: relative; border-radius: 1em; overflow: hidden; }
+  .g.wide { grid-column: span 2; }
+  .tag { position: absolute; left: 0.8em; top: 0.8em; padding: 0.35em 0.8em; border-radius: 99em; background: rgba(255,255,255,0.92); color: #07111F; font-size: 0.95em; font-weight: 600; }
+
+  .menu { position: relative; height: 26em; }
+  .menu > img { border-radius: 1.4em; }
+  .menu-card { position: absolute; right: 1.4em; bottom: 1.4em; left: 7em; padding: 1.4em 1.6em; border-radius: 1em; background: var(--bg); color: var(--ink); display: flex; flex-direction: column; gap: 0.75em; box-shadow: 0 1em 2.5em -1em rgba(0,0,0,0.45); }
+  .m-title { font: 700 1.4em/1 var(--hf); }
+  .m-row { display: flex; align-items: baseline; gap: 0.6em; font-size: 1.15em; }
+  .m-row i { flex: 1; border-bottom: 0.12em dotted color-mix(in srgb, var(--ink) 35%, transparent); }
+  .m-row b { color: var(--ac); }
+
+  .hero-c { position: relative; height: 30em; color: #fff; display: grid; place-items: center; text-align: center; }
+  .hero-c > img, .banner > img { position: absolute; inset: 0; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 55%, transparent), color-mix(in srgb, var(--ink) 75%, transparent)); }
+  .hc-in { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.4em; max-width: 52em; padding: 0 3em; }
+  .hero-c .chip, .banner .mchip { background: rgba(255,255,255,0.18); color: #fff; }
+  .hero-c .sub { opacity: 0.9; }
+  .hero-c .mbtn.ghost { color: #fff; box-shadow: inset 0 0 0 0.12em rgba(255,255,255,0.6); }
+
+  .hero-shop { padding: 2em 3.6em 0; display: flex; flex-direction: column; gap: 1.6em; }
+  .banner { position: relative; height: 17em; border-radius: 1.4em; overflow: hidden; color: #fff; display: flex; align-items: center; }
+  .ban-in { position: relative; display: flex; flex-direction: column; gap: 1.1em; align-items: flex-start; padding: 0 3em; max-width: 40em; }
+  .banner .h1 { font-size: 3.6em; }
+  .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4em; }
+  .prod { display: grid; grid-template-columns: 7em 1fr; grid-template-rows: auto auto; column-gap: 1em; align-items: center; padding: 0.8em; border-radius: 1em; background: color-mix(in srgb, var(--soft) 60%, #fff); }
+  .prod img { grid-row: span 2; height: 7em; border-radius: 0.7em; }
+  .p-name { font-weight: 600; font-size: 1.2em; align-self: end; }
+  .p-price { color: var(--ac); font-weight: 700; font-size: 1.2em; align-self: start; }
+  .strip { margin: 1.8em 3.6em 0; padding: 1.3em 2em; border-radius: 1em; background: var(--ink); color: var(--bg); display: flex; justify-content: space-between; font-size: 1.15em; font-weight: 500; }
+
+  .services { padding: 2.4em 3.6em 0; display: flex; flex-direction: column; gap: 1.2em; }
+  .s-head { font: 700 1.6em/1 var(--hf); letter-spacing: -0.02em; }
+  .s-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2em; }
+  .s-card { display: flex; flex-direction: column; gap: 0.5em; padding: 0.8em 0.8em 1.1em; border-radius: 1em; background: color-mix(in srgb, var(--soft) 70%, transparent); }
+  .s-card img { height: 7.5em; border-radius: 0.7em; margin-bottom: 0.4em; }
+  .s-name { font-weight: 600; font-size: 1.2em; }
+  .s-price { color: var(--ac); font-weight: 700; font-size: 1.1em; }
+  .s-quote { background: var(--ink); color: var(--bg); padding: 1.3em; justify-content: center; gap: 0.7em; font-size: 1.05em; line-height: 1.45; }
+  .s-quote b { color: #F5B841; letter-spacing: 0.1em; }
+  .s-quote small { opacity: 0.65; }
+  .is-dark .s-card { background: var(--soft); }
+  .is-dark .s-quote { background: var(--ac); color: var(--bg); }
+  .is-dark .s-quote b { color: var(--bg); }
+  .is-dark .nav { border-color: rgba(255,255,255,0.08); }
+
+  /* Phone — 1em = 1/20 of the phone screen width */
+  .sm-phone { position: absolute; right: 3%; bottom: 4%; width: 22%; padding: 1.2%; border-radius: 18px; background: #0B0F14; box-shadow: 0 24px 40px -18px rgba(7,17,31,0.6); }
+  .ph-screen { container-type: inline-size; aspect-ratio: 9 / 19; border-radius: 13px; overflow: hidden; }
+  .ph-page { position: relative; font-size: calc(100cqw / 20); width: 20em; height: 42.2em; background: var(--bg); color: var(--ink); font-family: 'Geist Variable', system-ui, sans-serif; line-height: 1.3; }
+  .ph-page img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .ph-status { display: flex; justify-content: space-between; padding: 0.8em 1.4em 0.3em; font-size: 0.85em; font-weight: 600; }
+  .ph-nav { display: flex; justify-content: space-between; align-items: center; padding: 0.6em 1.2em 0.9em; }
+  .ph-nav .brand { font-size: 1.15em; gap: 0.4em; }
+  .burger { display: flex; flex-direction: column; gap: 0.3em; }
+  .burger i { width: 1.4em; height: 0.15em; border-radius: 1em; background: currentColor; }
+  .ph-hero { height: 13em; margin: 0 1em; border-radius: 1em; overflow: hidden; }
+  .ph-copy { display: flex; flex-direction: column; gap: 0.8em; padding: 1.2em 1.2em 0; }
+  .ph-chip { width: fit-content; font-size: 0.8em; font-weight: 600; color: var(--ac); }
+  .ph-h1 { font: 600 1.9em/1.05 var(--hf); letter-spacing: -0.03em; }
+  .ph-stars { font-size: 0.85em; opacity: 0.85; }
+  .ph-stars b { color: #F5B841; }
+  .ph-btn { padding: 0.9em; border-radius: 0.6em; background: var(--ac); color: #fff; text-align: center; font-weight: 600; font-size: 1.05em; }
+  .is-dark .ph-btn { color: var(--bg); }
+  .ph-svc { display: flex; justify-content: space-between; padding: 0.7em 0.9em; border-radius: 0.6em; background: color-mix(in srgb, var(--soft) 70%, transparent); font-size: 0.9em; }
+  .ph-svc b { color: var(--ac); }
+  .ph-call { position: absolute; left: 0.9em; right: 0.9em; bottom: 0.9em; padding: 0.9em; border-radius: 0.7em; background: var(--ink); color: var(--bg); text-align: center; font-weight: 600; font-size: 0.95em; }
+</style>

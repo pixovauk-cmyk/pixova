@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { PLANS } from '../data/site';
+
+const growth = PLANS.find(p => p.slug === 'growth')!;
+
+const faq = [
+  { q: 'What is local SEO?', a: "Local SEO is the work that helps your business show up when people nearby search for what you do, like \"electrician in Solihull\" or \"hair salon near me\". It covers your website, your Google Business Profile, reviews, and mentions of your business on other sites." },
+  { q: 'How long does local SEO take?', a: "You'll usually see early movement in the first 4 to 8 weeks. Strong, steady rankings for busy searches tend to take 3 to 6 months. Anyone promising page one in a fortnight is guessing." },
+  { q: 'Do I need a new website for local SEO?', a: "Not always. If your current site is fast and you can edit it, I can work on it. If it's slow or hard to change, a rebuild is often cheaper in the long run." },
+  { q: 'How will I know it is working?', a: 'Every month you get a one-page ranking report, so you can see where you show up and how it is moving.' },
+];
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+
+<Layout
+  title="Local SEO for Small Businesses | Get Found on Google | Pixova"
+  description={`Local SEO for UK small businesses: Google Business Profile, service and area pages, reviews and monthly blog posts. Included in Get Found from £${growth.six}/month.`}
+  canonicalUrl="https://www.pixova.uk/local-seo/"
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Local SEO', url: 'https://www.pixova.uk/local-seo/' }]}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="pt-12 pb-20">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Local SEO</p>
+      <h1 class="display mt-5">Be the business people find first.</h1>
+      <p class="lead mt-6">When someone nearby searches for what you do, there's a map and a short list of names. Being on that list is worth more than any advert. Local SEO is how you get there and stay there.</p>
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="/gap-report/" class="btn btn-dark">See where you rank now (free)</a>
+        <a href="#enquiry" class="btn btn-outline">Talk to me</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white border-y border-line">
+    <div class="wrap">
+      <h2 class="h2 max-w-2xl">What I do each month</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10">
+        {[
+          ['Google Business Profile', 'Set up properly with the right categories, services, photos and opening hours, then kept up to date.'],
+          ['Service and area pages', "A page for each thing you do and each place you cover, so Google knows you're the electrician in Solihull, not just an electrician."],
+          ['Reviews', 'A simple way for happy customers to leave a Google review. More good reviews means more clicks.'],
+          ['Monthly blog post', 'Answers the questions your customers type into Google, written for your customers, not for other marketers.'],
+          ['Technical fixes', 'Speed, broken links, missing titles, indexing problems. I watch Search Console and fix issues as they appear.'],
+          ['Monthly ranking report', 'One page: where you rank for your main searches, what moved, and what I am doing next.'],
+        ].map(([t, s]) => (
+          <div class="card p-6"><h3 class="font-heading font-bold text-lg text-navy">{t}</h3><p class="muted mt-2 text-sm">{s}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid gap-10 lg:grid-cols-2 items-center">
+      <div>
+        <p class="eyebrow">Price</p>
+        <h2 class="h2 mt-4">Included in Get Found</h2>
+        <p class="lead mt-4">Website, hosting and local SEO together from £{growth.six} a month (6-month plan), or £{growth.monthly} on the 3-month plan. One-off setup £{growth.setup}.</p>
+        <a href="/pricing/" class="btn btn-dark mt-8">See all plans</a>
+      </div>
+      <ul class="tick-list card p-8">{growth.features.map(f => <li>{f}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section bg-white border-y border-line">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <h2 class="h2">Local SEO questions</h2>
+      <div class="faq">{faq.map(f => (<details><summary>{f.q}</summary><div>{f.a}</div></details>))}</div>
+    </div>
+  </section>
+
+  <section id="enquiry" class="section bg-mint scroll-mt-24">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.3fr] items-start">
+      <div>
+        <h2 class="h2">Want more calls from Google?</h2>
+        <p class="lead mt-4">Tell me your trade and your area. I'll look at who's ranking and tell you what it would take to beat them.</p>
+        <p class="mt-6 text-sm muted">Read more: <a href="/blog/what-are-local-seo-services/" class="link-arrow">What local SEO services include</a></p>
+      </div>
+      <EnquiryForm id="seo-enquiry" type="seo" />
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

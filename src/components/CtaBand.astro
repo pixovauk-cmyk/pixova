@@ -1,0 +1,25 @@
+---
+import { SITE } from '../data/site';
+import Button from './Button.astro';
+interface Props { title?: string; text?: string; image?: string; }
+const {
+  title = 'Your Phone Should Be Ringing From Google.',
+  text = "Every week you wait, those calls go to someone else. Tell me what you need today and you'll have a plan and a fixed price by tomorrow.",
+  image = '/images/art/grid-dark.jpg',
+} = Astro.props;
+---
+
+<section class="px-4 sm:px-6 pb-[clamp(64px,7vw,96px)]">
+  <div class="art max-w-[1240px] mx-auto min-h-[460px] rounded-[36px] flex items-end">
+    <img src={image} alt="" class="art-bg" loading="lazy" />
+    <div class="art-shade" style="background:linear-gradient(90deg, rgba(7,17,31,0.88) 0%, rgba(7,17,31,0.25) 75%), linear-gradient(0deg, rgba(43,217,143,0.25) 0%, rgba(43,217,143,0) 50%)"></div>
+    <div class="art-body p-7 sm:p-12 lg:p-16 flex flex-col gap-6 max-w-[720px]">
+      <h2 class="!text-white font-medium text-[clamp(40px,5vw,72px)] leading-[0.98] tracking-[-0.055em]">{title}</h2>
+      <p class="text-base sm:text-lg text-[#C8D3DD] max-w-[540px]">{text}</p>
+      <div class="flex flex-wrap gap-3">
+        <Button href="/gap-report/">Get my free Gap Report</Button>
+        <Button href={SITE.whatsapp} variant="ghost" icon="none" external>WhatsApp me</Button>
+      </div>
+    </div>
+  </div>
+</section>

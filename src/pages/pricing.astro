@@ -1,801 +1,322 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import pricing from '../content/pricing.json';
-import { PricingDocument } from '../../tina/__generated__/types';
-import { tinaField } from '@tinacms/bridge/tina-field';
-import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
-import { TinaContext } from '../components/TinaContext';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { PLANS, TERMS, SOFTWARE_FROM, OFFER, offerLive } from '../data/site';
 
-const prQueryId = hashFromQuery(PricingDocument as string);
-const pr = addMetadata(prQueryId, pricing);
-const tf = (obj: any, field: string) => tinaField(obj, field) || undefined;
-
-const s = pricing.plans[0]; // starter
-const g = pricing.plans[1]; // growth
-const p = pricing.plans[2]; // pro
-const ps = (pr.plans as any[])[0];
-const pg = (pr.plans as any[])[1];
-const pp = (pr.plans as any[])[2];
-
-const pricingSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://www.pixova.uk/pricing/",
-      "name": "Local SEO Packages & Web Design Prices | Pixova Birmingham",
-      "url": "https://www.pixova.uk/pricing/",
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pixova.uk/" },
-          { "@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://www.pixova.uk/pricing/" }
-        ]
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "When do I pay the setup fee?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Only when your site goes live. I build it first, you see it, and only then do you pay the setup fee and I switch it on." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the difference between Monthly, 6 months, and Rolling monthly plans?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Monthly (3-month minimum) is the most popular with a lower rate than rolling and a short commitment. Six months saves £10–20 per month if you are ready to commit longer. Rolling is cancel-anytime with 30 days notice but costs slightly more per month. The setup fee is the same across all three options." }
-        },
-        {
-          "@type": "Question",
-          "name": "What happens after the minimum term?",
-          "acceptedAnswer": { "@type": "Answer", "text": "After the minimum term it rolls month to month automatically. Cancel anytime with 30 days notice." }
-        },
-        {
-          "@type": "Question",
-          "name": "Do Pixova web design and SEO prices include VAT?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Pixova is not VAT registered, so no VAT is added to any prices shown. What you see is what you pay." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I add AI services to my existing website?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The AI and automation services work on any website, not just ones Pixova has built." }
-        }
-      ]
-    },
-    {
-      "@type": "OfferCatalog",
-      "name": "Local SEO and Web Design Packages",
-      "provider": { "@type": "LocalBusiness", "name": "Pixova", "url": "https://www.pixova.uk" },
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "name": "Get Online — Starter Web Design Plan",
-          "description": "5-page website, hosting, SSL, Google Analytics, 2 content updates per month. Setup fee £199 paid on go-live.",
-          "price": "69",
-          "priceCurrency": "GBP",
-          "priceSpecification": { "@type": "UnitPriceSpecification", "price": "69", "priceCurrency": "GBP", "unitText": "MONTH" },
-          "url": "https://www.pixova.uk/pricing/"
-        },
-        {
-          "@type": "Offer",
-          "name": "Get Found — Growth Local SEO Plan",
-          "description": "8-page website, local SEO, 1 blog post per month, Google Business Profile, 3 content updates, monthly ranking report. Setup fee £359 paid on go-live.",
-          "price": "119",
-          "priceCurrency": "GBP",
-          "priceSpecification": { "@type": "UnitPriceSpecification", "price": "119", "priceCurrency": "GBP", "unitText": "MONTH" },
-          "url": "https://www.pixova.uk/pricing/"
-        },
-        {
-          "@type": "Offer",
-          "name": "Get Leads — Pro Local SEO Plan",
-          "description": "12-page website, full local SEO management, 2 blog posts per month, Google Business Profile managed weekly, competitor monitoring, WhatsApp access. Setup fee £599 paid on go-live.",
-          "price": "169",
-          "priceCurrency": "GBP",
-          "priceSpecification": { "@type": "UnitPriceSpecification", "price": "169", "priceCurrency": "GBP", "unitText": "MONTH" },
-          "url": "https://www.pixova.uk/pricing/"
-        }
-      ]
-    }
-  ]
+const fromPrice = Math.min(...PLANS.map(p => p.six));
+const planIcon: Record<string, string> = { starter: 'monitor', growth: 'search', pro: 'trend' };
+const planTier: Record<string, string> = { starter: 'Starter', growth: 'Growth · Most popular', pro: 'Pro' };
+const termNotes: Record<string, string> = {
+  monthly: '3-month minimum, then month to month.',
+  six: 'Commit for 6 months and pay the lowest price every month.',
+  rolling: "No minimum. Cancel any time with 30 days' notice.",
 };
+
+const rows = [
+  ['Pages', '5', '8 incl. blog', '12'],
+  ['Changes per month', '2', '3', '6'],
+  ['Hosting, SSL & backups', '✓', '✓', '✓'],
+  ['Words written for you', '✓', '✓', '✓'],
+  ['Google Business Profile', '—', 'Set up', 'Weekly posts'],
+  ['Local SEO', '—', 'Foundations', '+ competitors'],
+  ['SEO blog posts', '—', '1 / month', '2 / month'],
+  ['Review requests', '—', '✓', '✓'],
+  ['Ranking report', '—', 'Monthly', 'Monthly + competitors'],
+  ['Support', 'Email 48hr', 'Priority 24hr', 'Same-day + WhatsApp'],
+  ['Strategy call', '—', '—', 'Quarterly'],
+];
+
+const oneOff = [
+  { service: 'Landing page', desc: 'New page, words and design included', starter: 149, growth: 119, pro: 89 },
+  { service: 'Extra page', desc: 'Added to your existing site', starter: 89, growth: 69, pro: 49 },
+  { service: 'Redesign', desc: 'New layout or look', starter: 199, growth: 159, pro: 99 },
+  { service: 'Extra blog post', desc: 'On top of your monthly posts', starter: 59, growth: 45, pro: 35 },
+  { service: 'New feature', desc: 'Booking form, gallery, popup', starter: 149, growth: 119, pro: 89 },
+];
+
+const addOns = [
+  { name: 'Enquiry tracker (CRM)', text: 'Every enquiry saved in one place, with a reminder to follow up.', setup: 179, monthly: 35, items: ['Website leads saved automatically', 'Simple list: new, quoted, won', 'Alert on your phone', 'Follow-up reminder after 48 hours'] },
+  { name: 'Follow-up emails', text: "People who enquire and don't book get helpful emails, so they remember you.", setup: 239, monthly: 59, items: ['5 emails, written in your voice', 'Sent after every enquiry', 'Monthly newsletter written and sent'] },
+  { name: 'Both together', text: 'Tracker and follow-up emails connected, plus review requests after each job.', setup: 359, monthly: 79, best: true, items: ['Everything in both', 'Review request after each job', 'Monthly leads report', 'Save £59 a month'] },
+];
+
+const faq = [
+  { q: 'What do I pay today?', a: 'Checkout takes your one-off setup fee and your first month. Monthly payments then carry on from the same date each month. Stripe emails you a receipt, and I email you to book the kick-off call.' },
+  { q: "What's the difference between the three terms?", a: 'The 3-month plan is the most popular: a lower price with a short commitment. The 6-month plan is the cheapest per month. Rolling has no minimum, so you can cancel any time with 30 days notice, but it costs a little more. The setup fee is the same on all three.' },
+  { q: 'How is custom software priced?', a: `Per project, from £${SOFTWARE_FROM} one-off. Tell me what you want the tool to do and I'll send a fixed price and a date within one working day. Nothing starts until you're happy with both.` },
+  { q: 'What happens after the minimum term?', a: 'It carries on month to month. Cancel any time with 30 days notice.' },
+  { q: 'Do I own the website?', a: "Your content, photos, logo and domain are yours. If you leave, I'll give you a copy of your content. The design and hosting are part of the monthly service." },
+  { q: 'Can you work on my existing website?', a: "Yes. The SEO, custom software and add-ons work with most websites. Send me the link and I'll tell you what's worth doing and what isn't." },
+  { q: 'Do prices include VAT?', a: "Pixova isn't VAT registered, so no VAT is added. The price you see is the price you pay." },
+];
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const showOffer = offerLive();
 ---
 
 <Layout
-  title="Local SEO Packages & Web Design Prices | Pixova Birmingham"
-  description="Local SEO packages & web design prices for UK small businesses. From £59/month, 6-month term. Setup fee on go-live. Birmingham-based."
+  title="Website & Local SEO Prices for Small Businesses | Pixova"
+  description={`Small business website plans from £${fromPrice}/month including hosting, changes and support. Local SEO plans and custom software from £${SOFTWARE_FROM}. No VAT added.`}
   canonicalUrl="https://www.pixova.uk/pricing/"
-  schema={pricingSchema}
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Pricing', url: 'https://www.pixova.uk/pricing/' }]}
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- HERO -->
-  <section class="relative pt-20 pb-16 overflow-hidden" style="background:#0D2240; min-height:340px;">
-    <div class="absolute inset-0" style="background-image:url('/images/pricing-hero.webp'); background-size:cover; background-position:center; opacity:0.45;"></div>
-    <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(13,34,64,0.88) 0%, rgba(28,53,87,0.6) 50%, rgba(13,34,64,0.88) 100%);"></div>
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
-      <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">PRICING</span>
-      <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-5 leading-tight" style="color:#fff; max-width:36rem;">
-        Local SEO Packages &amp; Web Design Prices for Small Businesses.
-      </h1>
-      <p class="text-base max-w-xl leading-relaxed" style="color:rgba(255,255,255,0.68);">
-        I build your site first. You only pay the setup fee when it goes live. Then one flat monthly fee covers everything — hosting, updates, SEO, and support.
-      </p>
-      <div class="flex flex-wrap items-center gap-5 mt-8">
-        {[
-          'Nothing to pay until live',
-          'Live in 7 working days',
-          'You own the site',
-          'Cancel after minimum term',
-        ].map(item => (
-          <span class="flex items-center gap-1.5 text-xs font-medium" style="color:rgba(255,255,255,0.7);">
-            <span class="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(46,204,154,0.2); color:#2ECC9A; font-size:9px;">✓</span>
-            {item}
-          </span>
+  <!-- HEADER -->
+  <section class="px-5 sm:px-6 pt-10 sm:pt-14 pb-10">
+    <div class="max-w-[820px] mx-auto flex flex-col items-center gap-[22px] text-center">
+      <span class="eyebrow has-icon"><span class="eyebrow-ico font-bold text-[13px]">£</span>Simple pricing</span>
+      <h1 class="font-medium text-[clamp(48px,5.8vw,84px)] leading-[0.98] tracking-[-0.055em]">A Perfect Plan For You</h1>
+      <p class="text-base leading-relaxed text-body max-w-[560px]">Build, hosting, changes and support, all handled for one monthly price. Need something bespoke? Custom software is quoted per project. Not VAT registered, so the price is the price.</p>
+
+      {showOffer && (
+        <div class="rounded-full px-4 py-2 flex flex-wrap items-center justify-center gap-3 text-sm" style={OFFER.festive ? 'background:#FDECEC' : 'background:var(--color-mint)'}>
+          <span class="chip" style={OFFER.festive ? 'background:#D62828;color:#fff' : ''}>{OFFER.label}</span>
+          <span class="font-medium text-navy">{OFFER.text}</span>
+        </div>
+      )}
+
+      <div role="group" aria-label="Choose a term" class="flex flex-wrap justify-center gap-1 p-[5px] rounded-full bg-soft">
+        {TERMS.map((t, i) => (
+          <button type="button" class="term-btn min-h-11 px-5 rounded-full text-sm transition-colors" data-term={t.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {t.label}<span class="hidden sm:inline opacity-70"> · {t.note}</span>
+          </button>
         ))}
       </div>
+      <span id="term-note" class="text-[13px] text-muted">{termNotes.monthly}</span>
     </div>
   </section>
 
-  <!-- PLANS -->
-  <section class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-      <div class="mb-12">
-        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">WEBSITE PLANS</span>
-        <h2 class="font-heading font-semibold text-3xl mt-2 mb-3" style="color:#1C3557;">
-          Pick a plan. Pick your term.
-        </h2>
-        <p class="text-sm leading-relaxed max-w-xl" style="color:#4a6070;">
-          Same setup fee regardless of term. Monthly gives flexibility. Six months saves you money each month. Rolling is fully cancel-anytime.
-        </p>
-      </div>
-
-      <!-- June offer -->
-      <div class="rounded-2xl overflow-hidden mb-10" style="background:#0D2240;">
-        <div class="relative px-5 py-4 sm:px-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
-          <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(135deg, rgba(46,204,154,0.04) 0px, rgba(46,204,154,0.04) 1px, transparent 1px, transparent 12px);"></div>
-          <div class="relative flex items-center gap-3 flex-1">
-            <span class="flex-shrink-0 text-xs font-black tracking-widest uppercase px-2.5 py-1.5 rounded-lg" style="background:#DC2626; color:#fff; letter-spacing:0.08em;" data-tina-field={tf(pr.juneOffer, 'badge')}>{pricing.juneOffer.badge}</span>
-            <div>
-              <p class="text-sm font-semibold leading-snug" style="color:#fff;">{pricing.juneOffer.message} <span style="color:#2ECC9A;" data-tina-field={tf(pr.juneOffer, 'highlight')}>{pricing.juneOffer.highlight}</span></p>
-              <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.45);" data-tina-field={tf(pr.juneOffer, 'closingNote')}>{pricing.juneOffer.closingNote}</p>
-            </div>
+  <!-- PLAN CARDS -->
+  <section class="px-5 sm:px-6 pt-4 pb-6">
+    <div class="max-w-[1180px] mx-auto grid gap-4 lg:grid-cols-3 items-center">
+      {PLANS.map(p => (
+        <article class={`flex flex-col gap-5 ${p.featured ? 'rounded-[30px] px-[30px] py-[34px] shadow-[0_40px_80px_-30px_rgba(11,122,79,0.35)]' : 'rounded-[28px] p-[30px] border border-line bg-white'}`} style={p.featured ? 'border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box, linear-gradient(135deg,#2BD98F,#22C7D6) border-box' : ''}>
+          <div class="flex justify-between items-start">
+            <span class="flex flex-col gap-0.5"><span class={`text-sm ${p.featured ? 'text-teal-dark font-semibold' : 'text-muted'}`}>{planTier[p.slug]}</span><span class="font-semibold text-xl">{p.name}</span></span>
+            <span class={`w-10 h-10 rounded-full grid place-items-center ${p.featured ? 'bg-teal text-navy' : 'bg-navy text-teal'}`}><Icon name={planIcon[p.slug]} size={16} /></span>
           </div>
-          <a href="/about/#contact" class="relative flex-shrink-0 text-xs font-bold px-4 py-2.5 rounded-xl whitespace-nowrap transition-opacity hover:opacity-90" style="background:#2ECC9A; color:#0D2240;">
-            Claim offer →
+          <p class="text-sm text-body -mt-2">{p.tagline}</p>
+          <div class="flex items-baseline gap-1.5"><span class={`plan-price font-medium tracking-[-0.05em] ${p.featured ? 'text-[64px]' : 'text-[56px]'}`} data-monthly={p.monthly} data-six={p.six} data-rolling={p.rolling}>£{p.monthly}</span><span class="text-sm text-muted">/month</span></div>
+          <span class="text-[13px] text-body -mt-2.5">+ £{p.setup} one-off setup</span>
+          <div class="flex flex-col gap-3 pt-[18px] border-t border-[#ECEFEC]">
+            <span class="text-[13px] font-semibold">{p.slug === 'starter' ? 'What you get' : p.slug === 'growth' ? 'Everything in Get Online, plus' : 'Everything in Get Found, plus'}</span>
+            <ul class="tick-list text-sm text-body">{p.features.filter(f => !f.startsWith('Everything in')).map(f => <li>{f}</li>)}</ul>
+            <p class="text-xs text-muted">Best for: {p.bestFor}</p>
+          </div>
+          <a href={`/api/checkout/${p.slug}/?term=monthly`} data-plan={p.slug} rel="nofollow" class={`checkout-btn btn ${p.featured ? 'btn-grad has-chip' : 'btn-soft'}`}>
+            {p.featured ? `Join ${p.name}` : `Choose ${p.name}`}
+            {p.featured && <span class="chip-arrow"><Icon name="arrow" size={15} stroke={2.6} /></span>}
           </a>
-        </div>
-      </div>
-
-      <!-- Term toggle -->
-      <div class="flex items-center mb-10">
-        <div class="inline-flex items-center p-1 rounded-full gap-0.5" style="background:#f0f4f7;">
-          <button class="term-btn text-xs font-bold px-5 py-2.5 rounded-full transition-all relative" data-term="monthly" style="background:#2ECC9A; color:#0D2240;">
-            Monthly
-            <span class="absolute -top-2.5 -right-1 text-[8px] font-black px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap" style="background:#0D2240; color:#2ECC9A;">★ Popular</span>
-          </button>
-          <button class="term-btn text-xs font-bold px-5 py-2.5 rounded-full transition-all" data-term="six" style="color:#4a6070;">
-            6 months
-          </button>
-          <button class="term-btn text-xs font-bold px-5 py-2.5 rounded-full transition-all" data-term="rolling" style="color:#4a6070;">
-            Rolling
-          </button>
-        </div>
-        <span class="ml-4 text-xs hidden sm:block" style="color:#8a9ab0;">← toggle to compare</span>
-      </div>
-
-      <!-- Plan cards -->
-      <div class="swipe-wrap">
-      <div class="swipe-grid">
-
-        <!-- Starter -->
-        <div class="rounded-2xl border bg-white flex flex-col plan-card" style="border-color:#e8ecef; box-shadow:0 2px 20px rgba(13,34,64,0.06);">
-          <div class="p-6 pb-0">
-            <div class="flex items-center justify-between mb-5">
-              <span class="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#f0f4f7; color:#8a9ab0;">STARTER</span>
-            </div>
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;" data-tina-field={tf(ps, 'name')}>{s.name}</h3>
-            <p class="text-xs mb-6" style="color:#8a9ab0;" data-tina-field={tf(ps, 'tagline')}>{s.tagline}</p>
-
-            <div class="mb-2">
-              <div class="flex items-end gap-1.5">
-                <span class="font-bold plan-monthly" data-monthly={`£${s.monthlyPrice}`} data-six={`£${s.sixMonthPrice}`} data-rolling={`£${s.rollingPrice}`} style="font-size:3rem; line-height:1; color:#1C3557; letter-spacing:-0.02em;" data-tina-field={tf(ps, 'monthlyPrice')}>£{s.monthlyPrice}</span>
-                <span class="text-sm font-medium pb-2" style="color:#8a9ab0;">/month</span>
-              </div>
-              <p class="text-xs mt-1.5 plan-term" data-monthly="3-month minimum" data-six="6-month minimum" data-rolling="Cancel anytime · 30 days notice" style="color:#8a9ab0;">3-month minimum</p>
-            </div>
-
-            <div class="mt-4 mb-1 inline-flex items-center gap-2 rounded-xl px-3 py-2" style="background:#f7f9fb;">
-              <span class="text-xs" style="color:#8a9ab0;">Setup fee</span>
-              <span class="font-bold text-sm" style="color:#1C3557;" data-tina-field={tf(ps, 'setupFee')}>£{s.setupFee}</span>
-              <span class="text-xs" style="color:#8a9ab0;">· paid on go-live</span>
-            </div>
-
-            <div class="mt-2 mb-5 h-5">
-              <p class="text-xs font-semibold monthly-badge" style="color:#2ECC9A;">Nothing to pay until live</p>
-              <p class="text-xs font-semibold six-badge hidden" style="color:#2ECC9A;">Save £10/mo vs monthly</p>
-              <p class="text-xs font-semibold rolling-badge hidden" style="color:#8a9ab0;">Flexible, cancel anytime</p>
-            </div>
-          </div>
-
-          <div class="px-6 pb-2">
-            <div class="border-t pt-5" style="border-color:#f0f0f0;">
-              <ul class="flex flex-col gap-2.5">
-                {s.features.map((item, i) => (
-                  <li class="flex items-start gap-2.5 text-xs" style="color:#4a6070;" data-tina-field={tf((ps.features as any[])[i], 'item')}>
-                    <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div class="mt-4 flex flex-col gap-2 pt-4" style="border-top:1px solid #eef0f2;">
-                {s.notIncluded.map(item => (
-                  <div class="flex items-start gap-2.5 text-xs" style="color:#c8d0d8;">
-                    <span class="flex-shrink-0 mt-0.5" style="color:#dde1e6; font-size:10px;">✕</span>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6 pt-5 mt-auto">
-            <a href={`/api/checkout/${s.slug}/?term=monthly`} class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan={s.slug} style="background:#f0f4f7; color:#1C3557;">
-              Get started →
-            </a>
-          </div>
-        </div>
-
-        <!-- Growth (featured) -->
-        <div class="rounded-2xl flex flex-col relative plan-card" style="background:#0D2240; box-shadow:0 8px 40px rgba(13,34,64,0.25);">
-          <div class="absolute -top-4 inset-x-0 flex justify-center">
-            <span class="text-xs font-bold px-5 py-1.5 rounded-full" style="background:#2ECC9A; color:#0D2240;">Most popular</span>
-          </div>
-
-          <div class="p-6 pb-0 pt-8">
-            <div class="flex items-center justify-between mb-5">
-              <span class="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:rgba(46,204,154,0.12); color:rgba(46,204,154,0.7);">GROWTH</span>
-            </div>
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#fff;" data-tina-field={tf(pg, 'name')}>{g.name}</h3>
-            <p class="text-xs mb-6" style="color:rgba(255,255,255,0.4);" data-tina-field={tf(pg, 'tagline')}>{g.tagline}</p>
-
-            <div class="mb-2">
-              <div class="flex items-end gap-1.5">
-                <span class="font-bold plan-monthly" data-monthly={`£${g.monthlyPrice}`} data-six={`£${g.sixMonthPrice}`} data-rolling={`£${g.rollingPrice}`} style="font-size:3rem; line-height:1; color:#fff; letter-spacing:-0.02em;" data-tina-field={tf(pg, 'monthlyPrice')}>£{g.monthlyPrice}</span>
-                <span class="text-sm font-medium pb-2" style="color:rgba(255,255,255,0.35);">/month</span>
-              </div>
-              <p class="text-xs mt-1.5 plan-term" data-monthly="3-month minimum" data-six="6-month minimum" data-rolling="Cancel anytime · 30 days notice" style="color:rgba(255,255,255,0.35);">3-month minimum</p>
-            </div>
-
-            <div class="mt-4 mb-1 inline-flex items-center gap-2 rounded-xl px-3 py-2" style="background:rgba(255,255,255,0.07);">
-              <span class="text-xs" style="color:rgba(255,255,255,0.35);">Setup fee</span>
-              <span class="font-bold text-sm" style="color:#2ECC9A;" data-tina-field={tf(pg, 'setupFee')}>£{g.setupFee}</span>
-              <span class="text-xs" style="color:rgba(255,255,255,0.35);">· paid on go-live</span>
-            </div>
-
-            <div class="mt-2 mb-5 h-5">
-              <p class="text-xs font-semibold monthly-badge" style="color:#2ECC9A;">Nothing to pay until live</p>
-              <p class="text-xs font-semibold six-badge hidden" style="color:#2ECC9A;">Save £20/mo vs monthly</p>
-              <p class="text-xs font-semibold rolling-badge hidden" style="color:rgba(255,255,255,0.4);">Flexible, cancel anytime</p>
-            </div>
-          </div>
-
-          <div class="px-6 pb-2">
-            <div class="pt-5" style="border-top:1px solid rgba(255,255,255,0.08);">
-              <ul class="flex flex-col gap-2.5">
-                {g.features.map(item => (
-                  <li class="flex items-start gap-2.5 text-xs" style="color:rgba(255,255,255,0.65);">
-                    <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.18); color:#2ECC9A; font-size:9px;">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div class="mt-4 flex flex-col gap-2 pt-4" style="border-top:1px solid rgba(255,255,255,0.08);">
-                {g.notIncluded.map(item => (
-                  <div class="flex items-start gap-2.5 text-xs" style="color:rgba(255,255,255,0.2);">
-                    <span class="flex-shrink-0 mt-0.5" style="color:rgba(255,255,255,0.15); font-size:10px;">✕</span>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6 pt-5 mt-auto">
-            <a href={`/api/checkout/${g.slug}/?term=monthly`} class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan={g.slug} style="background:#2ECC9A; color:#0D2240;">
-              Get started →
-            </a>
-          </div>
-        </div>
-
-        <!-- Pro -->
-        <div class="rounded-2xl border bg-white flex flex-col plan-card" style="border-color:#e8ecef; box-shadow:0 2px 20px rgba(13,34,64,0.06);">
-          <div class="p-6 pb-0">
-            <div class="flex items-center justify-between mb-5">
-              <span class="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#f0f4f7; color:#8a9ab0;">PRO</span>
-            </div>
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;" data-tina-field={tf(pp, 'name')}>{p.name}</h3>
-            <p class="text-xs mb-6" style="color:#8a9ab0;" data-tina-field={tf(pp, 'tagline')}>{p.tagline}</p>
-
-            <div class="mb-2">
-              <div class="flex items-end gap-1.5">
-                <span class="font-bold plan-monthly" data-monthly={`£${p.monthlyPrice}`} data-six={`£${p.sixMonthPrice}`} data-rolling={`£${p.rollingPrice}`} style="font-size:3rem; line-height:1; color:#1C3557; letter-spacing:-0.02em;" data-tina-field={tf(pp, 'monthlyPrice')}>£{p.monthlyPrice}</span>
-                <span class="text-sm font-medium pb-2" style="color:#8a9ab0;">/month</span>
-              </div>
-              <p class="text-xs mt-1.5 plan-term" data-monthly="3-month minimum" data-six="6-month minimum" data-rolling="Cancel anytime · 30 days notice" style="color:#8a9ab0;">3-month minimum</p>
-            </div>
-
-            <div class="mt-4 mb-1 inline-flex items-center gap-2 rounded-xl px-3 py-2" style="background:#f7f9fb;">
-              <span class="text-xs" style="color:#8a9ab0;">Setup fee</span>
-              <span class="font-bold text-sm" style="color:#1C3557;" data-tina-field={tf(pp, 'setupFee')}>£{p.setupFee}</span>
-              <span class="text-xs" style="color:#8a9ab0;">· paid on go-live</span>
-            </div>
-
-            <div class="mt-2 mb-5 h-5">
-              <p class="text-xs font-semibold monthly-badge" style="color:#2ECC9A;">Nothing to pay until live</p>
-              <p class="text-xs font-semibold six-badge hidden" style="color:#2ECC9A;">Save £20/mo vs monthly</p>
-              <p class="text-xs font-semibold rolling-badge hidden" style="color:#8a9ab0;">Flexible, cancel anytime</p>
-            </div>
-          </div>
-
-          <div class="px-6 pb-2">
-            <div class="border-t pt-5" style="border-color:#f0f0f0;">
-              <ul class="flex flex-col gap-2.5">
-                {p.features.map(item => (
-                  <li class="flex items-start gap-2.5 text-xs" style="color:#4a6070;">
-                    <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div class="mt-4 flex flex-col gap-2 pt-4" style="border-top:1px solid #eef0f2;">
-                {p.notIncluded.map(item => (
-                  <div class="flex items-start gap-2.5 text-xs" style="color:#c8d0d8;">
-                    <span class="flex-shrink-0 mt-0.5" style="color:#dde1e6; font-size:10px;">✕</span>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6 pt-5 mt-auto">
-            <a href={`/api/checkout/${p.slug}/?term=monthly`} class="checkout-btn block text-center text-sm font-semibold py-3.5 rounded-xl transition-all hover:opacity-90" data-plan={p.slug} style="background:#f0f4f7; color:#1C3557;">
-              Get started →
-            </a>
-          </div>
-        </div>
-
-      </div>
-      <div class="swipe-dots" aria-hidden="true"></div>
-      </div>
-
-      <p class="text-xs mt-8 text-center" style="color:#a0aab4;">
-        All plans: live in 7 working days or your first month is free. You own the site outright. Cancel after the minimum term with 30 days notice.
-      </p>
-
+          <a href="/contact/" class="text-center text-sm text-muted underline underline-offset-4 -mt-2">Rather talk first?</a>
+        </article>
+      ))}
     </div>
   </section>
 
-  <script>
-    const termBtns = document.querySelectorAll('.term-btn');
-    const monthlyEls = document.querySelectorAll('.plan-monthly');
-    const termEls = document.querySelectorAll('.plan-term');
-    const monthlyBadges = document.querySelectorAll('.monthly-badge');
-    const sixBadges = document.querySelectorAll('.six-badge');
-    const rollingBadges = document.querySelectorAll('.rolling-badge');
-
-    function switchTerm(term) {
-      monthlyEls.forEach(el => { el.textContent = el.dataset[term]; });
-      termEls.forEach(el => { el.textContent = el.dataset[term]; });
-      monthlyBadges.forEach(el => el.classList.toggle('hidden', term !== 'monthly'));
-      sixBadges.forEach(el => el.classList.toggle('hidden', term !== 'six'));
-      rollingBadges.forEach(el => el.classList.toggle('hidden', term !== 'rolling'));
-      termBtns.forEach(btn => {
-        const active = btn.dataset.term === term;
-        btn.style.background = active ? '#2ECC9A' : 'transparent';
-        btn.style.color = active ? '#0D2240' : '#4a6070';
-      });
-    }
-
-    function updateCheckoutLinks(term) {
-      document.querySelectorAll('.checkout-btn').forEach(el => {
-        const plan = el.dataset.plan;
-        if (plan) el.setAttribute('href', `/api/checkout/${plan}/?term=${term}`);
-      });
-    }
-
-    function activate(term) {
-      switchTerm(term);
-      updateCheckoutLinks(term);
-    }
-
-    activate('monthly');
-
-    termBtns.forEach(btn => {
-      btn.addEventListener('click', () => activate(btn.dataset.term));
-    });
-  </script>
-
-  <!-- ONE-OFF WORK -->
-  <section class="py-20" style="background:#f7f9fb;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-      <div class="mb-12">
-        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">ONE-OFF WORK</span>
-        <h2 class="font-heading font-semibold text-3xl mt-2 mb-3" style="color:#1C3557;">
-          Need something extra?
-        </h2>
-        <p class="text-sm leading-relaxed max-w-lg" style="color:#4a6070;">
-          Extra pages, landing pages, major updates. On-plan clients get priority and a plan discount. The higher the plan, the lower the rate.
-        </p>
+  <!-- CUSTOM SOFTWARE TIER -->
+  <section id="custom" class="px-5 sm:px-6 pt-4 pb-[clamp(80px,9vw,120px)] scroll-mt-24">
+    <div class="max-w-[1180px] mx-auto rounded-[30px] overflow-hidden text-white grid lg:grid-cols-[1.3fr_1fr] shadow-[0_40px_80px_-40px_rgba(7,17,31,0.6)]" style="background-color:#07111F;background-image:radial-gradient(70% 90% at 100% 0%, rgba(34,199,214,0.45) 0%, rgba(34,199,214,0) 60%), radial-gradient(60% 80% at 0% 100%, rgba(43,217,143,0.35) 0%, rgba(43,217,143,0) 60%)">
+      <div class="p-8 sm:p-10 flex flex-col gap-5">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-teal text-navy grid place-items-center"><Icon name="code" size={17} /></span>
+          <span class="flex flex-col"><span class="text-sm text-teal font-semibold">Bespoke · one-off</span><span class="font-semibold text-xl">Custom Software</span></span>
+        </div>
+        <p class="text-base leading-relaxed text-[#C8D3DD] max-w-[520px]">Big software is built for big companies. You end up paying monthly for 50 features and using 3. I build the one tool you need, around how you already work.</p>
+        <div class="flex items-baseline gap-2 flex-wrap"><span class="text-sm text-[#A9B6C4]">from</span><span class="font-medium text-[64px] tracking-[-0.05em] text-teal leading-none">£{SOFTWARE_FROM}</span><span class="text-sm text-[#A9B6C4]">one-off · fixed price before I start</span></div>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <Button href="#enquiry" data-type="custom-software" class="pick-type">Get a fixed quote</Button>
+          <Button href="/custom-software/" variant="ghost" icon="none">See examples</Button>
+        </div>
       </div>
+      <div class="p-8 sm:p-10 lg:border-l border-t lg:border-t-0 border-white/10 flex flex-col gap-4">
+        <span class="text-[13px] font-semibold text-[#A9B6C4]">Popular builds</span>
+        <ul class="tick-list text-[15px] text-[#DCE3EA]">
+          <li>Instant quote calculator on your site</li>
+          <li>Booking with deposits and reminders</li>
+          <li>Job sheets on your phone</li>
+          <li>Quote-to-invoice with pay links</li>
+          <li>Client portal, stock tracker or staff rota</li>
+          <li>30 days of fixes included, and you own it</li>
+        </ul>
+      </div>
+    </div>
+    <p class="max-w-[1180px] mx-auto text-center text-sm text-muted mt-8">Setup fee and first month are charged at checkout. Secure payment by Stripe. No VAT added.</p>
+  </section>
 
-      <div class="rounded-2xl overflow-hidden" style="border:1px solid #e8ecef; box-shadow:0 2px 16px rgba(13,34,64,0.05);">
-        <table class="w-full text-sm bg-white">
+  <!-- PROMISES -->
+  <section class="art px-5 sm:px-6 py-[clamp(72px,8vw,112px)]">
+    <img src="/images/art/grid-dark.jpg" alt="" loading="lazy" class="art-bg opacity-75" />
+    <div class="art-shade" style="background:linear-gradient(180deg, rgba(7,17,31,0.55) 0%, rgba(7,17,31,0.8) 100%)"></div>
+    <div class="art-body max-w-[1240px] mx-auto flex flex-col items-center gap-10 text-center">
+      <h2 class="!text-white max-w-[720px] text-[clamp(36px,4vw,54px)] leading-[1.05] tracking-[-0.05em]">Every Plan Comes With My Promises</h2>
+      <div class="w-full grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4 text-left">
+        <div class="rounded-[22px] p-6 flex flex-col gap-2 text-navy" style="background:linear-gradient(145deg,#2BD98F 0%,#22C7D6 100%)"><span class="font-semibold text-[17px]">Live in about 7 days</span><span class="text-sm text-[#0F3B2A]">from our first call, on most sites</span></div>
+        <div class="glass rounded-[22px] p-6 flex flex-col gap-2"><span class="font-semibold text-[17px]">Fixed prices</span><span class="text-sm text-[#A9B6C4]">you know the cost before anything starts</span></div>
+        <div class="glass rounded-[22px] p-6 flex flex-col gap-2"><span class="font-semibold text-[17px]">Your content stays yours</span><span class="text-sm text-[#A9B6C4]">words, photos, logo and domain</span></div>
+        <div class="glass rounded-[22px] p-6 flex flex-col gap-2"><span class="font-semibold text-[17px]">No long contracts</span><span class="text-sm text-[#A9B6C4]">month to month after the minimum</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="section px-5 sm:px-6">
+    <div class="max-w-[1180px] mx-auto flex flex-col gap-9">
+      <h2 class="text-[clamp(36px,4vw,54px)] leading-[1.05] tracking-[-0.05em]">Everything You'll Get</h2>
+      <div class="overflow-x-auto rounded-[28px] border border-line">
+        <table class="w-full min-w-[720px] border-collapse text-[15px]">
           <thead>
-            <tr style="border-bottom:2px solid #f0f4f7;">
-              <th class="text-left px-6 py-4 font-semibold text-sm" style="color:#1C3557; background:#fafbfc; width:45%;">Service</th>
-              <th class="px-4 py-4 font-semibold text-xs text-center uppercase tracking-wider" style="color:#a0aab4; background:#fafbfc;">Starter</th>
-              <th class="px-4 py-4 font-semibold text-xs text-center uppercase tracking-wider" style="color:#1C3557; background:#fafbfc;">Growth</th>
-              <th class="px-4 py-4 font-semibold text-xs text-center uppercase tracking-wider" style="color:#2ECC9A; background:#fafbfc;">Pro</th>
+            <tr>
+              <th scope="col" class="text-left p-6 font-medium text-muted border-b border-[#ECEFEC] w-[34%]">Feature</th>
+              {PLANS.map(p => (
+                <th scope="col" class={`p-6 border-b border-[#ECEFEC] font-normal ${p.featured ? 'bg-navy text-white' : ''}`}>
+                  <span class="flex flex-col items-center gap-1"><span class={`text-[13px] ${p.featured ? 'text-teal' : 'text-muted'}`}>{p.name}</span><span class="plan-price font-medium text-[30px] tracking-[-0.04em]" data-monthly={p.monthly} data-six={p.six} data-rolling={p.rolling}>£{p.monthly}</span></span>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {[
-              { service: 'Landing page', desc: 'New page, copy and design included', starter: '£149', growth: '£119', pro: '£89' },
-              { service: 'Extra page added', desc: 'Slotted into your existing site', starter: '£89', growth: '£69', pro: '£49' },
-              { service: 'Major redesign', desc: 'Layout or design overhaul', starter: '£199', growth: '£159', pro: '£99' },
-              { service: 'Additional blog post', desc: 'Beyond your monthly allowance', starter: '£59', growth: '£45', pro: '£35' },
-              { service: 'New feature', desc: 'Booking form, gallery, popup, chatbot', starter: '£149', growth: '£119', pro: '£89' },
-            ].map((row, i) => (
-              <tr class="addon-row" style={`border-bottom:${i < 4 ? '1px solid #f5f5f5' : 'none'};`}>
-                <td class="px-6 py-4">
-                  <div class="font-semibold text-sm mb-0.5" style="color:#1C3557;">{row.service}</div>
-                  <div class="text-xs" style="color:#a0aab4;">{row.desc}</div>
-                </td>
-                <td class="px-4 py-4 text-center font-semibold text-sm" style="color:#a0aab4;">{row.starter}</td>
-                <td class="px-4 py-4 text-center font-semibold text-sm" style="color:#1C3557;">{row.growth}</td>
-                <td class="px-4 py-4 text-center font-bold text-sm" style="color:#2ECC9A;">{row.pro}</td>
+            {rows.map(([f, a, b, c]) => (
+              <tr>
+                <th scope="row" class="text-left px-6 py-4 font-medium border-b border-[#ECEFEC]">{f}</th>
+                <td class="px-6 py-4 text-center border-b border-[#ECEFEC] text-body">{a}</td>
+                <td class="px-6 py-4 text-center border-b border-[#ECEFEC] bg-[#EEF7F2] font-semibold">{b}</td>
+                <td class="px-6 py-4 text-center border-b border-[#ECEFEC] text-body">{c}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      <p class="text-xs mt-5 text-center" style="color:#a0aab4;">
-        Not on a plan yet? No problem — get in touch and I'll quote you directly.
-      </p>
-
     </div>
   </section>
 
-  <!-- CRM + EMAIL ADD-ONS -->
-  <section class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-      <div class="mb-12">
-        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">ADD-ONS</span>
-        <h2 class="font-heading font-semibold text-3xl mt-2 mb-3" style="color:#1C3557;">
-          CRM, Email and Automation.
-        </h2>
-        <p class="text-sm leading-relaxed max-w-lg" style="color:#4a6070;">
-          Most clients add these once their site is live — when they realise how many leads were slipping through.
-        </p>
+  <!-- ONE-OFF WORK -->
+  <section id="one-off" class="px-5 sm:px-6 pb-[clamp(80px,9vw,128px)] scroll-mt-24">
+    <div class="max-w-[1180px] mx-auto flex flex-col gap-9">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="flex flex-col gap-5">
+          <Eyebrow icon="grid">One-off work</Eyebrow>
+          <h2 class="text-[clamp(36px,4vw,54px)] leading-[1.05] tracking-[-0.05em]">Need Something Extra?</h2>
+        </div>
+        <p class="max-w-[380px] text-[15px] leading-relaxed text-body">On a plan, extra work costs less. The higher the plan, the lower the price. Not on a plan? <a href="#enquiry" class="link-arrow !inline">Ask for a quote</a>.</p>
       </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-
-        <div class="rounded-2xl p-6 flex flex-col" style="border:1px solid #e8ecef; box-shadow:0 2px 16px rgba(13,34,64,0.05);">
-          <h3 class="font-heading font-bold text-base mb-1" style="color:#1C3557;">CRM setup</h3>
-          <p class="text-xs mb-4" style="color:#8a9ab0;">Every enquiry saved, tracked, and followed up.</p>
-          <div class="flex items-baseline gap-2 mb-5">
-            <span class="font-bold text-xl" style="color:#1C3557;">£179</span>
-            <span class="text-xs" style="color:#8a9ab0;">setup</span>
-            <span class="text-sm font-semibold ml-1" style="color:#2ECC9A;">+ £35/mo</span>
-          </div>
-          <ul class="flex flex-col gap-2 flex-1 mb-5">
-            {[
-              'All site leads saved automatically',
-              'Simple pipeline: enquiry to won',
-              'Instant notification to your phone',
-              '48hr follow-up reminder',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
+      <div class="overflow-x-auto rounded-[28px] border border-line">
+        <table class="w-full min-w-[600px] border-collapse text-left text-[15px]">
+          <thead>
+            <tr class="text-[13px] text-muted">
+              <th class="p-6 font-medium border-b border-[#ECEFEC]">Work</th>
+              <th class="p-6 font-medium border-b border-[#ECEFEC]">Get Online</th>
+              <th class="p-6 font-medium border-b border-[#ECEFEC] bg-[#EEF7F2]">Get Found</th>
+              <th class="p-6 font-medium border-b border-[#ECEFEC]">Get Leads</th>
+            </tr>
+          </thead>
+          <tbody>
+            {oneOff.map(r => (
+              <tr>
+                <td class="px-6 py-4 border-b border-[#ECEFEC]"><p class="font-semibold">{r.service}</p><p class="text-sm text-muted">{r.desc}</p></td>
+                <td class="px-6 py-4 border-b border-[#ECEFEC] font-semibold">£{r.starter}</td>
+                <td class="px-6 py-4 border-b border-[#ECEFEC] font-semibold bg-[#EEF7F2]">£{r.growth}</td>
+                <td class="px-6 py-4 border-b border-[#ECEFEC] font-semibold text-teal-dark">£{r.pro}</td>
+              </tr>
             ))}
-          </ul>
-          <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
-        </div>
-
-        <div class="rounded-2xl p-6 flex flex-col" style="border:1px solid #e8ecef; box-shadow:0 2px 16px rgba(13,34,64,0.05);">
-          <h3 class="font-heading font-bold text-base mb-1" style="color:#1C3557;">Email nurture sequence</h3>
-          <p class="text-xs mb-4" style="color:#8a9ab0;">They enquire. Helpful emails go out automatically.</p>
-          <div class="flex items-baseline gap-2 mb-5">
-            <span class="font-bold text-xl" style="color:#1C3557;">£239</span>
-            <span class="text-xs" style="color:#8a9ab0;">setup</span>
-            <span class="text-sm font-semibold ml-1" style="color:#2ECC9A;">+ £59/mo</span>
-          </div>
-          <ul class="flex flex-col gap-2 flex-1 mb-5">
-            {[
-              '5-email sequence in your voice',
-              'Triggers on every enquiry',
-              'Keeps you front of mind',
-              'Monthly newsletter written and sent',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
-        </div>
-
-        <div class="rounded-2xl p-6 flex flex-col relative" style="border:1px solid #e8ecef; box-shadow:0 2px 16px rgba(13,34,64,0.05);">
-          <div class="absolute -top-3.5 left-5 text-xs font-bold px-3 py-1 rounded-full" style="background:#0D2240; color:#2ECC9A;">Best value</div>
-          <h3 class="font-heading font-bold text-base mb-1 mt-1" style="color:#1C3557;">CRM + nurture bundle</h3>
-          <p class="text-xs mb-4" style="color:#8a9ab0;">Everything connected. All automatic.</p>
-          <div class="flex items-baseline gap-2 mb-5">
-            <span class="font-bold text-xl" style="color:#1C3557;">£359</span>
-            <span class="text-xs" style="color:#8a9ab0;">setup</span>
-            <span class="text-sm font-semibold ml-1" style="color:#2ECC9A;">+ £79/mo</span>
-          </div>
-          <ul class="flex flex-col gap-2 flex-1 mb-5">
-            {[
-              'Everything in CRM + nurture',
-              'Review request after each job',
-              'Monthly leads and open rate report',
-              'Save £59 vs buying separately',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:#4a6070;">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:#E8F5F1; color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Add this on →</a>
-        </div>
-
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <!-- AI SERVICES -->
-  <section class="py-20" style="background:#0D2240;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-      <div class="mb-12">
-        <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">AI SERVICES</span>
-        <h2 class="font-heading font-semibold text-3xl mt-2 mb-3" style="color:#fff;">
-          AI and Automation for Small Businesses.
-        </h2>
-        <p class="text-sm leading-relaxed max-w-lg" style="color:rgba(255,255,255,0.45);">
-          You don't need to understand it. Tell me what's eating your time. Every project is scoped and priced before anything starts.
-        </p>
+  <!-- ADD-ONS -->
+  <section id="add-ons" class="grid-tint section px-5 sm:px-6 scroll-mt-20">
+    <div class="max-w-[1180px] mx-auto flex flex-col gap-12">
+      <div class="flex flex-col gap-5 max-w-[680px]">
+        <Eyebrow icon="bolt" white>Add-ons</Eyebrow>
+        <h2 class="h2">Stop Losing The Enquiries You Already Get.</h2>
+        <p class="lead">Most clients add one of these once the site is live and they see how many people enquire and then go quiet.</p>
       </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-
-        <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.12);">
-          <h3 class="font-heading font-bold text-base mb-1" style="color:#fff;">AI chatbot for your site</h3>
-          <p class="text-xs mb-4" style="color:rgba(255,255,255,0.4);">Answers questions and captures leads 24/7.</p>
-          <div class="flex items-baseline gap-2 mb-5">
-            <span class="font-bold text-xl" style="color:#fff;">£479</span>
-            <span class="text-xs" style="color:rgba(255,255,255,0.3);">setup</span>
-            <span class="text-sm font-semibold ml-1" style="color:#2ECC9A;">+ £59/mo</span>
-          </div>
-          <ul class="flex flex-col gap-2 flex-1 mb-5">
-            {[
-              'Answers FAQs instantly, any time',
-              'Collects name, number, and enquiry',
-              'Trained on your specific business',
-              'Works on any website we build',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.55);">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.12); color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
-        </div>
-
-        <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.12);">
-          <h3 class="font-heading font-bold text-base mb-1" style="color:#fff;">Business automation</h3>
-          <p class="text-xs mb-4" style="color:rgba(255,255,255,0.4);">Stop copying things between apps.</p>
-          <div class="flex items-baseline gap-2 mb-5">
-            <span class="font-bold text-xl" style="color:#fff;">from £359</span>
-            <span class="text-xs" style="color:rgba(255,255,255,0.3);">setup</span>
-            <span class="text-sm font-semibold ml-1" style="color:#2ECC9A;">+ £35/mo</span>
-          </div>
-          <ul class="flex flex-col gap-2 flex-1 mb-5">
-            {[
-              'Apps connected and synced',
-              'No more copy-pasting between systems',
-              'New enquiry triggers actions automatically',
-              'Saves hours every week',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.55);">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.12); color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
-        </div>
-
-        <div class="rounded-2xl p-6 flex flex-col" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.12);">
-          <h3 class="font-heading font-bold text-base mb-1" style="color:#fff;">Custom AI project</h3>
-          <p class="text-xs mb-4" style="color:rgba(255,255,255,0.4);">AI built directly into your existing tools.</p>
-          <div class="flex items-baseline gap-2 mb-5">
-            <span class="font-bold text-xl" style="color:#fff;">from £699</span>
-            <span class="text-xs" style="color:rgba(255,255,255,0.3);">quoted per project</span>
-          </div>
-          <ul class="flex flex-col gap-2 flex-1 mb-5">
-            {[
-              'Works with your existing CRM or tools',
-              'Handles repetitive tasks and reports',
-              'Clear quote before anything starts',
-              'No surprises.',
-            ].map(item => (
-              <li class="flex items-start gap-2 text-xs" style="color:rgba(255,255,255,0.55);">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5" style="background:rgba(46,204,154,0.12); color:#2ECC9A; font-size:9px;">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a href="/about/#contact" class="text-xs font-semibold" style="color:#2ECC9A;">Get a quote →</a>
-        </div>
-
+      <div class="grid gap-4 md:grid-cols-3">
+        {addOns.map(a => (
+          <article class={`rounded-[28px] p-7 flex flex-col gap-4 ${a.best ? 'text-white' : 'bg-white border border-line'}`} style={a.best ? 'background-color:#07111F;background-image:radial-gradient(90% 90% at 100% 0%, rgba(34,199,214,0.45) 0%, rgba(34,199,214,0) 60%), radial-gradient(80% 80% at 0% 100%, rgba(43,217,143,0.4) 0%, rgba(43,217,143,0) 60%)' : ''}>
+            {a.best && <span class="chip w-fit !bg-teal">Best value</span>}
+            <h3 class={`text-[19px] font-semibold tracking-[-0.02em] ${a.best ? '!text-white' : ''}`}>{a.name}</h3>
+            <p class={`text-sm leading-relaxed ${a.best ? 'text-[#B9C4D0]' : 'text-body'}`}>{a.text}</p>
+            <p class="flex items-baseline gap-1.5 flex-wrap"><span class={`font-medium text-[40px] tracking-[-0.05em] ${a.best ? 'text-teal' : ''}`}>£{a.monthly}</span><span class={`text-sm ${a.best ? 'text-[#A9B6C4]' : 'text-muted'}`}>/mo + £{a.setup} setup</span></p>
+            <ul class={`tick-list text-sm ${a.best ? 'text-[#DCE3EA]' : 'text-body'}`}>{a.items.map(i => <li>{i}</li>)}</ul>
+            <a href="#enquiry" data-type="automation" class={`pick-type btn mt-auto ${a.best ? 'btn-grad' : 'btn-soft'}`}>Add this</a>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- FAQs -->
-  <section class="py-20 bg-white">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-
-      <h2 class="font-heading font-semibold text-2xl mb-2" style="color:#1C3557;">Questions people usually ask.</h2>
-      <p class="text-sm mb-10" style="color:#8a9ab0;">The ones worth answering properly.</p>
-
-      <div class="flex flex-col gap-2">
-        {pricing.faq.map((faq, i) => {
-          const fi = (pr.faq as any[])[i];
-          const ftf = (field: string) => fi ? tinaField(fi, field) || undefined : undefined;
-          return (
-            <details class="rounded-xl overflow-hidden group" style="border:1px solid #eef0f3;">
-              <summary class="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer font-semibold text-sm" style="color:#1C3557; list-style:none;" data-tina-field={ftf('question')}>
-                {faq.question}
-                <svg class="flex-shrink-0 faq-chevron transition-transform" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-              </summary>
-              <div class="px-5 pb-5 pt-1 text-sm leading-relaxed" style="color:#5a6e80;" data-tina-field={ftf('answer')}>{faq.answer}</div>
-            </details>
-          );
-        })}
+  <!-- ENQUIRY -->
+  <section id="enquiry" class="section px-5 sm:px-6 wash scroll-mt-20">
+    <div class="max-w-[1240px] mx-auto grid gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
+      <div class="flex flex-col gap-6">
+        <Eyebrow icon="chat" white>Not sure which plan?</Eyebrow>
+        <h2 class="h2">Tell Me What You Need. I'll Send A Fixed Price.</h2>
+        <p class="lead max-w-[460px]">A website, more calls from Google, a custom tool, or a mix. Tell me what's going on and I'll recommend the right option, with a price, within one working day.</p>
+        <ul class="tick-list text-[17px] text-navy">
+          <li>Fixed price before any work starts</li>
+          <li>Most websites live in about 7 days</li>
+          <li>Custom tools from £{SOFTWARE_FROM}</li>
+        </ul>
       </div>
-
+      <EnquiryForm id="pricing-enquiry" heading="Get Your Quote" showBudget />
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="py-20" style="background:#f0faf6;">
-    <div class="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-      <h2 class="font-heading font-semibold text-2xl sm:text-3xl mb-3" style="color:#1C3557;">
-        Not sure which plan fits?
-      </h2>
-      <p class="text-sm mb-2 leading-relaxed" style="color:#4a6070;">
-        Too much choice is its own problem. Drop me a message, tell me what you're trying to sort out, and I'll point you in the right direction.
-      </p>
-      <p class="text-sm mb-8" style="color:#8a9ab0;">Usually takes about five minutes.</p>
-      <a href="/about/#contact" class="inline-flex items-center gap-2 font-semibold text-sm px-7 py-4 rounded-xl transition-all hover:opacity-90" style="background:#0D2240; color:#fff;">
-        Get in touch
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+  <!-- FAQ -->
+  <section class="section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <div class="flex flex-col gap-5">
+        <Eyebrow icon="chat">Questions</Eyebrow>
+        <h2 class="h2">Before You Sign Up.</h2>
+      </div>
+      <div class="faq">
+        {faq.map(f => (<details><summary>{f.q}</summary><div>{f.a}</div></details>))}
+      </div>
     </div>
   </section>
 
-
-  <script>
-    (function() {
-      document.querySelectorAll('.swipe-wrap').forEach(wrap => {
-        const grid = wrap.querySelector('.swipe-grid');
-        const dotsEl = wrap.querySelector('.swipe-dots');
-        if (!grid || !dotsEl) return;
-        const items = Array.from(grid.children);
-        if (items.length < 2) return;
-        const dots = items.map((_, i) => {
-          const btn = document.createElement('button');
-          btn.className = 'swipe-dot' + (i === 0 ? ' is-active' : '');
-          btn.setAttribute('aria-label', 'Plan ' + (i + 1));
-          btn.onclick = () => items[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
-          dotsEl.appendChild(btn);
-          return btn;
-        });
-        const obs = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            if (e.isIntersecting && e.intersectionRatio >= 0.5) {
-              const idx = items.indexOf(e.target);
-              if (idx >= 0) dots.forEach((d,i) => d.classList.toggle('is-active', i === idx));
-            }
-          });
-        }, {root: grid, threshold: 0.5});
-        items.forEach(item => obs.observe(item));
-      });
-    })();
-  </script>
-  <TinaContext
-    client:only="react"
-    query={PricingDocument as string}
-    variables={{ relativePath: 'pricing.json' }}
-    data={{ pricing }}
-  />
+  <CtaBand />
 </Layout>
 
-<style>
+<script>
+  const notes: Record<string, string> = {
+    monthly: '3-month minimum, then month to month.',
+    six: 'Commit for 6 months and pay the lowest price every month.',
+    rolling: "No minimum. Cancel any time with 30 days' notice.",
+  };
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.term-btn');
+  function setTerm(term: string) {
+    buttons.forEach(b => {
+      const on = b.dataset.term === term;
+      b.setAttribute('aria-pressed', String(on));
+      b.classList.toggle('bg-navy', on);
+      b.classList.toggle('text-white', on);
+      b.classList.toggle('font-medium', on);
+      b.classList.toggle('text-body', !on);
+    });
+    document.querySelectorAll<HTMLElement>('.plan-price').forEach(el => {
+      el.textContent = '£' + el.dataset[term as 'monthly' | 'six' | 'rolling'];
+    });
+    document.querySelectorAll<HTMLAnchorElement>('.checkout-btn').forEach(a => {
+      a.href = `/api/checkout/${a.dataset.plan}/?term=${term}`;
+    });
+    const note = document.getElementById('term-note');
+    if (note) note.textContent = notes[term];
+  }
+  buttons.forEach(b => b.addEventListener('click', () => setTerm(b.dataset.term!)));
+  setTerm('monthly');
 
-  /* ── Mobile swipe carousel ─── */
-  .swipe-wrap { position: relative; }
-  .swipe-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    gap: 14px;
-    padding: 4px 16px 8px;
-    margin: 0 -16px;
-    scrollbar-width: none;
-  }
-  .swipe-grid::-webkit-scrollbar { display: none; }
-  .swipe-grid > * {
-    flex: 0 0 84%;
-    scroll-snap-align: start;
-    min-width: 0;
-  }
-  .swipe-dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-    padding: 14px 0 4px;
-  }
-  .swipe-dot {
-    width: 7px; height: 7px;
-    border-radius: 4px;
-    background: rgba(28,53,87,0.18);
-    border: none; cursor: pointer; padding: 0;
-    transition: all 0.2s ease;
-  }
-  .swipe-dot.is-active { background: #2ECC9A; width: 22px; }
-  @media (min-width: 1024px) {
-    .swipe-wrap { overflow: visible; }
-    .swipe-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      overflow: visible;
-      margin: 0;
-      padding: 0;
-      scroll-snap-type: none;
-    }
-    .swipe-grid > * { flex: unset; }
-    .swipe-dots { display: none; }
-  }
-  details[open] .faq-chevron {
-    transform: rotate(180deg);
-  }
-  details summary::-webkit-details-marker { display: none; }
-  .plan-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .plan-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(13,34,64,0.12);
-  }
-  .addon-row:hover {
-    background: #fafbfc;
-  }
-</style>
+  // Buttons that jump to the enquiry form preselect the matching service
+  document.querySelectorAll<HTMLAnchorElement>('.pick-type').forEach(a => {
+    a.addEventListener('click', () => {
+      const chip = document.querySelector<HTMLButtonElement>(`#pricing-enquiry .pick[data-value="${a.dataset.type}"]`);
+      if (chip && chip.getAttribute('aria-pressed') !== 'true') chip.click();
+    });
+  });
+</script>

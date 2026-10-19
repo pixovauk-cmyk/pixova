@@ -4,7 +4,6 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import vercel from '@astrojs/vercel';
-import tina from '@tinacms/astro/integration';
 
 export default defineConfig({
   site: 'https://www.pixova.uk',
@@ -14,12 +13,10 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) =>
-        !page.includes('/success/') &&
-        !page.includes('/admin/'),
+        !page.includes('/success/'),
     }),
     react(),
     mdx(),
-    tina(),
   ],
   vite: {
     plugins: [tailwindcss()],

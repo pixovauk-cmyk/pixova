@@ -10,20 +10,20 @@ import Layout from '../layouts/Layout.astro';
 >
 
   <!-- HERO -->
-  <section class="pt-14 pb-12" style="background-color:#E8F5F1;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <span class="text-xs font-semibold tracking-widest uppercase" style="color:#2ECC9A;">LEGAL</span>
-      <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-4" style="color:#1C3557;">
+  <section class="pt-14 pb-10 border-b border-line">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Legal</p>
+      <h1 class="h2 mt-4 mb-4">
         Privacy Policy
       </h1>
-      <p class="text-base max-w-xl" style="color:#1A2E3D;">
-        What we collect, why we collect it, and your rights. Last updated: 16 May 2026.
+      <p class="muted">
+        What we collect, why we collect it, and your rights. Last updated: 18 October 2026.
       </p>
     </div>
   </section>
 
   <!-- CONTENT -->
-  <section class="py-16 bg-offwhite">
+  <section class="py-16 bg-paper">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
       <div class="legal-content">
 
@@ -37,8 +37,14 @@ import Layout from '../layouts/Layout.astro';
 
         <h2>2. What information we collect</h2>
 
-        <h3>Contact form</h3>
-        <p>When you fill in our contact form, we collect the information you provide: your name, business name, phone number, email address, the nature of your enquiry, and how you found us. This is submitted via <a href="https://formspree.io" target="_blank" rel="noopener noreferrer">Formspree</a>, a third-party form service. Formspree stores your submission on their servers in order to forward it to us. You can read their privacy policy at formspree.io.</p>
+        <h3>Enquiry forms</h3>
+        <p>When you fill in an enquiry form, we collect what you give us: your name, business name, email, phone number, what you need and your message. The form is sent to our own server and emailed to us using <a href="https://www.brevo.com" target="_blank" rel="noopener noreferrer">Brevo</a>. Brevo also emails you a copy, and we save your name, email and business name as a contact in Brevo so we can reply and keep a record of the conversation.</p>
+
+        <h3>Free Gap Report</h3>
+        <p>If you use the Gap Report, we collect your first name, email, website, business name, the keyword and area you enter, and your answers to the short questions. These are saved as a contact in Brevo and emailed to us so we can follow up.</p>
+
+        <h3>Payments</h3>
+        <p>If you buy a plan, payment is handled by <a href="https://stripe.com" target="_blank" rel="noopener noreferrer">Stripe</a>. We never see or store your card details. Stripe shares your name, email, billing address and what you bought with us so we can deliver the service and send you a welcome email.</p>
 
         <h3>Google Analytics</h3>
         <p>With your consent, we use Google Analytics 4 (GA4) to understand how people use our website — which pages are visited, how long people stay, and where visitors come from (broadly, by country or region). GA4 does not identify you personally. It uses cookies and collects data such as your approximate location, device type, browser, and behaviour on the site.</p>
@@ -54,7 +60,7 @@ import Layout from '../layouts/Layout.astro';
         <h2>3. Why we collect it and our legal basis</h2>
         <p>Under UK GDPR, we need a lawful basis for processing personal data. Here is ours:</p>
         <ul>
-          <li><strong>Contact form submissions</strong> — processed on the basis of <em>legitimate interests</em>: you have reached out to us asking about our services, and we need your details to respond.</li>
+          <li><strong>Enquiry forms and Gap Report</strong> — processed on the basis of <em>legitimate interests</em>: you have reached out to us asking about our services, and we need your details to respond.</li>
           <li><strong>Analytics data (GA4)</strong> — processed on the basis of <em>consent</em>: we only load Google Analytics after you have actively clicked "Accept" on our cookie banner. You may withdraw consent at any time.</li>
         </ul>
 
@@ -70,7 +76,8 @@ import Layout from '../layouts/Layout.astro';
         <h2>5. Who we share your data with</h2>
         <p>We only share your data with the following third parties, and only to the extent necessary to operate this website and respond to enquiries:</p>
         <ul>
-          <li><strong>Formspree</strong> — processes and forwards contact form submissions. <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Formspree Privacy Policy</a>.</li>
+          <li><strong>Brevo</strong> — sends our emails and stores enquiry contacts. <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener noreferrer">Brevo Privacy Policy</a>.</li>
+          <li><strong>Stripe</strong> — processes card payments. <a href="https://stripe.com/gb/privacy" target="_blank" rel="noopener noreferrer">Stripe Privacy Policy</a>.</li>
           <li><strong>Google (Analytics)</strong> — processes anonymised website usage data, only with your consent. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</li>
           <li><strong>Vercel</strong> — hosts this website and processes basic server log data. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel Privacy Policy</a>.</li>
         </ul>
@@ -101,7 +108,7 @@ import Layout from '../layouts/Layout.astro';
         <p>If you would like us to delete any personal data we hold about you, email <a href="mailto:hello@pixova.uk">hello@pixova.uk</a> with the subject line "Data Deletion Request" and tell us what you would like removed. We will confirm what we hold, delete what we can, and explain anything we are legally required to keep.</p>
 
         <h2>9. Keeping your data secure</h2>
-        <p>We take reasonable steps to keep your data secure. We use reputable third-party services (listed above) that maintain their own security standards. We do not store contact form data ourselves — it is forwarded directly to our email via Formspree.</p>
+        <p>We take reasonable steps to keep your data secure. We use reputable third-party services (listed above) that maintain their own security standards. Enquiry details are kept in our email inbox and in Brevo, and are not stored anywhere else.</p>
         <p>No method of transmission over the internet is 100% secure, but we take this seriously and keep our processes as tight as possible.</p>
 
         <h2>10. Complaints</h2>
@@ -116,7 +123,7 @@ import Layout from '../layouts/Layout.astro';
         <p>We may update this privacy policy from time to time. If we make significant changes, we will update the date at the top of this page. We recommend checking back occasionally if you are interested in how we handle data.</p>
 
         <h2>12. Contact</h2>
-        <p>For any questions about this policy or your personal data, contact us at <a href="mailto:hello@pixova.uk">hello@pixova.uk</a> or use the <a href="/about/#contact">contact form on our website</a>.</p>
+        <p>For any questions about this policy or your personal data, contact us at <a href="mailto:hello@pixova.uk">hello@pixova.uk</a> or use the <a href="/contact/">contact form on our website</a>.</p>
 
       </div>
     </div>
@@ -134,7 +141,7 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: 1.2rem;
   }
   .legal-content h2 {
-    font-family: "DM Sans", sans-serif;
+    font-family: var(--font-heading);
     font-weight: 600;
     font-size: 1.25rem;
     color: #1C3557;
@@ -144,7 +151,7 @@ import Layout from '../layouts/Layout.astro';
     border-bottom: 2px solid #E8F5F1;
   }
   .legal-content h3 {
-    font-family: "DM Sans", sans-serif;
+    font-family: var(--font-heading);
     font-weight: 600;
     font-size: 1rem;
     color: #1C3557;

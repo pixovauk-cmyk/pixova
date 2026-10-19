@@ -1,0 +1,15 @@
+---
+interface Props { dark?: boolean; }
+const { dark = false } = Astro.props;
+---
+
+<span class="inline-flex items-center">
+  <img
+    src={dark ? '/images/pixova-logo-dark-tight.png' : '/images/pixova-logo-tight.png'}
+    alt="Pixova"
+    width="400"
+    height="111"
+    class="h-9 w-auto"
+  />
+</span>
+

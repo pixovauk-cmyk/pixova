@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteMock from '../components/SiteMock.astro';
+import Testimonials from '../components/Testimonials.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { DESIGNS } from '../data/designs';
+import { PLANS } from '../data/site';
+
+const fromPrice = Math.min(...PLANS.map(p => p.six));
+const picks = ['roofer', 'physio', 'florist'].map(s => DESIGNS.find(d => d.slug === s)!);
+
+const faq = [
+  { q: 'How much does a website cost for a small business?', a: `With Pixova it's a monthly plan from £${fromPrice} a month plus a one-off setup fee from £199. That includes hosting, security, backups and changes each month, so there are no surprise bills later.` },
+  { q: 'Why monthly instead of a one-off price?', a: "A one-off website starts going out of date the day it launches. With a monthly plan I keep it updated, fix problems and make your changes, so it keeps working for you. You also avoid a big bill up front." },
+  { q: 'Will you write the words?', a: "Yes. I write the copy for every page after a short call with you. You check it and tell me what to change." },
+  { q: 'Can I see it before it goes live?', a: 'Yes. You see the full site and ask for changes before anything goes live.' },
+  { q: 'I already have a website. Can you redo it?', a: "Yes. I can rebuild it and move your domain across with no downtime. Send me the link and I'll tell you whether it needs a rebuild or just some fixes." },
+];
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+
+<Layout
+  title="Small Business Website Design, Live in 7 Days | Pixova"
+  description={`Small business websites built, hosted and updated for you from £${fromPrice}/month. Mobile-friendly, fast and set up for Google. Most sites live in 7 days. UK-wide.`}
+  canonicalUrl="https://www.pixova.uk/web-design/"
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Web design', url: 'https://www.pixova.uk/web-design/' }]}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="pt-12 pb-20">
+    <div class="wrap grid gap-12 lg:grid-cols-[1.1fr_1fr] items-center">
+      <div>
+        <p class="eyebrow">Small business websites</p>
+        <h1 class="display mt-5">A website that gets you work, not just compliments.</h1>
+        <p class="lead mt-6 max-w-xl">I design, write, build and host your website, then keep it updated every month. It's set up for Google from the start, works properly on phones, and makes it easy for people to call you.</p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a href="#enquiry" class="btn btn-dark">Get a fixed quote</a>
+          <a href="/pricing/" class="btn btn-outline">From £{fromPrice}/month</a>
+        </div>
+      </div>
+      <div class="card overflow-hidden shadow-xl"><SiteMock design={picks[0]} /></div>
+    </div>
+  </section>
+
+  <section class="section bg-white border-y border-line">
+    <div class="wrap">
+      <h2 class="h2 max-w-2xl">What you get</h2>
+      <div class="grid gap-6 md:grid-cols-3 mt-10">
+        {[
+          ['Designed for your customers', 'Your phone number, services, prices and reviews where people look first. No stock-photo filler.'],
+          ['Written for you', "I write every page after a short call. Plain words your customers understand, with the search terms they actually use."],
+          ['Fast on any phone', 'Most visitors are on a phone. Pages load quickly even on patchy mobile data.'],
+          ['Set up for Google', 'Page titles, descriptions, headings, local business details and a sitemap, all done properly.'],
+          ['Hosting and security', 'Hosting, SSL, backups and updates included. Nothing to renew or worry about.'],
+          ['Changes every month', 'New prices, photos or opening hours? Message me and it is done.'],
+        ].map(([t, s]) => (
+          <div class="card p-6"><h3 class="font-heading font-bold text-lg text-navy">{t}</h3><p class="muted mt-2 text-sm">{s}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="max-w-2xl">
+          <p class="eyebrow">Styles</p>
+          <h2 class="h2 mt-4">Start from a design you like</h2>
+        </div>
+        <a href="/designs/" class="btn btn-outline">Browse the catalogue</a>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3 mt-10">
+        {picks.map(d => (
+          <a href={`/designs/#${d.slug}`}>
+            <div class="card overflow-hidden card-hover"><SiteMock design={d} /></div>
+            <p class="mt-3 font-semibold text-navy">{d.industry}</p>
+            <p class="text-sm muted">{d.type}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark"><div class="wrap"><h2 class="h2 mb-10">What Clients Say</h2><Testimonials /></div></section>
+
+  <section class="section">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <h2 class="h2">Website questions</h2>
+      <div class="faq">{faq.map(f => (<details><summary>{f.q}</summary><div>{f.a}</div></details>))}</div>
+    </div>
+  </section>
+
+  <section id="enquiry" class="section bg-mint scroll-mt-24">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.3fr] items-start">
+      <div>
+        <h2 class="h2">Get a fixed quote for your website</h2>
+        <p class="lead mt-4">Tell me what you do and where. You'll have a reply within one working day.</p>
+        <p class="mt-6 text-sm muted">Also see: <a href="/local-seo/" class="link-arrow">Local SEO</a> · <a href="/web-design-birmingham/" class="link-arrow">Web design in Birmingham</a></p>
+      </div>
+      <EnquiryForm id="web-enquiry" type="website" />
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

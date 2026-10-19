@@ -7,9 +7,9 @@
       "statusCode": 301
     },
     {
-      "source": "/admin",
-      "destination": "/admin/index.html",
-      "statusCode": 302
+      "source": "/admin/:path*",
+      "destination": "/",
+      "statusCode": 301
     },
     {
       "source": "/privacy",

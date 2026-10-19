@@ -1,120 +1,75 @@
 ---
+import { SITE } from '../data/site';
+import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
 
-<footer style="background-color:#0D2240;" class="text-white">
-  <!-- Teal top border -->
-  <div style="height:2px; background:linear-gradient(90deg, transparent, #2ECC9A 30%, #2ECC9A 70%, transparent);"></div>
+<footer class="bg-white px-4 pb-4">
+  <div class="art relative max-w-[1408px] mx-auto rounded-[36px]">
+    <img src="/images/art/aurora-dark.jpg" alt="" class="art-bg opacity-70" loading="lazy" />
+    <div class="art-shade" style="background:linear-gradient(180deg, rgba(7,17,31,0.2) 0%, rgba(7,17,31,0.85) 60%)"></div>
+    <div class="art-body p-8 sm:p-12 lg:p-16 flex flex-col gap-12">
+      <div class="flex flex-col gap-3.5">
+        <span class="text-base text-[#B9C4D0]">Got a business? Want your phone ringing?</span>
+        <span class="font-medium leading-[0.92] tracking-[-0.06em] text-[clamp(48px,8vw,120px)]">Built To Grow. <span class="grad-text" style="background-image:var(--grad)">Built To Rank.</span></span>
+      </div>
 
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-6">
+      <div class="grid gap-10 pt-8 border-t border-white/10 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+        <form id="footer-gap" action="/gap-report/" class="flex flex-col gap-3 min-w-0">
+          <label for="fb-site" class="font-semibold">Get your free Gap Report</label>
+          <span class="text-[13px] text-[#A9B6C4]">See who's beating you on Google, and why. 60 seconds, no card.</span>
+          <div class="flex flex-wrap gap-2 p-1.5 rounded-full bg-navy-2 border border-white/10 max-w-[460px]">
+            <input id="fb-site" name="website" type="text" inputmode="url" placeholder="yourwebsite.co.uk" class="flex-1 basis-[160px] min-w-0 min-h-[46px] px-4 rounded-full bg-transparent text-white text-[15px] placeholder:text-[#7A8591] focus:outline-none" />
+            <button type="submit" class="min-h-[46px] px-5 rounded-full bg-teal text-navy font-semibold text-sm">Check now</button>
+          </div>
+        </form>
 
-    <!-- 3-column grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10">
+        <nav aria-label="Services" class="flex flex-col gap-1 text-[15px]">
+          <span class="text-[13px] text-[#8E9BAA] mb-2">Services</span>
+          <a href="/web-design/" class="text-[#DCE3EA] hover:text-teal py-1">Websites</a>
+          <a href="/local-seo/" class="text-[#DCE3EA] hover:text-teal py-1">Local SEO</a>
+          <a href="/custom-software/" class="text-[#DCE3EA] hover:text-teal py-1">Custom software</a>
+          <a href="/web-design-birmingham/" class="text-[#DCE3EA] hover:text-teal py-1">Web design Birmingham</a>
+          <a href="/designs/" class="text-[#DCE3EA] hover:text-teal py-1">Design catalogue</a>
+        </nav>
 
-      <!-- Col 1: Logo + tagline -->
-      <div>
-        <a href="/" class="mb-4" style="display:block; width:fit-content;" aria-label="Pixova — home">
-          <img
-            src="/images/pixova-logo-footer.webp"
-            alt="Pixova"
-            width="104" height="36"
-            loading="lazy"
-            style="display:block; height:36px; width:auto;"
-          />
-        </a>
-        <p class="text-white/60 text-sm leading-relaxed">
-          Built to grow. Built to rank.
-        </p>
-        <p class="text-white/60 text-xs mt-3">
-          Birmingham &amp; across the UK
-        </p>
-        <!-- Social icons -->
-        <div class="flex items-center gap-3 mt-5">
-          <a
-            href="https://www.linkedin.com/company/116006122/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Pixova on LinkedIn"
-            class="social-icon"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            <span class="sr-only">Pixova on LinkedIn</span>
-          </a>
-          <a
-            href="https://www.facebook.com/people/Pixova/61589529080471/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Pixova on Facebook"
-            class="social-icon"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-            <span class="sr-only">Pixova on Facebook</span>
-          </a>
+        <nav aria-label="Company" class="flex flex-col gap-1 text-[15px]">
+          <span class="text-[13px] text-[#8E9BAA] mb-2">Company</span>
+          <a href="/about/" class="text-[#DCE3EA] hover:text-teal py-1">About</a>
+          <a href="/reviews/" class="text-[#DCE3EA] hover:text-teal py-1">Reviews</a>
+          <a href="/pricing/" class="text-[#DCE3EA] hover:text-teal py-1">Pricing</a>
+          <a href="/blog/" class="text-[#DCE3EA] hover:text-teal py-1">Blog</a>
+          <a href="/contact/" class="text-[#DCE3EA] hover:text-teal py-1">Contact</a>
+        </nav>
+
+        <div class="flex flex-col gap-1 text-[15px]">
+          <span class="text-[13px] text-[#8E9BAA] mb-2">Talk to me</span>
+          <a href={SITE.whatsapp} target="_blank" rel="noopener" class="text-[#DCE3EA] hover:text-teal py-1">WhatsApp {SITE.phone}</a>
+          <a href={`mailto:${SITE.email}`} class="text-[#DCE3EA] hover:text-teal py-1">{SITE.email}</a>
+          <a href={SITE.linkedin} target="_blank" rel="noopener" class="text-[#DCE3EA] hover:text-teal py-1">LinkedIn</a>
+          <a href={SITE.facebook} target="_blank" rel="noopener" class="text-[#DCE3EA] hover:text-teal py-1">Facebook</a>
         </div>
       </div>
 
-      <!-- Col 2: Quick links -->
-      <div>
-        <h3 class="text-white font-semibold text-sm uppercase tracking-widest mb-4">Quick links</h3>
-        <ul class="flex flex-col gap-2.5">
-          <li><a href="/" class="text-white/60 text-sm hover:text-teal transition-colors">Home</a></li>
-          <li><a href="/about/" class="text-white/60 text-sm hover:text-teal transition-colors">About</a></li>
-          <li><a href="/blog/" class="text-white/60 text-sm hover:text-teal transition-colors">Blog</a></li>
-          <li><a href="/about/#contact" class="text-white/60 text-sm hover:text-teal transition-colors">Get in touch</a></li>
-        </ul>
-      </div>
-
-      <!-- Col 3: Contact -->
-      <div>
-        <h3 class="text-white font-semibold text-sm uppercase tracking-widest mb-4">Contact</h3>
-        <ul class="flex flex-col gap-3">
-          <li>
-            <a href="mailto:hello@pixova.uk" class="text-white/60 text-sm hover:text-teal transition-colors flex items-center gap-2">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              hello@pixova.uk
-            </a>
-          </li>
-          <li>
-            <a href="https://wa.me/447786366109" target="_blank" rel="noopener noreferrer" class="text-white/60 text-sm hover:text-teal transition-colors flex items-center gap-2">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              +44 7786 366109
-            </a>
-          </li>
-          <li class="text-white/55 text-xs">We reply within 24 hours.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Bottom bar -->
-    <div class="pt-5 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.08);">
-      <p class="text-white/50 text-xs">© {year} Pixova · pixova.uk</p>
-      <div class="flex items-center gap-4">
-        <a href="/privacy-policy/" class="text-white/50 text-xs hover:text-white/70 transition-colors">Privacy Policy</a>
-        <a href="/cookie-policy/" class="text-white/50 text-xs hover:text-white/70 transition-colors">Cookie Policy</a>
-        <a href="/terms/" class="text-white/50 text-xs hover:text-white/70 transition-colors">Terms &amp; Conditions</a>
+      <div class="flex flex-wrap justify-between items-center gap-4">
+        <a href="/" aria-label="Pixova home"><Logo dark /></a>
+        <div class="flex flex-wrap gap-5 text-[13px] text-[#A9B6C4]">
+          <span>© {year} Pixova · Birmingham, UK · Not VAT registered</span>
+          <a href="/privacy-policy/" class="hover:text-white">Privacy</a>
+          <a href="/cookie-policy/" class="hover:text-white">Cookies</a>
+          <a href="/terms/" class="hover:text-white">Terms</a>
+        </div>
       </div>
     </div>
   </div>
 </footer>
 
-<style>
-  .social-icon {
-    color: #2ECC9A;
-    opacity: 0.75;
-    transition: opacity 0.2s;
-    display: flex;
-    align-items: center;
-  }
-  .social-icon:hover {
-    opacity: 1;
-  }
-</style>
+<script>
+  document.getElementById('footer-gap')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let val = (document.getElementById('fb-site') as HTMLInputElement).value.trim();
+    if (!val) { window.location.href = '/gap-report/'; return; }
+    if (!/^https?:\/\//i.test(val)) val = 'https://' + val;
+    window.location.href = '/gap-report/?website=' + encodeURIComponent(val);
+  });
+</script>

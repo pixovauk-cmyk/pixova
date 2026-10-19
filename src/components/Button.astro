@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  variant?: 'grad' | 'dark' | 'light' | 'soft' | 'ghost';
+  icon?: 'arrow' | 'play' | 'none';
+  size?: 'md' | 'sm';
+  class?: string;
+  external?: boolean;
+  rel?: string;
+  [key: string]: any;
+}
+const { href, variant = 'grad', icon = 'arrow', size = 'md', class: cls = '', external = false, rel, ...rest } = Astro.props;
+const chip = icon !== 'none';
+---
+<a
+  href={href}
+  class={`btn btn-${variant} ${size === 'sm' ? 'btn-sm' : ''} ${chip ? 'has-chip' : ''} ${cls}`}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : rel}
+  {...rest}
+>
+  <slot />
+  {chip && <span class="chip-arrow"><Icon name={icon} size={icon === 'play' ? 12 : 15} stroke={2.6} /></span>}
+</a>

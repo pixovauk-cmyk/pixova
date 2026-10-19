@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { PLANS, SOFTWARE_FROM } from '../data/site';
+
+const fromPrice = Math.min(...PLANS.map(p => p.six));
+
+const services = [
+  {
+    id: 'websites', title: 'Websites', href: '/web-design/',
+    desc: `Mobile-first sites, set up for Google from the first line of code and live in about 7 days. I write the words, build it, host it and keep it updated every month. From £${fromPrice}/month.`,
+    tags: ['5–12 pages', 'Words written for you', 'Hosting & SSL', 'Monthly changes', 'Click-to-call & WhatsApp'],
+  },
+  {
+    id: 'seo', title: 'Local SEO', href: '/local-seo/',
+    desc: 'Get found by people searching in your area. Google Business Profile done properly, a page for every service and town, a blog post every month and a one-page ranking report.',
+    tags: ['Google Business Profile', 'Area & service pages', 'Monthly blog posts', 'Review requests', 'Ranking report'],
+  },
+  {
+    id: 'software', title: 'Custom Software', href: '/custom-software/',
+    desc: `The one tool your business needs, built around how you already work. Quote calculators, bookings with deposits, job sheets, invoices, client portals. Fixed price from £${SOFTWARE_FROM}, usually ready in a week.`,
+    tags: ['Quote calculators', 'Booking + deposits', 'Job sheets', 'Invoices', 'Client portals', 'Staff rotas'],
+  },
+  {
+    id: 'automation', title: 'AI & Automation', href: '/contact/?type=automation',
+    desc: 'Enquiries answered in minutes, leads followed up for you and a review request after every job. Works with any website, not just ones I built.',
+    tags: ['Instant auto-replies', 'Lead follow-ups', 'Review requests', 'Missed-call text back'],
+  },
+  {
+    id: 'crm', title: 'CRM & Email', href: '/pricing/#add-ons',
+    desc: 'Every enquiry saved in one place, a reminder when someone goes quiet, and a short email sequence written in your voice that turns “maybe later” into a booking.',
+    tags: ['Enquiry tracker £179', 'Follow-up emails £239', 'Both together £359'],
+  },
+  {
+    id: 'one-off', title: 'One-off Work', href: '/pricing/#one-off',
+    desc: 'Landing pages, extra pages, redesigns and new features. If you are on a plan, extras cost less, and the higher the plan the lower the price.',
+    tags: ['Landing page from £89', 'Extra page from £49', 'New feature from £89'],
+  },
+];
+
+const extras = [
+  { name: 'Enquiry tracker', text: 'Every website enquiry saved in one simple list, with a nudge on your phone to follow up after 48 hours.', price: '£35', after: '/mo + £179 setup' },
+  { name: 'Tracker + follow-ups', text: "Tracker and follow-up emails connected, plus a review request after every job. People who go quiet get a follow-up, sent automatically.", price: '£79', after: '/mo + £359 setup', from: true, dark: true },
+  { name: 'Custom software', text: 'Something bespoke for your business? Tell me the job you hate doing and I will send a fixed price within a day.', price: `£${SOFTWARE_FROM}`, after: 'one-off', from: true },
+];
+
+const faq = [
+  { q: 'What exactly does Pixova do?', a: 'I build websites that get small businesses found on Google, do the local SEO that keeps you there, and build small custom tools and automations that save you hours every week. All of it managed for you.' },
+  { q: 'How long until I see results from local SEO?', a: 'Most businesses see steady results within 3 to 6 months. Your site is SEO-ready from launch day, so the clock starts immediately.' },
+  { q: 'Do you work outside Birmingham?', a: "Yes. I'm based in Birmingham and work with businesses across the UK over phone, WhatsApp and video calls." },
+  { q: 'Can you add automation or software to my existing website?', a: "Yes. Automations, custom tools and SEO work with most websites, not only ones I built. Send me the link and I'll tell you what's worth doing and what isn't." },
+  { q: 'Do I need any technical knowledge?', a: "None. Tell me what you need the way you'd tell a mate, I handle the rest, then show you how it works on a quick call." },
+  { q: 'What is the difference between SEO and local SEO?', a: 'Local SEO targets searches with a place in them, like “plumber Birmingham”, plus your Google Business Profile and the map results. That is where most small business enquiries come from.' },
+];
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+
+<Layout
+  title="Website Design, Local SEO & Custom Software Services | Pixova"
+  description={`Everything a small business needs online: websites from £${fromPrice}/month, local SEO, custom software from £${SOFTWARE_FROM} and simple automation. One person, fully managed, UK-wide.`}
+  canonicalUrl="https://www.pixova.uk/services/"
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Services', url: 'https://www.pixova.uk/services/' }]}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- HERO -->
+  <section class="px-5 sm:px-6 pt-10 sm:pt-14 pb-[72px]">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-14">
+      <div class="grid gap-x-16 gap-y-8 lg:grid-cols-2 items-end">
+        <div class="flex flex-col gap-[22px]">
+          <Eyebrow icon="grid">My services</Eyebrow>
+          <h1 class="font-medium text-[clamp(52px,6vw,86px)] leading-[0.98] tracking-[-0.055em]">What I Offer</h1>
+          <p class="text-base leading-relaxed text-body max-w-[520px]">Websites, local SEO, custom software and simple automation for small businesses. Designed, built and looked after by one person, for one fair monthly price.</p>
+        </div>
+        <div class="flex flex-col items-start gap-3.5">
+          <span class="text-sm text-body max-w-[300px]">Trusted by trades, founders and professional firms across the UK</span>
+          <div class="flex items-center">
+            {['/images/jake-victorsquare.webp', '/images/Ayoushsqaure.webp', '/images/lukesquare.png', '/images/feldon-haynes.webp'].map((src, i) => (
+              <img src={src} alt="" width="44" height="44" class={`w-11 h-11 rounded-full object-cover object-top border-[3px] border-white ${i ? '-ml-3' : ''}`} />
+            ))}
+            <a href="/reviews/" class="ml-3.5 link-arrow text-sm">Read reviews <Icon name="arrow" size={14} stroke={2.6} /></a>
+          </div>
+        </div>
+      </div>
+      <div class="grid gap-3.5 sm:grid-cols-3 pt-8 border-t border-line">
+        <div class="flex items-center gap-3.5"><span class="font-medium text-5xl tracking-[-0.05em]">7</span><span class="text-[13px] leading-snug text-body">days on average<br />to go live</span></div>
+        <div class="flex items-center gap-3.5"><span class="font-medium text-5xl tracking-[-0.05em]">100<span class="text-[26px] text-teal-dark">%</span></span><span class="text-[13px] leading-snug text-body">managed for you,<br />start to finish</span></div>
+        <div class="flex items-center gap-3.5"><span class="font-medium text-5xl tracking-[-0.05em]">24<span class="text-[26px] text-teal-dark">hr</span></span><span class="text-[13px] leading-snug text-body">reply promise,<br />usually minutes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK GOALS -->
+  <section class="art section px-5 sm:px-6">
+    <img src="/images/art/ribbons-dark.jpg" alt="" loading="lazy" class="art-bg opacity-45" />
+    <div class="art-shade" style="background:linear-gradient(90deg, rgba(7,17,31,0.4) 0%, rgba(7,17,31,0.92) 60%)"></div>
+    <div class="art-body max-w-[1240px] mx-auto grid gap-16 lg:grid-cols-2 items-center">
+      <div role="img" aria-label="Illustration: a monthly ranking report trending upwards" class="relative min-h-[380px]">
+        <div class="absolute left-0 top-0 w-[64%] h-[360px] rounded-[28px] overflow-hidden bg-navy shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)]"><img src="/images/art/orb-dark.jpg" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" /></div>
+        <div class="absolute right-0 top-[70px] w-[62%] sm:w-[56%] rounded-[22px] bg-white text-navy p-5 flex flex-col gap-3 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)]">
+          <div class="flex items-center gap-2.5"><span class="w-[34px] h-[34px] rounded-full bg-teal grid place-items-center"><Icon name="trend" size={16} stroke={2.4} /></span><span class="flex flex-col"><span class="text-xs text-muted">Ranking report</span><span class="font-semibold text-[15px]">Page 1, local results</span></span></div>
+          <svg viewBox="0 0 240 80" width="100%" height="80" aria-hidden="true"><path d="M0 70 C 30 66, 50 60, 70 58 S 110 40, 130 44 S 170 20, 190 24 S 225 8, 240 6" fill="none" stroke="#2BD98F" stroke-width="3" stroke-linecap="round"></path><circle cx="234" cy="8" r="5" fill="#07111F"></circle></svg>
+          <span class="self-start mono text-[11px] px-2.5 py-1 rounded-full bg-mint text-teal-dark">MONTHLY · GET FOUND PLAN</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-6">
+        <Eyebrow icon="target" dark>Fully managed</Eyebrow>
+        <h2 class="h2 !text-white">You Run The Business. I Run The Website.</h2>
+        <p class="text-base leading-relaxed text-[#B9C4D0] max-w-[480px]">You run the business. I handle the website, the rankings and the follow-ups, then send you a one-page report each month showing where you rank and how many people got in touch.</p>
+        <div class="flex items-baseline gap-3"><span class="font-medium text-[56px] tracking-[-0.05em] text-teal">0 hrs</span><span class="text-sm text-[#A9B6C4]">of your time needed each month</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES ACCORDION -->
+  <section class="grid-tint section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto grid gap-x-20 gap-y-14 lg:grid-cols-2 items-start">
+      <div class="flex flex-col gap-6 lg:sticky lg:top-28">
+        <Eyebrow icon="trend" white>Services &amp; approach</Eyebrow>
+        <h2 class="h2">How I Take Your Business To Page One</h2>
+        <p class="lead max-w-[440px]">Pick one service or let me handle the lot. Automation, software and add-ons work on any plan, or on their own.</p>
+        <Button href="/pricing/" class="self-start">View all plans</Button>
+      </div>
+      <div class="acc">
+        {services.map((s, i) => (
+          <details name="svc" id={s.id} open={i === 0} class="scroll-mt-28">
+            <summary>{s.title}</summary>
+            <div class="acc-body flex flex-col gap-3.5">
+              <p class="text-[15px] leading-relaxed text-body">{s.desc}</p>
+              <div class="flex flex-wrap gap-2">{s.tags.map(t => <span class="px-3 py-[7px] rounded-full bg-white text-[13px]">{t}</span>)}</div>
+              <a href={s.href} class="link-arrow text-sm mt-1">Find out more <Icon name="arrow" size={14} stroke={2.6} /></a>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTOMATION & SOFTWARE PRICES -->
+  <section class="section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-12">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="flex flex-col gap-5">
+          <Eyebrow icon="bolt">Automation &amp; software</Eyebrow>
+          <h2 class="h2 max-w-[640px]">Never Lose A Job To A Missed Follow-Up.</h2>
+        </div>
+        <p class="max-w-[380px] text-[15px] leading-relaxed text-body">Works with any website, not just ones I built. No technical knowledge needed, and a fixed price before anything starts.</p>
+      </div>
+      <div class="grid gap-3.5 md:grid-cols-3">
+        {extras.map(x => x.dark ? (
+          <article class="rounded-[26px] p-7 flex flex-col gap-4 text-white shadow-[0_30px_60px_-30px_rgba(11,23,38,0.6)]" style="background-color:#07111F;background-image:radial-gradient(90% 90% at 100% 0%, rgba(34,199,214,0.45) 0%, rgba(34,199,214,0) 60%), radial-gradient(80% 80% at 0% 100%, rgba(43,217,143,0.4) 0%, rgba(43,217,143,0) 60%)">
+            <span class="font-semibold text-[19px]">{x.name}</span>
+            <span class="text-sm leading-relaxed text-[#B9C4D0]">{x.text}</span>
+            <span class="mt-auto flex items-baseline gap-1.5 flex-wrap">{x.from && <span class="text-sm text-[#A9B6C4]">from</span>}<span class="font-medium text-[40px] tracking-[-0.05em] text-teal">{x.price}</span><span class="text-sm text-[#A9B6C4]">{x.after}</span></span>
+          </article>
+        ) : (
+          <article class="rounded-[26px] border border-line p-7 flex flex-col gap-4">
+            <span class="font-semibold text-[19px]">{x.name}</span>
+            <span class="text-sm leading-relaxed text-body">{x.text}</span>
+            <span class="mt-auto flex items-baseline gap-1.5 flex-wrap">{x.from && <span class="text-sm text-muted">from</span>}<span class="font-medium text-[40px] tracking-[-0.05em]">{x.price}</span><span class="text-sm text-muted">{x.after}</span></span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-5 sm:px-6 pb-[clamp(80px,9vw,128px)]">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-10">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="flex flex-col gap-5">
+          <Eyebrow icon="chat">Frequently asked</Eyebrow>
+          <h2 class="h2 max-w-[620px]">What I Can Do For You And Your Business.</h2>
+        </div>
+        <p class="max-w-[360px] text-[15px] leading-relaxed text-body">Still unsure? <a href="/contact/" class="link-arrow !inline">Ask me directly</a>. I reply to every message myself.</p>
+      </div>
+      <div class="faq faq-num border-t border-line">
+        {faq.map((f, i) => (
+          <details name="faq" open={i === 1}>
+            <summary><span class="flex items-center gap-4 sm:gap-6"><span class="mono text-[13px] text-[#8E9BAA] w-8 sm:w-12 shrink-0">0{i + 1}</span>{f.q}</span></summary>
+            <div class="sm:pl-[72px] pl-12">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

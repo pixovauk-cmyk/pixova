@@ -1,1977 +1,432 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import homepage from '../content/homepage.json';
-import { HomepageDocument } from '../../tina/__generated__/types';
-import { tinaField } from '@tinacms/bridge/tina-field';
-import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
-import { TinaContext } from '../components/TinaContext';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import Testimonials from '../components/Testimonials.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import SoftwareMock from '../components/SoftwareMock.astro';
+import LaunchWeek from '../components/LaunchWeek.astro';
+import { TOOLS } from '../data/software';
+import { PLANS, SOFTWARE_FROM, SITE } from '../data/site';
+import { getCollection } from 'astro:content';
 
-const hpQueryId = hashFromQuery(HomepageDocument as string);
-const hp = addMetadata(hpQueryId, homepage);
-const tf = (obj: any, field: string) => tinaField(obj, field) || undefined;
+const fromPrice = Math.min(...PLANS.map(p => p.six));
+const tools = TOOLS.slice(0, 4);
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+const postArt = ['/images/art/orb-dark.jpg', '/images/art/ribbons-dark.jpg', '/images/art/rings-light.jpg'];
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const topicOf = (id: string) => id.includes('local') ? 'Local SEO' : id.includes('seo') ? 'SEO' : id.includes('automation') ? 'Automation' : 'Web design';
+
+const services = [
+  {
+    title: 'Websites',
+    desc: "Mobile-first, fast and set up for Google from the first line of code. I write the words, build it, host it and keep it updated. Live in about 7 days, and it's yours.",
+    href: '/web-design/', art: '/images/art/ribbons-dark.jpg',
+  },
+  {
+    title: 'Local SEO',
+    desc: "Google Business Profile done properly, a page for every service and area, a blog post every month and a ranking report you can read in two minutes.",
+    href: '/local-seo/', art: '/images/art/grid-dark.jpg',
+  },
+  {
+    title: 'Custom Software',
+    desc: `Quote calculators, bookings with deposits, job sheets, invoices. One small tool that kills the job you hate, for a fixed price from £${SOFTWARE_FROM}.`,
+    href: '/custom-software/', art: '/images/art/glass-dark.jpg',
+  },
+  {
+    title: 'AI & Automation',
+    desc: 'Enquiries answered in minutes, leads followed up automatically and a review request after every job. Works with any website, not just ones I built.',
+    href: '/services/#automation', art: '/images/art/orb-dark.jpg',
+  },
+  {
+    title: 'CRM & Email',
+    desc: 'Every lead in one place, a nudge when someone goes quiet, and a short email sequence that turns “maybe later” into a booking.',
+    href: '/pricing/#add-ons', art: '/images/art/aurora-dark.jpg',
+  },
+];
+
+const faq = [
+  { q: 'How much does a small business website cost?', a: `Plans start at £${fromPrice} a month on a 6-month term, plus a one-off setup fee from £199. That covers the build, hosting, SSL, backups and monthly changes. No VAT is added because Pixova isn't VAT registered.` },
+  { q: 'When do I pay?', a: "The setup fee and your first month are taken when you sign up through checkout. After that it's monthly. If you'd rather talk first, send an enquiry and I'll send you a payment link once you're happy." },
+  { q: 'How fast can you build it?', a: 'Most websites go live within 7 days of our first call. Small custom tools usually take about a week too. Bigger jobs get a clear date before you pay anything.' },
+  { q: 'What does custom software cost?', a: `Small tools start at £${SOFTWARE_FROM}, one-off. You get a fixed price before I start, so there are no surprise bills. Hosting for the tool can be added if you need it.` },
+  { q: 'Do I need to know anything technical?', a: 'No. You tell me how your business works, I build it, and I show you how to use it. If something needs changing, you message me.' },
+  { q: 'Do you only work with Birmingham businesses?', a: "I'm based in Birmingham, but I work with small businesses all over the UK. Everything is done over the phone, WhatsApp and video calls." },
+  { q: 'How long until I show up on Google?', a: 'Your site is set up so Google can find it from day one. Ranking well for busy local searches usually takes 3 to 6 months of steady work, which is what the Get Found and Get Leads plans are for.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
 ---
 
 <Layout
-  title="Small Business Website Design | Pixova Birmingham"
-  description="Pixova builds fast, SEO-ready websites for small businesses across the UK. I handle design, SEO and everything in between. Birmingham-based. Live in 7 days."
+  title="Small Business Websites & Custom Software | Pixova, Birmingham"
+  description={`Websites, local SEO and simple custom software for UK small businesses. Live in 7 days. Websites from £${fromPrice}/month, custom tools from £${SOFTWARE_FROM}. Based in Birmingham.`}
   canonicalUrl="https://www.pixova.uk/"
 >
-  <link
-    slot="head"
-    rel="preload" as="image"
-    href="/images/hero-anil.webp"
-    fetchpriority="high"
-  />
-  <script slot="head" type="application/ld+json">{JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What does Pixova do?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Pixova builds fast, SEO-ready websites for small businesses across the UK, handles local SEO to get businesses found on Google, and sets up AI-powered marketing automation so enquiries are followed up automatically. Everything is fully managed. Clients don't need any technical knowledge." }
-      },
-      {
-        "@type": "Question",
-        "name": "How much does a small business website cost?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Plans start from £59/month (Get Online on 6-month term) up to £189/month (Get Leads on rolling monthly). A one-off setup fee is paid when your site goes live — nothing before that. Add-ons including CRM, email nurture, and AI chatbot are available on any plan." }
-      },
-      {
-        "@type": "Question",
-        "name": "How long does local SEO take to work?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Local SEO typically takes three to six months before you see consistent results. Google needs time to find, crawl, and trust a new or improved website before ranking it. The results compound over time; a site that ranks keeps ranking without ongoing ad spend." }
-      },
-      {
-        "@type": "Question",
-        "name": "What is marketing automation for small businesses?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Marketing automation means setting up systems that respond to enquiries, follow up with leads, and request reviews automatically, without you doing anything manually. For example: a new enquiry arrives on your website and within two minutes the customer receives a professional acknowledgement email. A lead who doesn't book immediately receives follow-up messages over the next two weeks. A completed job triggers an automatic request for a Google review. These systems are set up once and run indefinitely." }
-      },
-      {
-        "@type": "Question",
-        "name": "Can AI automation help a small business get more customers?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. AI automation helps small businesses respond faster to enquiries (which significantly increases conversion rates), follow up with leads consistently, and handle repetitive tasks like review requests and appointment reminders. Pixova builds these systems as part of the Full Service package. They are set up once and run in the background while you focus on your work." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does Pixova work with businesses outside Birmingham?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Pixova is based in Birmingham but works with small and medium businesses across the whole of the UK. All services (web design, local SEO, and marketing automation) are delivered remotely." }
-      },
-      {
-        "@type": "Question",
-        "name": "How quickly can Pixova build my website?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Pixova's average time to go live is 7 days from the point of starting. The site is built fast using AI-assisted development, then fully managed so clients never need to touch it again." }
-      },
-      {
-        "@type": "Question",
-        "name": "What types of businesses does Pixova work with?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Pixova works with tradespeople (plumbers, electricians, builders, landscapers, roofers), professional services (accountants, solicitors, consultants, financial advisors), and lifestyle and beauty businesses (salons, therapists, personal trainers, studios). Essentially any UK small business that needs to be found on Google and wants its online presence fully managed." }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the difference between local SEO and regular SEO?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Regular SEO tries to rank a website nationally for broad terms. Local SEO focuses on ranking in a specific geographic area, targeting searches like 'plumber Birmingham' or 'accountant Manchester' rather than 'plumber UK'. For most small businesses, local SEO is far more valuable because it targets people in your area who are ready to buy right now." }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need any technical knowledge to work with Pixova?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. Pixova handles everything: building the website, setting up SEO, managing content, and building any automation systems. Clients do not need to know anything technical. The whole point is that it is fully managed so business owners can focus on running their business." }
-      }
-    ]
-  })}</script>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- URGENCY BAR ─────────────────────────────────────── -->
-  <div id="urgency-bar" class="sticky top-16 z-40" style="overflow:hidden; max-height:200px; background:rgba(13,34,64,0.98); border-bottom:1px solid rgba(46,204,154,0.2); backdrop-filter:blur(8px); transition:max-height 0.4s ease, opacity 0.3s ease;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-2.5 min-w-0">
-        <span class="live-dot flex-shrink-0"></span>
-        <span class="text-xs sm:text-sm font-medium" style="color:rgba(255,255,255,0.8);" data-tina-field={tf(hp.urgencyBar, 'message')}>
-          <span class="font-bold px-1.5 py-0.5 rounded text-xs mr-1" style="background:#DC2626; color:#fff;" data-tina-field={tf(hp.urgencyBar, 'badge')}>{homepage.urgencyBar.badge}</span> {homepage.urgencyBar.message} <strong style="color:#2ECC9A;" data-tina-field={tf(hp.urgencyBar, 'highlight')}>{homepage.urgencyBar.highlight}</strong>.
-        </span>
-      </div>
-      <div class="flex items-center gap-2 flex-shrink-0">
-        <a href="/pricing/" class="text-xs font-bold px-3 py-1.5 rounded-full whitespace-nowrap hidden sm:inline-block" style="background:#2ECC9A; color:#0D2240;">
-          See plans →
-        </a>
-        <button id="urgency-close" class="w-7 h-7 flex items-center justify-center rounded-full flex-shrink-0" style="color:rgba(255,255,255,0.4); background:rgba(255,255,255,0.06); border:none; cursor:pointer;" aria-label="Dismiss">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- HERO ─────────────────────────────────────────────── -->
-  <section
-    class="relative overflow-hidden flex items-center"
-    style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%); min-height:calc(100svh - 64px);"
-  >
-    <!-- Teal glow — top right -->
-    <div class="orb absolute pointer-events-none" style="width:750px;height:750px;top:-200px;right:-200px;border-radius:50%;background:radial-gradient(circle, rgba(46,204,154,0.22) 0%, transparent 55%);"></div>
-    <!-- Navy accent — centre left -->
-    <div class="orb-2 absolute pointer-events-none" style="width:600px;height:600px;top:10%;left:-150px;border-radius:50%;background:radial-gradient(circle, rgba(13,34,64,0.06) 0%, transparent 55%);"></div>
-    <!-- Teal glow — bottom right -->
-    <div class="orb absolute pointer-events-none" style="width:500px;height:500px;bottom:-150px;right:10%;border-radius:50%;background:radial-gradient(circle, rgba(46,204,154,0.15) 0%, transparent 55%);"></div>
-    <!-- Teal accent — bottom left -->
-    <div class="orb-2 absolute pointer-events-none" style="width:400px;height:400px;bottom:-80px;left:20%;border-radius:50%;background:radial-gradient(circle, rgba(46,204,154,0.1) 0%, transparent 55%);"></div>
-
-
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full py-16 md:py-20">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
-
-        <!-- Mobile hero image (hidden on sm+) -->
-        <div class="order-1 lg:order-2 sm:hidden hero-animate-images">
-          <div class="relative rounded-2xl overflow-hidden" style="height:280px;">
-            <img
-              src="/images/hero-anil.webp"
-              alt="Anil Jaishi, founder of Pixova Birmingham web design agency"
-              width="800" height="446"
-              loading="eager" fetchpriority="high"
-              class="w-full h-full object-cover object-top"
-            />
-            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.85) 0%, rgba(13,34,64,0.2) 50%, transparent 100%);"></div>
-            <div class="absolute bottom-4 left-4 right-4 flex items-center gap-2.5 rounded-xl px-3 py-2.5" style="background:rgba(13,34,64,0.88); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.12);">
-              <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#2ECC9A;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              </div>
-              <div>
-                <p class="text-white text-xs font-semibold leading-tight" style="font-family:'DM Sans',sans-serif;">Live in 7 days</p>
-                <p class="text-xs leading-tight" style="color:rgba(255,255,255,0.7);">Not 7 weeks</p>
-              </div>
-            </div>
-          </div>
+  <!-- HERO -->
+  <section class="px-5 sm:px-6 pt-6 sm:pt-10 pb-16 overflow-x-clip">
+    <div class="max-w-[1240px] mx-auto grid gap-10 lg:gap-14 lg:grid-cols-[1.05fr_1fr] items-center">
+      <div class="relative z-10 flex flex-col gap-7 min-w-0">
+        <span class="pill-badge"><span class="dot"><Icon name="bolt" size={13} stroke={2.4} /></span>Live in 7 days, not 7 weeks</span>
+        <h1 class="font-medium text-[clamp(44px,5.4vw,84px)] leading-[0.97] tracking-[-0.055em]">Websites That Make Your Phone <span class="grad-text">Ring.</span></h1>
+        <p class="text-[17px] leading-relaxed text-body max-w-[480px]">I design, write, build and look after websites for small businesses across the UK, then get them found on Google. You get on with the job. I make sure the calls keep coming.</p>
+        <div class="flex flex-wrap gap-3">
+          <Button href="/contact/">Get a fixed quote</Button>
+          <Button href="#process" variant="light" icon="play">How it works</Button>
         </div>
 
-        <!-- Left: text -->
-        <div class="order-2 lg:order-1 hero-animate text-center lg:text-left">
-          <div class="flex items-center gap-2 mb-5 justify-center lg:justify-start">
-            <span class="block w-5 h-0.5 rounded" style="background:rgba(13,34,64,0.4);"></span>
-            <span class="sec-label" style="color:rgba(13,34,64,0.65);">Web Design & SEO · Birmingham · UK-Wide</span>
-          </div>
-          <h1 class="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5" style="color:#0D2240; letter-spacing:-0.025em;">
-            <span data-tina-field={tf(hp.hero, 'headline')}>{homepage.hero.headline}</span><br/>
-            <span style="color:#2ECC9A;" data-tina-field={tf(hp.hero, 'headlineHighlight')}>{homepage.hero.headlineHighlight}</span>
-          </h1>
+        <form id="gap-quick" action="/gap-report/" class="flex flex-wrap gap-2 p-1.5 rounded-full bg-white/85 border border-[rgba(7,17,31,0.07)] max-w-[480px] shadow-[0_18px_40px_-24px_rgba(7,17,31,0.3)]">
+          <label for="gap-url" class="sr-only">Your website</label>
+          <input id="gap-url" name="website" inputmode="url" placeholder="yourwebsite.co.uk" class="flex-1 basis-[160px] min-w-0 min-h-11 px-4 bg-transparent text-[15px] focus:outline-none" />
+          <button type="submit" class="btn btn-dark btn-sm">Free Gap Report</button>
+        </form>
+        <p class="-mt-4 text-[13px] muted">See who's beating you on Google, and why. 60 seconds, no card.</p>
 
-          <p class="text-base sm:text-lg leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0" style="color:rgba(13,34,64,0.7);" data-tina-field={tf(hp.hero, 'subheadline')}>
-            {homepage.hero.subheadline}
-          </p>
-
-          <div class="flex flex-wrap gap-3 mb-5 justify-center lg:justify-start">
-            <a href="/about/#contact" class="btn-p" style="background-color:#0D2240; color:#fff; box-shadow:0 4px 20px rgba(13,34,64,0.25);">
-              Let's have a chat
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="#how-it-works" class="btn-g" style="border-color:rgba(13,34,64,0.35); color:#0D2240;">
-              See how it works
-            </a>
-          </div>
-
-          <!-- Gap Report quick bar -->
-          <form
-            id="gap-quick-bar"
-            class="flex items-center gap-2 mb-5 max-w-md mx-auto lg:mx-0"
-          >
-            <div class="flex flex-1 items-center gap-2 rounded-xl px-3 py-2.5" style="background:rgba(255,255,255,0.7);border:1px solid rgba(13,34,64,0.18);backdrop-filter:blur(4px);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(13,34,64,0.4)" stroke-width="2" stroke-linecap="round" class="flex-shrink-0" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-              <input
-                id="gap-url-input"
-                type="text"
-                placeholder="yourwebsite.co.uk"
-                class="flex-1 bg-transparent text-sm outline-none min-w-0"
-                style="color:#0D2240;font-family:'Inter',sans-serif;"
-                autocomplete="off"
-                spellcheck="false"
-              />
-            </div>
-            <button
-              type="submit"
-              class="flex-shrink-0 text-xs font-semibold rounded-xl px-4 py-2.5 transition-opacity hover:opacity-85"
-              style="background:#2ECC9A;color:#0D2240;white-space:nowrap;"
-            >
-              Free Gap Report →
-            </button>
-          </form>
-          <p class="text-xs mb-6 text-center lg:text-left" style="color:rgba(13,34,64,0.45);margin-top:-0.75rem;">See who's outranking you and why — 60 seconds, no card.</p>
-
-          <script>
-            document.getElementById('gap-quick-bar')?.addEventListener('submit', function(e) {
-              e.preventDefault();
-              let val = (document.getElementById('gap-url-input') as HTMLInputElement)?.value?.trim() || '';
-              if (!val) { window.location.href = '/gap-report/'; return; }
-              if (!/^https?:\/\//i.test(val)) val = 'https://' + val;
-              window.location.href = '/gap-report/?website=' + encodeURIComponent(val);
-            });
-          </script>
-
-          <!-- Pricing teaser -->
-          <div class="flex justify-center lg:justify-start mb-10">
-            <a href="/pricing/" class="inline-flex items-center gap-3 rounded-xl px-4 py-3 group transition-all" style="background:rgba(13,34,64,0.08); border:1px solid rgba(13,34,64,0.2);">
-              <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#0D2240; color:#2ECC9A;">From £59</span>
-              <span class="text-sm font-semibold" style="color:#0D2240;">Setup fee on go-live. See all plans and pricing.</span>
-              <svg class="flex-shrink-0 transition-transform group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <div class="flex flex-wrap gap-x-5 gap-y-2 hero-animate-delay justify-center lg:justify-start">
-            {['UK-based team', 'Live in 7 days', 'Fully managed', 'No long contracts'].map(badge => (
-              <span class="flex items-center gap-1.5 text-xs font-medium" style="color:rgba(13,34,64,0.65);">
-                <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:rgba(13,34,64,0.5);"></span>
-                {badge}
-              </span>
+        <div class="flex items-center gap-3.5">
+          <div class="flex">
+            {['/images/jake-victorsquare.webp', '/images/Ayoushsqaure.webp', '/images/feldon-haynes.webp'].map((src, i) => (
+              <img src={src} alt="" width="40" height="40" class={`w-10 h-10 rounded-full object-cover object-top border-[3px] border-white ${i ? '-ml-3' : ''}`} />
             ))}
           </div>
+          <span class="text-sm leading-snug text-body"><span class="text-[#F5B841] tracking-widest">★★★★★</span><br />Trusted by trades, founders &amp; local firms</span>
         </div>
-
-        <!-- Right: bento card grid -->
-        <div class="order-1 lg:order-2 hidden sm:grid grid-cols-2 gap-3 hero-animate-images">
-
-          <!-- Card 1: Photo + enquiries badge -->
-          <div class="relative rounded-2xl overflow-hidden" style="height:260px; grid-column:1; grid-row:1;">
-            <img
-              src="/images/hero-anil.webp"
-              alt="Anil Jaishi, founder of Pixova Birmingham web design agency"
-              width="800" height="446"
-              loading="eager" fetchpriority="high"
-              class="w-full h-full object-cover object-top"
-            />
-            <!-- Gradient overlay -->
-            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.8) 0%, transparent 55%);"></div>
-            <!-- Badge -->
-            <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2.5 rounded-xl px-3 py-2.5" style="background:rgba(13,34,64,0.88); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.12);">
-              <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#2ECC9A;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              </div>
-              <div>
-                <p class="text-white text-xs font-semibold leading-tight" style="font-family:'DM Sans',sans-serif;">Live in 7 days</p>
-                <p class="text-xs leading-tight" style="color:rgba(255,255,255,0.7);">Not 7 weeks</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2: Stat card -->
-          <div class="rounded-2xl p-5 flex flex-col justify-between" style="background:#E8F5F1; height:260px; grid-column:2; grid-row:1;">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:#2ECC9A; letter-spacing:0.1em;">UK-wide reach</p>
-              <div class="font-heading font-bold text-5xl leading-none mb-2" style="color:#1C3557; letter-spacing:-0.04em;">100<span style="color:#2ECC9A; font-size:2rem;">%</span></div>
-              <p class="text-xs leading-relaxed" style="color:#556272;">Fully managed: hosting, updates, security. You do nothing.</p>
-            </div>
-            <div>
-              <div class="h-1 rounded-full mb-1" style="background:#E8F5F1; overflow:hidden;">
-                <div class="h-full rounded-full" style="width:100%; background:linear-gradient(90deg,#2ECC9A,#1db37a);"></div>
-              </div>
-              <p class="text-xs" style="color:#a0b0bc;">Managed clients</p>
-            </div>
-          </div>
-
-          <!-- Card 3: Dark chart card (spans full width) -->
-          <div class="col-span-2 rounded-2xl p-5 flex items-center justify-between gap-4" style="background:linear-gradient(135deg,#0D1F2D 0%,#1C3557 100%); height:140px;">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-widest mb-2" style="color:#2ECC9A; letter-spacing:0.08em;">SEO &amp; traffic growth</p>
-              <p class="font-heading font-bold text-base leading-snug" style="color:#fff;">Your Google rankings,<br/>handled for you.</p>
-            </div>
-            <!-- Mini bar chart -->
-            <div class="flex items-end gap-1.5 flex-shrink-0" style="height:56px;">
-              {[25,40,35,28,60,75,65,100].map((h, i) => (
-                <div
-                  class="rounded-sm"
-                  style={`width:12px; height:${h}%; background:${i >= 4 ? '#2ECC9A' : 'rgba(255,255,255,0.15)'};`}
-                ></div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-
       </div>
 
-      <!-- Live stats bar -->
-      <div class="mt-12 pt-8 relative z-10" style="border-top:1px solid rgba(13,34,64,0.15);">
-
-        <!-- Desktop layout (hidden on mobile) -->
-        <div class="hidden sm:flex flex-wrap items-center gap-6 sm:gap-10">
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="live-dot"></span>
-            <span class="text-xs font-bold uppercase tracking-widest" style="color:#0D2240;">Live</span>
+      <div role="img" aria-label="Anil Jaishi, founder of Pixova, with cards showing fully managed hosting, a 7-day launch and same-day replies" class="relative mx-auto w-full max-w-[580px] h-[440px] sm:h-[560px]">
+        <!-- Supporting graphics: kept inside this box, behind Anil -->
+        <div aria-hidden="true" class="absolute inset-0 overflow-hidden rounded-b-[40px] pointer-events-none">
+          <div class="hero-blob absolute left-1/2 top-[54%] w-[68%] max-w-[380px] aspect-square rounded-full opacity-90" style="background:radial-gradient(circle at 35% 30%, #A8F5D3 0%, #2BD98F 45%, #22C7D6 100%)"></div>
+          <div class="hero-spin absolute left-1/2 top-[54%] w-[84%] max-w-[470px] aspect-square rounded-full border border-dashed border-[#9ED9C4]" style="translate:-50% -50%">
+            <span class="absolute left-1/2 -top-[6px] w-3 h-3 -ml-[6px] rounded-full bg-teal shadow-[0_0_0_6px_rgba(43,217,143,0.18)]"></span>
+            <span class="absolute -right-[4px] top-1/2 w-2 h-2 rounded-full bg-aqua"></span>
           </div>
-          <div class="w-px h-6 flex-shrink-0" style="background:rgba(13,34,64,0.15);"></div>
-          <div class="flex flex-wrap gap-6 sm:gap-10">
-            {[
-              { target: homepage.liveStats.sitesThisWeek, label: 'sites built this week', field: 'sitesThisWeek' },
-              { target: homepage.liveStats.inProgress,    label: 'currently in progress', field: 'inProgress' },
-              { target: homepage.liveStats.launchedThisMonth, label: 'launched this month', field: 'launchedThisMonth' },
-            ].map((s, i) => (
-              <div class="flex items-baseline gap-2">
-                <span class="live-counter font-heading font-black text-2xl leading-none" data-target={s.target} data-delay={i * 120} style="color:#0D2240; letter-spacing:-0.03em;" data-tina-field={tf(hp.liveStats, s.field)}>0</span>
-                <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
-              </div>
-            ))}
+          <div class="hero-spin-rev absolute left-1/2 top-[54%] w-[100%] max-w-[560px] aspect-square rounded-full border border-[#D5ECE2]" style="translate:-50% -50%">
+            <span class="absolute left-[15%] top-[15%] w-2 h-2 rounded-full bg-navy/60"></span>
           </div>
-          <div class="w-px h-6 flex-shrink-0" style="background:rgba(13,34,64,0.15);"></div>
-          <a href={homepage.liveStats.latestLaunchUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 group flex-shrink-0">
-            <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
-            <span class="text-xs font-medium" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
-            <span class="text-xs font-semibold group-hover:underline" style="color:#0D2240;" data-tina-field={tf(hp.liveStats, 'latestLaunchName')}>{homepage.liveStats.latestLaunchName}</span>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0D2240" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" class="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          <svg class="absolute right-[4%] top-[4%] w-14 h-14 text-teal/50" viewBox="0 0 64 64" fill="currentColor">{[0,1,2,3,4].flatMap(r => [0,1,2,3,4].map(c => <circle cx={6 + c * 13} cy={6 + r * 13} r="2" />))}</svg>
         </div>
 
-        <!-- Mobile auto-scroll marquee (hidden on sm+) -->
-        <div class="sm:hidden overflow-hidden" style="mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%); -webkit-mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%);">
-          <div class="stats-marquee-track flex items-center gap-8" style="width:max-content;">
-            {/* First set */}
-            <div class="flex items-center gap-2 flex-shrink-0">
-              <span class="live-dot"></span>
-              <span class="text-xs font-bold uppercase tracking-widest" style="color:#0D2240;">Live</span>
-            </div>
-            {[
-              { val: homepage.liveStats.sitesThisWeek,    label: 'sites built this week' },
-              { val: homepage.liveStats.inProgress,       label: 'currently in progress' },
-              { val: homepage.liveStats.launchedThisMonth, label: 'launched this month' },
-            ].map(s => (
-              <div class="flex items-baseline gap-1.5 flex-shrink-0">
-                <span class="font-heading font-black text-xl leading-none" style="color:#0D2240; letter-spacing:-0.03em;">{s.val}</span>
-                <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
-              </div>
-            ))}
-            <a href={homepage.liveStats.latestLaunchUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 flex-shrink-0">
-              <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
-              <span class="text-xs" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
-              <span class="text-xs font-semibold" style="color:#0D2240;">{homepage.liveStats.latestLaunchName} →</span>
-            </a>
-            {/* Duplicate for seamless loop */}
-            <div class="flex items-center gap-2 flex-shrink-0" aria-hidden="true">
-              <span class="live-dot"></span>
-              <span class="text-xs font-bold uppercase tracking-widest" style="color:#0D2240;">Live</span>
-            </div>
-            {[
-              { val: homepage.liveStats.sitesThisWeek,    label: 'sites built this week' },
-              { val: homepage.liveStats.inProgress,       label: 'currently in progress' },
-              { val: homepage.liveStats.launchedThisMonth, label: 'launched this month' },
-            ].map(s => (
-              <div class="flex items-baseline gap-1.5 flex-shrink-0" aria-hidden="true">
-                <span class="font-heading font-black text-xl leading-none" style="color:#0D2240; letter-spacing:-0.03em;">{s.val}</span>
-                <span class="text-xs" style="color:rgba(13,34,64,0.55);">{s.label}</span>
-              </div>
-            ))}
-            <a href={homepage.liveStats.latestLaunchUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 flex-shrink-0" aria-hidden="true" tabindex="-1">
-              <span class="live-dot flex-shrink-0" style="background:#2ECC9A; box-shadow:0 0 0 3px rgba(46,204,154,0.2);"></span>
-              <span class="text-xs" style="color:rgba(13,34,64,0.6);">Latest launch:</span>
-              <span class="text-xs font-semibold" style="color:#0D2240;">{homepage.liveStats.latestLaunchName} →</span>
-            </a>
+        <img src="/images/anil-cutout-680.png" alt="" width="680" height="680" fetchpriority="high" class="hero-person absolute left-1/2 -translate-x-1/2 bottom-0 w-[86%] max-w-[500px] h-auto z-[1]" />
+
+        <!-- Floating cards -->
+        <div class="px-float absolute left-0 top-[14%] w-[150px] sm:w-[184px] rounded-[22px] bg-white/90 backdrop-blur-md border border-[rgba(7,17,31,0.06)] p-4 sm:p-5 flex flex-col gap-2 shadow-[0_30px_60px_-24px_rgba(7,17,31,0.35)] z-[2]">
+          <span class="font-medium text-[34px] sm:text-[42px] tracking-[-0.05em] leading-none">100<span class="text-[18px] sm:text-[22px] text-teal-dark">%</span></span>
+          <span class="text-[11px] sm:text-xs leading-normal text-body">Fully managed. Hosting, updates and security handled.</span>
+          <div class="flex items-end gap-1.5 h-8 sm:h-10 mt-1">
+            {[40, 68, 52, 86, 62, 100].map((h, i) => <span class="flex-1 rounded-full" style={`height:${h}%;background:${i === 5 ? '#07111F' : 'linear-gradient(180deg,#2BD98F,#22C7D6)'}`}></span>)}
           </div>
         </div>
-
+        <div class="px-float2 absolute right-0 top-[10%] hidden sm:flex items-center gap-2.5 py-2 pl-2 pr-4 rounded-full bg-white shadow-[0_18px_40px_-16px_rgba(7,17,31,0.35)] z-[2]">
+          <span class="w-9 h-9 rounded-full bg-navy text-teal grid place-items-center"><Icon name="clock" size={16} /></span>
+          <span class="text-[13px] font-semibold leading-tight">Replies same day<br /><span class="font-normal text-muted">usually within minutes</span></span>
+        </div>
+        <div class="px-float2 absolute right-0 bottom-[16%] flex items-center gap-3 py-2.5 pl-2.5 pr-5 rounded-[20px] bg-navy text-white shadow-[0_24px_50px_-20px_rgba(7,17,31,0.5)] z-[2]">
+          <span class="w-10 h-10 rounded-full grid place-items-center text-navy" style="background:var(--grad)"><Icon name="check" size={18} stroke={2.6} /></span>
+          <span class="font-medium text-[17px] leading-tight tracking-[-0.03em]">Live in<br />7 days</span>
+        </div>
+        <span class="absolute left-1/2 -translate-x-1/2 bottom-3 z-[2] inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur text-[13px] shadow-[0_12px_30px_-14px_rgba(7,17,31,0.4)] whitespace-nowrap"><strong>Anil Jaishi</strong><span class="text-muted hidden sm:inline">· Founder, builds every site</span><span class="text-muted sm:hidden">· Founder</span></span>
       </div>
     </div>
   </section>
 
-
-  <!-- TESTIMONIALS ───────────────────────────────────── -->
-  <section class="py-20 bg-offwhite">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-10">
-      <span class="sec-label reveal">CLIENT RESULTS</span>
-      <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
-        Don't take our word for it.
-      </h2>
-      <p class="text-base mt-3 max-w-lg reveal reveal-d2" style="color:#4a6070; line-height:1.7;">
-        Four businesses. Here's what actually happened.
-      </p>
-    </div>
-
-    <!-- Auto-scroll carousel -->
-    <div class="tcarousel-outer">
-    <div class="tcarousel-wrapper">
-      <div class="tcarousel-track">
-
-        {/* Primary set */}
-        {homepage.testimonials.map((t, i) => {
-          const tp = (hp.testimonials as any[])[i];
-          const ttf = (field: string) => tp ? tinaField(tp, field) || undefined : undefined;
-          return (
-            <div class="tcard">
-              <img src={t.image} alt={t.name} width="480" height="480" loading="lazy" class="tcard-img" />
-              <div class="tcard-overlay"></div>
-              <span class="tcard-badge" data-tina-field={ttf('badge')}>{t.badge}</span>
-              <div class="tcard-body">
-                <p class="tcard-quote" data-tina-field={ttf('quote')}>"{t.quote}"</p>
-                <div class="tcard-meta">
-                  <div>
-                    <p class="tcard-name" data-tina-field={ttf('name')}>{t.name}</p>
-                    <p class="tcard-role" data-tina-field={ttf('role')}>{t.role}</p>
-                  </div>
-                  <div class="tcard-stars">
-                    {[1,2,3,4,5].map(() => (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-
-        {/* Duplicates for seamless carousel loop */}
-        {homepage.testimonials.map(t => (
-          <div class="tcard" aria-hidden="true">
-            <img src={t.image} alt="" width="480" height="480" loading="lazy" class="tcard-img" />
-            <div class="tcard-overlay"></div>
-            <span class="tcard-badge">{t.badge}</span>
-            <div class="tcard-body">
-              <p class="tcard-quote">"{t.quote}"</p>
-              <div class="tcard-meta">
-                <div>
-                  <p class="tcard-name">{t.name}</p>
-                  <p class="tcard-role">{t.role}</p>
-                </div>
-                <div class="tcard-stars">
-                  {[1,2,3,4,5].map(() => (
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-
-      </div>
-    </div>
+  <!-- INDUSTRY STRIP -->
+  <section aria-label="Who I build for" class="px-5 sm:px-6 pb-14">
+    <div class="max-w-[1240px] mx-auto flex flex-wrap justify-center lg:justify-between items-center gap-x-8 gap-y-5 text-body/85 font-semibold text-[clamp(17px,1.8vw,22px)] tracking-[-0.03em]">
+      {[['wrench', 'Plumbers'], ['bolt', 'Electricians'], ['scissors', 'Salons'], ['leaf', 'Landscapers'], ['cup', 'Cafés'], ['doc', 'Accountants'], ['scale', 'Solicitors']].map(([ic, t]) => (
+        <span class="inline-flex items-center gap-2.5"><Icon name={ic} size={22} stroke={2} />{t}</span>
+      ))}
     </div>
   </section>
 
-
-
-  <!-- WHO WE HELP ─────────────────────────────────────── -->
-  <section class="py-28" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="mb-12">
-        <span class="sec-label reveal">Who I help</span>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
-          I get your world.<br/>Not just websites.
-        </h2>
-        <p class="text-base mt-3 max-w-lg reveal reveal-d2" style="color:#4a6070; line-height:1.7;">
-          Whether you're a plumber in Birmingham or an accountant in Manchester, your website should be built around your trade, your area, your customers.
-        </p>
+  <!-- BETTER AGENCY -->
+  <section class="grid-tint section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto grid gap-16 lg:grid-cols-2 items-center">
+      <div role="img" aria-label="Abstract artwork with a 7-days card and a fully managed card" class="relative min-h-[420px] sm:min-h-[460px] order-2 lg:order-1">
+        <div class="absolute left-0 top-0 w-[58%] h-[420px] sm:h-[460px] rounded-[32px] overflow-hidden bg-navy">
+          <img src="/images/art/ribbons-dark.jpg" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(7,17,31,0.1) 0%, rgba(7,17,31,0.55) 100%)"></div>
+        </div>
+        <div class="absolute right-0 top-[30px] w-[38%] h-40 rounded-[26px] overflow-hidden bg-navy"><img src="/images/art/glass-dark.jpg" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" /></div>
+        <div class="px-float absolute left-[34%] top-[120px] w-[176px] rounded-[26px] p-[22px] flex flex-col gap-0.5 shadow-[0_30px_60px_-20px_rgba(34,199,214,0.7)] z-[2]" style="background:linear-gradient(145deg,#2BD98F 0%,#22C7D6 100%)"><span class="font-medium text-[58px] tracking-[-0.05em] leading-none">7</span><span class="text-[21px] font-medium tracking-[-0.03em]">Days</span><span class="text-xs text-[#073B2B] mt-1.5">first chat to live site</span></div>
+        <div class="px-float2 absolute right-[2%] top-[250px] w-[50%] sm:w-[46%] rounded-[24px] bg-white/95 p-5 flex items-center gap-3.5 shadow-[0_24px_50px_-20px_rgba(7,17,31,0.3)] z-[2]"><span class="flex-none w-[50px] h-[50px] rounded-[15px] bg-navy grid place-items-center text-teal"><Icon name="shieldcheck" size={22} stroke={2} /></span><span class="font-medium text-[21px] leading-[1.08] tracking-[-0.035em]">Fully<br />Managed</span></div>
       </div>
-
-      <!-- Mobile carousel: Who I help (hidden on md+) -->
-      <div class="swipe-wrap md:hidden mb-2">
-        <div class="swipe-grid">
-          <div class="relative rounded-2xl overflow-hidden" style="min-height:320px;">
-            <img src="/images/who-trades.webp" alt="Tradespeople web design Birmingham" width="800" height="600" loading="lazy" class="w-full h-full object-cover absolute inset-0"/>
-            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(13,34,64,0.95) 0%,rgba(13,34,64,0.45) 100%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background:#2ECC9A;color:#0D2240;">Tradespeople</span>
-              <h3 class="font-heading font-bold text-xl mb-2 leading-snug" style="color:#fff;">Your phone should ring from Google.</h3>
-              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.68);">Plumbers, electricians, builders, landscapers. I make Google send you customers.</p>
-            </div>
-          </div>
-          <div class="relative rounded-2xl overflow-hidden" style="min-height:320px;">
-            <img src="/images/who-beauty.webp" alt="Beauty and lifestyle business website design UK" width="800" height="600" loading="lazy" class="w-full h-full object-cover absolute inset-0"/>
-            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(13,34,64,0.88) 0%,rgba(13,34,64,0.2) 100%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3" style="background:rgba(46,204,154,0.15);color:#2ECC9A;border:1px solid rgba(46,204,154,0.3);">Lifestyle &amp; beauty</span>
-              <h3 class="font-heading font-bold text-xl mb-2 leading-snug" style="color:#fff;">Instagram gets you so far.</h3>
-              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">A proper website gets you found by people who've never heard of you yet.</p>
-            </div>
-          </div>
-          <div class="relative rounded-2xl overflow-hidden" style="min-height:320px;">
-            <img src="/images/who-professional.webp" alt="Professional services website design UK" width="800" height="600" loading="lazy" class="w-full h-full object-cover absolute inset-0"/>
-            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(13,34,64,0.92) 0%,transparent 60%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3" style="background:rgba(46,204,154,0.15);color:#2ECC9A;border:1px solid rgba(46,204,154,0.3);">Professional services</span>
-              <h3 class="font-heading font-bold text-xl mb-2 leading-snug" style="color:#fff;">You're credible in person.</h3>
-              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">Your website should say the same.</p>
-            </div>
-          </div>
+      <div class="flex flex-col gap-6 order-1 lg:order-2">
+        <Eyebrow icon="clock" white>Built in Birmingham · trusted UK-wide</Eyebrow>
+        <h2 class="h2">A Better Agency For <span class="grad-text">Small Business.</span></h2>
+        <div class="flex flex-col gap-4 max-w-[520px] text-base leading-relaxed text-body">
+          <p>Right now, someone near you is searching for exactly what you do. If your website is slow, out of date or missing, they ring the next name on the list, and you never even hear about it.</p>
+          <p>Agencies charge thousands for sites that look nice and never rank. I build fast, SEO-ready sites with AI, check every one by hand, then look after it every month for one fair price.</p>
+          <p class="text-navy font-semibold">Fix the website, show up on Google, and those calls come to you instead.</p>
         </div>
-        <div class="swipe-dots" aria-hidden="true"></div>
-      </div>
-
-      <!-- Desktop bento (hidden on mobile) -->
-      <!-- Asymmetric bento: big card left, 2 stacked right -->
-      <div class="hidden md:grid grid-cols-2 gap-4">
-
-        <!-- Big tall card — Tradespeople -->
-        <div class="relative rounded-2xl overflow-hidden reveal" style="min-height:440px;">
-          <img
-            src="/images/who-trades.webp"
-            alt="Tradespeople web design Birmingham: plumbers, electricians, builders"
-            width="800" height="600"
-            loading="lazy"
-            class="w-full h-full object-cover absolute inset-0"
-          />
-          <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.95) 0%, rgba(13,34,64,0.65) 50%, rgba(13,34,64,0.45) 100%);"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-7">
-            <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4" style="background:#2ECC9A; color:#0D2240; letter-spacing:0.08em;">Tradespeople</span>
-            <h3 class="font-heading font-bold text-2xl mb-2 leading-snug" style="color:#fff;">Your phone should ring<br/>from Google.</h3>
-            <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.68);">Plumbers, electricians, builders, landscapers. You're on-site all day. I make Google send you customers without you touching a thing.</p>
-          </div>
-        </div>
-
-        <!-- Right column: 2 stacked cards -->
-        <div class="flex flex-col gap-4">
-
-          <!-- Lifestyle & beauty -->
-          <div class="relative rounded-2xl overflow-hidden reveal reveal-d1 flex-1" style="min-height:200px;">
-            <img
-              src="/images/who-beauty.webp"
-              alt="Beauty and lifestyle business website design UK"
-              width="800" height="600"
-              loading="lazy"
-              class="w-full h-full object-cover absolute inset-0"
-            />
-            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.82) 0%, rgba(13,34,64,0.2) 55%, transparent 100%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-5">
-              <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3" style="background:rgba(46,204,154,0.15); color:#2ECC9A; border:1px solid rgba(46,204,154,0.3); letter-spacing:0.06em;">Lifestyle &amp; beauty</span>
-              <h3 class="font-heading font-bold text-lg leading-snug mb-1" style="color:#fff;">Instagram gets you so far.</h3>
-              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.65);">A proper website gets you found by people who've never heard of you yet.</p>
-            </div>
-          </div>
-
-          <!-- Professional services -->
-          <div class="relative rounded-2xl overflow-hidden reveal reveal-d2 flex-1" style="min-height:200px;">
-            <img
-              src="/images/who-professional.webp"
-              alt="Professional services website design: accountants, consultants, solicitors"
-              width="800" height="600"
-              loading="lazy"
-              class="w-full h-full object-cover absolute inset-0"
-            />
-            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(13,34,64,0.88) 0%, transparent 60%);"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-5">
-              <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3" style="background:rgba(46,204,154,0.15); color:#2ECC9A; border:1px solid rgba(46,204,154,0.3); letter-spacing:0.06em;">Professional services</span>
-              <h3 class="font-heading font-bold text-lg leading-snug mb-1" style="color:#fff;">You're credible in person.</h3>
-              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.65);">Your website should say the same. I build authority that works before you've even spoken.</p>
-            </div>
-          </div>
-
-        </div>
+        <Button href="/about/" variant="dark" class="self-start">Read my story</Button>
       </div>
     </div>
   </section>
 
-
-  <!-- HOW IT WORKS ────────────────────────────────────── -->
-  <section id="how-it-works" class="py-20" style="background-color:#0D2240;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-14">
-        <span class="sec-label reveal">THE PROCESS</span>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 reveal reveal-d1" style="color:#fff; letter-spacing:-0.025em;">
-          Three steps. Then your phone starts ringing.
-        </h2>
+  <!-- RECENT WORK -->
+  <section class="art section px-5 sm:px-6">
+    <img src="/images/art/aurora-dark.jpg" alt="" loading="lazy" class="art-bg opacity-55" />
+    <div class="art-shade" style="background:linear-gradient(180deg, rgba(7,17,31,0.3) 0%, rgba(7,17,31,0.92) 70%)"></div>
+    <div class="art-body max-w-[1240px] mx-auto flex flex-col gap-12">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="flex flex-col gap-5">
+          <Eyebrow icon="monitor" dark>Recent launches</Eyebrow>
+          <h2 class="h2 !text-white">Take A Look At<br />My Recent Work</h2>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <Button href="/designs/" variant="ghost" icon="none">Browse 20+ designs</Button>
+          <Button href="/contact/">Start a project</Button>
+        </div>
       </div>
-
-      <div class="swipe-wrap">
-      <div class="swipe-grid proc-grid">
-        {[
-          {
-            n: '1',
-            icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>',
-            title: 'I build your website',
-            desc: 'SEO ready from the first line of code. Designed to rank, not just to look good. Live within 7 days, not 7 weeks.',
-          },
-          {
-            n: '2',
-            icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>',
-            title: 'I manage everything',
-            desc: 'Updates, hosting, security and changes, all handled by me. You message me what you need. I sort it the same day.',
-          },
-          {
-            n: '3',
-            icon: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
-            title: 'You get found',
-            desc: 'Google starts showing your business to people searching your trade in your area. Your phone rings. You do the work you\'re good at.',
-          },
-        ].map((step, i) => (
-          <div class={`glass-card p-7 relative reveal ${i === 1 ? 'reveal-d1' : i === 2 ? 'reveal-d2' : ''}`}>
-
-            <!-- Teal corner accents -->
-            <div class="absolute top-0 right-0 pointer-events-none" style="width:64px; height:64px; border-top:3px solid #2ECC9A; border-right:3px solid #2ECC9A; border-top-right-radius:14px;"></div>
-            <div class="absolute bottom-0 left-0 pointer-events-none" style="width:64px; height:64px; border-bottom:3px solid #2ECC9A; border-left:3px solid #2ECC9A; border-bottom-left-radius:14px;"></div>
-
-            <!-- Step number — large teal, top left -->
-            <div class="font-heading font-black mb-4 leading-none select-none" style="font-size:3rem; color:#2ECC9A; letter-spacing:-0.04em; opacity:0.9;">0{step.n}</div>
-
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(46,204,154,0.12); border:1px solid rgba(46,204,154,0.2);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={step.icon}/>
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <article class="flex flex-col gap-4 reveal">
+          <div aria-hidden="true" class="relative h-[380px] rounded-[28px] overflow-hidden px-7 pt-7 flex items-end bg-[#0B1E33]">
+            <img src="/images/art/grid-dark.jpg" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+            <div class="relative w-full h-[290px] rounded-t-2xl bg-white overflow-hidden flex flex-col text-navy shadow-[0_-20px_60px_-20px_rgba(43,217,143,0.6)]">
+              <div class="h-[26px] bg-[#EEF1EE] flex items-center gap-[5px] px-2.5"><span class="w-[7px] h-[7px] rounded-full bg-[#F87171]"></span><span class="w-[7px] h-[7px] rounded-full bg-[#FBBF24]"></span><span class="w-[7px] h-[7px] rounded-full bg-[#34D399]"></span></div>
+              <div class="p-[18px] flex flex-col gap-2.5">
+                <div class="flex justify-between"><span class="w-[54px] h-2 rounded bg-navy"></span><span class="w-[90px] h-2 rounded bg-[#DCE3E0]"></span></div>
+                <span class="mt-3.5 font-semibold text-[22px] tracking-[-0.04em] leading-[1.05]">Design That<br />Gets You Noticed</span>
+                <span class="w-[70%] h-[7px] rounded bg-[#DCE3E0]"></span>
+                <span class="w-[90px] h-[26px] rounded-full" style="background:var(--grad)"></span>
+              </div>
             </div>
-            <h3 class="font-heading font-bold text-lg mb-3" style="color:#fff;">{step.title}</h3>
-            <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.55);">{step.desc}</p>
           </div>
+          <div class="flex gap-4 text-[13px] text-[#A9B6C4]"><span>● Website design</span><span>● feldonhaynes.com</span></div>
+          <h3 class="!text-white text-[26px] tracking-[-0.035em]">Feldon Haynes</h3>
+        </article>
+        <article class="flex flex-col gap-4 reveal">
+          <div aria-hidden="true" class="relative h-[380px] rounded-[28px] overflow-hidden px-7 pt-7 flex items-end bg-[#0B1E33]">
+            <img src="/images/art/glass-dark.jpg" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+            <div class="relative w-full h-[290px] rounded-t-2xl bg-navy overflow-hidden flex flex-col text-white border border-white/10 border-b-0">
+              <div class="h-[26px] bg-[#0E1C2E] flex items-center gap-[5px] px-2.5"><span class="w-[7px] h-[7px] rounded-full bg-[#F87171]"></span><span class="w-[7px] h-[7px] rounded-full bg-[#FBBF24]"></span><span class="w-[7px] h-[7px] rounded-full bg-[#34D399]"></span></div>
+              <div class="p-[18px] flex flex-col gap-2.5">
+                <div class="flex justify-between"><span class="w-[60px] h-2 rounded bg-teal"></span><span class="w-[90px] h-2 rounded bg-[#24364D]"></span></div>
+                <span class="mt-3.5 font-semibold text-[22px] tracking-[-0.04em] leading-[1.05]">Smarter Systems<br />For Growing Teams</span>
+                <span class="w-[70%] h-[7px] rounded bg-[#24364D]"></span>
+                <div class="flex gap-2"><span class="flex-1 h-12 rounded-[10px] bg-navy-2"></span><span class="flex-1 h-12 rounded-[10px] bg-navy-2"></span><span class="flex-1 h-12 rounded-[10px] bg-navy-2"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-4 text-[13px] text-[#A9B6C4]"><span>● Website &amp; SEO</span><span>● Founder: Ayoush</span></div>
+          <h3 class="!text-white text-[26px] tracking-[-0.035em]">TranoVex</h3>
+        </article>
+        <article class="flex flex-col gap-4 reveal">
+          <div aria-hidden="true" class="relative h-[380px] rounded-[28px] overflow-hidden px-7 pt-7 flex items-end bg-[#0B1E33]">
+            <img src="/images/art/orb-dark.jpg" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+            <div class="relative w-full h-[290px] rounded-t-2xl bg-[#F6FBF8] overflow-hidden flex flex-col text-navy">
+              <div class="h-[26px] bg-[#E6EEE9] flex items-center gap-[5px] px-2.5"><span class="w-[7px] h-[7px] rounded-full bg-[#F87171]"></span><span class="w-[7px] h-[7px] rounded-full bg-[#FBBF24]"></span><span class="w-[7px] h-[7px] rounded-full bg-[#34D399]"></span></div>
+              <div class="p-[18px] flex flex-col gap-2.5">
+                <div class="flex justify-between"><span class="w-[54px] h-2 rounded bg-navy"></span><span class="w-[78px] h-[22px] rounded-full bg-navy"></span></div>
+                <span class="mt-2.5 font-semibold text-[22px] tracking-[-0.04em] leading-[1.05]">24/7 Local<br />Call-Outs</span>
+                <div class="flex gap-2 items-center"><span class="w-24 h-7 rounded-full" style="background:var(--grad)"></span><span class="w-20 h-2 rounded bg-[#DCE3E0]"></span></div>
+                <span class="h-[60px] rounded-xl" style="background:linear-gradient(135deg,#D7F6E8,#D6EEF8)"></span>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-4 text-[13px] text-[#A9B6C4]"><span>● Website &amp; SEO</span><span>● Birmingham</span></div>
+          <h3 class="!text-white text-[26px] tracking-[-0.035em]">Jake Victor</h3>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES ACCORDION -->
+  <section class="section px-5 sm:px-6" style="background:radial-gradient(50% 60% at 100% 50%, #E3F6FB 0%, rgba(227,246,251,0) 70%), #fff">
+    <div class="max-w-[1240px] mx-auto grid gap-x-20 gap-y-14 lg:grid-cols-2 items-start">
+      <div class="flex flex-col gap-6 lg:sticky lg:top-28">
+        <Eyebrow icon="trend">What I do</Eyebrow>
+        <h2 class="h2">How I Take Your Business To Page One</h2>
+        <p class="lead max-w-[440px]">One person for your website, your Google rankings and the small bits of software that turn visitors into booked jobs. No hand-offs, no account managers.</p>
+        <Button href="/services/" class="self-start">View all services</Button>
+      </div>
+      <div class="acc">
+        {services.map((s, i) => (
+          <details name="home-svc" open={i === 0}>
+            <summary>{s.title}</summary>
+            <div class="acc-body flex flex-wrap gap-5 items-center">
+              <div class="flex-[1_1_220px] flex flex-col gap-3">
+                <p class="text-[15px] leading-relaxed text-body">{s.desc}</p>
+                <a href={s.href} class="link-arrow text-sm">Find out more <Icon name="arrow" size={14} stroke={2.6} /></a>
+              </div>
+              <div aria-hidden="true" class="relative flex-[0_0_190px] h-[124px] rounded-[18px] overflow-hidden bg-navy">
+                <img src={s.art} alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+                <div class="absolute left-3.5 right-3.5 bottom-3 px-2.5 py-2 rounded-[10px] bg-white/90 flex flex-col gap-[5px]"><span class="h-1.5 w-[60%] rounded bg-navy"></span><span class="h-[5px] w-[85%] rounded bg-[#C9D6CF]"></span></div>
+              </div>
+            </div>
+          </details>
         ))}
       </div>
-      <div class="swipe-dots" aria-hidden="true"></div>
-      </div>
     </div>
   </section>
 
-
-  <!-- LAUNCH WEEK TIMELINE ────────────────────────────── -->
-  <section class="py-20" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-
-      <div class="text-center mb-14">
-        <span class="sec-label reveal">YOUR LAUNCH WEEK</span>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
-          Monday brief. Friday live.
-        </h2>
-        <p class="mt-3 text-base max-w-md mx-auto reveal reveal-d2" style="color:#4a6070; line-height:1.7;">
-          Most agencies take months. I take five days.
-        </p>
+  <!-- LAUNCH WEEK (playable) -->
+  <section id="process" class="section px-5 sm:px-6 bg-tint overflow-hidden scroll-mt-20">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-12">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="flex flex-col gap-5">
+          <Eyebrow icon="calendar" white>Simple 5-day process</Eyebrow>
+          <h2 class="h2">Monday We Talk.<br />Friday You're Live.</h2>
+        </div>
+        <p class="max-w-[380px] text-[15px] leading-relaxed text-body">No months of meetings. You give me 20 minutes, I do the rest. Watch a real week play out, or tap a day to jump to it.</p>
       </div>
+      <LaunchWeek />
+    </div>
+  </section>
 
-      <div class="relative">
-        <!-- Vertical connecting line -->
-        <div class="absolute top-9 bottom-9 w-px" style="left:36px; background:linear-gradient(to bottom, rgba(46,204,154,0.55) 0%, rgba(46,204,154,0.06) 100%);"></div>
-
-        {[
-          {
-            day: 'MON',
-            title: 'Brief call (5 minutes)',
-            desc: "You tell me your trade, your area, and what you need. That's it. I take it from there.",
-            svg: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
-          },
-          {
-            day: 'TUE',
-            title: 'I build your site',
-            desc: 'Design starts immediately. Pages structured for Google from the very first line of code.',
-            svg: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>',
-          },
-          {
-            day: 'WED',
-            title: 'Content, copy & local SEO',
-            desc: 'I write your pages, add your photos, and optimise every element for local search rankings.',
-            svg: '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
-          },
-          {
-            day: 'THU',
-            title: 'You review & approve',
-            desc: 'You see the finished site. One round of changes, handled the same day.',
-            svg: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
-          },
-          {
-            day: 'FRI',
-            title: 'You go live',
-            desc: 'Your website is on the web. Google can find you. Your phone starts ringing.',
-            svg: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
-          },
-        ].map((item, i) => (
-          <div class="relative flex items-start gap-5 mb-7 last:mb-0 reveal">
-            <!-- Day bubble -->
-            <div class="flex-shrink-0 z-10" style="width:72px;">
-              <div class="w-[72px] h-[72px] rounded-2xl flex flex-col items-center justify-center gap-1" style="background:#fff; border:2px solid #2ECC9A; box-shadow:0 4px 16px rgba(46,204,154,0.12);">
-
-                <span class="font-black uppercase tracking-widest leading-none" style="font-size:0.6rem; color:#2ECC9A;">{item.day}</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={item.svg}/>
-              </div>
-            </div>
-            <!-- Card -->
-            <div class="flex-1 rounded-2xl px-5 py-4 card-light mt-2">
-              <h3 class="font-heading font-bold text-base mb-1" style="color:#1C3557;">{item.title}</h3>
-              <p class="text-sm leading-relaxed" style="color:#4a6070;">{item.desc}</p>
-            </div>
-          </div>
+  <!-- TESTIMONIALS -->
+  <section class="art section px-5 sm:px-6">
+    <img src="/images/art/ribbons-dark.jpg" alt="" loading="lazy" class="absolute left-0 right-0 top-0 w-full h-[60%] object-cover opacity-45" />
+    <div class="art-shade" style="background:linear-gradient(180deg, rgba(7,17,31,0.35) 0%, #07111F 55%)"></div>
+    <div class="art-body max-w-[1240px] mx-auto flex flex-col items-center gap-12">
+      <div class="flex flex-col items-center gap-5 text-center">
+        <Eyebrow icon="star" dark>Client feedback</Eyebrow>
+        <h2 class="h2 !text-white max-w-[760px]">Real People. Real Phones Ringing.</h2>
+      </div>
+      <div class="w-full grid gap-3.5 md:grid-cols-3">
+        {[['Trades', 'Get found locally', 'rgba(43,217,143,0.16)', '#7EF0C0'], ['Salons & lifestyle', 'Beyond Instagram', 'rgba(34,199,214,0.16)', '#8CE6F0'], ['Professional firms', 'Build authority', 'rgba(96,165,250,0.18)', '#A9CCFB']].map(([t, s, bg, c]) => (
+          <div class="glass rounded-[22px] p-[22px] flex justify-between items-center gap-3"><span class="font-semibold text-lg">{t}</span><span class="text-xs px-2.5 py-1.5 rounded-full" style={`background:${bg};color:${c}`}>{s}</span></div>
         ))}
+      </div>
+      <Testimonials />
+      <Button href="/reviews/" variant="ghost" icon="none">Read all reviews</Button>
+    </div>
+  </section>
 
+  <!-- CUSTOM SOFTWARE -->
+  <section class="section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-12">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="flex flex-col gap-5 max-w-[680px]">
+          <Eyebrow icon="code">Custom software from £{SOFTWARE_FROM}</Eyebrow>
+          <h2 class="h2">Still Doing It On Paper, In WhatsApp, Or At 10pm?</h2>
+        </div>
+        <p class="max-w-[400px] text-[15px] leading-relaxed text-body">Most small businesses don't need expensive software. They need one small tool that does the annoying job for them. I build that, for a fixed price, usually in a week.</p>
+      </div>
+      <div class="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+        {tools.map(t => (
+          <article class="rounded-[26px] border border-line overflow-hidden bg-white reveal card-hover">
+            <SoftwareMock kind={t.kind} />
+            <div class="p-6 flex flex-col gap-2">
+              <h3 class="text-[19px] font-semibold tracking-[-0.02em]">{t.name}</h3>
+              <p class="text-sm leading-relaxed text-body">{t.fix}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <Button href="/custom-software/" variant="dark">See what I can build</Button>
+        <Button href="/custom-software/#enquiry" variant="light">Tell me your idea</Button>
       </div>
     </div>
   </section>
 
-
-  <!-- PLANS ────────────────────────────────────────────── -->
-  <section id="services">
-
-    <!-- Dark top: label + heading -->
-    <div class="pricing-top relative overflow-hidden">
-      <div class="absolute inset-0" style="background-image:url('/images/pricing-hero.webp'); background-size:cover; background-position:center; opacity:0.22;"></div>
-      <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(13,34,64,0.95) 0%, rgba(28,53,87,0.85) 55%, rgba(13,34,64,0.95) 100%);"></div>
-      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 text-center reveal">
-        <span class="sec-label" style="color:rgba(255,255,255,0.45); border-color:rgba(255,255,255,0.15);">PLANS</span>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3" style="color:#fff; letter-spacing:-0.025em;">
-          Your website, built and looked after.<br class="hidden sm:block"/> Setup fee on go-live only.
-        </h2>
-        <p class="text-sm mt-3" style="color:rgba(255,255,255,0.45);">
-          I build your site. You start paying monthly once it's live.
-        </p>
+  <!-- PRICING TEASER -->
+  <section class="section px-5 sm:px-6 grid-tint">
+    <div class="max-w-[1180px] mx-auto flex flex-col gap-12">
+      <div class="flex flex-col items-center gap-5 text-center">
+        <Eyebrow icon="target" white>Simple pricing</Eyebrow>
+        <h2 class="h2 max-w-[720px]">One Monthly Price. Everything Handled.</h2>
+        <p class="lead max-w-[560px]">Build, hosting, changes and support all included. Prices below are on the 3-month plan. Not VAT registered, so the price is the price.</p>
       </div>
-    </div>
-
-    <!-- Light bottom: floating cards -->
-    <div class="pricing-bottom">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-        <div class="swipe-wrap">
-        <div class="pricing-wrap">
-
-          <!-- Plan 1: Get Online -->
-          <div class="p-card p-card-side p-card-left reveal reveal-d1" style="flex:1;">
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;">Get Online</h3>
-            <div class="flex items-end gap-1.5 mt-2 mb-0.5">
-              <span class="font-bold" style="font-size:2.2rem; line-height:1; color:#1C3557;">£69</span>
-              <span class="text-xs font-medium pb-1.5" style="color:#8a9ab0;">/month</span>
-            </div>
-            <p class="text-xs font-semibold mb-0.5" style="color:#2ECC9A;">+ £199 setup on go-live</p>
-            <p class="text-xs mb-4" style="color:#8a9ab0;">3-month minimum · nothing to pay now</p>
-            <ul class="flex flex-col gap-2.5 mb-4">
-              {[
-                '5 pages built for you',
-                'Mobile first, fast loading',
-                'Google Analytics 4 connected',
-                'SSL + hosting included',
-                '2 updates per month',
-              ].map(item => (
-                <li class="flex items-center gap-2 text-xs" style="color:#4a6070;">
-                  <span class="p-check" style="background:#E8F5F1; color:#2ECC9A;">✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div class="svc-spacer"></div>
-            <a href="/api/checkout/starter/?term=monthly" class="p-btn p-btn-light">Get started →</a>
-          </div>
-
-          <!-- Plan 2: Get Found (featured) -->
-          <div class="p-card p-card-mid reveal reveal-d2">
-            <div class="p-popular-badge">Most popular</div>
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#fff;">Get Found</h3>
-            <div class="flex items-end gap-1.5 mt-2 mb-0.5">
-              <span class="font-bold" style="font-size:2.2rem; line-height:1; color:#fff;">£119</span>
-              <span class="text-xs font-medium pb-1.5" style="color:rgba(255,255,255,0.45);">/month</span>
-            </div>
-            <p class="text-xs font-semibold mb-0.5" style="color:#2ECC9A;">+ £359 setup on go-live</p>
-            <p class="text-xs mb-4" style="color:rgba(255,255,255,0.35);">3-month minimum · nothing to pay now</p>
-            <ul class="flex flex-col gap-2.5 mb-5">
-              {[
-                'Everything in Get Online',
-                '1 SEO blog post written monthly',
-                'Google ranking report monthly',
-                'Google review request system',
-                '3 updates per month',
-              ].map(item => (
-                <li class="flex items-center gap-2 text-xs" style="color:rgba(255,255,255,0.7);">
-                  <span class="p-check" style="background:rgba(46,204,154,0.2); color:#2ECC9A;">✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div class="svc-spacer"></div>
-            <a href="/api/checkout/growth/?term=monthly" class="p-btn p-btn-teal">Get started →</a>
-          </div>
-
-          <!-- Plan 3: Get Leads -->
-          <div class="p-card p-card-side p-card-right reveal reveal-d3" style="flex:1;">
-            <h3 class="font-heading font-bold text-xl mb-1" style="color:#1C3557;">Get Leads</h3>
-            <div class="flex items-end gap-1.5 mt-2 mb-0.5">
-              <span class="font-bold" style="font-size:2.2rem; line-height:1; color:#1C3557;">£169</span>
-              <span class="text-xs font-medium pb-1.5" style="color:#8a9ab0;">/month</span>
-            </div>
-            <p class="text-xs font-semibold mb-0.5" style="color:#2ECC9A;">+ £599 setup on go-live</p>
-            <p class="text-xs mb-4" style="color:#8a9ab0;">3-month minimum · nothing to pay now</p>
-            <ul class="flex flex-col gap-2.5 mb-4">
-              {[
-                'Everything in Get Found',
-                '2 blog posts per month',
-                'Google Business Profile managed',
-                'Same-day emergency fixes',
-                'WhatsApp direct + quarterly call',
-              ].map(item => (
-                <li class="flex items-center gap-2 text-xs" style="color:#4a6070;">
-                  <span class="p-check" style="background:#E8F5F1; color:#2ECC9A;">✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div class="svc-spacer"></div>
-            <a href="/api/checkout/pro/?term=monthly" class="p-btn p-btn-light">Get started →</a>
-          </div>
-
-        </div>
-        <div class="swipe-dots pricing-dots" aria-hidden="true"></div>
-        </div>
-
-        <!-- June offer + full pricing link -->
-        <div class="mt-8 reveal">
-          <div class="flex items-center gap-3 rounded-xl px-4 py-3 mb-4 flex-wrap" style="background:#FEF2F2; border:1px solid #FECACA;">
-            <span class="flex-shrink-0 text-xs font-black uppercase tracking-wider px-2 py-1 rounded-md" style="background:#DC2626; color:#fff;">June offer</span>
-            <p class="text-sm font-semibold" style="color:#991B1B;">£50 off setup fee on the Monthly plan. 3 spots left this month. Closes 30 June.</p>
-          </div>
-          <div class="text-center">
-            <p class="text-sm mb-3" style="color:#8a9ab0;">
-              Monthly, 6-month, or rolling terms available. Add-ons and AI services on any plan.
-            </p>
-            <a href="/pricing/" class="inline-flex items-center gap-2 text-sm font-semibold" style="color:#2ECC9A;">
-              See full pricing and all terms
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-
+      <div class="grid gap-4 md:grid-cols-3 items-center">
+        {PLANS.map(p => (
+          <article class={`flex flex-col gap-5 reveal ${p.featured ? 'rounded-[30px] px-[30px] py-[34px] shadow-[0_40px_80px_-30px_rgba(11,122,79,0.35)]' : 'rounded-[28px] p-[30px] bg-white border border-line'}`} style={p.featured ? 'border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box, linear-gradient(135deg,#2BD98F,#22C7D6) border-box' : ''}>
+            <div class="flex flex-col gap-0.5"><span class={`text-sm ${p.featured ? 'text-teal-dark font-semibold' : 'text-muted'}`}>{p.featured ? 'Most popular' : p.slug === 'starter' ? 'Starter' : 'Pro'}</span><span class="font-semibold text-xl">{p.name}</span></div>
+            <div class="flex items-baseline gap-1.5"><span class={`font-medium tracking-[-0.05em] ${p.featured ? 'text-[64px]' : 'text-[56px]'}`}>£{p.monthly}</span><span class="text-sm text-muted">/month</span></div>
+            <span class="text-[13px] text-body -mt-2.5">+ £{p.setup} one-off setup</span>
+            <ul class="tick-list text-sm text-body pt-[18px] border-t border-[#ECEFEC]">{p.features.slice(0, 4).map(f => <li>{f}</li>)}</ul>
+            <a href={`/api/checkout/${p.slug}/?term=monthly`} rel="nofollow" class={`btn ${p.featured ? 'btn-grad' : 'btn-soft'}`}>Start with {p.name}</a>
+          </article>
+        ))}
       </div>
-    </div>
-
-  </section>
-
-
-  <!-- AI & AUTOMATION ─────────────────────────────────── -->
-  <section id="automation" class="py-20 relative overflow-hidden" style="background-color:#0D2240;">
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 100% 50%, rgba(46,204,154,0.07) 0%, transparent 55%);"></div>
-
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-        <!-- LEFT: content -->
-        <div class="reveal">
-          <span class="sec-label">AI &amp; AUTOMATION</span>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 mb-4" style="color:#fff; letter-spacing:-0.025em;">
-            Your business keeps working<br class="hidden sm:block"/> while you're on the job.
-          </h2>
-          <p class="text-sm mb-8" style="color:rgba(255,255,255,0.5); line-height:1.8;">
-            I set up smart systems that handle enquiries, follow up with leads, and collect reviews. You don't need to do a thing.
-          </p>
-
-          <ul class="space-y-4 mb-10">
-            {[
-              'Enquiries answered within minutes, automatically',
-              'Leads followed up so you never lose a job',
-              'Google review requests sent after every job',
-            ].map(item => (
-              <li class="flex items-start gap-3 text-sm" style="color:rgba(255,255,255,0.75);">
-                <svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          <a href="/about/#contact" class="btn-p">
-            Ask about automation
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-
-        <!-- RIGHT: image -->
-        <div class="reveal reveal-d1 relative">
-          <div class="rounded-2xl overflow-hidden" style="aspect-ratio:4/3;">
-            <img
-              src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop&auto=format&fm=webp&q=80"
-              alt="Marketing automation for small businesses"
-              width="800" height="600"
-              loading="lazy"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute inset-0 rounded-2xl" style="background:linear-gradient(135deg, rgba(13,34,64,0.2) 0%, transparent 60%);"></div>
-          </div>
-          <!-- Floating stat badge -->
-          <div class="absolute -bottom-4 -left-4 rounded-xl px-5 py-4 shadow-xl" style="background:#1C3557; border:1px solid rgba(46,204,154,0.25);">
-            <span class="font-heading font-black text-2xl block" style="color:#2ECC9A;">0 hrs</span>
-            <span class="text-xs" style="color:rgba(255,255,255,0.5);">of your time needed</span>
-          </div>
-        </div>
-
-      </div>
+      <p class="text-center text-sm text-body">Need something bespoke? <a href="/pricing/#custom" class="link-arrow !inline">Custom software is priced per project from £{SOFTWARE_FROM}</a> · <a href="/pricing/" class="link-arrow !inline">Compare every plan</a></p>
     </div>
   </section>
 
-
-  <!-- REAL BUSINESSES. REAL RESULTS. ─────────────────── -->
-  <section class="py-20" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-        <!-- Left: text -->
-        <div>
-          <span class="sec-label reveal">RESULTS</span>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 mb-5 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
-            Real businesses.<br/>Real results.
-          </h2>
-          <p class="text-base leading-relaxed mb-8 reveal reveal-d2" style="color:#4a6070;">
-            I use AI to build faster and smarter, then manage everything so you never
-            think about it again. Every site is built to rank from the first line of code.
-            No fluff. No jargon. Just a website that brings in customers.
-          </p>
-          <a href="/about/#contact" class="btn-p" style="background-color:#1C3557; color:#fff; box-shadow:none;">
-            See how it works
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+  <!-- ARTICLES -->
+  <section class="section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-14">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="flex flex-col gap-5 max-w-[620px]">
+          <Eyebrow icon="book">Articles &amp; resources</Eyebrow>
+          <h2 class="h2">Useful Reading</h2>
+          <p class="text-base leading-relaxed text-body">Short guides from real client work. Five minutes each, no sign-up.</p>
         </div>
-
-        <!-- Right: results bento -->
-        <div class="grid grid-cols-2 gap-4">
-
-          <!-- Dark stat card — 7 days -->
-          <div class="rounded-2xl p-6 relative overflow-hidden reveal" style="background:linear-gradient(135deg,#0D1F2D 0%,#1C3557 100%);">
-            <!-- Radial glow -->
-            <div class="absolute" style="bottom:-30px; right:-30px; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.18), transparent 70%); pointer-events:none;"></div>
-            <div class="font-heading font-black text-5xl leading-none mb-1" style="color:#2ECC9A; letter-spacing:-0.04em;">7<span style="font-size:1.6rem; color:rgba(46,204,154,0.8);"> days</span></div>
-            <p class="text-xs mb-4" style="color:rgba(255,255,255,0.65);">Average time to go live</p>
-            <!-- Avatar stack -->
-            <div class="flex items-center">
-              {['/images/avatar-1.webp', '/images/avatar-2.webp', '/images/avatar-3.webp'].map((src, i) => (
-                <img
-                  src={src}
-                  alt="Happy Pixova client"
-                  width="32" height="32"
-                  loading="lazy"
-                  class="w-8 h-8 rounded-full object-cover"
-                  style={`border:2px solid #0D1F2D; ${i > 0 ? 'margin-left:-8px;' : ''}`}
-                />
-              ))}
-              <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style="background:#2ECC9A; color:#0D2240; margin-left:-8px; border:2px solid #0D1F2D;">+</div>
-            </div>
-          </div>
-
-          <!-- Light stat card — 100% managed -->
-          <div class="bg-white rounded-2xl p-6 shadow-sm reveal reveal-d1">
-            <div class="font-heading font-black text-5xl leading-none mb-1" style="color:#1C3557; letter-spacing:-0.04em;">100<span style="color:#2ECC9A; font-size:2rem;">%</span></div>
-            <p class="text-xs mb-3" style="color:#556272;">Managed. You do nothing.</p>
-            <p class="text-xs leading-relaxed" style="color:#4a6070;">From brief to live site. Not 7 weeks. Not 7 months.</p>
-          </div>
-
-          <!-- Full-width photo card -->
-          <div class="col-span-2 relative rounded-2xl overflow-hidden reveal reveal-d2" style="height:180px;">
-            <img
-              src="/images/hero-collage.webp"
-              alt="Pixova team, Birmingham web design and SEO agency"
-              width="1400" height="781"
-              loading="lazy"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute inset-0" style="background:linear-gradient(90deg, rgba(13,34,64,0.88) 0%, rgba(13,34,64,0.25) 55%, transparent 100%);"></div>
-            <div class="absolute inset-0 flex items-center px-7">
-              <h3 class="font-heading font-black text-xl sm:text-2xl leading-tight" style="color:#fff; letter-spacing:-0.025em; max-width:260px;">Built in Birmingham,<br/>trusted across the UK.</h3>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- WHY PIXOVA ───────────────────────────────────────── -->
-  <section class="pt-20 pb-16 relative" style="background-color:#0D2240;">
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 100% 100%, rgba(46,204,154,0.07) 0%, transparent 70%);"></div>
-
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
-
-      <div class="text-center mb-12">
-        <span class="sec-label reveal">WHY PIXOVA</span>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#fff; letter-spacing:-0.025em;">
-          Meet the person behind your website.
-        </h2>
+        <Button href="/blog/" variant="soft">All articles</Button>
       </div>
 
-      <!-- 3-col layout: steps | photo | stats -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-end">
-
-        <!-- LEFT: steps -->
-        <div class="flex flex-col gap-5 self-center reveal">
-          {[
-            { label: 'I learn your business', desc: 'Tell me your trade and your area. That\'s enough to get started.' },
-            { label: 'I build and launch your site', desc: 'Up in 7 days, built to rank. I handle everything after that too.' },
-            { label: 'Google sends you customers', desc: 'New enquiries come in from people who\'d never heard of you before.' },
-          ].map((step, i) => (
-            <div class="flex items-start gap-4 rounded-xl px-5 py-4" style="background:rgba(255,255,255,0.06); border:1px solid rgba(46,204,154,0.18);">
-              <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold" style="background:#2ECC9A; color:#0D2240;">{i + 1}</div>
-              <div>
-                <p class="font-semibold text-sm mb-0.5" style="color:#fff;">{step.label}</p>
-                <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.5);">{step.desc}</p>
+      {posts.length > 0 && (
+        <div class="grid gap-x-14 gap-y-12 lg:grid-cols-[1.2fr_1fr] items-start">
+          {(() => { const p = posts[0]; return (
+            <a href={`/blog/${p.id}/`} class="group flex flex-col gap-6 text-navy reveal">
+              <div class="relative aspect-[16/10] rounded-[32px] overflow-hidden bg-navy">
+                <img src={p.data.heroImage ?? postArt[0]} alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                <span class="absolute left-5 top-5 px-3.5 py-2 rounded-full bg-white/92 text-xs font-semibold">Latest · {topicOf(p.id)}</span>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <!-- CENTRE: Anil cut-out -->
-        <div class="flex justify-center items-end hero-animate-images lg:-mb-16">
-          <div class="relative" style="display:inline-block;">
-            <div class="absolute pointer-events-none" style="top:8px; left:50%; transform:translateX(-50%); width:233px; height:313px; border:1px solid rgba(46,204,154,0.35); border-radius:117px 117px 92px 92px; z-index:11;"></div>
-            <div class="absolute pointer-events-none" style="top:14px; left:50%; transform:translateX(-50%); width:219px; height:300px; border:2px solid #2ECC9A; border-radius:110px 110px 87px 87px; z-index:11;"></div>
-            <img
-              src="/images/anil-cutout-680.png"
-              alt="Anil Jaishi, founder of Pixova"
-              width="680" height="680"
-              loading="lazy"
-              style="display:block; width:320px; position:relative; z-index:10;"
-            />
-          </div>
-        </div>
-
-        <!-- RIGHT: stats -->
-        <div class="flex flex-col gap-7 self-center reveal reveal-d2">
-          {[
-            { val: '7 days', label: 'From first chat to live site' },
-            { val: '100%', label: 'Managed. You do nothing.' },
-            { val: 'UK-wide', label: 'From Birmingham, reaching everywhere' },
-            { val: '£0', label: 'Tech know-how required' },
-          ].map(s => (
-            <div class="text-center lg:text-left">
-              <div class="font-heading font-black text-4xl leading-none mb-1" style="color:#2ECC9A; letter-spacing:-0.03em;">{s.val}</div>
-              <p class="text-xs" style="color:rgba(255,255,255,0.5);">{s.label}</p>
-            </div>
-          ))}
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- FAQ ─────────────────────────────────────────────── -->
-  <section class="py-20" id="faq" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      <div class="mb-12 text-center">
-        <span class="sec-label reveal">FAQ</span>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2 reveal reveal-d1" style="color:#1C3557; letter-spacing:-0.025em;">
-          Questions I get asked a lot.
-        </h2>
-      </div>
-
-      <div class="space-y-3 reveal reveal-d1">
-        {homepage.faq.map((item, i) => {
-          const faqItem = (hp.faq as any[])[i];
-          const ftf = (field: string) => faqItem ? tinaField(faqItem, field) || undefined : undefined;
-          return (
-            <details class="group bg-white rounded-xl overflow-hidden shadow-sm" style="border:1px solid #e8f0f0;">
-              <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5 font-heading font-semibold text-base select-none" style="color:#1C3557; list-style:none;" data-tina-field={ftf('question')}>
-                {item.question}
-                <svg class="flex-shrink-0 transition-transform duration-200 group-open:rotate-45" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-              </summary>
-              <div class="px-6 pb-5 text-sm leading-relaxed" style="color:#4a6070;" data-tina-field={ftf('answer')}>
-                {item.answer}
+              <div class="flex flex-col gap-3 max-w-[560px]">
+                <span class="text-[13px] text-muted">{fmt(p.data.pubDate)}{p.data.readTime && ` · ${p.data.readTime}`}</span>
+                <h3 class="text-[clamp(24px,2.4vw,32px)] leading-[1.12] tracking-[-0.035em] group-hover:text-teal-dark transition-colors">{p.data.title}</h3>
+                <p class="text-[15px] leading-relaxed text-body line-clamp-2">{p.data.description}</p>
+                <span class="link-arrow text-sm mt-1">Read article <Icon name="arrow" size={14} stroke={2.6} /></span>
               </div>
-            </details>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-
-  <!-- FROM THE BLOG ──────────────────────────────────── -->
-  <section class="py-20" style="background:#0A1929;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-      <!-- Header -->
-      <div class="flex items-end justify-between mb-10 reveal">
-        <div>
-          <span class="sec-label" style="color:#2ECC9A;">FROM THE BLOG</span>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-2" style="color:#fff; letter-spacing:-0.025em;">
-            Free guides for<br/>small businesses.
-          </h2>
-        </div>
-        <a href="/blog/" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70 flex-shrink-0 mb-1" style="color:#2ECC9A;">
-          All posts
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-
-        <!-- Mobile carousel: blog posts (hidden on lg+) -->
-        <div class="swipe-wrap lg:hidden mb-2">
-          <div class="swipe-grid">
-            <a href="/blog/web-design-for-tradespeople/" class="blog-mob-card group" style="text-decoration:none;">
-              <span class="blog-cat-badge">WEB DESIGN</span>
-              <h3 class="font-heading font-semibold text-lg mt-3 mb-2 leading-snug" style="color:#fff;">Web Design for Tradespeople</h3>
-              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">What a good trades website actually needs. And why most fall short.</p>
-              <span class="blog-mob-arrow">Read →</span>
             </a>
-            <a href="/blog/what-are-local-seo-services/" class="blog-mob-card group" style="text-decoration:none;">
-              <span class="blog-cat-badge">LOCAL SEO</span>
-              <h3 class="font-heading font-semibold text-lg mt-3 mb-2 leading-snug" style="color:#fff;">What Are Local SEO Services?</h3>
-              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">Plain English breakdown of what local SEO is and what it costs.</p>
-              <span class="blog-mob-arrow">Read →</span>
-            </a>
-            <a href="/blog/seo-optimisation-services-small-business/" class="blog-mob-card group" style="text-decoration:none;">
-              <span class="blog-cat-badge">SEO</span>
-              <h3 class="font-heading font-semibold text-lg mt-3 mb-2 leading-snug" style="color:#fff;">SEO Optimisation Services Explained</h3>
-              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">What good SEO actually includes, month to month.</p>
-              <span class="blog-mob-arrow">Read →</span>
-            </a>
-            <a href="/blog/benefits-of-marketing-automation/" class="blog-mob-card group" style="text-decoration:none;">
-              <span class="blog-cat-badge">AUTOMATION</span>
-              <h3 class="font-heading font-semibold text-lg mt-3 mb-2 leading-snug" style="color:#fff;">Benefits of Marketing Automation</h3>
-              <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">Why fast follow-up wins more clients than any ad spend.</p>
-              <span class="blog-mob-arrow">Read →</span>
-            </a>
-          </div>
-          <div class="swipe-dots" aria-hidden="true"></div>
-        </div>
+          ); })()}
 
-      <!-- Bento grid: featured left + 3 compact right -->
-      <div class="hidden lg:grid grid-cols-5 gap-5">
-
-        <!-- Featured card -->
-        <a href="/blog/web-design-for-tradespeople/" class="blog-feat group reveal" style="text-decoration:none;">
-          <img
-            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop&auto=format&fm=webp&q=75"
-            alt="Tradesperson on a job, web design for tradespeople guide"
-            width="800" height="600"
-            loading="lazy"
-            class="blog-feat-bg"
-          />
-          <div class="absolute inset-0 rounded-[20px]" style="background:linear-gradient(160deg, rgba(10,25,41,0.55) 0%, rgba(10,25,41,0.92) 100%);"></div>
-          <span class="blog-feat-num" aria-hidden="true">01</span>
-          <div class="relative z-10 flex flex-col h-full">
-            <span class="blog-cat-badge">WEB DESIGN</span>
-            <h3 class="font-heading font-bold text-2xl sm:text-3xl mt-4 mb-4 leading-snug" style="color:#fff; letter-spacing:-0.02em;">Web Design for Tradespeople</h3>
-            <p class="text-sm leading-relaxed flex-1" style="color:rgba(255,255,255,0.7);">What a good trades website actually needs. And why most fall short.</p>
-            <div class="blog-arrow-btn mt-8">
-              Read the guide
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 3 compact cards -->
-        <div class="lg:col-span-3 flex flex-col gap-5">
-
-          <a href="/blog/what-are-local-seo-services/" class="blog-compact group reveal" style="text-decoration:none;">
-            <span class="blog-compact-num" aria-hidden="true">02</span>
-            <div class="flex-1 min-w-0">
-              <span class="blog-cat-badge">LOCAL SEO</span>
-              <h3 class="font-heading font-semibold text-lg mt-2 leading-snug" style="color:#fff;">What Are Local SEO Services?</h3>
-              <p class="text-xs mt-2 leading-relaxed" style="color:rgba(255,255,255,0.45);">Plain English breakdown of what local SEO is and what it costs.</p>
-            </div>
-            <svg class="flex-shrink-0 self-center ml-4 transition-transform group-hover:translate-x-1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-
-          <a href="/blog/seo-optimisation-services-small-business/" class="blog-compact group reveal reveal-d1" style="text-decoration:none;">
-            <span class="blog-compact-num" aria-hidden="true">03</span>
-            <div class="flex-1 min-w-0">
-              <span class="blog-cat-badge">SEO</span>
-              <h3 class="font-heading font-semibold text-lg mt-2 leading-snug" style="color:#fff;">SEO Optimisation Services Explained</h3>
-              <p class="text-xs mt-2 leading-relaxed" style="color:rgba(255,255,255,0.45);">What good SEO actually includes, month to month, for UK small businesses.</p>
-            </div>
-            <svg class="flex-shrink-0 self-center ml-4 transition-transform group-hover:translate-x-1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-
-          <a href="/blog/benefits-of-marketing-automation/" class="blog-compact group reveal reveal-d2" style="text-decoration:none;">
-            <span class="blog-compact-num" aria-hidden="true">04</span>
-            <div class="flex-1 min-w-0">
-              <span class="blog-cat-badge">AUTOMATION</span>
-              <h3 class="font-heading font-semibold text-lg mt-2 leading-snug" style="color:#fff;">Benefits of Marketing Automation</h3>
-              <p class="text-xs mt-2 leading-relaxed" style="color:rgba(255,255,255,0.45);">How automated follow-ups and review requests win more jobs without extra work.</p>
-            </div>
-            <svg class="flex-shrink-0 self-center ml-4 transition-transform group-hover:translate-x-1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-
-        </div>
-      </div>
-
-      <!-- Mobile: all posts link -->
-      <div class="sm:hidden mt-8 text-center reveal">
-        <a href="/blog/" class="text-sm font-semibold" style="color:#2ECC9A;">View all posts →</a>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- FINAL CTA ────────────────────────────────────────── -->
-  <section class="py-20 bg-offwhite">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="rounded-3xl text-center px-8 py-16 relative overflow-hidden" style="background:linear-gradient(135deg,#0D2240 0%,#1C3557 100%);">
-        <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 50% 50%, rgba(46,204,154,0.09), transparent 70%);"></div>
-        <span class="sec-label mb-4 block relative z-10">READY TO GROW?</span>
-        <h2 class="font-heading font-black text-3xl sm:text-4xl mb-4 relative z-10" style="color:#fff; letter-spacing:-0.025em;">
-          Your phone should be ringing<br class="hidden sm:block"/> <span style="color:#2ECC9A;">from Google.</span>
-        </h2>
-        <p class="mb-8 max-w-md mx-auto text-base relative z-10" style="color:rgba(255,255,255,0.5);">
-          No jargon, no waffle, just a quick chat about your business and what you need.
-        </p>
-        <div class="flex flex-wrap gap-3 justify-center relative z-10 mb-8">
-          <a href="/about/#contact" class="btn-p" style="box-shadow:0 4px 20px rgba(46,204,154,0.35);">
-            Get in touch
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="https://wa.me/447786366109" target="_blank" rel="noopener noreferrer" class="btn-g">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp us
-          </a>
-        </div>
-        <!-- Social proof -->
-        <div class="flex items-center justify-center gap-3 relative z-10">
-          <div class="flex flex-shrink-0">
-            {['/images/avatar-1.webp','/images/avatar-2.webp','/images/avatar-3.webp'].map((src,i) => (
-              <img src={src} alt="" width="28" height="28" loading="lazy"
-                class="w-7 h-7 rounded-full object-cover"
-                style={`border:2px solid #1C3557;${i>0?'margin-left:-8px;':''}`}
-              />
+          <div class="flex flex-col">
+            {posts.slice(1).map((p, i) => (
+              <a href={`/blog/${p.id}/`} class={`group grid grid-cols-[120px_1fr] sm:grid-cols-[168px_1fr] gap-5 sm:gap-7 items-center py-8 text-navy reveal ${i ? 'border-t border-line' : 'lg:pt-0'}`}>
+                <div class="relative aspect-square sm:aspect-[4/3.4] rounded-[22px] overflow-hidden bg-navy">
+                  <img src={p.data.heroImage ?? postArt[(i + 1) % 3]} alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
+                </div>
+                <div class="flex flex-col gap-2.5 min-w-0">
+                  <span class="text-xs font-semibold text-teal-dark">{topicOf(p.id)}{p.data.readTime && <span class="font-normal text-muted"> · {p.data.readTime}</span>}</span>
+                  <h3 class="text-[19px] sm:text-[21px] leading-[1.2] tracking-[-0.03em] group-hover:text-teal-dark transition-colors">{p.data.title}</h3>
+                  <span class="link-arrow text-sm">Read <Icon name="arrow" size={13} stroke={2.6} /></span>
+                </div>
+              </a>
             ))}
           </div>
-          <p class="text-xs" style="color:rgba(255,255,255,0.5);">
-            <strong style="color:#2ECC9A;">11 businesses</strong> launched this month
-          </p>
         </div>
+      )}
+    </div>
+  </section>
+
+  <!-- FAQ + ENQUIRY -->
+  <section class="section px-5 sm:px-6 wash">
+    <div class="max-w-[1240px] mx-auto grid gap-12 lg:grid-cols-[1fr_1.15fr] items-start">
+      <div class="flex flex-col gap-6">
+        <Eyebrow icon="chat" white>Questions</Eyebrow>
+        <h2 class="h2">Things People Ask Before They Ring.</h2>
+        <p class="lead">Something else? <a href={SITE.whatsapp} target="_blank" rel="noopener" class="link-arrow !inline">WhatsApp me</a>. I reply to every message myself.</p>
+        <div class="faq mt-2">
+          {faq.map(f => (<details><summary>{f.q}</summary><div>{f.a}</div></details>))}
+        </div>
+      </div>
+      <div class="lg:sticky lg:top-28">
+        <EnquiryForm id="home-enquiry" heading="Get A Fixed Price" sub="Every enquiry comes straight to me. Reply within one working day, usually the same day." />
       </div>
     </div>
   </section>
 
-<!-- EXIT INTENT MODAL -->
-<div id="exit-modal" class="fixed inset-0 z-[999] flex items-end sm:items-center justify-center" style="display:none; background:rgba(5,12,22,0.82); backdrop-filter:blur(6px);" aria-modal="true" role="dialog" aria-label="Limited offer">
-
-  <div id="exit-modal-panel" class="relative w-full sm:max-w-md mx-0 sm:mx-6 overflow-hidden rounded-t-[22px] sm:rounded-[22px]" style="background:linear-gradient(160deg,#0A1C31 0%,#112840 100%); border:1px solid rgba(46,204,154,0.2); box-shadow:0 40px 80px rgba(0,0,0,0.65), 0 0 60px rgba(46,204,154,0.06);">
-
-    <!-- Ambient teal glow — top right -->
-    <div class="absolute pointer-events-none" style="top:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(46,204,154,0.1) 0%,transparent 70%);"></div>
-
-    <!-- Top bar: Anil photo + name -->
-    <div class="flex items-center gap-3 px-5 py-4" style="border-bottom:1px solid rgba(46,204,154,0.1);">
-      <div class="relative flex-shrink-0">
-        <img src="/images/anil.webp" alt="Anil Jaishi" width="40" height="40"
-          class="rounded-full object-cover object-top"
-          style="width:40px;height:40px;border:2px solid #2ECC9A;"
-        />
-        <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full" style="background:#2ECC9A; border:2px solid #0A1C31;"></span>
-      </div>
-      <div>
-        <p class="text-sm font-bold leading-none mb-0.5" style="color:#fff;">Anil Jaishi</p>
-        <p class="text-xs" style="color:rgba(255,255,255,0.42);">Founder, Pixova · typically replies in minutes</p>
-      </div>
-      <button id="exit-modal-close" class="ml-auto w-7 h-7 flex items-center justify-center rounded-full flex-shrink-0" style="background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.45); border:1px solid rgba(255,255,255,0.08);" aria-label="Close">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-
-    <!-- Chat bubble from Anil -->
-    <div class="px-5 pt-5 pb-3">
-      <!-- Typing indicator -->
-      <div id="chat-typing" class="rounded-2xl rounded-tl-sm px-4 py-3.5 inline-flex items-center gap-1.5 mb-1" style="display:none; background:rgba(255,255,255,0.07); border:1px solid rgba(46,204,154,0.14);">
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-      </div>
-      <!-- Actual message (hidden until typing finishes) -->
-      <div id="chat-message" class="rounded-2xl rounded-tl-sm px-4 py-3.5 inline-block max-w-xs mb-1" style="display:none; background:rgba(255,255,255,0.07); border:1px solid rgba(46,204,154,0.14);">
-        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.82);">Before you go. I'm taking on new clients this month. From <strong style="color:#2ECC9A; font-weight:700;">£69/month</strong> — setup fee paid when live, nothing now. Takes 30 seconds to drop me a message.</p>
-      </div>
-      <p id="chat-timestamp" class="text-xs ml-1 mt-1" style="display:none; color:rgba(255,255,255,0.28);">just now</p>
-    </div>
-
-    <!-- Plans teaser -->
-    <div class="mx-5 mb-4 rounded-xl px-4 py-3 flex items-center gap-3" style="background:rgba(255,255,255,0.05); border:1px solid rgba(46,204,154,0.15);">
-      <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.78);">Plans from £69/month · Setup on go-live · Monthly, 6-month or rolling</span>
-      <span class="live-dot ml-auto"></span>
-    </div>
-
-    <!-- Form -->
-    <form id="exit-form" action="https://formspree.io/f/mlgzlnqn" method="POST" class="px-5 pb-5">
-      <input type="hidden" name="help_type" value="exit-intent" />
-      <input type="hidden" name="source" value="exit-intent-popup" />
-
-      <div class="grid grid-cols-2 gap-2 mb-2">
-        <input type="text" name="name" required placeholder="Your name"
-          class="exit-input rounded-lg px-3.5 py-2.5 text-sm focus:outline-none"
-          style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.11); color:#fff;"
-        />
-        <input type="tel" name="phone" required placeholder="Phone number"
-          class="exit-input rounded-lg px-3.5 py-2.5 text-sm focus:outline-none"
-          style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.11); color:#fff;"
-        />
-      </div>
-      <input type="email" name="email" required placeholder="Email address"
-        class="exit-input w-full rounded-lg px-3.5 py-2.5 text-sm focus:outline-none mb-3"
-        style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.11); color:#fff;"
-      />
-      <button type="submit" id="exit-form-btn" class="w-full py-3 rounded-xl font-heading font-bold text-sm transition-opacity" style="background:#2ECC9A; color:#0A1C31; box-shadow:0 4px 20px rgba(46,204,154,0.3);">
-        Get in touch →
-      </button>
-    </form>
-
-    <div id="exit-form-success" class="hidden px-5 pb-6 text-center">
-      <div class="text-3xl mb-2">👋</div>
-      <p class="font-heading font-bold text-lg mb-1" style="color:#fff;">You're on the list.</p>
-      <p class="text-sm" style="color:rgba(255,255,255,0.5);">Anil will message you personally within 24 hours.</p>
-    </div>
-
-    <button id="exit-modal-dismiss" class="w-full pb-5 text-xs text-center transition-colors" style="color:rgba(255,255,255,0.28);">No thanks</button>
-  </div>
-</div>
-
-<style>
-  /* ── Split-background pricing ───────────────────────── */
-  .pricing-top {
-    background: #0D2240;
-    padding: 80px 0 210px;
-  }
-  .pricing-bottom {
-    background: #f2f5f7;
-    padding: 0 0 80px;
-  }
-  .pricing-wrap {
-    display: flex;
-    align-items: stretch;
-    margin-top: -150px;
-    gap: 0;
-  }
-
-  /* Base card */
-  .p-card {
-    display: flex;
-    flex-direction: column;
-    padding: 28px;
-    background: #fff;
-  }
-  .p-card-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-    flex-shrink: 0;
-  }
-
-  /* Side cards — margin-top pushes them down so centre protrudes above */
-  .p-card-side {
-    border: 1.5px solid #dde5ef;
-    margin-top: 50px;
-  }
-  .p-card-left {
-    border-radius: 16px 0 0 16px;
-    border-right: none;
-  }
-  .p-card-right {
-    border-radius: 0 16px 16px 0;
-    border-left: none;
-  }
-
-  /* Centre featured card — dark, raised 50px above side cards */
-  .p-card-mid {
-    background: linear-gradient(160deg, #1E4570 0%, #0F2A4A 100%);
-    border: 2px solid #2ECC9A;
-    border-radius: 16px;
-    position: relative;
-    z-index: 2;
-    padding: 40px 28px;
-    box-shadow: 0 0 0 6px rgba(46,204,154,0.12), 0 30px 70px rgba(0,0,0,0.5);
-    flex: 1.05;
-  }
-  .p-popular-badge {
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #2ECC9A;
-    color: #0D2240;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    padding: 5px 16px;
-    border-radius: 0 0 10px 10px;
-    white-space: nowrap;
-  }
-
-  /* Circular check badge */
-  .p-check {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    font-size: 10px;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    line-height: 1;
-  }
-
-  /* Buttons */
-  .p-btn {
-    display: block;
-    text-align: center;
-    font-size: 0.875rem;
-    font-weight: 600;
-    padding: 12px 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: opacity 0.2s;
-    width: 100%;
-  }
-  .p-btn:hover { opacity: 0.85; }
-  .p-btn-light {
-    border: 1.5px solid #1C3557;
-    color: #1C3557;
-    background: transparent;
-  }
-  .p-btn-teal {
-    background: #2ECC9A;
-    color: #0D2240;
-    font-weight: 700;
-  }
-
-  /* Spacer */
-  .svc-spacer { flex: 1; min-height: 16px; }
-
-  /* Collapsible add-ons */
-  .svc-details summary { list-style: none; }
-  .svc-details summary::-webkit-details-marker { display: none; }
-  .svc-summary {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.73rem;
-    font-weight: 600;
-    cursor: pointer;
-    user-select: none;
-    padding: 9px 0;
-    border-top: 1px solid #e8eef2;
-    color: #2ECC9A;
-  }
-  .svc-details--dark .svc-summary { border-top-color: rgba(255,255,255,0.1); }
-  .svc-chevron { transition: transform 0.22s ease; flex-shrink: 0; }
-  .svc-details[open] .svc-chevron { transform: rotate(180deg); }
-
-  /* Mobile: stack cards */
-  @media (max-width: 767px) {
-    .pricing-top { padding-bottom: 130px; }
-    .pricing-wrap {
-      flex-direction: column;
-      align-items: center;
-      margin-top: -100px;
-      gap: 14px;
-    }
-    .p-card {
-      width: 92%;
-      border-radius: 16px !important;
-      border: 1.5px solid #dde5ef !important;
-      margin-top: 0 !important;
-    }
-    .p-card-mid {
-      border: 2px solid #2ECC9A !important;
-      padding: 36px 24px !important;
-      box-shadow: 0 0 0 5px rgba(46,204,154,0.1), 0 16px 40px rgba(0,0,0,0.4) !important;
-      order: -1;
-    }
-    .p-popular-badge {
-      border-radius: 10px 10px 0 0;
-      top: auto;
-      bottom: -1px;
-      transform: none;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-
-  /* Blog cards */
-  .blog-feat {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    padding: 32px;
-    min-height: 380px;
-    background: linear-gradient(145deg, #0D2240 0%, #1a3555 100%);
-    border: 1px solid rgba(46,204,154,0.15);
-    transition: border-color 0.25s, box-shadow 0.25s;
-  }
-  @media (min-width: 1024px) {
-    .blog-feat { grid-column: span 2; }
-  }
-  .blog-feat:hover {
-    border-color: rgba(46,204,154,0.4);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(46,204,154,0.06);
-  }
-  .blog-feat-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
-    transition: transform 0.6s ease;
-  }
-  .blog-feat:hover .blog-feat-bg {
-    transform: scale(1.04);
-  }
-  .blog-feat-num {
-    position: absolute;
-    top: -10px;
-    right: 24px;
-    font-family: "DM Sans", sans-serif;
-    font-weight: 900;
-    font-size: 9rem;
-    line-height: 1;
-    color: rgba(255,255,255,0.04);
-    pointer-events: none;
-    user-select: none;
-    letter-spacing: -0.05em;
-  }
-  .blog-cat-badge {
-    display: inline-block;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #0D2240;
-    background: #2ECC9A;
-    padding: 3px 10px;
-    border-radius: 20px;
-  }
-  .blog-arrow-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #2ECC9A;
-  }
-  .blog-compact {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    border-radius: 16px;
-    padding: 24px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.07);
-    transition: background 0.2s, border-color 0.2s;
-    flex: 1;
-  }
-  .blog-compact:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(46,204,154,0.25);
-  }
-  .blog-compact-num {
-    font-family: "DM Sans", sans-serif;
-    font-weight: 900;
-    font-size: 2rem;
-    line-height: 1;
-    color: rgba(255,255,255,0.08);
-    flex-shrink: 0;
-    letter-spacing: -0.04em;
-    margin-top: 2px;
-  }
-
-  /* Testimonial carousel */
-  .tcarousel-outer {
-    overflow: hidden;
-  }
-  .tcarousel-wrapper {
-    position: relative;
-    padding: 8px 0 12px;
-  }
-  .tcarousel-track {
-    display: flex;
-    gap: 20px;
-    width: max-content;
-    animation: tcScroll 32s linear infinite;
-  }
-  .tcarousel-wrapper:hover .tcarousel-track {
-    animation-play-state: paused;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .tcarousel-track { animation: none; }
-    .stats-marquee-track { animation: none; }
-  }
-  @keyframes tcScroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  .stats-marquee-track {
-    animation: statsScroll 20s linear infinite;
-  }
-  @keyframes statsScroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  @media (min-width: 640px) {
-    .tcarousel-outer {
-      max-width: 72rem;
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 18px;
-      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    }
-  }
-
-  /* Testimonial cards */
-  .tcard {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 3/4;
-    width: clamp(240px, 28vw, 320px);
-    flex-shrink: 0;
-    border-radius: 18px;
-    box-shadow: 0 8px 40px rgba(13,34,64,0.22);
-  }
-  .tcard-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-    display: block;
-    transition: transform 0.6s ease;
-  }
-  .tcard:hover .tcard-img {
-    transform: scale(1.04);
-  }
-  .tcard-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(10,22,44,0.04) 0%,
-      rgba(10,22,44,0.15) 35%,
-      rgba(10,22,44,0.75) 62%,
-      rgba(10,22,44,0.97) 100%
-    );
-  }
-  .tcard-badge {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: #0D2240;
-    background: #2ECC9A;
-    padding: 4px 11px;
-    border-radius: 20px;
-  }
-  .tcard-body {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px 20px 20px;
-  }
-  .tcard-quote {
-    font-size: 0.9rem;
-    font-style: italic;
-    line-height: 1.65;
-    color: rgba(255,255,255,0.93);
-    margin-bottom: 14px;
-  }
-  .tcard-meta {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  .tcard-stars {
-    display: flex;
-    gap: 2px;
-    flex-shrink: 0;
-    padding-bottom: 2px;
-  }
-  .tcard-name {
-    font-family: "DM Sans", sans-serif;
-    font-weight: 700;
-    font-size: 0.92rem;
-    color: #fff;
-    margin-bottom: 1px;
-  }
-  .tcard-role {
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.02em;
-  }
-
-  .exit-input::placeholder { color: rgba(255,255,255,0.32); }
-  .exit-input:focus { border-color: rgba(46,204,154,0.4) !important; }
-  #exit-form-btn:hover { opacity: 0.9; }
-  #exit-modal-dismiss:hover { color: rgba(255,255,255,0.55); }
-
-  /* Typing indicator dots */
-  .typing-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #2ECC9A;
-    opacity: 0.7;
-    animation: typing-bounce 1.3s ease-in-out infinite;
-  }
-  .typing-dot:nth-child(2) { animation-delay: 0.18s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.36s; }
-
-  @keyframes typing-bounce {
-    0%, 60%, 100% { transform: translateY(0);    opacity: 0.5; }
-    30%            { transform: translateY(-6px); opacity: 1;   }
-  }
-
-  /* ── Mobile swipe carousel ─── */
-  .swipe-wrap { position: relative; }
-  .swipe-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    gap: 14px;
-    padding: 4px 16px 8px;
-    margin: 0 -16px;
-    scrollbar-width: none;
-  }
-  .swipe-grid::-webkit-scrollbar { display: none; }
-  .swipe-grid > * { flex: 0 0 84%; scroll-snap-align: start; min-width: 0; }
-  .swipe-dots { display: flex; justify-content: center; align-items: center; gap: 7px; padding: 14px 0 4px; }
-  .swipe-dot { width: 7px; height: 7px; border-radius: 4px; background: rgba(255,255,255,0.25); border: none; cursor: pointer; padding: 0; transition: all 0.2s ease; }
-  .swipe-dot.is-active { background: #2ECC9A; width: 22px; }
-  @media (min-width: 768px) {
-    .swipe-wrap { overflow: visible; }
-    .proc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; overflow: visible; margin: 0; padding: 0; scroll-snap-type: none; }
-    .proc-grid > * { flex: unset; }
-    .proc-grid ~ .swipe-dots { display: none; }
-  }
-  @media (max-width: 767px) {
-    .pricing-wrap { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; gap: 14px; margin-top: 0 !important; padding: 4px 16px 8px; margin-left: -16px; margin-right: -16px; }
-    .p-card-side { flex: 0 0 84%; scroll-snap-align: start; margin-top: 0 !important; border-radius: 16px !important; border: 1.5px solid #dde5ef !important; }
-    .p-card-mid { flex: 0 0 84%; scroll-snap-align: start; margin-top: 0 !important; border-radius: 16px !important; }
-    .pricing-dots { display: flex !important; }
-  }
-  @media (min-width: 768px) { .pricing-dots { display: none !important; } }
-  .blog-mob-card { display: flex; flex-direction: column; background: rgba(255,255,255,0.06); border: 1px solid rgba(46,204,154,0.15); border-radius: 16px; padding: 20px; min-height: 200px; }
-  .blog-mob-arrow { margin-top: auto; padding-top: 16px; font-size: 0.75rem; font-weight: 700; color: #2ECC9A; }
-</style>
-
-<script>
-  // Count-up animation for live stats
-  const counters = document.querySelectorAll<HTMLElement>('.live-counter');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target as HTMLElement;
-      const target = parseInt(el.dataset.target || '0');
-      const delay = parseInt(el.dataset.delay || '0');
-      const duration = 1200;
-      const start = performance.now();
-      setTimeout(() => {
-        const tick = (now: number) => {
-          const progress = Math.min((now - start) / duration, 1);
-          const ease = 1 - Math.pow(1 - progress, 3);
-          el.textContent = String(Math.round(ease * target));
-          if (progress < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }, delay);
-      obs.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(c => obs.observe(c));
-
-  // ── Exit intent modal ──────────────────────────────────
-  const modal      = document.getElementById('exit-modal')!;
-  const panel      = document.getElementById('exit-modal-panel')!;
-  const closeBtn   = document.getElementById('exit-modal-close')!;
-  const dismissBtn = document.getElementById('exit-modal-dismiss')!;
-  const exitForm   = document.getElementById('exit-form') as HTMLFormElement;
-  const exitSuccess = document.getElementById('exit-form-success')!;
-  const exitBtn    = document.getElementById('exit-form-btn') as HTMLButtonElement;
-
-  const SESSION_KEY = 'px_exit_shown';
-  let readyToShow = false;
-  let lastScrollY = window.scrollY;
-
-  const isPreview = new URLSearchParams(window.location.search).has('preview_popup');
-  if (isPreview) sessionStorage.removeItem(SESSION_KEY);
-
-  if (!sessionStorage.getItem(SESSION_KEY)) {
-    setTimeout(() => { readyToShow = true; }, isPreview ? 0 : 5000);
-  }
-
-  const typingEl   = document.getElementById('chat-typing')!;
-  const messageEl  = document.getElementById('chat-message')!;
-  const stampEl    = document.getElementById('chat-timestamp')!;
-
-  function showModal() {
-    if (!readyToShow || sessionStorage.getItem(SESSION_KEY)) return;
-    sessionStorage.setItem(SESSION_KEY, '1');
-
-    // Reset chat state
-    typingEl.style.display  = 'none';
-    messageEl.style.display = 'none';
-    stampEl.style.display   = 'none';
-
-    modal.style.display = 'flex';
-    panel.style.opacity = '0';
-    panel.style.transform = window.innerWidth < 640 ? 'translateY(100%)' : 'translateY(20px)';
-    panel.style.transition = 'transform 0.38s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease';
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      panel.style.opacity = '1';
-      panel.style.transform = 'translateY(0)';
-    }));
-
-    // Typing indicator appears after panel slides in
-    setTimeout(() => {
-      typingEl.style.display = 'inline-flex';
-    }, 500);
-
-    // Swap typing → message after 2s of "typing"
-    setTimeout(() => {
-      typingEl.style.display  = 'none';
-      messageEl.style.display = 'inline-block';
-      messageEl.style.opacity = '0';
-      messageEl.style.transform = 'translateY(5px)';
-      messageEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        messageEl.style.opacity   = '1';
-        messageEl.style.transform = 'translateY(0)';
-      }));
-      setTimeout(() => { stampEl.style.display = 'block'; }, 320);
-    }, 2500);
-  }
-
-  function hideModal() {
-    panel.style.opacity = '0';
-    panel.style.transform = window.innerWidth < 640 ? 'translateY(100%)' : 'translateY(20px)';
-    setTimeout(() => { modal.style.display = 'none'; }, 350);
-  }
-
-  // Desktop: cursor leaves document toward the top (back/close button area)
-  document.addEventListener('mouseout', (e) => {
-    if (!e.relatedTarget && (e as MouseEvent).clientY < 10) showModal();
-  });
-
-  // Mobile: fast scroll upward (backing out behaviour)
-  window.addEventListener('scroll', () => {
-    const delta = lastScrollY - window.scrollY;
-    if (delta > 50 && window.scrollY > 200) showModal();
-    lastScrollY = window.scrollY;
-  }, { passive: true });
-
-  // Mobile: switching tabs or pressing home
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') showModal();
-  });
-
-  closeBtn.addEventListener('click', hideModal);
-  dismissBtn.addEventListener('click', hideModal);
-  modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
-
-  // Form submit
-  exitForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    exitBtn.disabled = true;
-    exitBtn.textContent = 'Sending…';
-    try {
-      const res = await fetch(exitForm.action, {
-        method: 'POST',
-        body: new FormData(exitForm),
-        headers: { Accept: 'application/json' },
-      });
-      if (res.ok) {
-        exitForm.classList.add('hidden');
-        exitSuccess.classList.remove('hidden');
-        setTimeout(hideModal, 3000);
-      } else {
-        exitBtn.disabled = false;
-        exitBtn.textContent = 'Get in touch →';
-      }
-    } catch {
-      exitBtn.disabled = false;
-      exitBtn.textContent = 'Claim my free website';
-    }
-  });
-
-  // ── Urgency bar dismiss ─────────────────────────────
-  const urgencyBar  = document.getElementById('urgency-bar');
-  const urgencyClose = document.getElementById('urgency-close');
-  if (urgencyBar) {
-    if (sessionStorage.getItem('px_urgency')) {
-      urgencyBar.style.display = 'none';
-    } else if (urgencyClose) {
-      urgencyClose.addEventListener('click', () => {
-        urgencyBar.style.maxHeight = '0';
-        urgencyBar.style.opacity   = '0';
-        sessionStorage.setItem('px_urgency', '1');
-        setTimeout(() => { urgencyBar.style.display = 'none'; }, 420);
-      });
-    }
-  }
-
-  // ── Magnetic buttons (desktop pointer only) ─────────
-  if (window.matchMedia('(pointer: fine)').matches) {
-    document.querySelectorAll<HTMLElement>('.btn-p, .btn-g').forEach(btn => {
-      btn.addEventListener('mouseenter', () => {
-        btn.style.transition = 'background-color 0.15s, border-color 0.15s';
-      });
-      btn.addEventListener('mousemove', (e) => {
-        const r  = btn.getBoundingClientRect();
-        const mx = e.clientX - r.left  - r.width  / 2;
-        const my = e.clientY - r.top   - r.height / 2;
-        btn.style.transform = `translate(${mx * 0.13}px, ${my * 0.18}px)`;
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transition = 'background-color 0.15s, border-color 0.15s, transform 0.45s cubic-bezier(0.22,1,0.36,1)';
-        btn.style.transform  = 'translate(0,0)';
-        setTimeout(() => { btn.style.transition = ''; }, 450);
-      });
-    });
-  }
-</script>
-
-
-  <script>
-    (function() {
-      function initCarousels() {
-        document.querySelectorAll('.swipe-wrap').forEach(wrap => {
-          const grid = wrap.querySelector('.swipe-grid, .pricing-wrap');
-          const dotsEl = wrap.querySelector('.swipe-dots');
-          if (!grid || !dotsEl) return;
-          dotsEl.innerHTML = '';
-          const items = Array.from(grid.children).filter(el => !el.classList.contains('p-popular-badge'));
-          if (items.length < 2) return;
-          const dots = items.map((_, i) => {
-            const btn = document.createElement('button');
-            btn.className = 'swipe-dot' + (i === 0 ? ' is-active' : '');
-            btn.setAttribute('aria-label', 'Item ' + (i + 1));
-            btn.onclick = () => items[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
-            dotsEl.appendChild(btn);
-            return btn;
-          });
-          const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-              if (e.isIntersecting && e.intersectionRatio >= 0.5) {
-                const idx = items.indexOf(e.target);
-                if (idx >= 0) dots.forEach((d,i) => d.classList.toggle('is-active', i === idx));
-              }
-            });
-          }, {root: grid, threshold: 0.5});
-          items.forEach(item => obs.observe(item));
-        });
-      }
-      initCarousels();
-    })();
-  </script>
-  <script>
-    (function() {
-      document.querySelectorAll('.swipe-wrap').forEach(wrap => {
-        const grid = wrap.querySelector('.swipe-grid, .pricing-wrap');
-        const dotsEl = wrap.querySelector('.swipe-dots');
-        if (!grid || !dotsEl) return;
-        dotsEl.innerHTML = '';
-        const items = Array.from(grid.children).filter(el => el.tagName !== 'SCRIPT' && !el.classList.contains('p-popular-badge'));
-        if (items.length < 2) return;
-        const dots = items.map((_, i) => {
-          const btn = document.createElement('button');
-          btn.className = 'swipe-dot' + (i === 0 ? ' is-active' : '');
-          btn.setAttribute('aria-label', 'Item ' + (i + 1));
-          btn.onclick = () => items[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
-          dotsEl.appendChild(btn);
-          return btn;
-        });
-        const obs = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            if (e.isIntersecting && e.intersectionRatio >= 0.5) {
-              const idx = items.indexOf(e.target);
-              if (idx >= 0) dots.forEach((d,i) => d.classList.toggle('is-active', i === idx));
-            }
-          });
-        }, {root: grid, threshold: 0.5});
-        items.forEach(item => obs.observe(item));
-      });
-    })();
-  </script>
-  <TinaContext
-    client:only="react"
-    query={HomepageDocument as string}
-    variables={{ relativePath: 'homepage.json' }}
-    data={{ homepage }}
-  />
+  <CtaBand />
 </Layout>
 
+<script>
+  document.getElementById('gap-quick')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let val = (document.getElementById('gap-url') as HTMLInputElement).value.trim();
+    if (!val) { window.location.href = '/gap-report/'; return; }
+    if (!/^https?:\/\//i.test(val)) val = 'https://' + val;
+    window.location.href = '/gap-report/?website=' + encodeURIComponent(val);
+  });
+
+</script>

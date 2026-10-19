@@ -1,13 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { GapReport } from '../components/GapReport';
-import '@fontsource/dm-sans/latin-400.css';
-import '@fontsource/dm-sans/latin-500.css';
-import '@fontsource/dm-sans/latin-600.css';
-import '@fontsource/dm-sans/latin-700.css';
-import '@fontsource/inter/latin-400.css';
-import '@fontsource/inter/latin-500.css';
-import '../styles/global.css';
+
+const steps = [
+  { n: 'STEP 1', t: 'Tell me your site and keyword', s: 'The search you most want to win, in the area you work.', art: '/images/art/waves-light.jpg' },
+  { n: 'STEP 2', t: "I check who's ranking, and why", s: 'Speed, content, reviews and local signals, side by side.', art: '/images/art/grid-dark.jpg' },
+  { n: 'STEP 3', t: 'You see the gap, live on screen', s: "Your score next to your top 3 competitors, with the fixes listed. A copy lands in your inbox too.", art: '/images/art/orb-dark.jpg' },
+];
 ---
 
 <Layout
@@ -16,4 +15,23 @@ import '../styles/global.css';
   canonicalUrl="https://www.pixova.uk/gap-report/"
 >
   <GapReport client:load />
+
+  <section class="section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-10">
+      <h2 class="h2 text-center">How It Works</h2>
+      <ol class="list-none m-0 p-0 grid gap-4 md:grid-cols-3">
+        {steps.map(s => (
+          <li class="relative overflow-hidden rounded-[28px] bg-navy text-white min-h-[300px] flex flex-col justify-end">
+            <img src={s.art} alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+            <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(7,17,31,0) 30%, rgba(7,17,31,0.85) 100%)"></div>
+            <div class="relative p-[26px] flex flex-col gap-2">
+              <span class="mono text-xs text-teal">{s.n}</span>
+              <span class="font-medium text-[22px] tracking-[-0.03em]">{s.t}</span>
+              <span class="text-sm leading-relaxed text-[#C8D3DD]">{s.s}</span>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
 </Layout>

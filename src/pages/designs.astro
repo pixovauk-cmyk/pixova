@@ -1,0 +1,229 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteMock from '../components/SiteMock.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import { DESIGNS, INDUSTRIES, TYPES } from '../data/designs';
+
+const countFor = (i: string) => DESIGNS.filter(d => d.industry === i).length;
+---
+
+<Layout
+  title="Website Design Ideas for Small Businesses | Pixova Design Catalogue"
+  description="Browse website design concepts for trades, salons, cafés, clinics, accountants and shops. Pick a style and Pixova builds it for your business in about a week."
+  canonicalUrl="https://www.pixova.uk/designs/"
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Designs', url: 'https://www.pixova.uk/designs/' }]}
+>
+  <!-- HERO -->
+  <section class="px-5 sm:px-6 pt-10 sm:pt-12 pb-10">
+    <div class="max-w-[1240px] mx-auto grid gap-x-16 gap-y-8 lg:grid-cols-2 items-end">
+      <div class="flex flex-col gap-[22px]">
+        <Eyebrow icon="grid">Design catalogue</Eyebrow>
+        <h1 class="font-medium text-[clamp(46px,5.8vw,84px)] leading-[0.98] tracking-[-0.055em]">Pick A Style. <span class="grad-text">I'll Make It Yours.</span></h1>
+      </div>
+      <div class="flex flex-col gap-4">
+        <p class="text-base leading-relaxed text-body max-w-[480px]">{DESIGNS.length} concept designs across {INDUSTRIES.length} industries, made to show what's possible. The businesses are made up. Choose one you like and I'll build it with your name, your photos and your words.</p>
+        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-navy font-medium">
+          <span class="inline-flex items-center gap-1.5"><Icon name="check" size={15} class="text-teal-dark" />Built for phones</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="check" size={15} class="text-teal-dark" />Ready for Google</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="check" size={15} class="text-teal-dark" />Live in about 7 days</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTERS + CAROUSEL -->
+  <section class="px-5 sm:px-6 pb-[clamp(72px,8vw,112px)]">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-8">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div role="group" aria-label="Filter by industry" class="flex gap-1 p-[5px] rounded-full bg-white/75 border border-[rgba(7,17,31,0.06)] max-w-full overflow-x-auto [scrollbar-width:none]">
+          <button type="button" class="ind-btn shrink-0 inline-flex items-center gap-2 min-h-[42px] px-4 rounded-full text-sm whitespace-nowrap transition-colors" data-value="all" aria-pressed="true">All <span class="cnt text-xs opacity-60">{DESIGNS.length}</span></button>
+          {INDUSTRIES.map(i => (
+            <button type="button" class="ind-btn shrink-0 inline-flex items-center gap-2 min-h-[42px] px-4 rounded-full text-sm whitespace-nowrap transition-colors" data-value={i} aria-pressed="false">{i} <span class="cnt text-xs opacity-60">{countFor(i)}</span></button>
+          ))}
+        </div>
+        <div class="field flex items-center gap-3">
+          <label for="type-filter" class="!mb-0 whitespace-nowrap">Site type</label>
+          <select id="type-filter" class="!min-h-[46px] !w-auto">
+            <option value="all">All types</option>
+            {TYPES.map(t => <option value={t}>{t}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div id="design-track" class="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-5 px-5 sm:mx-0 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" tabindex="0" aria-label="Design carousel. Use arrow buttons or scroll sideways.">
+          {DESIGNS.map(d => (
+            <article id={d.slug} class="design-card snap-start shrink-0 w-[86%] sm:w-[60%] lg:w-[calc((100%-40px)/3)] flex flex-col" data-industry={d.industry} data-type={d.type}>
+              <div class="relative rounded-[26px] overflow-hidden border border-line bg-white shadow-[0_30px_60px_-34px_rgba(7,17,31,0.35)]">
+                <SiteMock design={d} />
+                <span class="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-wider bg-white/90 text-navy px-2 py-1 rounded-full">Concept design</span>
+              </div>
+              <div class="mt-5 flex items-start justify-between gap-3">
+                <div>
+                  <h2 class="font-semibold text-[21px] tracking-[-0.03em]">{d.business}</h2>
+                  <p class="text-sm text-muted">{d.industry} · {d.type}</p>
+                </div>
+                <span class="flex gap-1 mt-1.5" aria-hidden="true">
+                  {[d.colors.ink, d.colors.accent, d.colors.soft].map(c => <span class="w-4 h-4 rounded-full border border-black/10" style={`background:${c}`}></span>)}
+                </span>
+              </div>
+              <p class="text-sm leading-relaxed mt-3 text-body">{d.idea}</p>
+              <p class="text-xs text-muted mt-3">Pages: {d.pages.join(' · ')}</p>
+              <a href={`/contact/?design=${encodeURIComponent(d.business)}`} class="link-arrow text-sm mt-4">I want this style <Icon name="arrow" size={14} stroke={2.6} /></a>
+            </article>
+          ))}
+        </div>
+        <p id="design-empty" class="text-body text-center py-16" hidden>No designs match both filters yet. <a href="/contact/" class="link-arrow !inline">Ask me for one</a></p>
+      </div>
+
+      <div class="flex items-center justify-between gap-4">
+        <p class="mono text-sm text-body" aria-live="polite"><span id="d-pos">1</span> / <span id="d-total">{DESIGNS.length}</span> <span id="d-label" class="text-muted">designs</span></p>
+        <div class="flex gap-2.5">
+          <button type="button" id="d-prev" aria-label="Previous designs" class="w-[54px] h-[54px] rounded-full border border-[#CFE0D6] bg-white text-navy grid place-items-center disabled:opacity-40"><Icon name="left" size={18} /></button>
+          <button type="button" id="d-next" aria-label="Next designs" class="w-[54px] h-[54px] rounded-full text-navy grid place-items-center disabled:opacity-40" style="background:var(--grad)"><Icon name="right" size={18} /></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="grid-tint section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-12">
+      <div class="flex flex-col gap-5 max-w-[640px]">
+        <Eyebrow icon="check" white>Every design, every time</Eyebrow>
+        <h2 class="h2">Pretty Is The Easy Part.</h2>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+
+        <article class="rounded-[26px] bg-white border border-line overflow-hidden flex flex-col">
+          <div aria-hidden="true" class="h-[190px] bg-tint grid place-items-center p-6">
+            <div class="w-full max-w-[250px] rounded-[18px] bg-white border border-line shadow-[0_20px_40px_-24px_rgba(7,17,31,0.35)] p-3.5 flex flex-col gap-2.5">
+              <div class="flex justify-between items-center"><span class="text-[13px] font-bold">Hartley Plumbing</span><span class="w-4 flex flex-col gap-[3px]"><i class="h-[2px] rounded bg-navy"></i><i class="h-[2px] rounded bg-navy"></i></span></div>
+              <span class="text-[12px] text-muted"><span class="text-[#F5B841]">★★★★★</span> 4.9 · 212 Google reviews</span>
+              <span class="text-[12px]">Boiler repair <b class="float-right text-[#F26B1D]">from £85</b></span>
+              <span class="rounded-[10px] bg-[#F26B1D] text-white text-[12px] font-semibold text-center py-2">Call 0121 496 0731</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col gap-2">
+            <h3 class="font-semibold text-lg tracking-[-0.02em]">Built for your customers</h3>
+            <p class="text-sm leading-relaxed text-body">Your phone number, prices and reviews sit where people look first, so they ring you instead of scrolling past.</p>
+          </div>
+        </article>
+
+        <article class="rounded-[26px] bg-white border border-line overflow-hidden flex flex-col">
+          <div aria-hidden="true" class="h-[190px] bg-navy grid place-items-center p-6">
+            <div class="flex items-center gap-5">
+              <div class="relative w-[104px] h-[104px]">
+                <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90"><circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#2BD98F" stroke-width="9" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="16"/></svg>
+                <span class="absolute inset-0 grid place-items-center text-white font-medium text-[30px] tracking-[-0.04em]">96</span>
+              </div>
+              <div class="flex flex-col gap-2 text-white">
+                <span class="mono text-[11px] tracking-[0.1em] text-teal">MOBILE · 4G</span>
+                <span class="text-[13px] text-[#C8D3DD]">Loads in <b class="text-white">1.4s</b></span>
+                <span class="text-[13px] text-[#C8D3DD]">Page weight <b class="text-white">620 KB</b></span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col gap-2">
+            <h3 class="font-semibold text-lg tracking-[-0.02em]">Fast on phones</h3>
+            <p class="text-sm leading-relaxed text-body">Most of your visitors are on a phone, often on mobile data. I aim for 90+ on Google's speed test before anything launches.</p>
+          </div>
+        </article>
+
+        <article class="rounded-[26px] bg-white border border-line overflow-hidden flex flex-col">
+          <div aria-hidden="true" class="h-[190px] bg-tint grid place-items-center p-6">
+            <div class="w-full max-w-[290px] rounded-[18px] bg-white border border-line shadow-[0_20px_40px_-24px_rgba(7,17,31,0.35)] p-4 flex flex-col gap-1.5 font-[Arial,sans-serif]">
+              <span class="flex items-center gap-2 text-[11px] text-[#4D5156]"><span class="w-5 h-5 rounded-full bg-[#F26B1D] text-white grid place-items-center text-[10px] font-bold">H</span>hartleyplumbing.co.uk › boiler-repair</span>
+              <span class="text-[15px] leading-tight text-[#1A0DAB]">Boiler Repair Birmingham | Same-Day Call-Outs</span>
+              <span class="text-[11.5px] leading-snug text-[#4D5156]">Gas Safe engineers covering Birmingham &amp; Solihull. Boiler repairs from £85. Call 0121 496 0731.</span>
+              <span class="text-[11px] text-[#4D5156]"><span class="text-[#F5B841]">★★★★★</span> Rating 4.9 · 212 reviews</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col gap-2">
+            <h3 class="font-semibold text-lg tracking-[-0.02em]">Ready for Google</h3>
+            <p class="text-sm leading-relaxed text-body">Page titles, service pages and your area set up from day one, so you show up like this when someone nearby searches.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Seen One You Like?" text="Tell me which design and what your business does. I'll send a fixed price within one working day." />
+</Layout>
+
+<style>
+  .ind-btn { color: var(--color-body); }
+  .ind-btn:hover { background: rgba(7,17,31,0.05); }
+  .ind-btn[aria-pressed="true"] { background: var(--color-navy); color: #fff; font-weight: 500; }
+</style>
+
+<script>
+  const state = { industry: 'all', type: 'all' };
+  const track = document.getElementById('design-track')!;
+  const cards = [...document.querySelectorAll<HTMLElement>('.design-card')];
+  const empty = document.getElementById('design-empty')!;
+  const pos = document.getElementById('d-pos')!;
+  const total = document.getElementById('d-total')!;
+  const label = document.getElementById('d-label')!;
+  const prev = document.getElementById('d-prev') as HTMLButtonElement;
+  const next = document.getElementById('d-next') as HTMLButtonElement;
+
+  const visible = () => cards.filter(c => !c.hidden);
+  const step = () => (visible()[0]?.offsetWidth ?? 300) + 20;
+
+  function update() {
+    const v = visible();
+    total.textContent = String(v.length);
+    label.textContent = v.length === 1 ? 'design' : 'designs';
+    const idx = Math.round(track.scrollLeft / step());
+    pos.textContent = String(v.length ? Math.min(idx + 1, v.length) : 0);
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+  }
+
+  function apply() {
+    let shown = 0;
+    cards.forEach(c => {
+      const ok = (state.industry === 'all' || c.dataset.industry === state.industry)
+        && (state.type === 'all' || c.dataset.type === state.type);
+      c.hidden = !ok;
+      c.style.display = ok ? '' : 'none';
+      if (ok) shown++;
+    });
+    empty.hidden = shown > 0;
+    track.scrollTo({ left: 0, behavior: 'auto' });
+    update();
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.ind-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.industry = btn.dataset.value!;
+      document.querySelectorAll('.ind-btn').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      apply();
+    });
+  });
+  document.getElementById('type-filter')!.addEventListener('change', e => {
+    state.type = (e.target as HTMLSelectElement).value;
+    apply();
+  });
+
+  prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+  track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+  track.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+  });
+  window.addEventListener('resize', update);
+
+  // Links like /designs/#salon jump to that card
+  const hash = location.hash.slice(1);
+  const target = hash && cards.find(c => c.id === hash);
+  if (target) {
+    window.scrollTo({ top: track.getBoundingClientRect().top + window.scrollY - 140 });
+    track.scrollTo({ left: target.offsetLeft - track.offsetLeft, behavior: 'auto' });
+  }
+  update();
+</script>

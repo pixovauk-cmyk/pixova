@@ -1,469 +1,190 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Icon from '../../components/Icon.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import EnquiryForm from '../../components/EnquiryForm.astro';
+import { SITE } from '../../data/site';
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pixova.uk/' },
-    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://www.pixova.uk/about/' },
-  ],
-};
+const values = [
+  { t: 'Prices on the page', s: 'Every plan and price is on this website. You know the cost before we speak, and it does not change after.' },
+  { t: 'Built with AI. Checked by a human.', s: 'AI makes the build faster and cheaper. I still review, refine and test every page by hand before it goes anywhere near your customers.', dark: true },
+  { t: 'Help when you need it', s: 'Changes usually done the same day. Replies within one working day, often within minutes.' },
+  { t: 'No long contracts', s: 'Short minimum terms, then month to month. Your content, photos and domain stay yours.' },
+];
 
-const localBusinessSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'Pixova',
-  url: 'https://www.pixova.uk',
-  logo: 'https://www.pixova.uk/favicon.svg',
-  description: 'Pixova builds fast, SEO-ready websites and handles local SEO for small and medium businesses across the UK. Based in Birmingham.',
-  telephone: '+447786366109',
-  email: 'hello@pixova.uk',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Birmingham',
-    addressRegion: 'England',
-    addressCountry: 'GB',
-  },
-  areaServed: { '@type': 'Country', name: 'United Kingdom' },
-  founder: {
-    '@type': 'Person',
-    name: 'Anil Jaishi',
-    url: 'https://www.linkedin.com/in/anil-jaishi-150050208/',
-    alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of Birmingham' },
-  },
-  sameAs: [
-    'https://www.facebook.com/people/Pixova/61589529080471/',
-    'https://www.linkedin.com/in/anil-jaishi-150050208/',
-  ],
-};
+const promises = [
+  { icon: 'bolt', t: 'Live in about 7 days', s: 'Most sites go from first call to live in a single working week.' },
+  { icon: 'shield', t: 'Managed completely', s: "Hosting, updates, security and backups. You never have to touch a thing.", dark: true },
+  { icon: 'trend', t: 'Set up for Google', s: 'Titles, page speed and local details done from day one, not sold later as an extra.' },
+  { icon: 'chat', t: 'A report you can read', s: 'One page each month: where you rank, how many people got in touch, what I am doing next.' },
+  { icon: 'clock', t: 'You deal with me', s: 'No account managers or tickets. The person you speak to is the person who builds it.' },
+  { icon: 'lock', t: 'Fixed prices', s: 'You know the cost before anything starts. No surprise bills, ever.' },
+];
 ---
 
 <Layout
-  title="About Pixova | Birmingham Digital Agency | Anil Jaishi"
-  description="Pixova is a Birmingham digital agency helping small businesses get found on Google. AI-powered web design and local SEO, no jargon, no long contracts."
+  title="About Pixova | Anil Jaishi, Birmingham Web Designer"
+  description="Pixova is run by Anil Jaishi in Birmingham. Websites, local SEO and small custom software for UK small businesses, Fixed prices, live in about 7 days."
   canonicalUrl="https://www.pixova.uk/about/"
-  schema={localBusinessSchema}
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'About', url: 'https://www.pixova.uk/about/' }]}
 >
-
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-
-  <!-- PAGE HERO ───────────────────────────────────────── -->
-  <section class="relative overflow-hidden pt-24 pb-16">
-    <!-- Background: team photo with dark overlay -->
-    <div class="absolute inset-0">
-      <img
-        src="/images/hero-collage.webp"
-        alt="Pixova digital agency Birmingham, web design and SEO for small businesses"
-        width="1400" height="781"
-        loading="eager" fetchpriority="high"
-        class="w-full h-full object-cover"
-      />
-      <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(13,34,64,0.93) 0%, rgba(13,34,64,0.82) 60%, rgba(13,34,64,0.75) 100%);"></div>
-    </div>
-
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
-      <div class="max-w-2xl">
-        <span class="sec-label mb-4 block">ABOUT PIXOVA</span>
-        <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-5" style="color:#fff;">
-          We're Pixova, a Birmingham digital agency built for small businesses.
-        </h1>
-        <p class="text-base leading-relaxed" style="color:rgba(255,255,255,0.6);">
-          Based in Birmingham. Serving the whole of the UK.
-          No long contracts, no confusing jargon. Just websites and SEO
-          that actually bring in customers.
-        </p>
-
-        <!-- Credential pills -->
-        <div class="flex flex-wrap gap-2 mt-8">
-          <span class="pill">Digital Marketing Graduate</span>
-          <span class="pill">University of Birmingham</span>
-          <span class="pill">AI-powered builds</span>
-          <span class="pill">UK-wide</span>
+  <!-- HERO -->
+  <section class="px-5 sm:px-6 pt-10 sm:pt-14 pb-20">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-12">
+      <div class="grid gap-x-16 gap-y-8 lg:grid-cols-2 items-end">
+        <div class="flex flex-col gap-6">
+          <Eyebrow icon="user">About Pixova</Eyebrow>
+          <h1 class="font-medium text-[clamp(46px,5.6vw,80px)] leading-none tracking-[-0.055em]">Hi, I'm Anil. I Built A Better Agency For <span class="grad-text">Small Business.</span></h1>
+        </div>
+        <div class="flex flex-col items-start gap-5">
+          <p class="text-base leading-relaxed text-body max-w-[480px]">I started Pixova because I kept meeting small business owners who'd paid thousands for a website that looked fine and did nothing. No calls. No enquiries. And nobody could tell them why.</p>
+          <p class="text-base leading-relaxed text-body max-w-[480px]">So I do it differently. I build with Google in mind from day one, write the words for you, and keep looking after it every month. When you need something changed, you message me, not a ticket system.</p>
+          <Button href="#contact">Got a project in mind?</Button>
         </div>
       </div>
-    </div>
-  </section>
-
-
-  <!-- ABOUT STORY ─────────────────────────────────────── -->
-  <section class="py-20" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col lg:flex-row gap-12 items-start">
-
-        <!-- LEFT: Profile card — photo + details self-contained -->
-        <div class="reveal flex-shrink-0 w-full lg:w-auto flex justify-center lg:block">
-          <div class="rounded-2xl overflow-hidden" style="width:270px; background:linear-gradient(160deg, #0D2240 0%, #1C3557 100%); border:1px solid rgba(46,204,154,0.25); box-shadow:0 24px 56px rgba(13,34,64,0.18);">
-
-            <!-- Photo -->
-            <div style="height:300px; overflow:hidden;">
-              <img
-                src="/images/anil.webp"
-                alt="Anil Jaishi, founder of Pixova"
-                width="560" height="620"
-                loading="lazy"
-                style="width:100%; height:100%; object-fit:cover; object-position:top center; display:block;"
-              />
-            </div>
-
-            <!-- Divider -->
-            <div style="height:3px; background:linear-gradient(90deg, #2ECC9A 0%, rgba(46,204,154,0.15) 100%);"></div>
-
-            <!-- Card footer -->
-            <div class="px-5 py-5">
-              <p class="font-heading font-bold text-base leading-tight" style="color:#fff;">Anil Jaishi</p>
-              <p class="text-xs mt-0.5 mb-5" style="color:#2ECC9A;">Founder & Director, Pixova</p>
-
-              <div class="space-y-3" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px;">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0" style="background:rgba(46,204,154,0.12);">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="2.5"/></svg>
-                  </div>
-                  <span class="text-xs" style="color:rgba(255,255,255,0.55);">Birmingham, UK</span>
-                </div>
-                <div class="flex items-center gap-2.5">
-                  <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0" style="background:rgba(46,204,154,0.12);">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                  </div>
-                  <span class="text-xs" style="color:rgba(255,255,255,0.55);">Univ. of Birmingham</span>
-                </div>
-                <div class="flex items-center gap-2.5">
-                  <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0" style="background:rgba(46,204,154,0.12);">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                  </div>
-                  <span class="text-xs" style="color:rgba(255,255,255,0.55);">Digital Marketing</span>
-                </div>
-              </div>
-            </div>
-
+      <div class="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+        {values.map((v, i) => v.dark ? (
+          <div class="relative overflow-hidden rounded-[24px] p-[26px] min-h-[200px] flex flex-col justify-between gap-6 text-white shadow-[0_30px_60px_-28px_rgba(11,23,38,0.6)]" style="background-color:#07111F;background-image:radial-gradient(80% 90% at 100% 0%, rgba(34,199,214,0.45) 0%, rgba(34,199,214,0) 60%), radial-gradient(70% 80% at 0% 100%, rgba(43,217,143,0.4) 0%, rgba(43,217,143,0) 60%)">
+            <div class="flex justify-between items-start"><span class="mono text-[28px] text-[#3A4A5E]">0{i + 1}</span><span class="w-[46px] h-[46px] rounded-full bg-teal grid place-items-center text-navy"><Icon name="check" size={20} stroke={2.4} /></span></div>
+            <span class="font-semibold text-lg">{v.t}</span>
+            <span class="text-sm leading-relaxed text-[#B9C4D0]">{v.s}</span>
           </div>
-        </div>
-
-        <!-- RIGHT: Story text -->
-        <div class="reveal reveal-d1 flex-1 pt-2">
-          <span class="sec-label">WHY I STARTED PIXOVA</span>
-          <h2 class="font-heading font-semibold text-3xl sm:text-4xl mt-3 mb-6" style="color:#1C3557;">
-            Fed up with agencies that overpromise and underdeliver.
-          </h2>
-
-          <div class="space-y-4 text-sm leading-relaxed" style="color:#1A2E3D;">
-            <p>
-              I started Pixova because I kept seeing the same thing. Small businesses
-              paying thousands for a website that looked fine but did nothing.
-              No rankings. No enquiries. Just a nice-looking page nobody ever found.
-            </p>
-            <p>
-              The problem wasn't the businesses. It was the agencies. Big pitches,
-              complicated proposals, and no one who could explain in plain English
-              what they were actually building or why it would work.
-            </p>
-            <p>
-              Pixova is different in the way that actually matters: we build websites
-              with SEO from the first line of code, not as an afterthought. Then we
-              manage everything so you never have to think about it again.
-            </p>
-            <p>
-              We use AI to build faster and smarter. But every site is reviewed, refined,
-              and backed by a real strategy. Birmingham-based, UK-wide, and always
-              available when you need something sorted.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-            {[
-              { label: 'Sites built to rank on Google from the very first line of code', path: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
-              { label: 'Fully managed after launch, you never have to touch a thing',  path: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> },
-              { label: 'No jargon, no big agency fees. Just results you can measure',   path: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> },
-              { label: 'Always available when you need something sorted or updated',     path: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> },
-            ].map(item => (
-              <div class="flex items-start gap-3 rounded-xl p-3.5" style="background:rgba(255,255,255,0.6); border:1px solid rgba(13,34,64,0.06);">
-                <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style="background:#E8F5F1;">
-                  {item.path}
-                </div>
-                <p class="text-xs leading-relaxed" style="color:#1A2E3D;">{item.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- WHAT MAKES US DIFFERENT ─────────────────────────── -->
-  <section class="py-16" style="background-color:#0D2240;">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-10">
-        <span class="sec-label reveal">WHY PIXOVA</span>
-        <h2 class="font-heading font-semibold text-3xl mt-3 reveal reveal-d1" style="color:#fff;">
-          Three things a Birmingham web designer should get right.
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {[
-          {
-            title: 'Built with AI, not excuses',
-            desc: 'We use AI to build faster and cheaper than a traditional agency, without sacrificing quality. Every site is reviewed, refined, and tested by a human before it goes live.',
-          },
-          {
-            title: 'Managed completely',
-            desc: "Message us a change, we do it the same day. Hosting, updates, security: all handled. You're not buying a website. You're buying something that runs itself.",
-          },
-          {
-            title: 'Actually ranked',
-            desc: 'Every site is built with SEO from the first line of code. Not added on at the end. Not an optional extra. Every page, every heading, every image, built to rank.',
-          },
-        ].map((item, i) => (
-          <div class={`glass-card p-7 reveal ${i === 1 ? 'reveal-d1' : i === 2 ? 'reveal-d2' : ''}`}>
-            <div class="w-8 h-1 rounded-full mb-5" style="background-color:#2ECC9A;"></div>
-            <h3 class="font-heading font-semibold text-lg mb-3" style="color:#fff;">{item.title}</h3>
-            <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">{item.desc}</p>
+        ) : (
+          <div class="relative rounded-[24px] bg-soft p-[26px] min-h-[200px] flex flex-col justify-between gap-6">
+            <span class="font-semibold text-lg">{v.t}</span>
+            <span class="text-sm leading-relaxed text-body pr-10">{v.s}</span>
+            <span class="absolute right-[22px] bottom-[18px] mono text-[28px] text-[#D3DBD6]">0{i + 1}</span>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-
-  <!-- CONTACT FORM ────────────────────────────────────── -->
-  <section id="contact" class="py-20" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-14">
-
-        <!-- Left: CTA copy -->
-        <div>
-          <span class="sec-label">GET IN TOUCH</span>
-          <h2 class="font-heading font-semibold text-3xl sm:text-4xl mt-3 mb-5" style="color:#1C3557;">
-            Let's have a chat.
-          </h2>
-          <p class="text-sm leading-relaxed mb-8" style="color:#1A2E3D;">
-            Tell us a bit about your business. We'll come back to you within 24 hours.
-            No pressure, no pitch, just a straight conversation about what you need.
-          </p>
-
-          <div class="space-y-4">
-            <a
-              href="https://wa.me/447786366109"
-              target="_blank" rel="noopener noreferrer"
-              class="flex items-center gap-3 text-sm font-medium hover:opacity-80 transition-opacity"
-              style="color:#1A2E3D;"
-            >
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color:#E8F5F1;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#2ECC9A" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              </div>
-              <span>+44 7786 366109 via WhatsApp</span>
-            </a>
-            <a
-              href="mailto:hello@pixova.uk"
-              class="flex items-center gap-3 text-sm font-medium hover:opacity-80 transition-opacity"
-              style="color:#1A2E3D;"
-            >
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color:#E8F5F1;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              </div>
-              <span>hello@pixova.uk</span>
-            </a>
-          </div>
-
-          <p class="text-xs mt-6" style="color:#1A2E3D; opacity:0.6;">
-            We reply within 24 hours. Usually much faster.
-          </p>
+  <!-- SEO BUILT IN -->
+  <section class="grid-tint section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto grid gap-16 lg:grid-cols-2 items-center">
+      <div class="relative min-h-[440px]">
+        <div class="absolute left-[10%] top-0 w-[62%] h-[420px] rounded-[30px] overflow-hidden bg-navy shadow-[0_40px_80px_-30px_rgba(7,17,31,0.5)]">
+          <img src="/images/anil.webp" alt="Anil Jaishi at Pixova" width="800" height="800" loading="lazy" class="absolute inset-0 w-full h-full object-cover object-[50%_25%]" />
+          <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(7,17,31,0) 50%, rgba(7,17,31,0.75) 100%), linear-gradient(135deg, rgba(43,217,143,0.2) 0%, rgba(34,199,214,0) 55%)"></div>
         </div>
-
-        <!-- Right: form -->
-        <div class="bg-white rounded-2xl shadow-sm p-8">
-
-          <!-- Thank you panel -->
-          <div id="form-success" class="hidden text-center py-8">
-            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style="background-color:#E8F5F1;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-            </div>
-            <h3 class="font-heading font-semibold text-xl mb-3" style="color:#1C3557;">Thanks, we've got your message!</h3>
-            <p class="text-sm leading-relaxed mb-2" style="color:#1A2E3D;">
-              We'll be back in touch within 24 hours.
-            </p>
-            <p class="text-sm" style="color:#6B7580;">
-              While you wait, feel free to browse the blog or message us on WhatsApp if it's urgent.
-            </p>
-            <a
-              href="https://wa.me/447786366109"
-              target="_blank" rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 mt-6 font-semibold text-sm px-5 py-3 rounded-lg"
-              style="background-color:#2ECC9A; color:#0D2240;"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Message us on WhatsApp
-            </a>
-          </div>
-
-          <form
-            action="https://formspree.io/f/mlgzlnqn"
-            method="POST"
-            id="contact-form"
-          >
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <div>
-                <label for="name" class="block text-xs font-semibold mb-1.5" style="color:#1C3557;">Name <span style="color:#2ECC9A;">*</span></label>
-                <input
-                  type="text" id="name" name="name" required
-                  class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-teal transition-colors"
-                  style="color:#1A2E3D; background:#fff;"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label for="business" class="block text-xs font-semibold mb-1.5" style="color:#1C3557;">Business name <span style="color:#2ECC9A;">*</span></label>
-                <input
-                  type="text" id="business" name="business_name" required
-                  class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-teal transition-colors"
-                  style="color:#1A2E3D;"
-                  placeholder="Your business"
-                />
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <div>
-                <label for="phone" class="block text-xs font-semibold mb-1.5" style="color:#1C3557;">Phone <span style="color:#2ECC9A;">*</span></label>
-                <input
-                  type="tel" id="phone" name="phone" required
-                  class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-teal transition-colors"
-                  style="color:#1A2E3D;"
-                  placeholder="07xxx xxxxxx"
-                />
-              </div>
-              <div>
-                <label for="email" class="block text-xs font-semibold mb-1.5" style="color:#1C3557;">Email <span style="color:#2ECC9A;">*</span></label>
-                <input
-                  type="email" id="email" name="email" required
-                  class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-teal transition-colors"
-                  style="color:#1A2E3D;"
-                  placeholder="your@email.com"
-                />
-              </div>
-            </div>
-
-            <div class="mb-4">
-              <fieldset>
-                <legend class="block text-xs font-semibold mb-2" style="color:#1C3557;">What do you need help with? <span style="color:#2ECC9A;">*</span></legend>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {[
-                    { name: 'help_website',    label: 'A new website' },
-                    { name: 'help_seo',        label: 'SEO and getting found on Google' },
-                    { name: 'help_automation', label: 'Automation (auto-replies, follow-ups, reviews)' },
-                    { name: 'help_crm',        label: 'CRM setup' },
-                    { name: 'help_unsure',     label: 'Not sure yet, happy to chat' },
-                  ].map(opt => (
-                    <label class="flex items-center gap-2.5 cursor-pointer p-3 rounded-lg border border-gray-200 hover:border-teal transition-colors text-xs font-medium" style="color:#1A2E3D;">
-                      <input type="checkbox" name={opt.name} value="yes" class="accent-teal w-4 h-4 flex-shrink-0" id={`check-${opt.name}`} />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
-                <p id="help-error" class="hidden mt-1.5 text-xs" style="color:#c0392b;">Please select at least one option.</p>
-              </fieldset>
-            </div>
-
-            <div class="mb-4">
-              <label for="message" class="block text-xs font-semibold mb-1.5" style="color:#1C3557;">Tell us a bit about your business <span style="color:#2ECC9A;">*</span></label>
-              <textarea
-                id="message" name="message" required rows="4"
-                class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-teal transition-colors resize-none"
-                style="color:#1A2E3D;"
-                placeholder="What do you do, where are you based, what's the main problem you're trying to solve..."
-              ></textarea>
-            </div>
-
-            <div class="mb-6">
-              <label for="source" class="block text-xs font-semibold mb-1.5" style="color:#1C3557;">How did you find us? <span class="font-normal" style="color:#6B7580;">(optional)</span></label>
-              <select
-                id="source" name="source"
-                class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-teal transition-colors"
-                style="color:#1A2E3D; background:#fff;"
-              >
-                <option value="">Select one...</option>
-                <option value="google">Google search</option>
-                <option value="word-of-mouth">Word of mouth</option>
-                <option value="social">Social media</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <button
-              type="submit"
-              class="w-full font-semibold text-sm py-4 rounded-lg transition-colors min-h-[48px]"
-              style="background-color:#2ECC9A; color:#0D2240;"
-            >
-              Send my enquiry
-            </button>
-
-            <div id="form-error" class="hidden mt-4 p-4 rounded-lg text-sm text-center" style="background-color:#fff0f0; color:#c0392b;">
-              Something went wrong. Please email us at hello@pixova.uk
-            </div>
-          </form>
+        <div class="absolute left-0 top-10 flex items-center gap-2.5 py-2.5 pl-2.5 pr-4 rounded-full bg-white shadow-[0_18px_40px_-16px_rgba(11,23,38,0.3)]"><span class="w-9 h-9 rounded-full bg-teal grid place-items-center font-bold text-sm">7</span><span class="text-[13px] leading-tight">Days to<br />go live</span></div>
+        <div class="absolute right-0 bottom-10 w-[48%] sm:w-[44%] rounded-[24px] bg-navy text-white p-5 flex flex-col gap-3 shadow-[0_30px_60px_-24px_rgba(11,23,38,0.5)]">
+          <span class="text-[13px] text-[#A9B6C4]">Rankings, built monthly</span>
+          <div class="flex items-end gap-1.5 h-20">{[25, 40, 35, 60, 75, 100].map((h, i) => <span class="flex-1 rounded-md" style={`height:${h}%;background:${i === 5 ? '#fff' : '#2BD98F'}`}></span>)}</div>
         </div>
-
+      </div>
+      <div class="flex flex-col gap-6">
+        <Eyebrow icon="search" white>Built for Google</Eyebrow>
+        <h2 class="h2">SEO Built In From The First Line Of Code.</h2>
+        <p class="text-base leading-relaxed text-body max-w-[500px]">Pages, headings and images are designed for search from day one. Never bolted on at the end, never sold as a mystery extra. Local SEO usually shows steady results within 3 to 6 months, and you'll see every step in a report written for humans.</p>
+        <Button href="/services/" variant="dark" class="self-start">See my services</Button>
       </div>
     </div>
   </section>
 
+  <!-- PROMISES -->
+  <section class="section px-5 sm:px-6">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-12">
+      <div class="flex flex-wrap justify-between items-end gap-6">
+        <div class="flex flex-col gap-5">
+          <Eyebrow icon="shield">What I stand for</Eyebrow>
+          <h2 class="h2 max-w-[640px]">Practical Promises. Kept Every Month.</h2>
+        </div>
+        <p class="max-w-[380px] text-[15px] leading-relaxed text-body">Six things every Pixova client gets, whichever plan they're on.</p>
+      </div>
+      <div class="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+        {promises.map((p, i) => (
+          <div class={`rounded-[24px] p-[26px] flex flex-col gap-3.5 ${p.dark ? 'bg-navy text-white' : 'border border-line'}`}>
+            <div class="flex justify-between items-center"><span class="mono text-xs text-[#8E9BAA]">0{i + 1}</span><span class={`w-9 h-9 rounded-[10px] grid place-items-center ${p.dark ? 'bg-teal text-navy' : 'bg-mint text-teal-dark'}`}><Icon name={p.icon} size={16} /></span></div>
+            <span class="font-semibold text-lg">{p.t}</span>
+            <span class={`text-sm leading-relaxed ${p.dark ? 'text-[#B9C4D0]' : 'text-body'}`}>{p.s}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO YOU'LL WORK WITH -->
+  <section class="art section px-5 sm:px-6">
+    <img src="/images/art/aurora-dark.jpg" alt="" loading="lazy" class="art-bg opacity-60" />
+    <div class="art-shade" style="background:linear-gradient(180deg, rgba(7,17,31,0.3) 0%, rgba(7,17,31,0.92) 70%)"></div>
+    <div class="art-body max-w-[1240px] mx-auto grid gap-12 lg:grid-cols-[0.9fr_1.1fr] items-center">
+      <div class="relative">
+        <div class="relative h-[460px] sm:h-[540px] rounded-[32px] overflow-hidden bg-navy-2 shadow-[0_50px_90px_-40px_rgba(0,0,0,0.7)]">
+          <img src="/images/anil.webp" alt="Anil Jaishi, founder of Pixova" width="800" height="800" loading="lazy" class="absolute inset-0 w-full h-full object-cover object-[50%_25%]" />
+          <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(7,17,31,0) 55%, rgba(7,17,31,0.9) 100%)"></div>
+          <div class="absolute left-6 right-6 bottom-6 flex flex-wrap items-end justify-between gap-4">
+            <span class="flex flex-col"><span class="font-semibold text-2xl tracking-[-0.03em]">Anil Jaishi</span><span class="text-sm text-[#C8D3DD]">Founder &amp; Director, Pixova</span></span>
+            <a href={SITE.whatsapp} target="_blank" rel="noopener" class="inline-flex items-center gap-2 min-h-11 px-4 rounded-full bg-teal text-navy text-sm font-semibold"><Icon name="whatsapp" size={16} />Message me</a>
+          </div>
+        </div>
+        <div class="px-float hidden sm:flex absolute -right-4 top-10 items-center gap-2.5 py-2.5 pl-2.5 pr-4 rounded-full bg-white text-navy shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]"><span class="w-9 h-9 rounded-full grid place-items-center" style="background:var(--grad)"><Icon name="clock" size={16} /></span><span class="text-[13px] leading-tight font-medium">Replies within<br />one working day</span></div>
+      </div>
+
+      <div class="flex flex-col gap-7">
+        <Eyebrow icon="user" dark>Who you'll work with</Eyebrow>
+        <h2 class="h2 !text-white">The Person Who Builds It Answers The Phone.</h2>
+        <div class="flex flex-col gap-4 text-base leading-relaxed text-[#C8D3DD] max-w-[560px]">
+          <p>Pixova is me. No account managers, no hand-offs, no ticket numbers. When you message about your website, the person reading it is the person who built it.</p>
+          <p>I use AI tools to build faster, which is why most sites go live in about a week and cost a fraction of an agency quote. Then I go through every page by hand before anyone sees it.</p>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-3">
+          <div class="glass rounded-[20px] p-5 flex flex-col gap-1"><span class="font-medium text-[28px] tracking-[-0.04em] text-teal">B'ham</span><span class="text-[13px] text-[#A9B6C4]">Based in Birmingham, working UK-wide</span></div>
+          <div class="glass rounded-[20px] p-5 flex flex-col gap-1"><span class="font-medium text-[28px] tracking-[-0.04em] text-teal">~7 days</span><span class="text-[13px] text-[#A9B6C4]">From first call to live site</span></div>
+          <div class="glass rounded-[20px] p-5 flex flex-col gap-1"><span class="font-medium text-[28px] tracking-[-0.04em] text-teal">1</span><span class="text-[13px] text-[#A9B6C4]">Person to deal with, start to finish</span></div>
+        </div>
+        <div class="glass rounded-[24px] p-6 flex flex-col gap-4">
+          <span class="text-sm font-semibold">Checked by hand before every launch</span>
+          <div class="flex flex-wrap gap-2">
+            {['Every page on a real phone', 'Forms send to your inbox', 'Copy read line by line', 'Load speed on 4G', 'Google can see every page'].map(t => (
+              <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/10 border border-white/10 text-[13px] text-[#DCE3EA]"><span class="text-teal"><Icon name="check" size={14} stroke={2.8} /></span>{t}</span>
+            ))}
+          </div>
+          <span class="text-[13px] text-[#A9B6C4]">University of Birmingham · Digital Marketing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <section class="px-5 sm:px-6 py-14">
+    <div class="max-w-[1240px] mx-auto flex flex-col items-center gap-6">
+      <span class="text-sm text-muted">Building for local businesses across the UK</span>
+      <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 font-semibold text-[clamp(18px,2vw,22px)] tracking-[-0.03em] text-body">
+        {['Plumbers', 'Electricians', 'Builders', 'Salons', 'Cafés', 'Therapists', 'Accountants', 'Solicitors'].map(t => <span>{t}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="art section px-5 sm:px-6">
+    <img src="/images/art/ribbons-dark.jpg" alt="" loading="lazy" class="absolute left-0 right-0 top-0 w-full h-[60%] object-cover opacity-45" />
+    <div class="art-shade" style="background:linear-gradient(180deg, rgba(7,17,31,0.35) 0%, #07111F 55%)"></div>
+    <div class="art-body max-w-[1240px] mx-auto flex flex-col items-center gap-12">
+      <div class="flex flex-col items-center gap-5 text-center">
+        <Eyebrow icon="star" dark>Client feedback</Eyebrow>
+        <h2 class="h2 !text-white max-w-[760px]">Don't Take My Word For It.</h2>
+      </div>
+      <Testimonials />
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section px-5 sm:px-6 wash scroll-mt-24">
+    <div class="max-w-[1240px] mx-auto grid gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
+      <div class="flex flex-col gap-6">
+        <Eyebrow icon="chat" white>Get in touch</Eyebrow>
+        <h2 class="h2">Let's Have A Chat.</h2>
+        <p class="lead max-w-[460px]">Tell me a bit about your business. I'll reply within one working day with what I'd do and what it would cost.</p>
+        <div class="grid gap-3 sm:grid-cols-2 max-w-[460px]">
+          <a href={SITE.whatsapp} target="_blank" rel="noopener" class="flex flex-col gap-4 p-[22px] rounded-[24px] text-white" style="background-color:#07111F;background-image:radial-gradient(90% 90% at 100% 0%, rgba(34,199,214,0.5) 0%, rgba(34,199,214,0) 60%), radial-gradient(80% 80% at 0% 100%, rgba(43,217,143,0.45) 0%, rgba(43,217,143,0) 60%)"><span class="w-10 h-10 rounded-full bg-teal grid place-items-center text-navy"><Icon name="whatsapp" size={18} /></span><span class="flex flex-col"><span class="font-semibold">WhatsApp</span><span class="text-[13px] text-[#A9B6C4]">{SITE.phone}</span></span></a>
+          <a href={`mailto:${SITE.email}`} class="flex flex-col gap-4 p-[22px] rounded-[24px] bg-white text-navy border border-line"><span class="w-10 h-10 rounded-full bg-mint grid place-items-center text-teal-dark"><Icon name="mail" size={18} /></span><span class="flex flex-col"><span class="font-semibold">Email</span><span class="text-[13px] text-body">{SITE.email}</span></span></a>
+        </div>
+      </div>
+      <EnquiryForm id="about-enquiry" />
+    </div>
+  </section>
 </Layout>
-
-<script>
-  const params = new URLSearchParams(window.location.search);
-
-  // Pre-tick the right checkbox when arriving from a pricing card
-  const serviceMap: Record<string, string> = {
-    website:    'check-help_website',
-    seo:        'check-help_seo',
-    automation: 'check-help_automation',
-    crm:        'check-help_crm',
-  };
-  const service = params.get('service');
-  if (service && serviceMap[service]) {
-    const cb = document.getElementById(serviceMap[service]) as HTMLInputElement;
-    if (cb) cb.checked = true;
-  }
-
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const success = document.getElementById('form-success');
-  const error = document.getElementById('form-error');
-  const helpError = document.getElementById('help-error');
-  const btn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Validate at least one checkbox ticked
-    const checked = form.querySelectorAll('input[type="checkbox"]:checked');
-    if (checked.length === 0) {
-      helpError?.classList.remove('hidden');
-      return;
-    }
-    helpError?.classList.add('hidden');
-
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      });
-      if (res.ok) {
-        form.classList.add('hidden');
-        success?.classList.remove('hidden');
-      } else {
-        error?.classList.remove('hidden');
-        if (btn) { btn.disabled = false; btn.textContent = 'Send my enquiry'; }
-      }
-    } catch {
-      error?.classList.remove('hidden');
-      if (btn) { btn.disabled = false; btn.textContent = 'Send my enquiry'; }
-    }
-  });
-</script>

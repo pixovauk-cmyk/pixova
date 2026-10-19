@@ -1,0 +1,331 @@
+---
+// "Monday we talk, Friday you're live", played like a short video.
+// One mini website on a stage; the stage's data-step (0–4) decides what shows.
+import Icon from './Icon.astro';
+import { DETAILS } from '../data/designs';
+
+const x = DETAILS.plumber;
+const days = [
+  { d: 'Mon', t: 'A 20-minute call', s: 'You tell me what you do, where you work and who you want more of. That is your homework done.' },
+  { d: 'Tue', t: 'Your build starts', s: 'The layout goes up, mobile-first and set up for Google from the first line of code.' },
+  { d: 'Wed', t: 'Words, photos & prices', s: "I write every page around what your customers search for. You don't write a thing." },
+  { d: 'Thu', t: 'You check it over', s: 'You click around and tell me what to change. I change it the same day.' },
+  { d: 'Fri', t: 'You go live', s: 'The site launches, Google can find it, and the phone starts ringing.' },
+];
+---
+
+<div class="lw" data-step="0" data-playing="true">
+  <div class="lw-grid">
+    <!-- Day list -->
+    <ol class="lw-days" role="tablist" aria-label="Launch week">
+      {days.map((d, i) => (
+        <li>
+          <button type="button" role="tab" class="lw-day" data-i={i} aria-selected={i === 0 ? 'true' : 'false'}>
+            <span class="lw-d">{d.d}</span>
+            <span class="lw-txt"><span class="lw-t">{d.t}</span><span class="lw-s">{d.s}</span></span>
+            <span class="lw-bar"><i></i></span>
+          </button>
+        </li>
+      ))}
+    </ol>
+
+    <!-- Stage -->
+    <div class="lw-stage-wrap">
+      <div class="lw-browser">
+        <div class="lw-chrome">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="lw-url"><span class="lock"><Icon name="lock" size={10} stroke={2.5} /></span><span class="u-draft">draft.pixova.uk/hartley</span><span class="u-live">{x.domain}</span></span>
+          <span class="lw-live-badge">● LIVE</span>
+        </div>
+        <div class="lw-screen" aria-hidden="true">
+          <div class="pg">
+            <!-- nav -->
+            <div class="p-nav">
+              <span class="blk"><i class="sk w12"></i><span class="ct brand"><b>H</b>Hartley Plumbing</span></span>
+              <span class="blk links"><i class="sk w20"></i><span class="ct">Services · Areas · Reviews · Contact</span></span>
+              <span class="blk"><i class="sk w10 pill"></i><span class="ct tel"><span class="hl-tel">{x.phone}</span></span></span>
+            </div>
+            <!-- hero -->
+            <div class="p-hero">
+              <div class="p-copy">
+                <span class="blk"><i class="sk w14 pill"></i><span class="ct chipx">Gas Safe registered</span></span>
+                <span class="blk h"><i class="sk w34 tall"></i><i class="sk w26 tall"></i><span class="ct h1x">Leak? Boiler down? <em>We pick up.</em></span></span>
+                <span class="blk"><i class="sk w30"></i><i class="sk w24"></i><span class="ct subx">Serving {x.area}. Clear prices and a real person on the phone.</span></span>
+                <span class="blk"><i class="sk w16 btnsk"></i><span class="ct row"><span class="cta">Call now</span><span class="cta2">Get a quote</span></span></span>
+                <span class="blk"><i class="sk w22"></i><span class="ct stars"><b>★★★★★</b> {x.rating} · {x.reviews} Google reviews</span></span>
+              </div>
+              <div class="p-photo blk">
+                <i class="sk fill"></i>
+                <img class="ct" src={`${x.img}&w=700`} alt="" loading="lazy" />
+              </div>
+            </div>
+            <!-- services -->
+            <div class="p-svc">
+              {x.services.map((s, i) => (
+                <div class="blk card">
+                  <i class="sk fill"></i>
+                  <span class="ct cardc"><img src={`${i === 1 ? x.img2 : x.img}&w=300`} alt="" loading="lazy" /><b>{s[0]}</b><span>{s[1]}</span></span>
+                </div>
+              ))}
+            </div>
+
+            <!-- Thu: review comments -->
+            <div class="pin pin1"><span class="dotp">1</span><span class="note"><b>You</b>Make the phone number bigger?<span class="done">✓ Done</span></span></div>
+            <div class="pin pin2"><span class="dotp">2</span><span class="note"><b>You</b>Add "Solihull" to the areas<span class="done">✓ Done</span></span></div>
+          </div>
+
+          <!-- Mon: call overlay -->
+          <div class="call">
+            <div class="call-card">
+              <div class="call-top"><img src="/images/anil.webp" alt="" /><span><b>Call with Hartley Plumbing</b><small class="call-time">00:00</small></span><span class="rec">● REC</span></div>
+              <div class="wave">{Array.from({ length: 28 }).map((_, i) => <i style={`animation-delay:${(i % 7) * -0.13}s`}></i>)}</div>
+              <div class="notes">
+                <span class="n n1">✓ Boiler repairs + emergency call-outs</span>
+                <span class="n n2">✓ Birmingham &amp; Solihull</span>
+                <span class="n n3">✓ Wants more calls, fewer tyre-kickers</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fri: live overlays -->
+          <div class="serp">
+            <span class="s-url"><b>H</b>{x.domain}</span>
+            <span class="s-title">Boiler Repair Birmingham | Same-Day Call-Outs</span>
+            <span class="s-desc">Gas Safe engineers. Repairs from £85. Call {x.phone}.</span>
+          </div>
+          <div class="ring">
+            <span class="ring-ico"><Icon name="phone" size={14} /></span>
+            <span><b>Incoming call</b><small>New customer · from Google</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lw-controls">
+        <button type="button" class="lw-play" aria-label="Pause">
+          <span class="i-pause"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></span>
+          <span class="i-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg></span>
+        </button>
+        <span class="lw-timeline">{days.map(() => <i><b></b></i>)}</span>
+        <span class="lw-caption mono" aria-live="polite"><span class="cap-d">MON</span> · <span class="cap-t">{days[0].t}</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .lw { --dur: 5200ms; }
+  .lw-grid { display: grid; gap: 28px; grid-template-columns: 1fr; align-items: center; }
+  @media (min-width: 1024px) { .lw-grid { grid-template-columns: 360px 1fr; gap: 40px; } }
+
+  /* Day list */
+  .lw-days { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .lw-day { position: relative; overflow: hidden; width: 100%; display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: start; text-align: left; padding: 16px 18px; border-radius: 20px; border: 1px solid transparent; background: transparent; color: var(--color-ink); cursor: pointer; transition: background-color .25s, border-color .25s; }
+  .lw-day:hover { background: rgba(255,255,255,0.6); }
+  .lw-day[aria-selected="true"] { background: #fff; border-color: var(--color-line); box-shadow: 0 20px 40px -28px rgba(7,17,31,0.35); }
+  .lw-d { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-muted); padding-top: 3px; }
+  .lw-day[aria-selected="true"] .lw-d { color: var(--color-teal-dark); }
+  .lw-txt { display: flex; flex-direction: column; gap: 4px; }
+  .lw-t { font-weight: 600; font-size: 17px; letter-spacing: -0.02em; }
+  .lw-s { font-size: 14px; line-height: 1.5; color: var(--color-body); display: none; }
+  .lw-day[aria-selected="true"] .lw-s { display: block; }
+  .lw-bar { position: absolute; left: 18px; right: 18px; bottom: 0; height: 3px; border-radius: 3px; background: transparent; }
+  .lw-bar i { display: block; height: 100%; width: 0; border-radius: 3px; background: var(--grad); }
+  .lw-day[aria-selected="true"] .lw-bar i { animation: lwFill var(--dur) linear forwards; }
+  .lw[data-playing="false"] .lw-bar i { animation-play-state: paused; }
+  @media (max-width: 1023px) {
+    .lw-days { flex-direction: row; overflow-x: auto; scrollbar-width: none; }
+    .lw-day { grid-template-columns: 1fr; gap: 2px; padding: 12px 14px; min-width: 120px; }
+    .lw-s { display: none !important; }
+    .lw-t { font-size: 14px; }
+  }
+  @keyframes lwFill { to { width: 100%; } }
+
+  /* Browser */
+  .lw-browser { border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 50px 100px -50px rgba(7,17,31,0.55), 0 0 0 1px rgba(7,17,31,0.06); }
+  .lw-chrome { height: 38px; display: flex; align-items: center; gap: 12px; padding: 0 14px; background: #F1F3F5; border-bottom: 1px solid #E4E7EA; }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: #F87171; }
+  .dots i:nth-child(2) { background: #FBBF24; } .dots i:nth-child(3) { background: #34D399; }
+  .lw-url { flex: 1; max-width: 420px; margin: 0 auto; height: 24px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: #5B6672; }
+  .lock { color: #9AA5B1; display: inline-flex; }
+  .u-live { display: none; color: #07111F; font-weight: 500; }
+  .lw-live-badge { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #fff; background: #16A34A; padding: 4px 9px; border-radius: 99px; opacity: 0; transform: scale(.6); transition: all .4s cubic-bezier(.3,1.6,.5,1); }
+
+  .lw-screen { position: relative; container-type: inline-size; aspect-ratio: 16 / 10; overflow: hidden; background: #F4F7FB; }
+  .pg { position: absolute; inset: 0; font-size: calc(100cqw / 80); color: #0E2A47; font-family: 'Geist Variable', system-ui, sans-serif; line-height: 1.35; }
+  .pg img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* Skeleton vs content */
+  .blk { position: relative; display: block; }
+  .sk { display: block; height: 1.1em; border-radius: .4em; background: linear-gradient(90deg, #DCE4EE 0%, #ECF1F7 50%, #DCE4EE 100%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; margin-bottom: .6em; opacity: 0; transform: translateY(.6em); transition: opacity .45s, transform .45s; }
+  .sk.pill { border-radius: 99em; height: 1.8em; } .sk.tall { height: 3.4em; } .sk.btnsk { height: 3.4em; border-radius: .6em; }
+  .sk.fill { position: absolute; inset: 0; height: auto; margin: 0; border-radius: inherit; }
+  .w10{width:10em}.w12{width:12em}.w14{width:14em}.w16{width:16em}.w20{width:20em}.w22{width:22em}.w24{width:24em}.w26{width:26em}.w30{width:30em}.w34{width:34em}
+  .ct { opacity: 0; transform: translateY(.8em); transition: opacity .55s, transform .55s; }
+  .blk .ct:not(img) { position: absolute; left: 0; top: 0; }
+  .p-photo .ct, .card .ct { position: absolute; inset: 0; }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+
+  .p-nav { height: 6em; display: flex; align-items: center; justify-content: space-between; padding: 0 4em; border-bottom: .1em solid #DCE6F2; background: #fff; }
+  .p-nav .blk { height: 2em; min-width: 10em; }
+  .p-nav .links { min-width: 20em; }
+  .brand { display: flex; align-items: center; gap: .6em; font-weight: 700; font-size: 1.5em; white-space: nowrap; }
+  .brand b, .s-url b { width: 1.5em; height: 1.5em; border-radius: .4em; display: grid; place-items: center; background: #F26B1D; color: #fff; font-size: .8em; }
+  .links .ct { font-size: 1.15em; color: #5A6B80; white-space: nowrap; top: .3em; }
+  .tel { font-weight: 700; font-size: 1.25em; white-space: nowrap; top: .25em !important; }
+  .hl-tel { display: inline-block; transition: font-size .4s, color .4s, background-color .4s; padding: .1em .4em; border-radius: .4em; }
+
+  .p-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3em; padding: 3em 4em 0; height: 31em; }
+  .p-copy { display: flex; flex-direction: column; gap: 1.4em; }
+  .p-copy .blk { min-height: 2em; }
+  .p-copy .blk.h { min-height: 9em; }
+  .chipx { display: inline-flex; padding: .45em .9em; border-radius: 99em; background: #FDE8DC; color: #C2501A; font-weight: 600; font-size: 1.05em; white-space: nowrap; }
+  .h1x { font-weight: 600; font-size: 4.2em; line-height: 1.02; letter-spacing: -0.035em; }
+  .h1x em { font-style: normal; color: #F26B1D; }
+  .subx { font-size: 1.3em; line-height: 1.5; color: #4A5D73; width: 30em; }
+  .row { display: flex; gap: .8em; white-space: nowrap; }
+  .cta, .cta2 { padding: .9em 1.5em; border-radius: .6em; font-weight: 600; font-size: 1.2em; }
+  .cta { background: #F26B1D; color: #fff; } .cta2 { box-shadow: inset 0 0 0 .12em #C9D6E4; }
+  .stars { font-size: 1.1em; color: #34485F; white-space: nowrap; } .stars b { color: #F5B841; }
+  .p-photo { border-radius: 1.4em; overflow: hidden; height: 27em; }
+  .p-svc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4em; padding: 2em 4em 0; }
+  .card { height: 13em; border-radius: 1em; overflow: hidden; background: #fff; }
+  .cardc { display: flex; flex-direction: column; gap: .3em; padding: .8em; }
+  .cardc img { height: 7.6em; border-radius: .7em; margin-bottom: .4em; }
+  .cardc b { font-size: 1.25em; } .cardc span { color: #F26B1D; font-weight: 700; font-size: 1.15em; }
+
+  /* Review pins */
+  .pin { position: absolute; display: flex; align-items: flex-start; gap: .6em; opacity: 0; transform: scale(.7); transition: all .45s cubic-bezier(.3,1.5,.5,1); z-index: 3; }
+  .pin1 { right: 6em; top: 4.6em; } .pin2 { left: 18em; top: 25em; }
+  .dotp { width: 2.4em; height: 2.4em; border-radius: 50% 50% 50% 0; background: #7C3AED; color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 1.1em; flex: none; }
+  .note { display: flex; flex-direction: column; gap: .2em; padding: .9em 1.1em; border-radius: .9em; background: #fff; box-shadow: 0 1em 2.5em -1em rgba(0,0,0,.35); font-size: 1.15em; width: 17em; }
+  .note b { font-size: .85em; color: #7C3AED; }
+  .done { color: #16A34A; font-weight: 700; opacity: 0; transition: opacity .4s; }
+
+  /* Mon call overlay */
+  .call { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(7,17,31,.55); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .5s; z-index: 4; font-size: calc(100cqw / 80); }
+  .call-card { width: 40em; padding: 2em; border-radius: 1.6em; background: #07111F; color: #fff; display: flex; flex-direction: column; gap: 1.6em; box-shadow: 0 2em 4em -1em rgba(0,0,0,.5); transform: translateY(1em); transition: transform .5s; }
+  .call-top { display: flex; align-items: center; gap: 1em; font-size: 1.3em; }
+  .call-top img { width: 3em; height: 3em; border-radius: 50%; object-fit: cover; object-position: top; }
+  .call-top span { display: flex; flex-direction: column; flex: 1; } .call-top small { color: #A9B6C4; font-family: var(--font-mono); }
+  .rec { flex: none !important; color: #F87171; font-size: .8em; font-weight: 700; }
+  .wave { display: flex; align-items: center; gap: .45em; height: 5em; }
+  .wave i { flex: 1; height: 30%; border-radius: 1em; background: linear-gradient(180deg, #2BD98F, #22C7D6); animation: wave 0.9s ease-in-out infinite alternate; }
+  @keyframes wave { to { height: 100%; } }
+  .notes { display: flex; flex-direction: column; gap: .6em; font-size: 1.3em; color: #DCE3EA; }
+  .n { opacity: 0; transform: translateX(-.6em); transition: all .4s; }
+
+  /* Fri overlays */
+  .serp { position: absolute; left: 4%; bottom: 6%; width: 46%; padding: 1.4em 1.6em; border-radius: 1.2em; background: #fff; box-shadow: 0 1.6em 3.4em -1em rgba(7,17,31,.45); display: flex; flex-direction: column; gap: .35em; font-family: Arial, sans-serif; font-size: calc(100cqw / 80); opacity: 0; transform: translateY(2em); transition: all .6s cubic-bezier(.2,1.2,.4,1); z-index: 4; }
+  .s-url { display: flex; align-items: center; gap: .6em; font-size: 1.1em; color: #4D5156; } .s-title { font-size: 1.6em; color: #1A0DAB; } .s-desc { font-size: 1.15em; color: #4D5156; }
+  .ring { position: absolute; right: 4%; top: 8%; display: flex; align-items: center; gap: 1em; padding: 1em 1.6em 1em 1em; border-radius: 99em; background: #07111F; color: #fff; font-size: calc(100cqw / 70); box-shadow: 0 1.6em 3em -1em rgba(7,17,31,.5); opacity: 0; transform: translateY(-1.5em); transition: all .5s .5s cubic-bezier(.2,1.4,.4,1); z-index: 4; }
+  .ring span:last-child { display: flex; flex-direction: column; } .ring small { color: #A9B6C4; font-size: .8em; }
+  .ring-ico { width: 2.6em; height: 2.6em; border-radius: 50%; background: #16A34A; display: grid; place-items: center; }
+
+  /* ── Step states ───────────────────────────── */
+  [data-step="0"] .call { opacity: 1; }
+  [data-step="0"] .call-card { transform: none; }
+  [data-step="0"] .n { opacity: 1; transform: none; }
+  [data-step="0"] .n1 { transition-delay: .8s; } [data-step="0"] .n2 { transition-delay: 1.8s; } [data-step="0"] .n3 { transition-delay: 2.8s; }
+  [data-step="0"] .sk { opacity: .35; transform: none; }
+
+  [data-step="1"] .sk { opacity: 1; transform: none; }
+  [data-step="1"] .p-nav .sk { transition-delay: .1s; } [data-step="1"] .p-copy .sk { transition-delay: .5s; } [data-step="1"] .p-photo .sk { transition-delay: .9s; } [data-step="1"] .p-svc .sk { transition-delay: 1.3s; }
+
+  [data-step="2"] .ct, [data-step="3"] .ct, [data-step="4"] .ct { opacity: 1; transform: none; }
+  [data-step="2"] .sk { opacity: 0; }
+  [data-step="2"] .p-nav .ct { transition-delay: .1s; } [data-step="2"] .p-copy .ct { transition-delay: .5s; } [data-step="2"] .p-photo .ct { transition-delay: 1s; } [data-step="2"] .p-svc .ct { transition-delay: 1.5s; }
+  [data-step="3"] .sk, [data-step="4"] .sk { opacity: 0; }
+  [data-step="3"] .ct, [data-step="4"] .ct { transition: none; }
+
+  [data-step="3"] .pin { opacity: 1; transform: none; }
+  [data-step="3"] .pin2 { transition-delay: .6s; }
+  [data-step="3"] .done { opacity: 1; transition-delay: 2.4s; }
+  [data-step="3"] .hl-tel, [data-step="4"] .hl-tel { font-size: 1.15em; color: #fff; background: #F26B1D; transition-delay: 2.4s; }
+  [data-step="4"] .hl-tel { transition-delay: 0s; }
+
+  [data-step="4"] .u-draft { display: none; } [data-step="4"] .u-live { display: inline; } [data-step="4"] .lock { color: #16A34A; }
+  [data-step="4"] .lw-live-badge { opacity: 1; transform: none; }
+  [data-step="4"] .serp { opacity: 1; transform: none; transition-delay: .4s; }
+  [data-step="4"] .ring { opacity: 1; transform: none; animation: ringShake .5s 1.4s 3; }
+  @keyframes ringShake { 0%,100% { rotate: 0deg; } 25% { rotate: -3deg; } 75% { rotate: 3deg; } }
+
+  /* Controls */
+  .lw-controls { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
+  .lw-play { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--color-ink); color: #fff; display: grid; place-items: center; cursor: pointer; }
+  .lw-play .i-play { display: none; }
+  .lw[data-playing="false"] .lw-play .i-play { display: block; }
+  .lw[data-playing="false"] .lw-play .i-pause { display: none; }
+  .lw-timeline { flex: 1; display: flex; gap: 6px; }
+  .lw-timeline i { flex: 1; height: 4px; border-radius: 4px; background: #D5E3DB; overflow: hidden; }
+  .lw-timeline b { display: block; height: 100%; width: 0; background: var(--grad); }
+  .lw-timeline i.done b { width: 100%; }
+  .lw-timeline i.on b { animation: lwFill var(--dur) linear forwards; }
+  .lw[data-playing="false"] .lw-timeline b { animation-play-state: paused; }
+  .lw-caption { flex: none; font-size: 12px; color: var(--color-body); letter-spacing: .06em; white-space: nowrap; }
+  @media (max-width: 640px) { .lw-caption { display: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sk { animation: none; }
+    .wave i { animation: none; height: 60%; }
+    [data-step="4"] .ring { animation: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.lw').forEach(root => {
+    const days = [...root.querySelectorAll<HTMLButtonElement>('.lw-day')];
+    const ticks = [...root.querySelectorAll<HTMLElement>('.lw-timeline i')];
+    const playBtn = root.querySelector<HTMLButtonElement>('.lw-play')!;
+    const capD = root.querySelector('.cap-d')!;
+    const capT = root.querySelector('.cap-t')!;
+    const callTime = root.querySelector('.call-time')!;
+    const DUR = 5200;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let step = 0, playing = !reduced, visible = false, timer = 0, started = 0, left = DUR, clock = 0;
+
+    const restartAnim = (el: Element | null) => { if (!el) return; (el as HTMLElement).style.animation = 'none'; void (el as HTMLElement).offsetWidth; (el as HTMLElement).style.animation = ''; };
+
+    function show(i: number) {
+      step = (i + days.length) % days.length;
+      root.dataset.step = String(step);
+      days.forEach((d, k) => { d.setAttribute('aria-selected', String(k === step)); restartAnim(d.querySelector('.lw-bar i')); });
+      ticks.forEach((t, k) => {
+        const b = t.querySelector<HTMLElement>('b')!;
+        t.classList.toggle('on', k === step);
+        restartAnim(b);
+        b.style.width = k < step ? '100%' : k === step ? '' : '0';
+      });
+      capD.textContent = days[step].querySelector('.lw-d')!.textContent!.toUpperCase();
+      capT.textContent = days[step].querySelector('.lw-t')!.textContent!;
+      // Mon: tick the call timer
+      clearInterval(clock);
+      if (step === 0) { let s = 0; callTime.textContent = '00:00'; clock = window.setInterval(() => { s += 1; callTime.textContent = `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; }, 260); }
+      left = DUR;
+      schedule();
+    }
+    function schedule() {
+      clearTimeout(timer);
+      if (!playing || !visible) return;
+      started = Date.now();
+      timer = window.setTimeout(() => show(step + 1), left);
+    }
+    function setPlaying(p: boolean) {
+      if (!p && playing) left = Math.max(0, left - (Date.now() - started));
+      playing = p;
+      root.dataset.playing = String(p);
+      playBtn.setAttribute('aria-label', p ? 'Pause' : 'Play');
+      schedule();
+    }
+
+    days.forEach((d, k) => d.addEventListener('click', () => { show(k); }));
+    playBtn.addEventListener('click', () => setPlaying(!playing));
+    root.dataset.playing = String(playing);
+
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible) { if (playing && left === DUR) show(step); else schedule(); }
+      else { if (playing) left = Math.max(0, left - (Date.now() - started)); clearTimeout(timer); }
+    }, { threshold: 0.35 }).observe(root);
+  });
+</script>

@@ -1,0 +1,135 @@
+---
+// Draws a website concept as SVG so the catalogue needs no screenshots.
+import type { Design } from '../data/designs';
+
+interface Props { design: Design; }
+const { design } = Astro.props;
+const { bg, ink, accent, soft } = design.colors;
+const font = design.serif ? 'Georgia, serif' : "'Geist Variable', system-ui, sans-serif";
+const id = `d-${design.slug}`;
+
+// Split the headline across two lines for the SVG text.
+const words = design.headline.split(' ');
+const mid = Math.ceil(words.length / 2);
+const line1 = words.slice(0, mid).join(' ');
+const line2 = words.slice(mid).join(' ');
+const L = design.layout;
+---
+
+<svg viewBox="0 0 640 420" role="img" aria-label={`Concept website design for ${design.business}`} class="w-full h-auto block">
+  <defs>
+    <clipPath id={`${id}-clip`}><rect x="0" y="0" width="640" height="420" rx="14" /></clipPath>
+    <linearGradient id={`${id}-img`} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color={accent} stop-opacity="0.85" />
+      <stop offset="1" stop-color={soft} />
+    </linearGradient>
+  </defs>
+  <g clip-path={`url(#${id}-clip)`}>
+    <rect width="640" height="420" fill={bg} />
+    <!-- browser bar -->
+    <rect width="640" height="30" fill={ink} opacity="0.06" />
+    <circle cx="18" cy="15" r="4.5" fill="#FF5F57" /><circle cx="33" cy="15" r="4.5" fill="#FEBC2E" /><circle cx="48" cy="15" r="4.5" fill="#28C840" />
+    <rect x="200" y="8" width="240" height="14" rx="7" fill={ink} opacity="0.07" />
+
+    <!-- nav -->
+    <text x="28" y="62" font-family={font} font-weight="700" font-size="15" fill={ink}>{design.business}</text>
+    <rect x="360" y="53" width="38" height="6" rx="3" fill={ink} opacity="0.25" />
+    <rect x="410" y="53" width="38" height="6" rx="3" fill={ink} opacity="0.25" />
+    <rect x="460" y="53" width="38" height="6" rx="3" fill={ink} opacity="0.25" />
+    <rect x="514" y="44" width="98" height="24" rx="12" fill={accent} />
+    <text x="563" y="60" text-anchor="middle" font-family="Inter Variable, sans-serif" font-weight="600" font-size="10" fill={bg}>{design.cta.length > 16 ? 'Contact' : design.cta}</text>
+
+    {L === 'split' && (
+      <g>
+        <text x="28" y="130" font-family={font} font-weight="700" font-size="30" fill={ink}>{line1}</text>
+        <text x="28" y="166" font-family={font} font-weight="700" font-size="30" fill={accent}>{line2}</text>
+        <rect x="28" y="186" width="250" height="7" rx="3.5" fill={ink} opacity="0.18" />
+        <rect x="28" y="200" width="200" height="7" rx="3.5" fill={ink} opacity="0.18" />
+        <rect x="28" y="224" width="120" height="34" rx="17" fill={accent} />
+        <text x="88" y="245" text-anchor="middle" font-family="Inter Variable, sans-serif" font-weight="600" font-size="11" fill={bg}>{design.cta}</text>
+        <rect x="156" y="224" width="100" height="34" rx="17" fill="none" stroke={ink} stroke-opacity="0.3" />
+        <rect x="350" y="92" width="262" height="196" rx="16" fill={`url(#${id}-img)`} />
+        <circle cx="430" cy="170" r="30" fill={bg} opacity="0.35" />
+        <path d={`M350 288 L440 210 L520 268 L612 196 L612 288 Z`} fill={ink} opacity="0.12" />
+        <rect x="372" y="262" width="120" height="40" rx="10" fill={bg} />
+        <text x="384" y="279" font-family="Inter Variable, sans-serif" font-weight="700" font-size="11" fill={ink}>★★★★★</text>
+        <rect x="384" y="285" width="80" height="5" rx="2.5" fill={ink} opacity="0.2" />
+      </g>
+    )}
+
+    {L === 'centered' && (
+      <g>
+        <rect x="0" y="82" width="640" height="200" fill={soft} />
+        <text x="320" y="148" text-anchor="middle" font-family={font} font-weight="700" font-size="30" fill={ink}>{line1}</text>
+        <text x="320" y="184" text-anchor="middle" font-family={font} font-weight="700" font-size="30" fill={ink}>{line2}</text>
+        <rect x="220" y="202" width="200" height="7" rx="3.5" fill={ink} opacity="0.2" />
+        <rect x="255" y="226" width="130" height="34" rx="17" fill={accent} />
+        <text x="320" y="247" text-anchor="middle" font-family="Inter Variable, sans-serif" font-weight="600" font-size="11" fill={bg}>{design.cta}</text>
+      </g>
+    )}
+
+    {L === 'bold' && (
+      <g>
+        <text x="28" y="138" font-family={font} font-weight="800" font-size="40" fill={ink}>{line1}</text>
+        <text x="28" y="184" font-family={font} font-weight="800" font-size="40" fill={accent}>{line2}</text>
+        <rect x="28" y="208" width="140" height="38" rx="6" fill={accent} />
+        <text x="98" y="231" text-anchor="middle" font-family="Inter Variable, sans-serif" font-weight="700" font-size="11" fill={bg}>{design.cta}</text>
+        <rect x="440" y="96" width="172" height="172" rx="86" fill={soft} />
+        <rect x="474" y="130" width="104" height="104" rx="52" fill={`url(#${id}-img)`} />
+      </g>
+    )}
+
+    {L === 'grid' && (
+      <g>
+        <text x="28" y="122" font-family={font} font-weight="700" font-size="28" fill={ink}>{design.headline}</text>
+        <rect x="28" y="140" width="110" height="30" rx="15" fill={accent} />
+        <text x="83" y="159" text-anchor="middle" font-family="Inter Variable, sans-serif" font-weight="600" font-size="10" fill={bg}>{design.cta}</text>
+        <rect x="28" y="190" width="186" height="100" rx="12" fill={`url(#${id}-img)`} />
+        <rect x="227" y="190" width="186" height="100" rx="12" fill={soft} />
+        <rect x="426" y="190" width="186" height="100" rx="12" fill={`url(#${id}-img)`} opacity="0.7" />
+        <text x="44" y="282" font-family="Inter Variable, sans-serif" font-weight="700" font-size="10" fill={bg}>BEFORE</text>
+        <text x="442" y="282" font-family="Inter Variable, sans-serif" font-weight="700" font-size="10" fill={bg}>AFTER</text>
+      </g>
+    )}
+
+    {L === 'menu' && (
+      <g>
+        <rect x="0" y="82" width="640" height="110" fill={soft} />
+        <text x="28" y="128" font-family={font} font-weight="700" font-size="28" fill={ink}>{design.headline}</text>
+        <rect x="28" y="146" width="130" height="30" rx="15" fill={accent} />
+        <text x="93" y="165" text-anchor="middle" font-family="Inter Variable, sans-serif" font-weight="600" font-size="10" fill={bg}>{design.cta}</text>
+        {[0, 1, 2].map(i => (
+          <g>
+            <rect x={28 + i * 199} y="208" width="186" height="84" rx="12" fill="#fff" stroke={ink} stroke-opacity="0.08" />
+            <rect x={40 + i * 199} y="220" width="60" height="60" rx="10" fill={`url(#${id}-img)`} />
+            <rect x={112 + i * 199} y="226" width="80" height="7" rx="3.5" fill={ink} opacity="0.55" />
+            <rect x={112 + i * 199} y="241" width="60" height="5" rx="2.5" fill={ink} opacity="0.2" />
+            <text x={112 + i * 199} y="272" font-family="Inter Variable, sans-serif" font-weight="700" font-size="11" fill={accent}>£{(6.5 + i * 2).toFixed(2)}</text>
+          </g>
+        ))}
+      </g>
+    )}
+
+    {L === 'shop' && (
+      <g>
+        <text x="28" y="118" font-family={font} font-weight="700" font-size="28" fill={ink}>{design.headline}</text>
+        <rect x="28" y="134" width="110" height="28" rx="14" fill={accent} />
+        <text x="83" y="152" text-anchor="middle" font-family="Inter Variable, sans-serif" font-weight="600" font-size="10" fill={bg}>{design.cta}</text>
+        {[0, 1, 2, 3].map(i => (
+          <g>
+            <rect x={28 + i * 148} y="180" width="136" height="88" rx="10" fill={i % 2 ? soft : `url(#${id}-img)`} />
+            <rect x={28 + i * 148} y="276" width="90" height="6" rx="3" fill={ink} opacity="0.5" />
+            <text x={28 + i * 148} y="298" font-family="Inter Variable, sans-serif" font-weight="700" font-size="10" fill={ink}>£{24 + i * 6}</text>
+          </g>
+        ))}
+      </g>
+    )}
+
+    <!-- footer band -->
+    <rect x="0" y="318" width="640" height="102" fill={ink} opacity="0.04" />
+    <rect x="28" y="342" width="140" height="6" rx="3" fill={ink} opacity="0.2" />
+    <rect x="28" y="356" width="100" height="6" rx="3" fill={ink} opacity="0.12" />
+    <rect x="250" y="342" width="100" height="6" rx="3" fill={ink} opacity="0.12" />
+    <rect x="410" y="342" width="100" height="6" rx="3" fill={ink} opacity="0.12" />
+  </g>
+</svg>

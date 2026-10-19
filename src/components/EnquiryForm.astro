@@ -1,0 +1,157 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  type?: 'website' | 'seo' | 'custom-software' | 'automation' | 'other';
+  heading?: string;
+  sub?: string;
+  showBudget?: boolean;
+  id?: string;
+}
+const {
+  type,
+  heading = 'Start The Conversation',
+  sub = 'Takes about a minute. Only name and email are required.',
+  showBudget = false,
+  id = 'enquiry',
+} = Astro.props;
+
+const options = [
+  { value: 'website', label: 'A new website' },
+  { value: 'seo', label: 'More calls from Google' },
+  { value: 'custom-software', label: 'Custom software' },
+  { value: 'automation', label: 'Automate a boring job' },
+  { value: 'other', label: 'Not sure yet' },
+];
+
+const placeholder = type === 'custom-software'
+  ? 'What eats your time? e.g. "I write every quote by hand and it takes two hours a night."'
+  : "What you do, where you work, and what you'd like more of…";
+---
+
+<form id={id} class="enquiry-form relative rounded-[32px] bg-white/90 border border-[rgba(7,17,31,0.06)] backdrop-blur-xl p-6 sm:p-10 shadow-[0_40px_90px_-40px_rgba(7,17,31,0.35)] flex flex-col gap-6" action="/api/enquiry/" method="POST" novalidate>
+  <div class="flex flex-col gap-1.5">
+    <h2 class="text-[clamp(26px,3vw,32px)] tracking-[-0.045em]">{heading}</h2>
+    <p class="text-sm muted">{sub}</p>
+  </div>
+
+  <input type="hidden" name="source" value={Astro.url.pathname} />
+  <input type="hidden" name="type" id={`${id}-type`} value={type ?? 'other'} />
+  <div class="hp" aria-hidden="true">
+    <label>Company website <input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <div class="grid gap-[18px] sm:grid-cols-2">
+    <div class="field"><label for={`${id}-name`}>Your name *</label><input id={`${id}-name`} name="name" required autocomplete="name" placeholder="Jane Smith" /></div>
+    <div class="field"><label for={`${id}-business`}>Business name</label><input id={`${id}-business`} name="business" autocomplete="organization" placeholder="Smith Plumbing Ltd" /></div>
+    <div class="field"><label for={`${id}-email`}>Email *</label><input id={`${id}-email`} name="email" type="email" required autocomplete="email" placeholder="jane@smithplumbing.co.uk" /></div>
+    <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" placeholder="07700 900000" /></div>
+  </div>
+
+  <fieldset class="m-0 p-0 border-0 flex flex-col gap-2.5">
+    <legend class="text-sm font-semibold mb-2.5">What do you need help with? <span class="font-normal muted">Pick all that apply</span></legend>
+    <div class="flex flex-wrap gap-2">
+      {options.map(o => (
+        <button type="button" class="pick" data-value={o.value} aria-pressed={o.value === type ? 'true' : 'false'}>
+          <Icon name="check" size={15} stroke={2.8} />{o.label}
+        </button>
+      ))}
+    </div>
+  </fieldset>
+
+  {showBudget && (
+    <div class="field max-w-[340px]">
+      <label for={`${id}-budget`}>Rough budget <span class="font-normal muted">Optional</span></label>
+      <select id={`${id}-budget`} name="budget">
+        <option value="">Not sure yet</option>
+        <option>Under £500</option>
+        <option>£500 – £1,000</option>
+        <option>£1,000 – £2,500</option>
+        <option>£2,500 – £5,000</option>
+        <option>£5,000+</option>
+      </select>
+    </div>
+  )}
+
+  <div class="field">
+    <label for={`${id}-message`}>Tell me a bit about your business</label>
+    <textarea id={`${id}-message`} name="message" rows="4" placeholder={placeholder}></textarea>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-[#ECEFEC]">
+    <span class="text-[13px] muted max-w-[340px]">I only use your details to reply. See the <a href="/privacy-policy/" class="link-arrow !inline">Privacy Policy</a>.</span>
+    <button type="submit" class="btn btn-grad has-chip">
+      <span class="btn-label">Send enquiry</span>
+      <span class="chip-arrow"><Icon name="arrow" size={15} stroke={2.6} /></span>
+    </button>
+  </div>
+  <p class="form-error text-sm font-medium text-error" role="alert" hidden></p>
+
+  <div class="form-done absolute inset-0 bg-white rounded-[32px] p-8 flex-col items-start justify-center gap-5" hidden style="display:none" role="status">
+    <span class="w-16 h-16 rounded-full bg-teal grid place-items-center text-navy"><Icon name="check" size={28} stroke={2.6} /></span>
+    <h3 class="text-[clamp(32px,4vw,42px)] font-medium tracking-[-0.05em] leading-none">Thanks, <span class="done-name">there</span>. It's In.</h3>
+    <p class="text-base muted max-w-[480px]">You'll get a copy by email now, and a proper reply from me within one working day, usually much sooner. In a hurry? Message me on WhatsApp.</p>
+    <div class="flex flex-wrap gap-2.5">
+      <a href="https://wa.me/447786366109" target="_blank" rel="noopener" class="btn btn-dark">WhatsApp me</a>
+      <a href="/blog/" class="btn btn-soft">Browse the blog</a>
+    </div>
+  </div>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.enquiry-form').forEach(form => {
+    const typeInput = form.querySelector<HTMLInputElement>('input[name=type]')!;
+    const picks = [...form.querySelectorAll<HTMLButtonElement>('.pick')];
+    const chosen = () => picks.filter(p => p.getAttribute('aria-pressed') === 'true');
+    picks.forEach(p => p.addEventListener('click', () => {
+      p.setAttribute('aria-pressed', String(p.getAttribute('aria-pressed') !== 'true'));
+      typeInput.value = chosen()[0]?.dataset.value ?? 'other';
+    }));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const err = form.querySelector<HTMLElement>('.form-error')!;
+      const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+      const label = btn.querySelector<HTMLElement>('.btn-label')!;
+      const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      const names = chosen().map(p => p.textContent?.trim()).filter(Boolean);
+      if (names.length > 1) data.message = `Interested in: ${names.join(', ')}\n\n${data.message ?? ''}`;
+      err.hidden = true;
+
+      const nameEl = form.querySelector<HTMLInputElement>('input[name=name]')!;
+      const emailEl = form.querySelector<HTMLInputElement>('input[name=email]')!;
+      const nameBad = !String(data.name).trim();
+      const emailBad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(data.email).trim());
+      nameEl.setAttribute('aria-invalid', String(nameBad));
+      emailEl.setAttribute('aria-invalid', String(emailBad));
+      if (nameBad || emailBad) {
+        err.textContent = 'Please add your name and a valid email.';
+        err.hidden = false;
+        (nameBad ? nameEl : emailEl).focus();
+        return;
+      }
+
+      btn.disabled = true;
+      label.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || !out.ok) throw new Error(out.error);
+        const done = form.querySelector<HTMLElement>('.form-done')!;
+        done.querySelector('.done-name')!.textContent = String(data.name).trim().split(' ')[0] || 'there';
+        done.hidden = false;
+        done.style.display = 'flex';
+        (window as any).gtag?.('event', 'generate_lead', { form: form.id, type: data.type });
+      } catch (ex: any) {
+        err.textContent = ex?.message || 'Something went wrong. Please email hello@pixova.uk or WhatsApp +44 7786 366109.';
+        err.hidden = false;
+        btn.disabled = false;
+        label.textContent = 'Send enquiry';
+      }
+    });
+  });
+</script>

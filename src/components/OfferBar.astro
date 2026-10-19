@@ -1,0 +1,27 @@
+---
+import { OFFER, offerLive } from '../data/site';
+
+const live = offerLive();
+const endsLabel = new Date(OFFER.ends).toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
+---
+
+{live && (
+  <div id="offer-bar" data-ends={OFFER.ends} class="bg-navy text-white text-sm relative z-[60]">
+    <div class="wrap flex flex-wrap items-center justify-center gap-x-3 gap-y-1 py-2.5 text-center">
+      <span class="chip" style={OFFER.festive ? 'background:#D62828;color:#fff' : 'background:var(--color-teal)'}>
+        {OFFER.festive && (
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18 C6 6, 15 2, 21 8 C18 9, 18 13, 19 18 Z" fill="#fff" opacity=".9"/><circle cx="21.5" cy="7.5" r="2.5" fill="#fff"/><rect x="1" y="17" width="20" height="5" rx="2.5" fill="#fff"/></svg>
+        )}
+        {OFFER.label}
+      </span>
+      <span>{OFFER.text}{' '}<span class="text-white/60">Ends {endsLabel}.</span></span>
+      <a href={OFFER.href} class="font-semibold underline underline-offset-4 decoration-teal">See prices</a>
+    </div>
+  </div>
+)}
+
+<script>
+  // Static pages can outlive the offer between deploys, so check the date in the browser too.
+  const bar = document.getElementById('offer-bar');
+  if (bar && new Date(bar.dataset.ends ?? 0).getTime() < Date.now()) bar.hidden = true;
+</script>

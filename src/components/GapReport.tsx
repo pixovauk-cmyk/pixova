@@ -53,15 +53,15 @@ const STEPS = [
 const STEP_DURATIONS = [3000, 4000, 8000, 6000];
 
 function scoreColor(score: number): string {
-  if (score >= 7) return '#2ECC9A';
+  if (score >= 7) return '#2BD98F';
   if (score >= 5) return '#E8A33D';
-  return '#E05A4E';
+  return '#B42318';
 }
 
 function scoreBg(score: number): string {
-  if (score >= 7) return '#E8F5F1';
+  if (score >= 7) return '#E3F8EE';
   if (score >= 5) return '#FEF3E2';
-  return '#FDECEA';
+  return '#FEF3F2';
 }
 
 function CountUp({ target, color }: { target: number; color: string }) {
@@ -76,7 +76,7 @@ function CountUp({ target, color }: { target: number; color: string }) {
     }, 40);
     return () => clearInterval(interval);
   }, [target]);
-  return <span style={{ color, fontFamily: 'DM Sans, sans-serif', fontSize: '3rem', fontWeight: 700, lineHeight: 1 }}>{current}</span>;
+  return <span style={{ color, fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '3rem', fontWeight: 700, lineHeight: 1 }}>{current}</span>;
 }
 
 function Typewriter({ text, onDone }: { text: string; onDone?: () => void }) {
@@ -106,22 +106,22 @@ function ScoreCard({ rank, domain, score }: { rank: string; domain?: string; sco
     <div style={{
       background: bg,
       border: `2px solid ${color}`,
-      borderRadius: 12,
+      borderRadius: 28,
       padding: '1.25rem 1rem',
       textAlign: 'center',
       flex: 1,
       minWidth: 0,
     }}>
-      <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '0.7rem', fontWeight: 700, color: '#1A2E3D', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.25rem', opacity: 0.6 }}>
+      <div style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.7rem', fontWeight: 700, color: '#07111F', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.25rem', opacity: 0.6 }}>
         {rank}
       </div>
       {domain && (
-        <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', fontWeight: 500, color: '#1A2E3D', marginBottom: '0.5rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%', opacity: 0.75 }}>
+        <div style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.72rem', fontWeight: 500, color: '#07111F', marginBottom: '0.5rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%', opacity: 0.75 }}>
           {domain}
         </div>
       )}
       <CountUp target={score} color={color} />
-      <div style={{ color: '#1A2E3D', fontSize: '0.85rem', marginTop: '0.25rem', opacity: 0.5 }}>/10</div>
+      <div style={{ color: '#07111F', fontSize: '0.85rem', marginTop: '0.25rem', opacity: 0.5 }}>/10</div>
     </div>
   );
 }
@@ -278,39 +278,42 @@ export function GapReport() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%',
-    padding: '0.75rem 1rem',
-    borderRadius: 8,
-    border: '1.5px solid #D1DBE5',
-    fontFamily: 'Inter, sans-serif',
+    minHeight: 56,
+    padding: '0 1.25rem',
+    borderRadius: 999,
+    border: '1.5px solid #E2E8E4',
+    fontFamily: "'Geist Variable', system-ui, sans-serif",
     fontSize: '1rem',
-    color: '#1A2E3D',
-    background: '#fff',
+    color: '#07111F',
+    background: '#F7F9F8',
     outline: 'none',
     boxSizing: 'border-box',
   };
 
   const labelStyle: React.CSSProperties = {
     display: 'block',
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: "'Geist Variable', system-ui, sans-serif",
     fontSize: '0.875rem',
-    fontWeight: 500,
-    color: '#1A2E3D',
-    marginBottom: '0.375rem',
+    fontWeight: 600,
+    color: '#07111F',
+    marginBottom: '0.5rem',
   };
 
   const errorStyle: React.CSSProperties = {
-    color: '#E05A4E',
+    color: '#B42318',
     fontSize: '0.8rem',
     marginTop: '0.25rem',
   };
 
   const btnStyle: React.CSSProperties = {
-    background: '#2ECC9A',
-    color: '#fff',
+    background: 'linear-gradient(135deg, #2BD98F 0%, #22C7D6 100%)',
+    color: '#07111F',
     border: 'none',
-    borderRadius: 8,
-    padding: '0.875rem 2rem',
-    fontFamily: 'DM Sans, sans-serif',
+    borderRadius: 999,
+    minHeight: 58,
+    padding: '0 2rem',
+    boxShadow: '0 18px 40px -16px rgba(34,199,214,0.7)',
+    fontFamily: "'Geist Variable', system-ui, sans-serif",
     fontWeight: 600,
     fontSize: '1rem',
     cursor: 'pointer',
@@ -320,33 +323,35 @@ export function GapReport() {
   // ── GATE ────────────────────────────────────────────────────────
   if (state === 'GATE') {
     return (
-      <div style={{ background: '#F7FAFA', minHeight: '100vh', padding: '3rem 1rem' }}>
+      <div style={{ background: 'transparent', minHeight: '70vh', padding: '2.5rem 1.25rem 4rem' }}>
         {apiError && (
-          <div style={{ maxWidth: 520, margin: '0 auto 1.5rem', background: '#FDECEA', border: '1px solid #E05A4E', borderRadius: 8, padding: '1rem 1.25rem', color: '#E05A4E', fontSize: '0.9rem' }}>
+          <div style={{ maxWidth: 520, margin: '0 auto 1.5rem', background: '#FEF3F2', border: '1px solid #B42318', borderRadius: 8, padding: '1rem 1.25rem', color: '#B42318', fontSize: '0.9rem' }}>
             {apiError}
           </div>
         )}
-        <div style={{ maxWidth: 520, margin: '0 auto' }}>
-          <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
-            <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '0.8rem', fontWeight: 600, color: '#2ECC9A', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>
-              Free Tool
-            </p>
-            <h1 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(1.75rem, 5vw, 2.5rem)', fontWeight: 700, color: '#1C3557', lineHeight: 1.15, marginBottom: '1rem' }}>
-              See who's beating you on Google. And exactly why.
-            </h1>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '1.05rem', color: '#1A2E3D', lineHeight: 1.6 }}>
-              We check your website against the businesses actually ranking for your keyword in your area. Real numbers, plain English, about a minute.
-            </p>
-          </div>
-
-          <form onSubmit={handleGateSubmit} noValidate style={{ background: '#fff', borderRadius: 12, padding: '2rem', boxShadow: '0 2px 16px rgba(28,53,87,0.08)' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto 2.75rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 22 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '6px 14px 6px 6px', borderRadius: 999, background: 'rgba(255,255,255,0.75)', border: '1px solid rgba(7,17,31,0.06)', fontSize: 14, color: '#3E4A57' }}>
+            <span style={{ width: 26, height: 26, borderRadius: '50%', background: 'linear-gradient(135deg, #2BD98F, #22C7D6)', display: 'grid', placeItems: 'center' }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#07111F" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+            </span>
+            Free · about 60 seconds · no card
+          </span>
+          <h1 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(42px, 6vw, 86px)', lineHeight: 0.98, letterSpacing: '-0.055em', color: '#07111F' }}>
+            See Who's Beating You On Google. <span style={{ background: 'linear-gradient(100deg, #0FB37A, #14A9C2)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>And Exactly Why.</span>
+          </h1>
+          <p style={{ margin: 0, maxWidth: 600, fontSize: 17, color: '#3E4A57', lineHeight: 1.6 }}>
+            I check your website against the businesses actually ranking for your keyword in your area. Real numbers from Google, in about a minute.
+          </p>
+        </div>
+        <div style={{ maxWidth: 620, margin: '0 auto' }}>
+          <form onSubmit={handleGateSubmit} noValidate style={{ background: 'rgba(255,255,255,0.92)', borderRadius: 32, padding: 'clamp(1.5rem, 4vw, 2.75rem)', border: '1px solid rgba(7,17,31,0.06)', boxShadow: '0 50px 100px -50px rgba(7,17,31,0.45)' }}>
             <div style={{ marginBottom: '1.25rem' }}>
               <label style={labelStyle} htmlFor="firstName">Your name</label>
               <input
                 id="firstName"
                 type="text"
                 autoComplete="given-name"
-                style={{ ...inputStyle, borderColor: errors.firstName ? '#E05A4E' : '#D1DBE5' }}
+                style={{ ...inputStyle, borderColor: errors.firstName ? '#B42318' : '#E2E8E4' }}
                 value={gateData.firstName}
                 onChange={e => setGateData(d => ({ ...d, firstName: e.target.value }))}
               />
@@ -358,7 +363,7 @@ export function GapReport() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                style={{ ...inputStyle, borderColor: errors.email ? '#E05A4E' : '#D1DBE5' }}
+                style={{ ...inputStyle, borderColor: errors.email ? '#B42318' : '#E2E8E4' }}
                 value={gateData.email}
                 onChange={e => setGateData(d => ({ ...d, email: e.target.value }))}
               />
@@ -367,22 +372,11 @@ export function GapReport() {
             <button type="submit" style={btnStyle} disabled={submitting}>
               {submitting ? 'One moment…' : 'Start my Gap Report →'}
             </button>
-            <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#6B7F8E', marginTop: '0.875rem' }}>
-              Have a look for yourself. No card, no catch.
+            <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#5B6672', marginTop: '0.875rem' }}>
+              Free. No card needed.
             </p>
           </form>
 
-          <div style={{ marginTop: '2.5rem' }}>
-            <p style={{ textAlign: 'center', fontFamily: 'DM Sans, sans-serif', fontWeight: 600, color: '#1C3557', marginBottom: '1.25rem' }}>How it works</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
-              {['Tell us your site and the keyword you want to rank for', 'We check who\'s ranking and why they\'re above you', 'You see the gap — live, on screen'].map((step, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.875rem' }}>
-                  <div style={{ background: '#E8F5F1', color: '#2ECC9A', borderRadius: '50%', width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'DM Sans, sans-serif', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>{i + 1}</div>
-                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem', color: '#1A2E3D', lineHeight: 1.5, paddingTop: 2 }}>{step}</p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     );
@@ -391,24 +385,24 @@ export function GapReport() {
   // ── QUALIFY ──────────────────────────────────────────────────────
   if (state === 'QUALIFY') {
     return (
-      <div style={{ background: '#F7FAFA', minHeight: '100vh', padding: '3rem 1rem' }}>
+      <div style={{ background: 'transparent', minHeight: '70vh', padding: '2.5rem 1.25rem 4rem' }}>
         <div style={{ maxWidth: 520, margin: '0 auto' }}>
-          <h2 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(1.4rem, 4vw, 1.875rem)', fontWeight: 700, color: '#1C3557', marginBottom: '0.5rem' }}>
+          <h2 style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: 'clamp(1.4rem, 4vw, 1.875rem)', fontWeight: 500, letterSpacing: '-0.045em', color: '#07111F', marginBottom: '0.5rem' }}>
             Nearly there, {gateData.firstName}. Tell us what to check.
           </h2>
-          <p style={{ fontFamily: 'Inter, sans-serif', color: '#6B7F8E', marginBottom: '2rem', fontSize: '0.9rem' }}>All fields are used in your report — none are optional.</p>
+          <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", color: '#5B6672', marginBottom: '2rem', fontSize: '0.9rem' }}>All fields are used in your report — none are optional.</p>
 
-          <form onSubmit={handleQualifySubmit} noValidate style={{ background: '#fff', borderRadius: 12, padding: '2rem', boxShadow: '0 2px 16px rgba(28,53,87,0.08)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <form onSubmit={handleQualifySubmit} noValidate style={{ background: 'rgba(255,255,255,0.92)', borderRadius: 32, padding: 'clamp(1.5rem, 4vw, 2.75rem)', border: '1px solid rgba(7,17,31,0.06)', boxShadow: '0 50px 100px -50px rgba(7,17,31,0.45)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div>
               <label style={labelStyle} htmlFor="businessName">Business name</label>
-              <input id="businessName" type="text" style={{ ...inputStyle, borderColor: errors.businessName ? '#E05A4E' : '#D1DBE5' }}
+              <input id="businessName" type="text" style={{ ...inputStyle, borderColor: errors.businessName ? '#B42318' : '#E2E8E4' }}
                 value={qualifyData.businessName} onChange={e => setQualifyData(d => ({ ...d, businessName: e.target.value }))} />
               {errors.businessName && <p style={errorStyle}>{errors.businessName}</p>}
             </div>
 
             <div>
               <label style={labelStyle} htmlFor="website">Your website</label>
-              <input id="website" type="url" placeholder="https://yoursite.co.uk" style={{ ...inputStyle, borderColor: errors.website ? '#E05A4E' : '#D1DBE5' }}
+              <input id="website" type="url" placeholder="https://yoursite.co.uk" style={{ ...inputStyle, borderColor: errors.website ? '#B42318' : '#E2E8E4' }}
                 value={qualifyData.website} onChange={e => setQualifyData(d => ({ ...d, website: e.target.value }))} />
               {errors.website && <p style={errorStyle}>{errors.website}</p>}
             </div>
@@ -416,7 +410,7 @@ export function GapReport() {
             <div>
               <label style={labelStyle} htmlFor="keyword">What do you want to rank for?</label>
               <input id="keyword" type="text" placeholder="e.g. emergency plumber" maxLength={60}
-                style={{ ...inputStyle, borderColor: errors.keyword ? '#E05A4E' : '#D1DBE5' }}
+                style={{ ...inputStyle, borderColor: errors.keyword ? '#B42318' : '#E2E8E4' }}
                 value={qualifyData.keyword} onChange={e => setQualifyData(d => ({ ...d, keyword: e.target.value }))} />
               {errors.keyword && <p style={errorStyle}>{errors.keyword}</p>}
             </div>
@@ -424,14 +418,14 @@ export function GapReport() {
             <div>
               <label style={labelStyle} htmlFor="location">Your town or area</label>
               <input id="location" type="text" placeholder="e.g. Solihull" maxLength={40}
-                style={{ ...inputStyle, borderColor: errors.location ? '#E05A4E' : '#D1DBE5' }}
+                style={{ ...inputStyle, borderColor: errors.location ? '#B42318' : '#E2E8E4' }}
                 value={qualifyData.location} onChange={e => setQualifyData(d => ({ ...d, location: e.target.value }))} />
               {errors.location && <p style={errorStyle}>{errors.location}</p>}
             </div>
 
             <div>
               <label style={labelStyle} htmlFor="painPoint">What's the biggest problem right now?</label>
-              <select id="painPoint" style={{ ...inputStyle, borderColor: errors.painPoint ? '#E05A4E' : '#D1DBE5', appearance: 'none', backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'8\' viewBox=\'0 0 12 8\'%3E%3Cpath d=\'M1 1l5 5 5-5\' stroke=\'%231A2E3D\' stroke-width=\'1.5\' fill=\'none\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', paddingRight: '2.5rem' }}
+              <select id="painPoint" style={{ ...inputStyle, borderColor: errors.painPoint ? '#B42318' : '#E2E8E4', appearance: 'none', backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'8\' viewBox=\'0 0 12 8\'%3E%3Cpath d=\'M1 1l5 5 5-5\' stroke=\'%231A2E3D\' stroke-width=\'1.5\' fill=\'none\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', paddingRight: '2.5rem' }}
                 value={qualifyData.painPoint} onChange={e => setQualifyData(d => ({ ...d, painPoint: e.target.value }))}>
                 <option value="">Select one…</option>
                 {PAIN_POINTS.map(p => <option key={p} value={p}>{p}</option>)}
@@ -441,7 +435,7 @@ export function GapReport() {
 
             <div>
               <label style={labelStyle} htmlFor="workSource">Where does most of your work come from?</label>
-              <select id="workSource" style={{ ...inputStyle, borderColor: errors.workSource ? '#E05A4E' : '#D1DBE5', appearance: 'none', backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'8\' viewBox=\'0 0 12 8\'%3E%3Cpath d=\'M1 1l5 5 5-5\' stroke=\'%231A2E3D\' stroke-width=\'1.5\' fill=\'none\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', paddingRight: '2.5rem' }}
+              <select id="workSource" style={{ ...inputStyle, borderColor: errors.workSource ? '#B42318' : '#E2E8E4', appearance: 'none', backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'8\' viewBox=\'0 0 12 8\'%3E%3Cpath d=\'M1 1l5 5 5-5\' stroke=\'%231A2E3D\' stroke-width=\'1.5\' fill=\'none\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', paddingRight: '2.5rem' }}
                 value={qualifyData.workSource} onChange={e => setQualifyData(d => ({ ...d, workSource: e.target.value }))}>
                 <option value="">Select one…</option>
                 {WORK_SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
@@ -504,11 +498,11 @@ export function GapReport() {
     const allDone = completedSteps.every(Boolean);
 
     return (
-      <div style={{ background: '#0A1929', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ background: '#07111F', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem', position: 'relative', overflow: 'hidden' }}>
         <style>{`
           @keyframes orb1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(60px,-40px) scale(1.1)} }
           @keyframes orb2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-40px,50px) scale(0.9)} }
-          @keyframes nodePulse { 0%,100%{box-shadow:0 0 0 0 rgba(46,204,154,0.4)} 50%{box-shadow:0 0 0 12px rgba(46,204,154,0)} }
+          @keyframes nodePulse { 0%,100%{box-shadow:0 0 0 0 rgba(43,217,143,0.4)} 50%{box-shadow:0 0 0 12px rgba(43,217,143,0)} }
           @keyframes boltTravel { 0%{top:0%;opacity:0} 5%{opacity:1} 95%{opacity:1} 100%{top:100%;opacity:0} }
           @keyframes boltTravelH { 0%{left:0%;opacity:0} 5%{opacity:1} 95%{opacity:1} 100%{left:100%;opacity:0} }
           @keyframes fadeSlideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
@@ -517,20 +511,20 @@ export function GapReport() {
         `}</style>
 
         {/* Ambient orbs */}
-        <div style={{ position:'absolute', top:'10%', right:'5%', width:400, height:400, borderRadius:'50%', background:'radial-gradient(circle, rgba(46,204,154,0.08) 0%, transparent 70%)', animation:'orb1 8s ease-in-out infinite', pointerEvents:'none' }} />
-        <div style={{ position:'absolute', bottom:'10%', left:'5%', width:320, height:320, borderRadius:'50%', background:'radial-gradient(circle, rgba(28,53,87,0.4) 0%, transparent 70%)', animation:'orb2 10s ease-in-out infinite', pointerEvents:'none' }} />
+        <div style={{ position:'absolute', top:'10%', right:'5%', width:400, height:400, borderRadius:'50%', background:'radial-gradient(circle, rgba(43,217,143,0.08) 0%, transparent 70%)', animation:'orb1 8s ease-in-out infinite', pointerEvents:'none' }} />
+        <div style={{ position:'absolute', bottom:'10%', left:'5%', width:320, height:320, borderRadius:'50%', background:'radial-gradient(circle, rgba(7,17,31,0.4) 0%, transparent 70%)', animation:'orb2 10s ease-in-out infinite', pointerEvents:'none' }} />
 
         {/* Grid overlay */}
-        <div style={{ position:'absolute', inset:0, backgroundImage:'linear-gradient(rgba(46,204,154,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(46,204,154,0.04) 1px, transparent 1px)', backgroundSize:'40px 40px', animation:'gridFade 4s ease-in-out infinite', pointerEvents:'none' }} />
+        <div style={{ position:'absolute', inset:0, backgroundImage:'linear-gradient(rgba(43,217,143,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(43,217,143,0.04) 1px, transparent 1px)', backgroundSize:'40px 40px', animation:'gridFade 4s ease-in-out infinite', pointerEvents:'none' }} />
 
         <div style={{ position:'relative', zIndex:1, width:'100%', maxWidth:560 }}>
           {/* Title */}
           <div style={{ textAlign:'center', marginBottom:'2.5rem', animation:'fadeSlideUp 0.5s ease both' }}>
-            <div style={{ display:'inline-flex', alignItems:'center', gap:'0.5rem', background:'rgba(46,204,154,0.1)', border:'1px solid rgba(46,204,154,0.2)', borderRadius:20, padding:'0.35rem 1rem', marginBottom:'1rem' }}>
-              <div style={{ width:6, height:6, borderRadius:'50%', background:'#2ECC9A', animation:'nodePulse 1.5s ease-in-out infinite' }} />
-              <span style={{ fontFamily:'Inter, sans-serif', fontSize:'0.75rem', color:'#2ECC9A', fontWeight:500, letterSpacing:'0.08em', textTransform:'uppercase' }}>Analysing now</span>
+            <div style={{ display:'inline-flex', alignItems:'center', gap:'0.5rem', background:'rgba(43,217,143,0.1)', border:'1px solid rgba(43,217,143,0.2)', borderRadius:20, padding:'0.35rem 1rem', marginBottom:'1rem' }}>
+              <div style={{ width:6, height:6, borderRadius:'50%', background:'#2BD98F', animation:'nodePulse 1.5s ease-in-out infinite' }} />
+              <span style={{ fontFamily:"'Geist Variable', system-ui, sans-serif", fontSize:'0.75rem', color:'#2BD98F', fontWeight:500, letterSpacing:'0.08em', textTransform:'uppercase' }}>Analysing now</span>
             </div>
-            <h2 style={{ fontFamily:'DM Sans, sans-serif', fontWeight:700, color:'#fff', fontSize:'clamp(1.2rem,3.5vw,1.5rem)', lineHeight:1.3, margin:0 }}>
+            <h2 style={{ fontFamily:"'Geist Variable', system-ui, sans-serif", fontWeight:700, color:'#fff', fontSize:'clamp(1.2rem,3.5vw,1.5rem)', lineHeight:1.3, margin:0 }}>
               "{qualifyData.keyword} {qualifyData.location}"
             </h2>
           </div>
@@ -551,12 +545,12 @@ export function GapReport() {
                     <div style={{
                       width:56, height:56, borderRadius:'50%', flexShrink:0,
                       display:'flex', alignItems:'center', justifyContent:'center',
-                      background: done ? '#2ECC9A' : active ? 'rgba(46,204,154,0.12)' : 'rgba(255,255,255,0.04)',
-                      border: done ? '2px solid #2ECC9A' : active ? '2px solid rgba(46,204,154,0.6)' : '2px solid rgba(255,255,255,0.08)',
-                      color: done ? '#fff' : active ? '#2ECC9A' : 'rgba(255,255,255,0.2)',
+                      background: done ? '#2BD98F' : active ? 'rgba(43,217,143,0.12)' : 'rgba(255,255,255,0.04)',
+                      border: done ? '2px solid #2BD98F' : active ? '2px solid rgba(43,217,143,0.6)' : '2px solid rgba(255,255,255,0.08)',
+                      color: done ? '#fff' : active ? '#2BD98F' : 'rgba(255,255,255,0.2)',
                       transition:'all 0.5s ease',
                       animation: active ? 'nodePulse 1.5s ease-in-out infinite' : 'none',
-                      boxShadow: active ? '0 0 20px rgba(46,204,154,0.25)' : done ? '0 0 16px rgba(46,204,154,0.3)' : 'none',
+                      boxShadow: active ? '0 0 20px rgba(43,217,143,0.25)' : done ? '0 0 16px rgba(43,217,143,0.3)' : 'none',
                     }}>
                       {done
                         ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -566,37 +560,37 @@ export function GapReport() {
 
                     {/* Label */}
                     <div style={{ flex:1 }}>
-                      <p style={{ fontFamily:'DM Sans, sans-serif', fontWeight:600, fontSize:'0.95rem', color: pending ? 'rgba(255,255,255,0.25)' : '#fff', margin:0, transition:'color 0.3s' }}>
+                      <p style={{ fontFamily:"'Geist Variable', system-ui, sans-serif", fontWeight:600, fontSize:'0.95rem', color: pending ? 'rgba(255,255,255,0.25)' : '#fff', margin:0, transition:'color 0.3s' }}>
                         {node.label}
                       </p>
-                      <p style={{ fontFamily:'Inter, sans-serif', fontSize:'0.78rem', color: pending ? 'rgba(255,255,255,0.12)' : active ? '#2ECC9A' : 'rgba(255,255,255,0.4)', margin:'0.15rem 0 0', transition:'color 0.3s', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', maxWidth:260 }}>
+                      <p style={{ fontFamily:"'Geist Variable', system-ui, sans-serif", fontSize:'0.78rem', color: pending ? 'rgba(255,255,255,0.12)' : active ? '#2BD98F' : 'rgba(255,255,255,0.4)', margin:'0.15rem 0 0', transition:'color 0.3s', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', maxWidth:260 }}>
                         {done ? '✓ Done' : node.sub}
                       </p>
                     </div>
 
                     {/* Status badge */}
                     {done && (
-                      <div style={{ background:'rgba(46,204,154,0.12)', border:'1px solid rgba(46,204,154,0.3)', borderRadius:12, padding:'0.2rem 0.7rem', flexShrink:0 }}>
-                        <span style={{ fontFamily:'Inter, sans-serif', fontSize:'0.7rem', color:'#2ECC9A', fontWeight:600, textTransform:'uppercase', letterSpacing:'0.06em' }}>Complete</span>
+                      <div style={{ background:'rgba(43,217,143,0.12)', border:'1px solid rgba(43,217,143,0.3)', borderRadius:12, padding:'0.2rem 0.7rem', flexShrink:0 }}>
+                        <span style={{ fontFamily:"'Geist Variable', system-ui, sans-serif", fontSize:'0.7rem', color:'#2BD98F', fontWeight:600, textTransform:'uppercase', letterSpacing:'0.06em' }}>Complete</span>
                       </div>
                     )}
                     {active && (
                       <div style={{ background:'rgba(232,163,61,0.12)', border:'1px solid rgba(232,163,61,0.3)', borderRadius:12, padding:'0.2rem 0.7rem', flexShrink:0 }}>
-                        <span style={{ fontFamily:'Inter, sans-serif', fontSize:'0.7rem', color:'#E8A33D', fontWeight:600, textTransform:'uppercase', letterSpacing:'0.06em' }}>Running</span>
+                        <span style={{ fontFamily:"'Geist Variable', system-ui, sans-serif", fontSize:'0.7rem', color:'#E8A33D', fontWeight:600, textTransform:'uppercase', letterSpacing:'0.06em' }}>Running</span>
                       </div>
                     )}
                   </div>
 
                   {/* Connector line with electric bolt */}
                   {!isLast && (
-                    <div style={{ position:'relative', marginLeft:27, width:2, height:48, background: done ? 'rgba(46,204,154,0.4)' : 'rgba(255,255,255,0.06)', transition:'background 0.5s', overflow:'hidden' }}>
+                    <div style={{ position:'relative', marginLeft:27, width:2, height:48, background: done ? 'rgba(43,217,143,0.4)' : 'rgba(255,255,255,0.06)', transition:'background 0.5s', overflow:'hidden' }}>
                       {/* Electric bolt traveling down */}
                       {(active || done) && (
                         <div style={{
                           position:'absolute', left:'50%', transform:'translateX(-50%)',
                           width:6, height:6, borderRadius:'50%',
-                          background:'#2ECC9A',
-                          boxShadow:'0 0 8px 3px rgba(46,204,154,0.8), 0 0 16px 6px rgba(46,204,154,0.4)',
+                          background:'#2BD98F',
+                          boxShadow:'0 0 8px 3px rgba(43,217,143,0.8), 0 0 16px 6px rgba(43,217,143,0.4)',
                           animation: done ? 'none' : 'boltTravel 0.8s ease-in-out infinite',
                           top: done ? '100%' : '0%',
                         }} />
@@ -612,13 +606,13 @@ export function GapReport() {
           <div style={{ marginTop:'2rem', background:'rgba(255,255,255,0.06)', borderRadius:4, height:4, overflow:'hidden' }}>
             <div style={{
               height:'100%', borderRadius:4,
-              background:'linear-gradient(90deg, #2ECC9A, #1aad7e)',
+              background:'linear-gradient(90deg, #2BD98F, #0B7A4F)',
               width:`${(completedSteps.filter(Boolean).length / nodes.length) * 100}%`,
               transition:'width 0.8s cubic-bezier(0.4,0,0.2,1)',
-              boxShadow:'0 0 8px rgba(46,204,154,0.6)',
+              boxShadow:'0 0 8px rgba(43,217,143,0.6)',
             }} />
           </div>
-          <p style={{ fontFamily:'Inter, sans-serif', fontSize:'0.78rem', color:'rgba(255,255,255,0.3)', textAlign:'center', marginTop:'0.75rem' }}>
+          <p style={{ fontFamily:"'Geist Variable', system-ui, sans-serif", fontSize:'0.78rem', color:'rgba(255,255,255,0.3)', textAlign:'center', marginTop:'0.75rem' }}>
             {allDone ? 'Finalising your report…' : `Step ${Math.min(completedSteps.filter(Boolean).length + 1, nodes.length)} of ${nodes.length}`}
           </p>
         </div>
@@ -634,7 +628,7 @@ export function GapReport() {
     const comp2Domain = auditResult.competitorDomains?.[1] ?? 'Competitor 2';
 
     return (
-      <div style={{ background: '#F7FAFA', minHeight: '100vh', paddingBottom: '4rem' }}>
+      <div style={{ background: 'transparent', minHeight: '100vh', paddingBottom: '4rem' }}>
         <style>{`
           @keyframes resultsIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
           @keyframes rowIn { from{opacity:0;transform:translateX(-12px)} to{opacity:1;transform:translateX(0)} }
@@ -643,14 +637,14 @@ export function GapReport() {
         `}</style>
 
         {/* Dark header band */}
-        <div style={{ background: 'linear-gradient(135deg, #0A1929 0%, #1C3557 100%)', padding: '2rem 1rem 3rem', marginBottom: '-1.5rem' }}>
+        <div style={{ background: 'linear-gradient(135deg, #07111F 0%, #07111F 100%)', padding: '2rem 1rem 3rem', marginBottom: '-1.5rem' }}>
           <div style={{ maxWidth: 680, margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#2ECC9A' }} />
-              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: '#2ECC9A', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Gap Report Complete</span>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#2BD98F' }} />
+              <span style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.72rem', color: '#2BD98F', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Gap Report Complete</span>
             </div>
-            <h1 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(1.4rem, 4vw, 1.875rem)', fontWeight: 700, color: '#fff', marginBottom: '0.25rem' }}>{qualifyData.businessName}</h1>
-            <p style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem' }}>Keyword: "{qualifyData.keyword} {qualifyData.location}"</p>
+            <h1 style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: 'clamp(1.4rem, 4vw, 1.875rem)', fontWeight: 700, color: '#fff', marginBottom: '0.25rem' }}>{qualifyData.businessName}</h1>
+            <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem' }}>Keyword: "{qualifyData.keyword} {qualifyData.location}"</p>
           </div>
         </div>
 
@@ -664,35 +658,35 @@ export function GapReport() {
           </div>
 
           {/* Comparison table */}
-          <div style={{ background: '#fff', borderRadius: 12, padding: '1.5rem', boxShadow: '0 2px 12px rgba(28,53,87,0.07)', marginBottom: '2rem', overflowX: 'auto' }}>
+          <div style={{ background: '#fff', borderRadius: 28, padding: '1.5rem', boxShadow: '0 2px 12px rgba(7,17,31,0.07)', marginBottom: '2rem', overflowX: 'auto' }}>
             <div style={{ marginBottom: '1.25rem' }}>
-              <p style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: 700, color: '#1C3557', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.06em', margin: 0 }}>What they have that you don't</p>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.78rem', color: '#8A9BAD', marginTop: '0.25rem' }}>Each row shows the real reason they're getting calls and you're not.</p>
+              <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontWeight: 700, color: '#07111F', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.06em', margin: 0 }}>What they have that you don't</p>
+              <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.78rem', color: '#8A9BAD', marginTop: '0.25rem' }}>Each row shows the real reason they're getting calls and you're not.</p>
             </div>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'Inter, sans-serif', fontSize: '0.875rem' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.875rem' }}>
               <thead>
                 <tr>
-                  <th style={{ textAlign: 'left', padding: '0.5rem 0.75rem', color: '#6B7F8E', fontWeight: 500, borderBottom: '1px solid #EFF2F5' }}></th>
-                  <th style={{ padding: '0.5rem 0.75rem', color: '#6B7F8E', fontWeight: 500, borderBottom: '1px solid #EFF2F5', textAlign: 'center' }}>You</th>
-                  <th style={{ padding: '0.5rem 0.75rem', color: '#6B7F8E', fontWeight: 500, borderBottom: '1px solid #EFF2F5', textAlign: 'center' }}>Them</th>
+                  <th style={{ textAlign: 'left', padding: '0.5rem 0.75rem', color: '#5B6672', fontWeight: 500, borderBottom: '1px solid #F3F6F4' }}></th>
+                  <th style={{ padding: '0.5rem 0.75rem', color: '#5B6672', fontWeight: 500, borderBottom: '1px solid #F3F6F4', textAlign: 'center' }}>You</th>
+                  <th style={{ padding: '0.5rem 0.75rem', color: '#5B6672', fontWeight: 500, borderBottom: '1px solid #F3F6F4', textAlign: 'center' }}>Them</th>
                 </tr>
               </thead>
               <tbody>
                 {auditResult.comparisonRows.map((row, i) => (
-                  <tr key={i} className="row-animate" style={{ borderBottom: i < auditResult.comparisonRows.length - 1 ? '1px solid #EFF2F5' : 'none', animationDelay: `${i * 0.08}s` }}>
+                  <tr key={i} className="row-animate" style={{ borderBottom: i < auditResult.comparisonRows.length - 1 ? '1px solid #F3F6F4' : 'none', animationDelay: `${i * 0.08}s` }}>
                     <td style={{ padding: '0.75rem 0.75rem' }}>
-                      <div style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '0.875rem', color: '#1A2E3D' }}>{row.metric}</div>
-                      {row.sub && <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: '#8A9BAD', marginTop: '0.15rem', lineHeight: 1.4 }}>{row.sub}</div>}
+                      <div style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontWeight: 600, fontSize: '0.875rem', color: '#07111F' }}>{row.metric}</div>
+                      {row.sub && <div style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.72rem', color: '#8A9BAD', marginTop: '0.15rem', lineHeight: 1.4 }}>{row.sub}</div>}
                     </td>
                     <td style={{ padding: '0.75rem 0.75rem', verticalAlign: 'top' }}>
-                      <span style={{ display: 'inline-flex', alignItems: 'flex-start', gap: '0.5rem', background: row.youGood ? 'rgba(46,204,154,0.08)' : 'rgba(224,90,78,0.08)', borderRadius: 6, padding: '0.35rem 0.6rem', color: row.youGood ? '#1aad7e' : '#E05A4E', fontWeight: 500, fontSize: '0.8rem' }}>
-                        <svg width="10" height="10" viewBox="0 0 10 10" style={{ flexShrink: 0, marginTop: 3 }}><circle cx="5" cy="5" r="5" fill={row.youGood ? '#2ECC9A' : '#E05A4E'}/></svg>
+                      <span style={{ display: 'inline-flex', alignItems: 'flex-start', gap: '0.5rem', background: row.youGood ? 'rgba(43,217,143,0.08)' : 'rgba(224,90,78,0.08)', borderRadius: 6, padding: '0.35rem 0.6rem', color: row.youGood ? '#0B7A4F' : '#B42318', fontWeight: 500, fontSize: '0.8rem' }}>
+                        <svg width="10" height="10" viewBox="0 0 10 10" style={{ flexShrink: 0, marginTop: 3 }}><circle cx="5" cy="5" r="5" fill={row.youGood ? '#2BD98F' : '#B42318'}/></svg>
                         <span style={{ lineHeight: 1.5 }}>{row.you}</span>
                       </span>
                     </td>
                     <td style={{ padding: '0.75rem 0.75rem', verticalAlign: 'top' }}>
-                      <span style={{ display: 'inline-flex', alignItems: 'flex-start', gap: '0.5rem', background: 'rgba(46,204,154,0.08)', borderRadius: 6, padding: '0.35rem 0.6rem', color: '#1aad7e', fontWeight: 500, fontSize: '0.8rem' }}>
-                        <svg width="10" height="10" viewBox="0 0 10 10" style={{ flexShrink: 0, marginTop: 3 }}><circle cx="5" cy="5" r="5" fill="#2ECC9A"/></svg>
+                      <span style={{ display: 'inline-flex', alignItems: 'flex-start', gap: '0.5rem', background: 'rgba(43,217,143,0.08)', borderRadius: 6, padding: '0.35rem 0.6rem', color: '#0B7A4F', fontWeight: 500, fontSize: '0.8rem' }}>
+                        <svg width="10" height="10" viewBox="0 0 10 10" style={{ flexShrink: 0, marginTop: 3 }}><circle cx="5" cy="5" r="5" fill="#2BD98F"/></svg>
                         <span style={{ lineHeight: 1.5 }}>{row.them}</span>
                       </span>
                     </td>
@@ -704,29 +698,29 @@ export function GapReport() {
 
           {/* SERP list */}
           {auditResult.serpTop10?.length > 0 && (
-            <div className="results-section" style={{ background: '#fff', borderRadius: 12, padding: '1.5rem', boxShadow: '0 2px 12px rgba(28,53,87,0.07)', marginBottom: '2rem', animationDelay: '0.3s' }}>
+            <div className="results-section" style={{ background: '#fff', borderRadius: 28, padding: '1.5rem', boxShadow: '0 2px 12px rgba(7,17,31,0.07)', marginBottom: '2rem', animationDelay: '0.3s' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <p style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: 700, color: '#1C3557', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.06em', margin: 0 }}>Google top 10</p>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2BD98F" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontWeight: 700, color: '#07111F', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.06em', margin: 0 }}>Google top 10</p>
               </div>
               <ol style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
                 {auditResult.serpTop10.map((item) => {
                   const isUser = item.domain === auditResult.userDomain;
                   const isTop3 = item.position <= 3;
                   return (
-                    <li key={item.position} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', padding: '0.375rem 0.5rem', borderRadius: 6, background: isUser ? 'rgba(224,90,78,0.06)' : isTop3 ? 'rgba(46,204,154,0.04)' : 'transparent' }}>
-                      <span style={{ width: 22, height: 22, borderRadius: 6, background: isTop3 ? (isUser ? '#E05A4E' : '#2ECC9A') : '#EFF2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 700, color: isTop3 ? '#fff' : '#6B7F8E', flexShrink: 0 }}>{item.position}</span>
-                      <span style={{ color: isUser ? '#E05A4E' : '#1A2E3D', fontWeight: isTop3 ? 500 : 400 }}>{item.domain}</span>
-                      {isTop3 && !isUser && <span style={{ marginLeft: 'auto', background: 'rgba(46,204,154,0.1)', border: '1px solid rgba(46,204,154,0.2)', borderRadius: 4, padding: '0.1rem 0.4rem', fontSize: '0.65rem', color: '#1aad7e', fontWeight: 600, flexShrink: 0 }}>TOP 3</span>}
+                    <li key={item.position} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.85rem', padding: '0.375rem 0.5rem', borderRadius: 6, background: isUser ? 'rgba(224,90,78,0.06)' : isTop3 ? 'rgba(43,217,143,0.04)' : 'transparent' }}>
+                      <span style={{ width: 22, height: 22, borderRadius: 6, background: isTop3 ? (isUser ? '#B42318' : '#2BD98F') : '#F3F6F4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 700, color: isTop3 ? '#fff' : '#5B6672', flexShrink: 0 }}>{item.position}</span>
+                      <span style={{ color: isUser ? '#B42318' : '#07111F', fontWeight: isTop3 ? 500 : 400 }}>{item.domain}</span>
+                      {isTop3 && !isUser && <span style={{ marginLeft: 'auto', background: 'rgba(43,217,143,0.1)', border: '1px solid rgba(43,217,143,0.2)', borderRadius: 4, padding: '0.1rem 0.4rem', fontSize: '0.65rem', color: '#0B7A4F', fontWeight: 600, flexShrink: 0 }}>TOP 3</span>}
                     </li>
                   );
                 })}
                 {auditResult.userDomainPosition === null && (
-                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', marginTop: '0.375rem', padding: '0.5rem', borderRadius: 6, background: 'rgba(224,90,78,0.06)', border: '1px dashed rgba(224,90,78,0.2)' }}>
-                    <span style={{ width: 22, height: 22, borderRadius: 6, background: '#E05A4E', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.85rem', marginTop: '0.375rem', padding: '0.5rem', borderRadius: 6, background: 'rgba(224,90,78,0.06)', border: '1px dashed rgba(224,90,78,0.2)' }}>
+                    <span style={{ width: 22, height: 22, borderRadius: 6, background: '#B42318', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="2" y1="2" x2="8" y2="8" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/><line x1="8" y1="2" x2="2" y2="8" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/></svg>
                     </span>
-                    <span style={{ color: '#E05A4E', fontWeight: 500 }}>{auditResult.userDomain} — not in the top 10</span>
+                    <span style={{ color: '#B42318', fontWeight: 500 }}>{auditResult.userDomain} — not in the top 10</span>
                   </li>
                 )}
               </ol>
@@ -734,38 +728,38 @@ export function GapReport() {
           )}
 
           {/* Verdict */}
-          <div className="results-section" style={{ background: 'linear-gradient(135deg, #0D2240 0%, #1C3557 100%)', borderRadius: 12, padding: '1.75rem', marginBottom: '2rem', animationDelay: '0.4s' }}>
+          <div className="results-section" style={{ background: 'linear-gradient(135deg, #07111F 0%, #07111F 100%)', borderRadius: 28, padding: '1.75rem', marginBottom: '2rem', animationDelay: '0.4s' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" strokeWidth="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              <span style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: 700, color: '#fff', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>The verdict</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2BD98F" strokeWidth="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontWeight: 700, color: '#fff', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>The verdict</span>
             </div>
             {auditResult.topStrength && (
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', background: 'rgba(46,204,154,0.1)', border: '1px solid rgba(46,204,154,0.2)', borderRadius: 8, padding: '0.625rem 0.875rem', marginBottom: '1rem' }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC9A" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: 2 }}><polyline points="20 6 9 17 4 12"/></svg>
-                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.83rem', color: 'rgba(255,255,255,0.75)', margin: 0, lineHeight: 1.5 }}>{auditResult.topStrength}</p>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', background: 'rgba(43,217,143,0.1)', border: '1px solid rgba(43,217,143,0.2)', borderRadius: 8, padding: '0.625rem 0.875rem', marginBottom: '1rem' }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2BD98F" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: 2 }}><polyline points="20 6 9 17 4 12"/></svg>
+                <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.83rem', color: 'rgba(255,255,255,0.75)', margin: 0, lineHeight: 1.5 }}>{auditResult.topStrength}</p>
               </div>
             )}
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.95rem', color: 'rgba(255,255,255,0.88)', lineHeight: 1.8, margin: 0 }}>
+            <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: '0.95rem', color: 'rgba(255,255,255,0.88)', lineHeight: 1.8, margin: 0 }}>
               <Typewriter text={auditResult.verdict} />
             </p>
           </div>
 
           {/* CTA */}
-          <div style={{ background: '#1C3557', borderRadius: 12, padding: '2rem', textAlign: 'center' }}>
-            <h2 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(1.25rem, 3.5vw, 1.625rem)', fontWeight: 700, color: '#fff', marginBottom: '0.75rem' }}>
+          <div style={{ background: '#07111F', borderRadius: 28, padding: '2rem', textAlign: 'center' }}>
+            <h2 style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", fontSize: 'clamp(1.25rem, 3.5vw, 1.625rem)', fontWeight: 700, color: '#fff', marginBottom: '0.75rem' }}>
               This is fixable. Faster than you think.
             </h2>
-            <p style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-              Book a free 15-minute call and we'll walk you through exactly what closing the gap looks like. No pitch deck, no jargon.
+            <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '0.75rem' }}>
+              Book a free 15-minute call and we'll walk you through exactly what closing the gap looks like. You'll leave with a clear list of fixes, whether you work with us or not.
             </p>
-            <p style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem', marginBottom: '1.5rem' }}>
+            <p style={{ fontFamily: "'Geist Variable', system-ui, sans-serif", color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem', marginBottom: '1.5rem' }}>
               Plans from £59/month (£200 upfront, that's it).
             </p>
             <a
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ display: 'inline-block', background: '#2ECC9A', color: '#fff', borderRadius: 8, padding: '0.875rem 2rem', fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '1rem', textDecoration: 'none' }}
+              style={{ display: 'inline-block', background: '#2BD98F', color: '#fff', borderRadius: 8, padding: '0.875rem 2rem', fontFamily: "'Geist Variable', system-ui, sans-serif", fontWeight: 600, fontSize: '1rem', textDecoration: 'none' }}
             >
               Book my free call →
             </a>

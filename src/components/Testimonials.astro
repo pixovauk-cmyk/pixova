@@ -1,0 +1,29 @@
+---
+import { TESTIMONIALS } from '../content/testimonials';
+interface Props { size?: 'md' | 'lg'; highlight?: number; }
+const { size = 'md', highlight = 1 } = Astro.props;
+---
+
+<div class={`w-full grid gap-3.5 ${size === 'lg' ? 'md:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-4'}`}>
+  {TESTIMONIALS.map((t, i) => {
+    const hot = i === highlight;
+    return (
+      <figure class={`m-0 rounded-[24px] flex flex-col justify-between gap-7 reveal ${size === 'lg' ? 'p-7' : 'p-6'} ${hot ? 'text-navy' : 'glass'}`} style={hot ? 'background:linear-gradient(145deg,#2BD98F,#22C7D6)' : ''}>
+        <div class="flex flex-col gap-4">
+          <span class={`text-sm tracking-[0.2em] ${hot ? 'text-navy' : 'text-teal'}`} aria-label="5 out of 5 stars">★★★★★</span>
+          <blockquote class={`m-0 leading-relaxed ${size === 'lg' ? 'text-[17px]' : 'text-[15px]'} ${hot ? '' : 'text-[#DCE3EA]'}`}>“{t.quote}”</blockquote>
+        </div>
+        <figcaption class="flex items-center justify-between gap-3">
+          <span class="flex items-center gap-2.5 min-w-0">
+            <img src={t.image} alt={t.name} width="40" height="40" loading="lazy" class={`w-10 h-10 rounded-full object-cover object-top shrink-0 border-2 ${hot ? 'border-navy/20' : 'border-white/20'}`} />
+            <span class="flex flex-col min-w-0">
+              <span class="text-sm font-semibold">{t.name}</span>
+              <span class={`text-xs ${hot ? 'text-[#073B2B]' : 'text-[#A9B6C4]'}`}>{t.role}</span>
+            </span>
+          </span>
+          {size === 'lg' && <span class={`text-xs px-2.5 py-1 rounded-full border shrink-0 ${hot ? 'border-navy/25' : 'border-white/15 text-[#DCE3EA]'}`}>{t.service}</span>}
+        </figcaption>
+      </figure>
+    );
+  })}
+</div>

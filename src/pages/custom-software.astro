@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SoftwareMock from '../components/SoftwareMock.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { TOOLS } from '../data/software';
+import { SOFTWARE_FROM, SITE } from '../data/site';
+
+const faq = [
+  { q: `What can I get for £${SOFTWARE_FROM}?`, a: 'A small, focused tool that does one job well. For example a quote calculator on your website, a simple booking form with email confirmations, or a digital checklist. Bigger tools cost more, and you always get a fixed price first.' },
+  { q: 'How long does it take?', a: 'Most small tools are ready in about a week. I show you a working version early, so you can try it and ask for changes before it goes live.' },
+  { q: 'Do I need to buy any software or licences?', a: 'Usually not. Tools run in a web browser on your phone or computer, so there is nothing to install. If hosting or a paid service is needed (like card payments), I tell you the cost up front.' },
+  { q: 'Will it work with what I already use?', a: 'Often, yes. Things like Google Sheets, Gmail, Stripe, Xero, WhatsApp and calendar apps can usually be connected. Tell me what you use and I will tell you straight if it is possible.' },
+  { q: 'What if something breaks later?', a: 'You get 30 days of fixes included. After that you can pay for changes when you need them, or add a small monthly support plan.' },
+  { q: 'Who owns it?', a: 'You do. It is built for your business and the data in it belongs to you.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Custom software for small businesses',
+  provider: { '@type': 'LocalBusiness', name: 'Pixova', url: 'https://www.pixova.uk' },
+  areaServed: { '@type': 'Country', name: 'United Kingdom' },
+  offers: { '@type': 'Offer', priceCurrency: 'GBP', price: SOFTWARE_FROM, description: 'Starting price, one-off' },
+};
+---
+
+<Layout
+  title={`Custom Software for Small Businesses from £${SOFTWARE_FROM} | Pixova`}
+  description={`Simple custom software for UK small businesses: quote calculators, booking with deposits, job sheets, invoices and client portals. Fixed price from £${SOFTWARE_FROM}, ready in about a week.`}
+  canonicalUrl="https://www.pixova.uk/custom-software/"
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Custom software', url: 'https://www.pixova.uk/custom-software/' }]}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <section class="pt-12 pb-20">
+    <div class="wrap grid gap-12 lg:grid-cols-[1.1fr_1fr] items-center">
+      <div>
+        <p class="eyebrow">Custom software · from £{SOFTWARE_FROM}</p>
+        <h1 class="display mt-5">Software that fits your business. <span class="mark">Not the other way round.</span></h1>
+        <p class="lead mt-6 max-w-xl">Big software is built for big companies. You end up paying monthly for 50 features and using 3. I build the one tool you need, for a fixed one-off price.</p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a href="#enquiry" class="btn btn-dark">Tell me your idea</a>
+          <a href="#examples" class="btn btn-outline">See examples</a>
+        </div>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-8 text-sm text-navy font-medium">
+          <li>✓ Fixed price up front</li>
+          <li>✓ Ready in about a week</li>
+          <li>✓ Works on your phone</li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="card overflow-hidden"><SoftwareMock kind="quote" /></div>
+        <div class="card overflow-hidden mt-10"><SoftwareMock kind="booking" /></div>
+        <div class="card overflow-hidden -mt-10"><SoftwareMock kind="jobs" /></div>
+        <div class="card overflow-hidden"><SoftwareMock kind="invoice" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white border-y border-line">
+    <div class="wrap">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Sound familiar?</p>
+        <h2 class="h2 mt-4">If you do it every week, a computer can probably do it for you.</h2>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-10">
+        {[
+          'Writing the same quote again and again',
+          'Chasing people who still haven\'t paid',
+          'Booking clients by text, back and forth',
+          'Copying details from emails into a spreadsheet',
+          'Paper forms that get lost or wet',
+          'A rota that only lives in your head',
+          'Not knowing what stock you have left',
+          'Clients ringing to ask "where are we up to?"',
+        ].map(p => (
+          <div class="rounded-2xl bg-paper border border-line p-5 text-navy font-medium">{p}</div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="examples" class="section">
+    <div class="wrap">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Examples</p>
+        <h2 class="h2 mt-4">Tools I build for small businesses</h2>
+        <p class="lead mt-4">Each one starts from £{SOFTWARE_FROM}. Yours will be shaped around how you work, but these are the usual starting points.</p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2 mt-12">
+        {TOOLS.map(t => (
+          <article class="card overflow-hidden grid sm:grid-cols-[1fr_1.1fr] reveal">
+            <SoftwareMock kind={t.kind} />
+            <div class="p-6 flex flex-col">
+              <h3 class="h3">{t.name}</h3>
+              <p class="text-xs font-semibold uppercase tracking-wider text-teal-dark mt-2">{t.forWho}</p>
+              <p class="mt-4 text-sm"><span class="font-semibold text-navy">The problem: </span><span class="muted">{t.problem}</span></p>
+              <p class="mt-2 text-sm"><span class="font-semibold text-navy">The fix: </span><span class="muted">{t.fix}</span></p>
+              <a href="#enquiry" data-tool={t.name} class="tool-pick link-arrow mt-auto pt-5 text-sm">I want one of these →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark">
+    <div class="wrap">
+      <div class="max-w-2xl">
+        <p class="eyebrow">How it works</p>
+        <h2 class="h2 mt-4">From idea to working tool in about a week.</h2>
+      </div>
+      <ol class="grid gap-4 md:grid-cols-4 mt-12">
+        {[
+          ['1', 'You tell me the problem', 'Fill in the form or WhatsApp me. Two lines is enough to start.'],
+          ['2', 'Fixed price in 24 hours', 'I reply with what I will build, the price and the date it will be ready.'],
+          ['3', 'Try it early', 'You get a working version within days. Click around and tell me what to change.'],
+          ['4', 'It goes live', 'I set it up, show you how it works, and fix anything for 30 days.'],
+        ].map(([n, title, text]) => (
+          <li class="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+            <span class="w-9 h-9 rounded-full bg-teal text-navy font-bold flex items-center justify-center">{n}</span>
+            <h3 class="font-heading font-bold text-lg mt-4">{title}</h3>
+            <p class="text-sm text-white/65 mt-2">{text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="enquiry" class="section bg-mint scroll-mt-24">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.3fr] items-start">
+      <div>
+        <p class="eyebrow">Get a price</p>
+        <h2 class="h2 mt-4">What's eating your time?</h2>
+        <p class="lead mt-4">Describe the job you want gone. Don't worry about technical words. I'll come back within one working day with a fixed price.</p>
+        <p class="mt-6 text-navy">Prefer to talk? <a href={SITE.whatsapp} target="_blank" rel="noopener" class="link-arrow">WhatsApp {SITE.phone}</a></p>
+      </div>
+      <EnquiryForm id="software-enquiry" type="custom-software" showBudget />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <div>
+        <p class="eyebrow">Questions</p>
+        <h2 class="h2 mt-4">Custom software questions.</h2>
+      </div>
+      <div class="faq">
+        {faq.map(f => (<details><summary>{f.q}</summary><div>{f.a}</div></details>))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="That job you hate doing every week? Let's get rid of it." text={`Small tools from £${SOFTWARE_FROM}, fixed price, ready in about a week.`} />
+</Layout>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.tool-pick').forEach(a => {
+    a.addEventListener('click', () => {
+      const msg = document.getElementById('software-enquiry-message') as HTMLTextAreaElement | null;
+      if (msg && !msg.value) msg.value = `I'm interested in: ${a.dataset.tool}.\n\n`;
+    });
+  });
+</script>

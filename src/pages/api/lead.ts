@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { sendEmail, layout, fieldTable, OWNER_EMAIL } from '../../lib/email';
 
 export const prerender = false;
 
@@ -82,6 +83,21 @@ export const PUT: APIRoute = async ({ request }) => {
       const err = await res.text();
       console.error('[lead PUT] Brevo error:', err);
     }
+
+    await sendEmail({
+      to: [{ email: OWNER_EMAIL, name: 'Pixova' }],
+      replyTo: { email },
+      subject: `New Gap Report lead: ${businessName || website || email}`,
+      html: layout('New Gap Report lead', fieldTable([
+        ['Email', email],
+        ['Business', businessName],
+        ['Website', website],
+        ['Keyword', keyword],
+        ['Location', location],
+        ['Biggest problem', painPoint],
+        ['Where work comes from', workSource],
+      ])),
+    });
   } catch (err) {
     console.error('[lead PUT] Error:', err);
   }

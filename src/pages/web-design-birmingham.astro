@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteMock from '../components/SiteMock.astro';
+import Testimonials from '../components/Testimonials.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { DESIGNS } from '../data/designs';
+import { PLANS, SOFTWARE_FROM } from '../data/site';
+
+const fromPrice = Math.min(...PLANS.map(p => p.six));
+const areas = ['Birmingham city centre', 'Solihull', 'Sutton Coldfield', 'Edgbaston', 'Moseley', 'Harborne', 'Erdington', 'Kings Heath', 'Dudley', 'West Bromwich', 'Walsall', 'Wolverhampton'];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Pixova — Web Design Birmingham',
+  url: 'https://www.pixova.uk/web-design-birmingham/',
+  telephone: '+447786366109',
+  email: 'hello@pixova.uk',
+  address: { '@type': 'PostalAddress', addressLocality: 'Birmingham', addressRegion: 'West Midlands', addressCountry: 'GB' },
+  areaServed: areas.map(a => ({ '@type': 'Place', name: a })),
+  priceRange: '££',
+};
+---
+
+<Layout
+  title="Web Design Birmingham for Small Businesses | Pixova"
+  description={`Birmingham web designer for small businesses. Websites built, hosted and updated from £${fromPrice}/month, plus local SEO and custom software. Live in about 7 days.`}
+  canonicalUrl="https://www.pixova.uk/web-design-birmingham/"
+  schema={schema}
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Web design Birmingham', url: 'https://www.pixova.uk/web-design-birmingham/' }]}
+>
+  <section class="pt-12 pb-20">
+    <div class="wrap grid gap-12 lg:grid-cols-[1.1fr_1fr] items-center">
+      <div>
+        <p class="eyebrow">Web design · Birmingham</p>
+        <h1 class="display mt-5">A Birmingham web designer who picks up the phone.</h1>
+        <p class="lead mt-6 max-w-xl">I'm Anil. I build websites for small businesses around Birmingham and the West Midlands, and I look after them once they're live. No account managers, no hand-offs. You deal with me.</p>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a href="#enquiry" class="btn btn-dark">Get a fixed quote</a>
+          <a href="/designs/" class="btn btn-outline">See designs</a>
+        </div>
+      </div>
+      <div class="card overflow-hidden shadow-xl"><SiteMock design={DESIGNS.find(d => d.slug === 'barber')!} /></div>
+    </div>
+  </section>
+
+  <section class="section bg-white border-y border-line">
+    <div class="wrap grid gap-12 lg:grid-cols-2">
+      <div>
+        <h2 class="h2">Why local businesses choose me</h2>
+        <p class="lead mt-4">Big agencies in the city charge thousands up front and disappear after launch. I do it the other way round.</p>
+      </div>
+      <ul class="tick-list text-lg">
+        <li>Monthly price from £{fromPrice}, with hosting and changes included</li>
+        <li>Most sites live in about 7 days</li>
+        <li>Pages written for Birmingham searches, like "plumber Solihull" or "salon Moseley"</li>
+        <li>Google Business Profile set up so you show on the map</li>
+        <li>Custom tools from £{SOFTWARE_FROM} when you need more than a website</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2">Areas I cover</h2>
+      <p class="lead mt-4 max-w-2xl">Based in Birmingham, working with businesses across the West Midlands and the rest of the UK.</p>
+      <ul class="flex flex-wrap gap-2 mt-8">
+        {areas.map(a => <li class="chip chip-outline !text-navy !text-sm !py-2 !px-4">{a}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section on-dark"><div class="wrap"><h2 class="h2 mb-10">What Clients Say</h2><Testimonials /></div></section>
+
+  <section id="enquiry" class="section bg-mint scroll-mt-24">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.3fr] items-start">
+      <div>
+        <h2 class="h2">Tell me about your business</h2>
+        <p class="lead mt-4">I'll come back within one working day.</p>
+      </div>
+      <EnquiryForm id="bham-enquiry" type="website" />
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

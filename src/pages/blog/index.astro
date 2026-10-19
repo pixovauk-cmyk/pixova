@@ -1,153 +1,99 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
-import { BlogConnectionDocument } from '../../../tina/__generated__/types';
-import { tinaField } from '@tinacms/bridge/tina-field';
-import { addMetadata, hashFromQuery } from '@tinacms/bridge/metadata';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const [featured, ...rest] = posts;
 
-// Compute queryId once. Each post card gets an enriched object at the path
-// [edges, i, node] — matching the shape useTina() sees in the admin.
-const connectionQueryId = hashFromQuery(BlogConnectionDocument as string);
-const enrichedPosts = posts.map((post, i) =>
-  addMetadata(
-    connectionQueryId,
-    {
-      title:       post.data.title       ?? null,
-      description: post.data.description,
-      pubDate:     post.data.pubDate.toISOString(),
-      heroImage:   post.data.heroImage   ?? null,
-      readTime:    post.data.readTime    ?? null,
-    },
-    ['edges', i, 'node'],
-  )
-);
-
-function formatDate(date: Date) {
-  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-}
-
-function getTitle(post: typeof posts[0]) {
-  return post.data.title ?? post.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-}
+const formatDate = (date: Date) => date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const titleOf = (p: typeof posts[0]) => p.data.title ?? p.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+const topicOf = (id: string) => id.includes('seo') ? { k: 'seo', l: 'Local SEO' } : id.includes('automation') ? { k: 'marketing', l: 'Automation' } : { k: 'web', l: 'Web design' };
+const art = ['/images/art/orb-dark.jpg', '/images/art/ribbons-dark.jpg', '/images/art/grid-dark.jpg', '/images/art/rings-light.jpg'];
+const mins = (p: typeof posts[0]) => p.data.readTime?.replace(' read', '') ?? '';
 ---
 
 <Layout
-  title="SEO & Web Design Tips for Small Businesses | Pixova Blog"
-  description="Straight-talking advice on web design, local SEO, and online marketing for small business owners across the UK. No jargon, no fluff."
+  title="Small Business Website & SEO Advice | Pixova Blog"
+  description="Practical advice on websites, local SEO and saving time with simple software, for UK small business owners."
   canonicalUrl="https://www.pixova.uk/blog/"
+  breadcrumbs={[{ name: 'Home', url: 'https://www.pixova.uk/' }, { name: 'Blog', url: 'https://www.pixova.uk/blog/' }]}
 >
-
-  <!-- HERO ───────────────────────────────────────────── -->
-  <section class="relative overflow-hidden pt-28 pb-16" style="background:linear-gradient(135deg, #ffffff 0%, #e8f5f1 45%, #c8e8d8 100%);">
-    <div class="orb absolute pointer-events-none" style="width:500px; height:500px; top:-120px; right:-100px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.25) 0%, transparent 60%);"></div>
-    <div class="orb-2 absolute pointer-events-none" style="width:400px; height:400px; bottom:-80px; left:-60px; border-radius:50%; background:radial-gradient(circle, rgba(46,204,154,0.15) 0%, transparent 60%);"></div>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
-      <span class="sec-label mb-3 block">THE BLOG</span>
-      <h1 class="font-heading font-semibold text-4xl sm:text-5xl mt-3 mb-4" style="color:#0D2240;">
-        Straight-talking advice for small business owners.
-      </h1>
-      <p class="text-base max-w-xl" style="color:rgba(13,34,64,0.6);">
-        Web design, local SEO, and online marketing, explained in plain English.
-        No jargon. No waffle. Just the stuff that actually matters for your business.
-      </p>
-    </div>
-  </section>
-
-  <!-- POSTS GRID ──────────────────────────────────────── -->
-  <section class="py-16 bg-offwhite">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-      {posts.length === 0 ? (
-        <div class="text-center py-20">
-          <p class="text-base" style="color:#1A2E3D;">Coming soon. Check back shortly.</p>
-        </div>
-      ) : (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post, i) => {
-            const tp = enrichedPosts[i];
-            const tf = (field: string) => tinaField(tp, field) || undefined;
-            return (
-              <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col reveal">
-                {post.data.heroImage && (
-                  <a href={`/blog/${post.id}/`} class="block overflow-hidden" style="height:200px;">
-                    <img
-                      src={post.data.heroImage}
-                      alt={getTitle(post)}
-                      width="600" height="300"
-                      loading="lazy"
-                      class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      data-tina-field={tf('heroImage')}
-                    />
-                  </a>
-                )}
-                <div class="p-6 flex flex-col flex-1">
-                  <div class="flex items-center gap-3 mb-3">
-                    <time
-                      datetime={post.data.pubDate.toISOString()}
-                      class="text-xs"
-                      style="color:#6B7580;"
-                      data-tina-field={tf('pubDate')}
-                    >
-                      {formatDate(post.data.pubDate)}
-                    </time>
-                    {post.data.readTime && (
-                      <span
-                        class="text-xs"
-                        style="color:#6B7580;"
-                        data-tina-field={tf('readTime')}
-                      >
-                        · {post.data.readTime}
-                      </span>
-                    )}
-                  </div>
-                  <h2 class="font-heading font-semibold text-lg mb-3 leading-snug" style="color:#1C3557;">
-                    <a
-                      href={`/blog/${post.id}/`}
-                      class="hover:opacity-80 transition-opacity"
-                      data-tina-field={tf('title')}
-                    >
-                      {getTitle(post)}
-                    </a>
-                  </h2>
-                  <p
-                    class="text-sm leading-relaxed mb-5 flex-1"
-                    style="color:#1A2E3D; opacity:0.8;"
-                    data-tina-field={tf('description')}
-                  >
-                    {post.data.description}
-                  </p>
-                  <a
-                    href={`/blog/${post.id}/`}
-                    aria-label={`Read: ${getTitle(post)}`}
-                    class="inline-flex items-center gap-1.5 text-sm font-semibold"
-                    style="color:#2ECC9A;"
-                  >
-                    Read more
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      )}
-
-      <!-- CTA -->
-      <div class="mt-16 text-center">
-        <p class="text-sm mb-4" style="color:#1A2E3D;">
-          Want us to handle this for you?
-        </p>
-        <a href="/about/#contact" class="btn-p">
-          Get in touch
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+  <section class="px-5 sm:px-6 pt-10 sm:pt-12 pb-14">
+    <div class="max-w-[1240px] mx-auto grid gap-x-16 gap-y-8 lg:grid-cols-2 items-end">
+      <div class="flex flex-col gap-[22px]">
+        <span class="pill-badge"><span class="dot"><Icon name="book" size={13} stroke={2.4} /></span>Articles &amp; resources</span>
+        <h1 class="font-medium text-[clamp(48px,6vw,88px)] leading-[0.98] tracking-[-0.055em]">Marketing Advice For <span class="grad-text">Busy Owners.</span></h1>
       </div>
-
+      <p class="text-base leading-relaxed text-body max-w-[420px]">Short, practical guides on websites, Google and getting more customers. Written by Anil from real client work.</p>
     </div>
   </section>
 
+  <section class="px-5 sm:px-6 pb-[72px]">
+    <div class="max-w-[1240px] mx-auto flex flex-col gap-7">
+      <nav aria-label="Topics" class="flex flex-wrap gap-1.5 p-[5px] rounded-full bg-white/70 border border-[rgba(7,17,31,0.06)] w-fit max-w-full">
+        {[['all', 'All posts'], ['web', 'Web design'], ['seo', 'Local SEO'], ['marketing', 'Marketing & automation']].map(([k, l], i) => (
+          <button type="button" data-topic={k} aria-pressed={i === 0 ? 'true' : 'false'} class="topic-btn inline-flex items-center min-h-[42px] px-4 rounded-full text-sm transition-colors aria-pressed:bg-navy aria-pressed:text-white aria-pressed:font-medium text-body">{l}</button>
+        ))}
+      </nav>
+
+      {featured && (
+        <a href={`/blog/${featured.id}/`} data-topic={topicOf(featured.id).k} class="post-card relative flex items-end min-h-[480px] rounded-[36px] overflow-hidden bg-navy text-white shadow-[0_50px_100px_-50px_rgba(7,17,31,0.6)] group">
+          <img src={featured.data.heroImage ?? art[0]} alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          <div class="absolute inset-0" style="background:linear-gradient(90deg, rgba(7,17,31,0.92) 0%, rgba(7,17,31,0.45) 65%, rgba(7,17,31,0.1) 100%)"></div>
+          <div class="relative p-7 sm:p-14 flex flex-col gap-[18px] max-w-[680px]">
+            <div class="flex flex-wrap gap-2"><span class="px-3 py-1.5 rounded-full text-navy text-xs font-semibold" style="background:var(--grad)">Latest · {topicOf(featured.id).l}</span><span class="px-3 py-1.5 rounded-full bg-white/15 border border-white/20 text-xs">{formatDate(featured.data.pubDate)}{featured.data.readTime && ` · ${featured.data.readTime}`}</span></div>
+            <h2 class="!text-white font-medium text-[clamp(30px,3.6vw,52px)] leading-[1.02] tracking-[-0.05em]">{titleOf(featured)}</h2>
+            <p class="text-base leading-relaxed text-[#C8D3DD]">{featured.data.description}</p>
+            <span class="inline-flex items-center gap-3 w-fit min-h-[52px] pl-5 pr-1.5 rounded-full bg-white text-navy font-semibold">Read article <span class="w-10 h-10 rounded-full grid place-items-center" style="background:var(--grad)"><Icon name="arrow" size={15} stroke={2.6} /></span></span>
+          </div>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <section class="px-5 sm:px-6 pb-[clamp(72px,8vw,112px)]">
+    <div class="max-w-[1240px] mx-auto grid gap-x-5 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+      {rest.map((post, i) => (
+        <a href={`/blog/${post.id}/`} data-topic={topicOf(post.id).k} class="post-card group flex flex-col gap-3.5 text-navy">
+          <div class="relative h-[270px] rounded-[28px] overflow-hidden bg-navy">
+            <img src={post.data.heroImage ?? art[(i + 1) % art.length]} alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+            <span class="absolute left-4 top-4 px-3 py-1.5 rounded-full bg-white/90 text-xs font-semibold">{topicOf(post.id).l}{mins(post) && ` · ${mins(post)}`}</span>
+          </div>
+          <div class="flex items-center gap-2.5 text-[13px] text-muted"><img src="/images/anil.webp" alt="" width="26" height="26" class="w-[26px] h-[26px] rounded-full object-cover object-top" />Anil Jaishi · <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time></div>
+          <h3 class="text-[23px] leading-[1.18] tracking-[-0.035em] group-hover:text-teal-dark transition-colors">{titleOf(post)}</h3>
+          <p class="text-[15px] leading-relaxed text-body">{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+    <p id="no-posts" class="max-w-[1240px] mx-auto text-body" hidden>No posts on that topic yet. More coming soon.</p>
+  </section>
+
+  <section class="px-5 sm:px-6 pb-[clamp(64px,7vw,96px)]">
+    <div class="art max-w-[1240px] mx-auto rounded-[36px]">
+      <img src="/images/art/glass-dark.jpg" alt="" loading="lazy" class="art-bg" />
+      <div class="art-shade" style="background:linear-gradient(90deg, rgba(7,17,31,0.88) 0%, rgba(7,17,31,0.3) 75%)"></div>
+      <div class="art-body p-8 sm:p-16 flex flex-wrap justify-between items-center gap-6">
+        <div class="flex flex-col gap-2.5 max-w-[620px]">
+          <h2 class="!text-white font-medium text-[clamp(32px,3.8vw,52px)] leading-[1.02] tracking-[-0.05em]">Rather See Your Own Numbers?</h2>
+          <p class="text-base text-[#C8D3DD]">Get a free Gap Report: who's outranking you, and why. Takes 60 seconds.</p>
+        </div>
+        <Button href="/gap-report/">Get my Gap Report</Button>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.topic-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.post-card');
+  btns.forEach(b => b.addEventListener('click', () => {
+    const t = b.dataset.topic!;
+    btns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    let shown = 0;
+    cards.forEach(c => { const on = t === 'all' || c.dataset.topic === t; c.hidden = !on; c.style.display = on ? '' : 'none'; if (on) shown++; });
+    const empty = document.getElementById('no-posts');
+    if (empty) empty.hidden = shown > 0;
+  }));
+</script>

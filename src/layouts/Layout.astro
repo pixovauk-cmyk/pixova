@@ -3,13 +3,10 @@ import SEOHead from '../components/SEOHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
+import OfferBar from '../components/OfferBar.astro';
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
 import '../styles/global.css';
-import '@fontsource/dm-sans/latin-400.css';
-import '@fontsource/dm-sans/latin-500.css';
-import '@fontsource/dm-sans/latin-600.css';
-import '@fontsource/dm-sans/latin-700.css';
-import '@fontsource/inter/latin-400.css';
-import '@fontsource/inter/latin-500.css';
 
 interface Props {
   title: string;
@@ -23,13 +20,14 @@ interface Props {
     datePublished: string;
     dateModified: string;
   };
+  breadcrumbs?: { name: string; url: string }[];
 }
 
-const { title, description, canonicalUrl, ogImage, schema, noindex, articleSchema } = Astro.props;
+const { title, description, canonicalUrl, ogImage, schema, noindex, articleSchema, breadcrumbs } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <SEOHead
       title={title}
@@ -39,15 +37,14 @@ const { title, description, canonicalUrl, ogImage, schema, noindex, articleSchem
       schema={schema}
       noindex={noindex}
       articleSchema={articleSchema}
+      breadcrumbs={breadcrumbs}
     />
-    <!-- Page-specific head content -->
     <slot name="head" />
-    <script>if(typeof sessionStorage!=='undefined'&&sessionStorage.getItem('px_urgency')){document.documentElement.classList.add('urgency-dismissed');}</script>
-    <style>.urgency-dismissed #urgency-bar{display:none!important;}</style>
   </head>
-  <body>
+  <body class="page-wash">
+    <OfferBar />
     <Header />
-    <main class="pt-16">
+    <main>
       <slot />
     </main>
     <Footer />
@@ -60,8 +57,8 @@ const { title, description, canonicalUrl, ogImage, schema, noindex, articleSchem
             io.unobserve(e.target);
           }
         });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal, .fade-up').forEach(el => io.observe(el));
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     </script>
   </body>
 </html>
