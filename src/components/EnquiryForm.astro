@@ -24,12 +24,16 @@ const options = [
   { value: 'other', label: 'Not sure yet' },
 ];
 
+// Free form-to-email service. Get a key at web3forms.com (enter hello@pixova.uk).
+// If no key is set, the form falls back to the site's own /api/enquiry/ endpoint.
+const web3Key = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+
 const placeholder = type === 'custom-software'
   ? 'What eats your time? e.g. "I write every quote by hand and it takes two hours a night."'
   : "What you do, where you work, and what you'd like more of…";
 ---
 
-<form id={id} class="enquiry-form relative rounded-[32px] bg-white/90 border border-[rgba(7,17,31,0.06)] backdrop-blur-xl p-6 sm:p-10 shadow-[0_40px_90px_-40px_rgba(7,17,31,0.35)] flex flex-col gap-6" action="/api/enquiry/" method="POST" novalidate>
+<form id={id} class="enquiry-form relative rounded-[32px] bg-white/90 border border-[rgba(7,17,31,0.06)] backdrop-blur-xl p-6 sm:p-10 shadow-[0_40px_90px_-40px_rgba(7,17,31,0.35)] flex flex-col gap-6" action="/api/enquiry/" method="POST" data-w3={web3Key} novalidate>
   <div class="flex flex-col gap-1.5">
     <h2 class="text-[clamp(26px,3vw,32px)] tracking-[-0.045em]">{heading}</h2>
     <p class="text-sm muted">{sub}</p>
@@ -90,7 +94,7 @@ const placeholder = type === 'custom-software'
   <div class="form-done absolute inset-0 bg-white rounded-[32px] p-8 flex-col items-start justify-center gap-5" hidden style="display:none" role="status">
     <span class="w-16 h-16 rounded-full bg-teal grid place-items-center text-navy"><Icon name="check" size={28} stroke={2.6} /></span>
     <h3 class="text-[clamp(32px,4vw,42px)] font-medium tracking-[-0.05em] leading-none">Thanks, <span class="done-name">there</span>. It's In.</h3>
-    <p class="text-base muted max-w-[480px]">You'll get a copy by email now, and a proper reply from me within one working day, usually much sooner. In a hurry? Message me on WhatsApp.</p>
+    <p class="text-base muted max-w-[480px]">You'll get a reply from me within one working day, usually much sooner. In a hurry? Message me on WhatsApp.</p>
     <div class="flex flex-wrap gap-2.5">
       <a href="https://wa.me/447786366109" target="_blank" rel="noopener" class="btn btn-dark">WhatsApp me</a>
       <a href="/blog/" class="btn btn-soft">Browse the blog</a>
@@ -134,13 +138,35 @@ const placeholder = type === 'custom-software'
       btn.disabled = true;
       label.textContent = 'Sending…';
       try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
+        const key = form.dataset.w3;
+        const labels: Record<string, string> = { website: 'Website', seo: 'Local SEO', 'custom-software': 'Custom software', automation: 'Automation', other: 'Not sure yet' };
+        const res = key
+          ? await fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify({
+                access_key: key,
+                subject: `New enquiry: ${labels[data.type] ?? 'Website'} — ${data.business || data.name}`,
+                from_name: 'Pixova website',
+                replyto: data.email,
+                botcheck: data.company_website || '',
+                Name: data.name,
+                Email: data.email,
+                Phone: data.phone,
+                Business: data.business,
+                'Needs help with': names.join(', ') || labels[data.type],
+                Budget: data.budget,
+                Message: data.message,
+                Page: data.source,
+              }),
+            })
+          : await fetch(form.action, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+            });
         const out = await res.json().catch(() => ({}));
-        if (!res.ok || !out.ok) throw new Error(out.error);
+        if (!res.ok || !(out.ok || out.success)) throw new Error(key ? undefined : out.error);
         const done = form.querySelector<HTMLElement>('.form-done')!;
         done.querySelector('.done-name')!.textContent = String(data.name).trim().split(' ')[0] || 'there';
         done.hidden = false;
